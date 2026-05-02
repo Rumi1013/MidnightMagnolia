@@ -8,7 +8,7 @@ import { BRAND_ASSETS } from '../lib/brandAssets';
 export default function Layout({ children, title, description }) {
   const router = useRouter();
   const pageTitle = title ? `${title} · Midnight Magnolia` : 'Midnight Magnolia · A Southern Gothic Digital Sanctuary';
-  const pageDesc  = description || 'A Southern Gothic sanctuary for neurodivergent creators and quiet builders. Digital products, consulting, and healing-centered tools.';
+  const pageDesc  = description || 'A Southern Gothic sanctuary for healing, creation, and quiet growth. Digital offerings, gentle strategy, and tools for neurodivergent creators.';
 
   return (
     <>
@@ -71,7 +71,7 @@ export default function Layout({ children, title, description }) {
                   Midnight <span style={{ color: 'var(--color-amber)' }}>Magnolia</span>
                 </span>
               </h3>
-              <p>A Southern Gothic sanctuary for neurodivergent creators, healing-centered women, and quiet builders.</p>
+              <p>A Southern Gothic sanctuary for healing, creation, and quiet growth.</p>
               <div style={{ display: 'flex', gap: '1rem', marginTop: '1.25rem', flexWrap: 'wrap' }}>
                 <a href={URLS.linkedin} target="_blank" rel="noopener noreferrer">LinkedIn</a>
                 <a href={URLS.github} target="_blank" rel="noopener noreferrer">GitHub</a>
