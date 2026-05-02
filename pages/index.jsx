@@ -5,7 +5,8 @@ import { BRAND_ASSETS } from '../lib/brandAssets';
 import { URLS, PRODUCTS } from '../lib/constants';
 
 export default function Home() {
-  const featuredProducts = PRODUCTS.filter(p => p.tag !== 'Coming Soon').slice(0, 3);
+  // Show 3 featured products: the free starter, the $9 journal, and the flagship $49 bundle
+  const featuredProducts = PRODUCTS.filter(p => ['gentle-beginning', 'shadow-work-starter', 'deep-roots'].includes(p.id));
 
   return (
     <Layout>
@@ -18,14 +19,14 @@ export default function Home() {
             <em style={{ color: 'var(--color-amber)', fontStyle: 'italic' }}>quiet builders.</em>
           </h1>
           <p className="hero__subtitle">
-            Southern Gothic healing tools, digital products, and consulting for neurodivergent creators
-            who are done performing urgency they don't feel.
+            Shadow work journals, a healing membership, and slow-build consulting — made for neurodivergent
+            creators who know their pace is not a problem.
           </p>
           <div className="hero__actions">
             <a href={URLS.booking} className="btn btn--primary" target="_blank" rel="noopener noreferrer">
               Book a Session
             </a>
-            <Link href="/shop" className="btn btn--outline">Visit the Shop</Link>
+            <Link href="/shop" className="btn btn--outline">Browse the Shop</Link>
           </div>
         </div>
       </section>
@@ -33,11 +34,10 @@ export default function Home() {
       {/* ── Artwork · organized library ───────────────────────── */}
       <section className="section section--linen">
         <div className="container">
-          <h2>From the organized library.</h2>
+          <h2>From the illustration library.</h2>
           <div className="divider" />
           <p className="muted" style={{ maxWidth: '52ch', marginTop: 'var(--space-md)' }}>
-            Pieces from <strong>magnolia priestess</strong> and <strong>riverwalk lantern path</strong>—two lanes in your
-            Midnight Magnolia artwork catalog.
+            Original pieces from the <strong>Magnolia Priestess</strong> and <strong>Riverwalk Lantern Path</strong> series — two collections in the Midnight Magnolia catalog.
           </p>
           <div className="art-strip">
             {BRAND_ASSETS.gallery.map((img) => (
@@ -63,6 +63,7 @@ export default function Home() {
       {/* ── Stats ────────────────────────────────────────────── */}
       <section className="section section--dark">
         <div className="container">
+          <h2 style={{ textAlign: 'center', marginBottom: 'var(--space-lg)' }}>The work, in numbers.</h2>
           <div className="stat-grid">
             {[
               { number: '$1.5M+', label: 'Funding Secured' },
@@ -87,22 +88,22 @@ export default function Home() {
           <div className="grid-3" style={{ marginTop: 'var(--space-lg)' }}>
             {[
               {
+                title: 'The Healing Shop',
+                desc:  'Six products built as one healing ecosystem — from the free starter kit to the Deep Roots Shadow Work System. Begin anywhere.',
+                href:  '/shop',
+                cta:   'Browse the Shop',
+              },
+              {
+                title: 'Magnolia Circle',
+                desc:  'A $9/month membership with monthly shadow work prompts, ritual practices, and the member edition of Dusk Letters.',
+                href:  '/shop',
+                cta:   'Join the Circle',
+              },
+              {
                 title: 'Work With Me',
-                desc:  'Workflow consulting, AI literacy workshops, and career docs for $100K+ remote roles.',
+                desc:  'One-on-one consulting, AI literacy workshops, and done-for-you career docs — built for quiet builders ready to move.',
                 href:  '/work-with-me',
                 cta:   'See Services',
-              },
-              {
-                title: 'The Shop',
-                desc:  'Digital products from $9 — journals, planners, career tools, and the Soft Business Guide.',
-                href:  '/shop',
-                cta:   'Browse Products',
-              },
-              {
-                title: 'The Grimoire',
-                desc:  'Southern Gothic writing, public domain Black literature, and healing resources for the long haul.',
-                href:  '/grimoire',
-                cta:   'Read the Grimoire',
               },
             ].map(door => (
               <div className="card" key={door.title}>
@@ -137,7 +138,7 @@ export default function Home() {
                 <div className="flex-between" style={{ marginTop: 'var(--space-lg)' }}>
                   <span style={{ fontFamily: 'var(--font-display)', fontSize: '1.5rem', color: 'var(--color-amber)' }}>{p.price}</span>
                   <a href={p.url} className="btn btn--primary" style={{ padding: '0.5rem 1.2rem' }} target="_blank" rel="noopener">
-                    Get It Now
+                    Get It
                   </a>
                 </div>
               </div>
@@ -149,13 +150,16 @@ export default function Home() {
       {/* ── CTA Banner ───────────────────────────────────────── */}
       <section className="section section--dark" style={{ textAlign: 'center' }}>
         <div className="container">
-          <h2 style={{ maxWidth: '18ch', margin: '0 auto' }}>
+          <h2 style={{ maxWidth: '20ch', margin: '0 auto' }}>
             "The work is not to do more.<br />
             <em style={{ color: 'var(--color-amber)' }}>It is to build something that holds.</em>"
           </h2>
+          <p className="muted" style={{ maxWidth: '44ch', margin: 'var(--space-md) auto 0' }}>
+            You don't have to hustle your way here. Start where you are.
+          </p>
           <div style={{ marginTop: 'var(--space-lg)', display: 'flex', gap: 'var(--space-md)', justifyContent: 'center', flexWrap: 'wrap' }}>
             <Link href="/sanctuary" className="btn btn--outline">Read the Story</Link>
-            <a href={URLS.stanStore} className="btn btn--primary" target="_blank" rel="noopener">Visit the Shop</a>
+            <Link href="/shop" className="btn btn--primary">Browse the Shop</Link>
           </div>
         </div>
       </section>
