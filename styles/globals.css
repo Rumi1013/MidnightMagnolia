@@ -1,0 +1,319 @@
+/* ── Google Fonts ─────────────────────────────────────────── */
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap');
+
+/* ── Midnight Magnolia · Sunset palette (canonical hex) ───── */
+:root {
+  /* Structure */
+  --color-midnight-plum: #2D1E2F;
+  --color-indigo-night:  #1E1B2E;
+  /* Warmth */
+  --color-burnt-rose:    #A44A5F;
+  --color-clay-ember:    #C0654A;
+  --color-soft-brick:    #8C3A3A;
+  /* Light / gold */
+  --color-antique-gold:  #C6A75E;
+  --color-deep-honey:    #A8842C;
+  /* Breathable */
+  --color-magnolia-cream:#FAF3E0;
+  --color-warm-linen:    #F3E6D3;
+  /* Twilight */
+  --color-dusty-violet:  #5C3A5E;
+  --color-muted-amethyst:#6E4A7E;
+
+  /* Semantic aliases (used across existing pages) */
+  --color-midnight:   var(--color-midnight-plum);
+  --color-ink:        var(--color-indigo-night);
+  --color-magnolia:   var(--color-magnolia-cream);
+  --color-amber:      var(--color-antique-gold);
+  --color-dusk:       #3f2f45;
+  --color-sage:       #8B9E8A;
+  --color-muted:      rgba(250, 243, 224, 0.58);
+  --color-amber-rgb:  198, 167, 94;
+
+  --font-display:     'Cormorant Garamond', Georgia, serif;
+  --font-body:        'DM Sans', system-ui, sans-serif;
+
+  --max-width:        1100px;
+  --radius:           4px;
+  --radius-lg:        12px;
+  --transition:       180ms ease;
+
+  --space-xs:  0.25rem;
+  --space-sm:  0.5rem;
+  --space-md:  1rem;
+  --space-lg:  2rem;
+  --space-xl:  4rem;
+  --space-2xl: 8rem;
+}
+
+/* ── Reset ───────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: var(--font-body);
+  background: var(--color-indigo-night);
+  color: var(--color-magnolia);
+  line-height: 1.75;
+  font-size: 1rem;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── Typography ─────────────────────────────────────────── */
+h1, h2, h3, h4 {
+  font-family: var(--font-display);
+  font-weight: 400;
+  line-height: 1.2;
+  color: var(--color-magnolia);
+}
+h1 { font-size: clamp(2.8rem, 7vw, 5rem); }
+h2 { font-size: clamp(1.9rem, 4vw, 3rem); }
+h3 { font-size: clamp(1.3rem, 3vw, 1.9rem); }
+h4 { font-size: 1rem; letter-spacing: 0.07em; text-transform: uppercase; font-family: var(--font-body); font-weight: 500; }
+
+p { max-width: 65ch; line-height: 1.8; }
+a { color: var(--color-amber); text-decoration: none; transition: opacity var(--transition); }
+a:hover { opacity: 0.75; }
+ul { list-style: none; }
+
+/* ── Layout ─────────────────────────────────────────────── */
+.container {
+  width: 100%;
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 var(--space-lg);
+}
+.section        { padding: var(--space-xl) 0; }
+.section--dark  { background: var(--color-ink); }
+.section--dusk  { background: var(--color-dusk); }
+.section--linen {
+  background: var(--color-warm-linen);
+  color: var(--color-midnight-plum);
+}
+.section--linen h1,
+.section--linen h2,
+.section--linen h3,
+.section--linen h4 { color: var(--color-midnight-plum); }
+.section--linen .muted { color: rgba(45, 30, 47, 0.62); }
+.section--linen .divider { background: var(--color-antique-gold); }
+
+/* ── Buttons ────────────────────────────────────────────── */
+.btn {
+  display: inline-block;
+  padding: 0.8rem 1.9rem;
+  font-family: var(--font-body);
+  font-size: 0.8rem;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  border-radius: var(--radius);
+  cursor: pointer;
+  transition: all var(--transition);
+  border: none;
+  text-align: center;
+}
+.btn--primary  { background: var(--color-amber); color: var(--color-ink); }
+.btn--primary:hover { background: #d9b85c; opacity: 1; }
+.btn--outline  { background: transparent; color: var(--color-amber); border: 1px solid var(--color-amber); }
+.btn--outline:hover { background: var(--color-amber); color: var(--color-ink); opacity: 1; }
+.btn--ghost    { background: transparent; color: var(--color-magnolia); border: 1px solid rgba(250,243,224,0.28); }
+.btn--ghost:hover { border-color: var(--color-magnolia); opacity: 1; }
+
+/* ── Cards ──────────────────────────────────────────────── */
+.card {
+  background: var(--color-dusk);
+  border-radius: var(--radius-lg);
+  padding: var(--space-lg);
+  border: 1px solid rgba(var(--color-amber-rgb), 0.14);
+  transition: border-color var(--transition), transform var(--transition);
+}
+.card:hover { border-color: rgba(var(--color-amber-rgb), 0.38); transform: translateY(-2px); }
+
+/* ── Utility ────────────────────────────────────────────── */
+.divider      { width: 48px; height: 2px; background: var(--color-amber); margin: var(--space-md) 0 var(--space-lg); }
+.tag          { display: inline-block; padding: 0.2rem 0.7rem; font-size: 0.68rem; letter-spacing: 0.1em; text-transform: uppercase; background: rgba(var(--color-amber-rgb), 0.14); color: var(--color-amber); border-radius: 2px; border: 1px solid rgba(var(--color-amber-rgb), 0.32); }
+.muted        { color: var(--color-muted); }
+.grid-2       { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: var(--space-lg); }
+.grid-3       { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: var(--space-lg); }
+.flex-between { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: var(--space-md); }
+.stat-grid    { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: var(--space-md); }
+
+.stat-block {
+  text-align: center;
+  padding: var(--space-lg) var(--space-md);
+  border: 1px solid rgba(var(--color-amber-rgb), 0.22);
+  border-radius: var(--radius-lg);
+}
+.stat-block .stat-number {
+  font-family: var(--font-display);
+  font-size: 2.5rem;
+  color: var(--color-amber);
+  display: block;
+}
+.stat-block .stat-label {
+  font-size: 0.8rem;
+  color: var(--color-muted);
+  letter-spacing: 0.05em;
+}
+
+/* ── Nav ────────────────────────────────────────────────── */
+.nav {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: rgba(30, 27, 46, 0.94);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(var(--color-amber-rgb), 0.14);
+}
+.nav__inner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.1rem var(--space-lg);
+  max-width: var(--max-width);
+  margin: 0 auto;
+}
+.nav__logo {
+  font-family: var(--font-display);
+  font-size: 1.4rem;
+  color: var(--color-magnolia);
+  letter-spacing: 0.02em;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.65rem;
+}
+.nav__logo .nav__accent { color: var(--color-amber); }
+.nav__logo-img {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 1px solid rgba(var(--color-amber-rgb), 0.35);
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.25);
+}
+.nav__links { display: flex; gap: var(--space-lg); align-items: center; }
+.nav__links a { font-size: 0.8rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--color-muted); transition: color var(--transition); }
+.nav__links a:hover, .nav__links a.active { color: var(--color-magnolia); opacity: 1; }
+.nav__cta { font-size: 0.75rem !important; background: var(--color-amber); color: var(--color-ink) !important; padding: 0.5rem 1.2rem; border-radius: var(--radius); }
+.nav__cta:hover { filter: brightness(1.08); opacity: 1 !important; }
+
+/* ── Footer ─────────────────────────────────────────────── */
+.footer {
+  background: var(--color-ink);
+  border-top: 1px solid rgba(var(--color-amber-rgb), 0.14);
+  padding: var(--space-xl) 0 var(--space-lg);
+}
+.footer__grid { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: var(--space-xl); margin-bottom: var(--space-xl); }
+.footer__brand p { color: var(--color-muted); font-size: 0.9rem; margin-top: var(--space-sm); max-width: 36ch; }
+.footer__col h4 { color: var(--color-amber); margin-bottom: var(--space-md); font-size: 0.75rem; }
+.footer__col a { display: block; color: var(--color-muted); font-size: 0.875rem; margin-bottom: 0.5rem; transition: color var(--transition); }
+.footer__col a:hover { color: var(--color-magnolia); opacity: 1; }
+.footer__bottom { border-top: 1px solid rgba(250,243,224,0.1); padding-top: var(--space-lg); display: flex; justify-content: space-between; font-size: 0.8rem; color: var(--color-muted); flex-wrap: wrap; gap: var(--space-sm); }
+
+/* ── Hero ───────────────────────────────────────────────── */
+.hero {
+  min-height: 92vh;
+  display: flex;
+  align-items: center;
+  padding: var(--space-xl) 0;
+  position: relative;
+  overflow: hidden;
+  background-color: var(--color-indigo-night);
+  background-image:
+    linear-gradient(105deg, rgba(30, 27, 46, 0.94) 0%, rgba(45, 30, 47, 0.55) 45%, rgba(30, 27, 46, 0.2) 100%),
+    url('/brand/hero-magnolia-priestess.jpg');
+  background-size: cover;
+  /* Bloom focal slightly left of center; keeps type readable and eases top-right corner crop. */
+  background-position: 40% 48%;
+  background-repeat: no-repeat;
+}
+.hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at 18% 40%, rgba(var(--color-amber-rgb), 0.09) 0%, transparent 55%),
+              radial-gradient(ellipse at 88% 12%, rgba(92, 58, 94, 0.35) 0%, transparent 45%);
+  pointer-events: none;
+}
+.hero .container { position: relative; z-index: 1; }
+.hero__eyebrow { font-size: 0.75rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--color-amber); margin-bottom: var(--space-md); }
+.hero__title { margin-bottom: var(--space-md); }
+.hero__subtitle { font-size: 1.15rem; color: var(--color-muted); margin-bottom: var(--space-xl); max-width: 52ch; }
+.hero__actions { display: flex; gap: var(--space-md); flex-wrap: wrap; }
+
+/* ── Page Hero (inner pages) ────────────────────────────── */
+.page-hero { padding: var(--space-xl) 0 var(--space-lg); border-bottom: 1px solid rgba(var(--color-amber-rgb), 0.14); margin-bottom: var(--space-xl); }
+.page-hero__eyebrow { font-size: 0.7rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--color-amber); margin-bottom: var(--space-sm); }
+
+/* ── Inner-page illustration (magnolia library PNGs) ───── */
+.page-illustration {
+  margin: 0 auto var(--space-xl);
+  max-width: 720px;
+}
+.page-illustration__frame {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  border: 1px solid rgba(var(--color-amber-rgb), 0.22);
+  background: var(--color-indigo-night);
+}
+.page-illustration__caption {
+  margin-top: 0.5rem;
+  font-size: 0.68rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(45, 30, 47, 0.55);
+  text-align: center;
+}
+.section--dark .page-illustration__caption {
+  color: rgba(250, 243, 224, 0.55);
+}
+
+/* ── Art strip (home gallery) ───────────────────────────── */
+.art-strip {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-md);
+  margin-top: var(--space-lg);
+}
+@media (min-width: 900px) {
+  .art-strip { grid-template-columns: repeat(4, 1fr); }
+}
+.art-strip__frame {
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  border: 1px solid rgba(var(--color-amber-rgb), 0.22);
+  position: relative;
+  background: var(--color-indigo-night);
+}
+.art-strip__frame img {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  display: block;
+}
+.art-strip__cap {
+  font-size: 0.68rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(45, 30, 47, 0.75);
+  padding: 0.5rem 0.65rem;
+  background: rgba(243, 230, 211, 0.95);
+  border-top: 1px solid rgba(var(--color-amber-rgb), 0.2);
+}
+.art-strip__medium {
+  text-transform: none;
+  letter-spacing: 0.04em;
+  font-style: italic;
+  color: rgba(45, 30, 47, 0.62);
+}
+
+/* ── Responsive ─────────────────────────────────────────── */
+@media (max-width: 768px) {
+  .nav__links { display: none; }
+  .footer__grid { grid-template-columns: 1fr; }
+  .grid-3 { grid-template-columns: 1fr; }
+  .hero { min-height: 80vh; }
+  .art-strip { grid-template-columns: 1fr; }
+}
