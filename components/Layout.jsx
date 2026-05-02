@@ -12,6 +12,9 @@ export default function Layout({ children, title, description }) {
 
   return (
     <>
+      <a href="#main-content" className="skip-link">
+        Skip to main content
+      </a>
       <Head>
         <title>{pageTitle}</title>
         <meta name="description" content={pageDesc} />
@@ -54,7 +57,9 @@ export default function Layout({ children, title, description }) {
         </div>
       </nav>
 
-      <main>{children}</main>
+      <main id="main-content" tabIndex={-1}>
+        {children}
+      </main>
 
       <footer className="footer">
         <div className="container">
@@ -89,9 +94,9 @@ export default function Layout({ children, title, description }) {
           </div>
           <div className="footer__bottom">
             <span>© {new Date().getFullYear()} Midnight Magnolia · Rumi-Nations LLC</span>
-            <span>
-              <Link href="/privacy-policy" style={{ color: 'inherit', marginRight: '1rem' }}>Privacy</Link>
-              <Link href="/terms-conditions" style={{ color: 'inherit' }}>Terms</Link>
+            <span className="footer__legal">
+              <Link href="/privacy-policy" style={{ marginRight: '1rem' }}>Privacy</Link>
+              <Link href="/terms-conditions">Terms</Link>
             </span>
           </div>
         </div>

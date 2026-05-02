@@ -34,7 +34,7 @@ export default function GrimoirePost({ post }) {
           </p>
           <h1>{title}</h1>
           <div className="divider" />
-          <p style={{ fontSize: '0.75rem', color: 'var(--color-amber)', letterSpacing: '0.1em', textTransform: 'uppercase' }}>
+          <p style={{ fontSize: '0.75rem', color: 'var(--color-eyebrow-on-dark)', letterSpacing: '0.1em', textTransform: 'uppercase' }}>
             {formatPostDate(post.publishedDate)}
           </p>
         </div>

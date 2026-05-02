@@ -40,7 +40,7 @@ export default function Portfolio() {
           </p>
           <div style={{ display: 'flex', gap: 'var(--space-md)', flexWrap: 'wrap', marginTop: 'var(--space-lg)' }}>
             <a href={URLS.linkedin} className="btn btn--primary" target="_blank" rel="noopener">LinkedIn Profile</a>
-            <a href={URLS.github} className="btn btn--outline" target="_blank" rel="noopener">GitHub · Rumi1013</a>
+            <a href={URLS.github} className="btn btn--outline" target="_blank" rel="noopener">GitHub · rumi1013</a>
             <a href={URLS.email} className="btn btn--ghost">Email Latisha</a>
           </div>
         </div>
@@ -123,11 +123,11 @@ export default function Portfolio() {
           <div className="grid-2" style={{ marginTop: 'var(--space-lg)' }}>
             {Object.entries(SKILLS).map(([category, items]) => (
               <div className="card" key={category} style={{ background: 'rgba(26,28,46,0.5)' }}>
-                <h4 style={{ color: 'var(--color-amber)', marginBottom: 'var(--space-md)' }}>{category}</h4>
+                <h4 style={{ color: 'var(--color-burnt-rose)', marginBottom: 'var(--space-md)' }}>{category}</h4>
                 <ul style={{ display: 'flex', flexDirection: 'column', gap: '0.4rem' }}>
                   {items.map(item => (
                     <li key={item} style={{ fontSize: '0.875rem', color: 'var(--color-muted)', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                      <span style={{ color: 'var(--color-amber)', fontSize: '0.6rem' }}>◆</span>
+                      <span style={{ color: 'var(--color-eyebrow-on-dark)', fontSize: '0.6rem' }} aria-hidden>◆</span>
                       {item}
                     </li>
                   ))}
@@ -166,7 +166,7 @@ export default function Portfolio() {
             ].map(cred => (
               <div key={cred.institution} style={{ borderLeft: '2px solid var(--color-amber)', paddingLeft: 'var(--space-lg)', paddingTop: 'var(--space-sm)', paddingBottom: 'var(--space-sm)' }}>
                 <h4 style={{ color: 'var(--color-magnolia)', marginBottom: '0.25rem', fontSize: '1rem', letterSpacing: 0 }}>{cred.credential}</h4>
-                <p style={{ color: 'var(--color-amber)', fontSize: '0.875rem', marginBottom: '0.25rem' }}>{cred.institution}</p>
+                <p style={{ color: 'var(--color-muted)', fontSize: '0.875rem', marginBottom: '0.25rem' }}>{cred.institution}</p>
                 <p className="muted" style={{ fontSize: '0.8rem' }}>{cred.note}</p>
               </div>
             ))}

@@ -30,7 +30,7 @@ export default function WorkWithMe() {
                   <ul style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
                     {service.bullets.map(b => (
                       <li key={b} style={{ display: 'flex', gap: '0.75rem', fontSize: '0.875rem', color: 'var(--color-muted)' }}>
-                        <span style={{ color: 'var(--color-amber)' }}>◆</span>
+                        <span style={{ color: 'var(--color-eyebrow-on-dark)' }} aria-hidden>◆</span>
                         {b}
                       </li>
                     ))}

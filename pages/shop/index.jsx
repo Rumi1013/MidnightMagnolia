@@ -28,7 +28,7 @@ export default function Shop() {
               <div className="card" key={p.id} style={{ display: 'flex', flexDirection: 'column' }}>
                 {p.tag && <span className="tag" style={{ marginBottom: 'var(--space-md)', display: 'inline-block' }}>{p.tag}</span>}
                 <h3 style={{ fontSize: '1.2rem' }}>{p.title}</h3>
-                <p style={{ fontSize: '0.8rem', color: 'var(--color-amber)', margin: '0.25rem 0 0.75rem', letterSpacing: '0.05em' }}>{p.subtitle}</p>
+                <p style={{ fontSize: '0.8rem', color: 'var(--color-eyebrow-on-dark)', margin: '0.25rem 0 0.75rem', letterSpacing: '0.05em' }}>{p.subtitle}</p>
                 <p className="muted" style={{ fontSize: '0.875rem', flex: 1 }}>{p.description}</p>
                 <div className="flex-between" style={{ marginTop: 'var(--space-lg)' }}>
                   <span style={{ fontFamily: 'var(--font-display)', fontSize: '1.75rem', color: 'var(--color-amber)' }}>{p.price}</span>

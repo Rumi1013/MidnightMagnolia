@@ -40,14 +40,14 @@ export default function Grimoire({ posts }) {
           {posts.length > 0 ? (
             <div className="grid-2">
               {posts.map(post => (
-                <Link href={`/grimoire/${post.slug}`} key={post._id} style={{ textDecoration: 'none' }}>
+                <Link href={`/grimoire/${post.slug}`} key={post._id} className="card-link">
                   <div className="card">
                     {post.coverMedia?.image && (
                       <div style={{ width: '100%', height: '180px', background: 'var(--color-ink)', borderRadius: 'var(--radius)', marginBottom: 'var(--space-md)', overflow: 'hidden' }}>
                         <img src={post.coverMedia.image.url} alt={post.title} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
                       </div>
                     )}
-                    <p style={{ fontSize: '0.75rem', color: 'var(--color-amber)', letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: '0.5rem' }}>
+                    <p style={{ fontSize: '0.75rem', color: 'var(--color-eyebrow-on-dark)', letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: '0.5rem' }}>
                       {formatPostDate(post.publishedDate)}
                     </p>
                     <h3 style={{ fontSize: '1.3rem' }}>{post.title}</h3>

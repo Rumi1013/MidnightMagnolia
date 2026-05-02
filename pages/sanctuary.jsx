@@ -74,7 +74,7 @@ export default function Sanctuary() {
               { label: 'Recognition', items: ['Soros Justice Fellow · Open Society Foundations 2022', 'Workforce Development Scholarship Recipient', 'Google Data Analytics Certificate (2025)'] },
             ].map(col => (
               <div className="card" key={col.label}>
-                <h4 style={{ color: 'var(--color-amber)', marginBottom: 'var(--space-md)' }}>{col.label}</h4>
+                <h4 style={{ color: 'var(--color-burnt-rose)', marginBottom: 'var(--space-md)' }}>{col.label}</h4>
                 {col.items.map(item => <p key={item} style={{ fontSize: '0.9rem', color: 'var(--color-muted)', marginBottom: '0.5rem' }}>{item}</p>)}
               </div>
             ))}

@@ -26,7 +26,7 @@ export default function Resources() {
                 <h3 style={{ fontSize: '1.2rem', color: 'var(--color-magnolia)' }}>{tool.name}</h3>
                 <div className="divider" style={{ width: 24 }} />
                 <p className="muted" style={{ fontSize: '0.875rem' }}>{tool.desc}</p>
-                <span style={{ display: 'inline-block', marginTop: 'var(--space-md)', fontSize: '0.75rem', color: 'var(--color-amber)', letterSpacing: '0.08em', textTransform: 'uppercase' }}>
+                <span style={{ display: 'inline-block', marginTop: 'var(--space-md)', fontSize: '0.75rem', color: 'var(--color-eyebrow-on-dark)', letterSpacing: '0.08em', textTransform: 'uppercase' }}>
                   Visit →
                 </span>
               </a>
