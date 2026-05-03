@@ -1,8 +1,22 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  reactStrictMode: true,
-  images: {
-    domains: ['static.wixstatic.com', 'images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com'],
+  /**
+   * Send apex → www when both hostnames hit this deployment.
+   * In your DNS: `www` → CNAME to your host (e.g. Vercel); apex → A/ALIAS per host docs.
+   *
+   * Important: only one site can use `www.midnight-magnolia.com`. If Wix currently owns
+   * that hostname, repoint DNS to this app and move Wix to a subdomain (or retire it).
+   */
+  async redirects() {
+    return [
+      {
+        source: '/:path*',
+        has: [{ type: 'host', value: 'midnight-magnolia.com' }],
+        destination: 'https://www.midnight-magnolia.com/:path*',
+        permanent: true,
+      },
+    ];
   },
 };
+
 module.exports = nextConfig;

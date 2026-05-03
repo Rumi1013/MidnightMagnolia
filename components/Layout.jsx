@@ -9,6 +9,9 @@ export default function Layout({ children, title, description }) {
   const router = useRouter();
   const pageTitle = title ? `${title} · Midnight Magnolia` : 'Midnight Magnolia · A Southern Gothic Digital Sanctuary';
   const pageDesc  = description || 'A Southern Gothic sanctuary for healing, creation, and quiet growth. Digital offerings, gentle strategy, and tools for neurodivergent creators.';
+  const siteBase = process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, '');
+  const pathOnly = router.asPath.split('?')[0];
+  const canonicalHref = siteBase ? `${siteBase}${pathOnly === '/' ? '' : pathOnly}` : null;
 
   return (
     <>
@@ -22,6 +25,8 @@ export default function Layout({ children, title, description }) {
         <meta property="og:title" content={pageTitle} />
         <meta property="og:description" content={pageDesc} />
         <meta property="og:type" content="website" />
+        {canonicalHref ? <link rel="canonical" href={canonicalHref} /> : null}
+        {canonicalHref ? <meta property="og:url" content={canonicalHref} /> : null}
         <link rel="icon" href="/favicon.ico" />
       </Head>
 

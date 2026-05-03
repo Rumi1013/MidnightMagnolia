@@ -632,6 +632,31 @@ a.card-link:hover {
   border: 0;
 }
 
+/* ── Resources: Amazon picks (affiliate list) ───────────── */
+.amazon-picks__block {
+  margin-bottom: var(--space-xl);
+}
+
+.amazon-picks__block:first-of-type .amazon-picks__title {
+  margin-top: 0;
+}
+
+.amazon-picks__title {
+  font-size: clamp(1.25rem, 2.5vw, 1.65rem);
+  margin-top: var(--space-lg);
+  margin-bottom: var(--space-sm);
+}
+
+.amazon-picks__intro {
+  font-size: 0.9rem;
+  max-width: 56ch;
+  margin-bottom: var(--space-md);
+}
+
+.amazon-picks__block .grid-3 {
+  margin-bottom: var(--space-sm);
+}
+
 /* ── Responsive ─────────────────────────────────────────── */
 @media (max-width: 768px) {
   .nav__links { display: none; }
