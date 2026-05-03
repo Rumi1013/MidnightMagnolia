@@ -9,12 +9,15 @@
     "wix:smoke": "node --env-file=.env.local scripts/wix-api-smoke.mjs"
   },
   "dependencies": {
+    "@notionhq/client": "^5.20.0",
+    "@supabase/supabase-js": "^2.105.1",
     "@wix/blog": "^1.0.600",
     "@wix/bookings": "^1.0.1376",
     "@wix/data": "^1.0.450",
     "@wix/events": "^1.0.756",
     "@wix/sdk": "^1.21.7",
     "@wix/stores": "^1.0.759",
+    "airtable": "^0.12.2",
     "next": "14.2.3",
     "react": "^18.3.0",
     "react-dom": "^18.3.0"
