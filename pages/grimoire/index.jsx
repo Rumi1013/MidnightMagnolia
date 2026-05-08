@@ -1,8 +1,49 @@
 import Layout from '../../components/Layout';
 import { getGrimoirePosts, formatPostDate } from '../../lib/wix';
 import Link from 'next/link';
+import { useEffect, useMemo, useState } from 'react';
+import { URLS } from '../../lib/constants';
 
-const CATEGORIES = ['All', 'Shadow Work', 'Southern Gothic', 'Soft Business School', 'Literary Archive', 'Healing Resources'];
+const CATEGORIES = [
+  'All',
+  'Shadow Work',
+  'Moon Phase',
+  'Ancestral Healing',
+  'ND Creator Guides',
+  'Dusk Letters Archive',
+];
+
+function normalize(s) {
+  return String(s || '').toLowerCase();
+}
+
+function inferCategory(post) {
+  const haystack = [
+    post?.title,
+    post?.excerpt,
+    post?.plainContent,
+    Array.isArray(post?.hashtags) ? post.hashtags.join(' ') : '',
+    Array.isArray(post?.tags) ? post.tags.join(' ') : '',
+    Array.isArray(post?.categoryIds) ? post.categoryIds.join(' ') : '',
+  ]
+    .filter(Boolean)
+    .join(' ');
+  const text = normalize(haystack);
+
+  if (/(shadow|inner child|grief|healing prompt|journal prompt)/.test(text)) {
+    return 'Shadow Work';
+  }
+  if (/(moon|new moon|full moon|lunar|eclipse)/.test(text)) {
+    return 'Moon Phase';
+  }
+  if (/(ancestor|ancestral|lineage|vincent|vinson|caswell|lowcountry|gullah)/.test(text)) {
+    return 'Ancestral Healing';
+  }
+  if (/(neurodivergent|adhd|autistic|executive function|quiet builder|soft business|systems)/.test(text)) {
+    return 'ND Creator Guides';
+  }
+  return 'Dusk Letters Archive';
+}
 
 export async function getStaticProps() {
   const posts = await getGrimoirePosts(12);
@@ -10,6 +51,40 @@ export async function getStaticProps() {
 }
 
 export default function Grimoire({ posts }) {
+  const [gateOpen, setGateOpen] = useState(false);
+  const [email, setEmail] = useState('');
+  const [activeCategory, setActiveCategory] = useState('All');
+
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+    const unlocked = window.localStorage.getItem('mm_grimoire_unlocked') === '1';
+    setGateOpen(unlocked);
+  }, []);
+
+  const postsWithCategory = useMemo(
+    () =>
+      (posts || []).map((post) => ({
+        ...post,
+        mmCategory: inferCategory(post),
+      })),
+    [posts]
+  );
+
+  const visiblePosts = useMemo(() => {
+    if (activeCategory === 'All') return postsWithCategory;
+    return postsWithCategory.filter((p) => p.mmCategory === activeCategory);
+  }, [activeCategory, postsWithCategory]);
+
+  const unlockGrimoire = (e) => {
+    e.preventDefault();
+    if (!email.trim()) return;
+    if (typeof window !== 'undefined') {
+      window.localStorage.setItem('mm_grimoire_unlocked', '1');
+      window.localStorage.setItem('mm_grimoire_email', email.trim());
+    }
+    setGateOpen(true);
+  };
+
   return (
     <Layout title="The Grimoire" description="Writing from the Lowcountry. Shadow work, Southern Gothic stories, public domain Black literature, and a soft business school.">
       <div className="container">
@@ -23,13 +98,48 @@ export default function Grimoire({ posts }) {
           </p>
         </div>
 
-        {/* Category filter — visual only; filter logic added once Wix Blog is live */}
+        {!gateOpen ? (
+          <section className="section">
+            <div className="card" style={{ maxWidth: 760, margin: '0 auto' }}>
+              <h2 style={{ marginBottom: 'var(--space-sm)' }}>Enter the Grimoire</h2>
+              <div className="divider" />
+              <p className="muted" style={{ marginBottom: 'var(--space-lg)' }}>
+                Join Dusk Letters for access to Shadow Work, Moon Phase, Ancestral Healing,
+                ND Creator Guides, and archive entries.
+              </p>
+              <form onSubmit={unlockGrimoire}>
+                <label style={{ display: 'flex', flexDirection: 'column', gap: 6, marginBottom: 'var(--space-md)' }}>
+                  <span style={{ fontSize: '0.85rem' }}>Email</span>
+                  <input
+                    type="email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    required
+                    placeholder="you@example.com"
+                    style={{ padding: '0.7rem', borderRadius: 8, border: '1px solid rgba(255,255,255,0.15)', background: 'rgba(255,255,255,0.04)', color: 'inherit' }}
+                  />
+                </label>
+                <div style={{ display: 'flex', gap: 'var(--space-md)', flexWrap: 'wrap' }}>
+                  <button type="submit" className="btn btn--primary">Unlock the Grimoire</button>
+                  <a href={URLS.stanStore} className="btn btn--outline" target="_blank" rel="noopener noreferrer">
+                    Get the Gentle Beginning
+                  </a>
+                </div>
+              </form>
+              <p className="muted" style={{ fontSize: '0.8rem', marginTop: 'var(--space-md)' }}>
+                This gate currently unlocks in-browser and stores access on this device.
+              </p>
+            </div>
+          </section>
+        ) : (
         <section className="section" style={{ paddingBottom: 0 }}>
           <div style={{ display: 'flex', gap: '0.75rem', flexWrap: 'wrap', marginBottom: 'var(--space-xl)' }}>
-            {CATEGORIES.map((cat, i) => (
+            {CATEGORIES.map((cat) => (
               <button
                 key={cat}
-                className={`btn ${i === 0 ? 'btn--outline' : 'btn--ghost'}`}
+                type="button"
+                onClick={() => setActiveCategory(cat)}
+                className={`btn ${activeCategory === cat ? 'btn--outline' : 'btn--ghost'}`}
                 style={{ padding: '0.4rem 1rem', fontSize: '0.75rem' }}
               >
                 {cat}
@@ -37,9 +147,9 @@ export default function Grimoire({ posts }) {
             ))}
           </div>
 
-          {posts.length > 0 ? (
+          {visiblePosts.length > 0 ? (
             <div className="grid-2">
-              {posts.map(post => (
+              {visiblePosts.map(post => (
                 <Link href={`/grimoire/${post.slug}`} key={post._id} className="card-link">
                   <div className="card">
                     {post.coverMedia?.image && (
@@ -51,6 +161,9 @@ export default function Grimoire({ posts }) {
                       {formatPostDate(post.publishedDate)}
                     </p>
                     <h3 style={{ fontSize: '1.3rem' }}>{post.title}</h3>
+                    <p style={{ fontSize: '0.72rem', color: 'var(--color-eyebrow-on-dark)', letterSpacing: '0.08em', textTransform: 'uppercase', marginTop: '0.35rem' }}>
+                      {post.mmCategory}
+                    </p>
                     {post.excerpt && <p className="muted" style={{ fontSize: '0.875rem', marginTop: '0.5rem' }}>{post.excerpt}</p>}
                   </div>
                 </Link>
@@ -58,13 +171,14 @@ export default function Grimoire({ posts }) {
             </div>
           ) : (
             <div className="card" style={{ textAlign: 'center', padding: 'var(--space-2xl)' }}>
-              <h3>The Grimoire is being filled.</h3>
+              <h3>No posts in this category yet.</h3>
               <p className="muted" style={{ marginTop: 'var(--space-md)' }}>
-                Connect your Wix Blog in the dashboard and posts will appear here automatically.
+                Switch categories or add matching posts in Wix Blog.
               </p>
             </div>
           )}
         </section>
+        )}
       </div>
     </Layout>
   );
