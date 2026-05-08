@@ -13,6 +13,69 @@ const CATEGORIES = [
   'Dusk Letters Archive',
 ];
 
+const CATEGORY_CONTENT = {
+  All: {
+    anchor: 'Full Archive',
+    description:
+      'Browse everything in the Grimoire across shadow work, moon rhythm, ancestral healing, ND creator guides, and Dusk Letters.',
+    prompts: [
+      'What kind of support do you need most right now: grounding, release, structure, or reflection?',
+      'Choose one post that matches your current capacity and focus on only one next step.',
+      'What theme keeps returning in this season of your life?',
+    ],
+  },
+  'Shadow Work': {
+    anchor: 'Name It · Burn It · Examine It',
+    description:
+      'Emotional literacy, gentle release, and honest inventory. Start where language is soft and specific.',
+    prompts: [
+      'Name one feeling under the surface today. What sits underneath it?',
+      'What story about your worth are you ready to release without shaming yourself?',
+      'What pattern did you inherit that you are choosing to interrupt this month?',
+    ],
+  },
+  'Moon Phase': {
+    anchor: 'Tend It',
+    description:
+      'Seasonal and lunar rhythm practices for low-spoon planning, reflection, and restoration.',
+    prompts: [
+      'New moon: what is one intention small enough to keep?',
+      'Full moon: what did you complete that deserves witness, not perfection?',
+      'Waning moon: what can you set down to protect your energy this week?',
+    ],
+  },
+  'Ancestral Healing': {
+    anchor: 'Root It · Ancestral Ground',
+    description:
+      'Lineage-centered writing from Caswell County to the Lowcountry, with care for names, memory, and context.',
+    prompts: [
+      'Which ancestor name appears in your family line more than once? What might that repetition be carrying?',
+      'Write one page about a place your people moved through and what survived there.',
+      'What truth in your family history became clearer when you said it out loud?',
+    ],
+  },
+  'ND Creator Guides': {
+    anchor: 'Tend It',
+    description:
+      'Neurodivergent-friendly systems, anti-hustle pacing, and practical support for creative consistency.',
+    prompts: [
+      'Design one 20-minute task that still counts on a low-energy day.',
+      'Where are you over-correcting instead of cultivating?',
+      'What support structure would make your next step easier to repeat?',
+    ],
+  },
+  'Dusk Letters Archive': {
+    anchor: 'Root It',
+    description:
+      'Long-form reflections and archive letters that bridge healing, business, and community memory.',
+    prompts: [
+      'What are you becoming that your old schedule cannot hold?',
+      'Write a letter to your future self about the pace you are choosing now.',
+      'What does community medicine look like in your current season?',
+    ],
+  },
+};
+
 function normalize(s) {
   return String(s || '').toLowerCase();
 }
@@ -52,6 +115,7 @@ export async function getStaticProps() {
 
 export default function Grimoire({ posts }) {
   const [gateOpen, setGateOpen] = useState(false);
+  const [hasHydrated, setHasHydrated] = useState(false);
   const [email, setEmail] = useState('');
   const [activeCategory, setActiveCategory] = useState('All');
 
@@ -59,6 +123,7 @@ export default function Grimoire({ posts }) {
     if (typeof window === 'undefined') return;
     const unlocked = window.localStorage.getItem('mm_grimoire_unlocked') === '1';
     setGateOpen(unlocked);
+    setHasHydrated(true);
   }, []);
 
   const postsWithCategory = useMemo(
@@ -98,7 +163,7 @@ export default function Grimoire({ posts }) {
           </p>
         </div>
 
-        {!gateOpen ? (
+        {!hasHydrated ? null : !gateOpen ? (
           <section className="section">
             <div className="card" style={{ maxWidth: 760, margin: '0 auto' }}>
               <h2 style={{ marginBottom: 'var(--space-sm)' }}>Enter the Grimoire</h2>
@@ -133,6 +198,32 @@ export default function Grimoire({ posts }) {
           </section>
         ) : (
         <section className="section" style={{ paddingBottom: 0 }}>
+          <div className="grid-2" style={{ marginBottom: 'var(--space-xl)' }}>
+            {Object.entries(CATEGORY_CONTENT).map(([name, content]) => (
+              <article
+                key={name}
+                className="card"
+                style={{
+                  borderLeft:
+                    activeCategory === name ? '3px solid var(--color-amber)' : '3px solid rgba(255,255,255,0.09)',
+                }}
+              >
+                <p style={{ fontSize: '0.7rem', color: 'var(--color-eyebrow-on-dark)', letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: '0.4rem' }}>
+                  {content.anchor}
+                </p>
+                <h3 style={{ fontSize: '1.05rem', marginBottom: '0.4rem' }}>{name}</h3>
+                <p className="muted" style={{ fontSize: '0.86rem', marginBottom: '0.7rem' }}>{content.description}</p>
+                <ul style={{ margin: 0, paddingLeft: '1rem' }}>
+                  {content.prompts.map((prompt) => (
+                    <li key={prompt} className="muted" style={{ fontSize: '0.8rem', marginBottom: '0.35rem' }}>
+                      {prompt}
+                    </li>
+                  ))}
+                </ul>
+              </article>
+            ))}
+          </div>
+
           <div style={{ display: 'flex', gap: '0.75rem', flexWrap: 'wrap', marginBottom: 'var(--space-xl)' }}>
             {CATEGORIES.map((cat) => (
               <button

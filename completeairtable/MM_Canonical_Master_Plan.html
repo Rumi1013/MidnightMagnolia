@@ -1,0 +1,1136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Midnight Magnolia — Canonical Master Plan</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+<style>
+:root {
+  --indigo:#2B2F4A; --gold:#C9A84C; --gold-light:#E8C97A;
+  --magnolia:#F5F0E8; --magnolia-dark:#E8E0D0;
+  --ink:#1A1D2E; --mist:#6B7089; --border:rgba(43,47,74,.14);
+  --card:#FFFFFF; --page:#F5F0E8;
+  --fd:'Cormorant Garamond',Georgia,serif;
+  --fb:'DM Sans',system-ui,sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:var(--fb);background:var(--page);color:var(--ink);font-size:14.5px;line-height:1.75}
+
+/* ── HEADER ── */
+.hdr{background:var(--indigo);color:var(--magnolia);padding:52px 44px 40px;position:relative;overflow:hidden}
+.hdr::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 85% 40%,rgba(201,168,76,.13) 0%,transparent 65%);pointer-events:none}
+.hdr-eye{font-size:10.5px;font-weight:500;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:10px}
+.hdr-title{font-family:var(--fd);font-size:52px;font-weight:300;line-height:1.05;margin-bottom:8px;letter-spacing:-.01em}
+.hdr-sub{font-family:var(--fd);font-style:italic;font-size:18px;color:rgba(245,240,232,.65);margin-bottom:28px}
+.hdr-meta{font-size:11.5px;color:rgba(245,240,232,.45);letter-spacing:.06em}
+.vbadge{display:inline-block;background:rgba(201,168,76,.18);border:1px solid rgba(201,168,76,.4);color:var(--gold-light);font-size:10.5px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;padding:3px 10px;border-radius:20px;margin-left:10px}
+
+/* ── TAB NAV ── */
+.tabs{background:var(--indigo);border-top:1px solid rgba(201,168,76,.18);display:flex;overflow-x:auto;padding:0 44px;gap:0}
+.tabs::-webkit-scrollbar{display:none}
+.tab{font-family:var(--fb);font-size:11.5px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:rgba(245,240,232,.45);background:none;border:none;border-bottom:2px solid transparent;padding:14px 18px 12px;cursor:pointer;white-space:nowrap;transition:color .2s,border-color .2s}
+.tab:hover{color:rgba(245,240,232,.8)}
+.tab.on{color:var(--gold);border-bottom-color:var(--gold)}
+
+/* ── MAIN ── */
+.main{padding:48px 44px;max-width:1080px}
+.panel{display:none}
+.panel.on{display:block}
+
+/* ── SECTION TYPOGRAPHY ── */
+.slabel{font-size:10px;font-weight:500;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);margin-bottom:8px}
+.stitle{font-family:var(--fd);font-size:36px;font-weight:300;color:var(--indigo);margin-bottom:4px;line-height:1.15}
+.sdesc{font-family:var(--fd);font-style:italic;font-size:16px;color:var(--mist);margin-bottom:38px}
+
+/* ── CARDS ── */
+.card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:24px 28px;margin-bottom:18px}
+.card-head{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:14px}
+.card-title{font-family:var(--fd);font-size:20px;font-weight:400;color:var(--indigo)}
+.card-meta{font-size:11.5px;color:var(--mist);letter-spacing:.04em;margin-top:2px}
+.card-body{font-size:13.5px;line-height:1.7;color:#333}
+
+/* ── BADGES ── */
+.badge{display:inline-block;font-size:10px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;padding:2px 9px;border-radius:20px;line-height:1.5;white-space:nowrap}
+.b-crit{background:#FEE2E2;color:#991B1B}
+.b-high{background:#FEF3C7;color:#92400E}
+.b-med{background:#E0F2FE;color:#0C4A6E}
+.b-done{background:#D1FAE5;color:#065F46}
+.b-gold{background:rgba(201,168,76,.15);color:#7A5C12;border:1px solid rgba(201,168,76,.3)}
+.b-indigo{background:rgba(43,47,74,.08);color:var(--indigo)}
+.b-zap{background:#FFF3E0;color:#E65100}
+.b-make{background:#E8F5E9;color:#2E7D32}
+
+/* ── TOKEN SWATCHES ── */
+.swatch-row{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:20px}
+.swatch{border-radius:8px;overflow:hidden;border:1px solid var(--border);min-width:140px}
+.swatch-color{height:48px}
+.swatch-info{padding:8px 12px;background:var(--card)}
+.swatch-name{font-size:12px;font-weight:500;color:var(--ink)}
+.swatch-hex{font-size:11px;color:var(--mist);font-family:'SF Mono',monospace}
+
+/* ── TABLES ── */
+.tbl{width:100%;border-collapse:collapse;font-size:13px;margin-bottom:18px}
+.tbl th{text-align:left;padding:9px 13px;background:rgba(43,47,74,.04);border-bottom:1px solid var(--border);font-size:10.5px;font-weight:500;letter-spacing:.09em;text-transform:uppercase;color:var(--mist)}
+.tbl td{padding:9px 13px;border-bottom:1px solid rgba(43,47,74,.06);vertical-align:top;line-height:1.5}
+.tbl tr:last-child td{border-bottom:none}
+.tbl tr:hover td{background:rgba(43,47,74,.025)}
+.tbl td code{background:rgba(43,47,74,.07);padding:1px 5px;border-radius:4px;font-family:'SF Mono',monospace;font-size:11.5px;color:var(--indigo)}
+
+/* ── RULE LISTS ── */
+.rlist{list-style:none;padding:0}
+.rlist li{padding:7px 0 7px 18px;position:relative;border-bottom:1px solid rgba(43,47,74,.06);font-size:13.5px}
+.rlist li:last-child{border-bottom:none}
+.rlist li::before{content:'—';position:absolute;left:0;color:var(--gold)}
+
+/* ── CODE BLOCKS ── */
+.code{background:var(--indigo);color:var(--magnolia);border-radius:8px;padding:16px 20px;font-family:'SF Mono','Fira Code',monospace;font-size:11.5px;line-height:1.8;margin-bottom:14px;overflow-x:auto;white-space:pre}
+.c-comment{color:rgba(201,168,76,.55)}
+.c-key{color:var(--gold)}
+.c-val{color:#A8D8A8}
+.c-str{color:#F4B8B8}
+.c-op{color:#A0C8F8}
+
+/* ── DIVIDERS ── */
+hr.gd{border:none;border-top:1px solid rgba(201,168,76,.28);margin:30px 0}
+.h2{font-family:var(--fd);font-size:22px;font-weight:400;color:var(--indigo);margin:28px 0 12px;padding-bottom:8px;border-bottom:1px solid var(--border)}
+.h3{font-family:var(--fb);font-size:12px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:var(--mist);margin:22px 0 10px}
+p.note{font-size:13px;font-style:italic;color:var(--mist);padding:10px 14px;border-left:3px solid var(--gold);background:rgba(201,168,76,.06);border-radius:0 6px 6px 0;margin-bottom:14px}
+
+/* ── FLOW DIAGRAM ── */
+.flow{display:flex;align-items:center;flex-wrap:wrap;gap:6px;margin:14px 0 20px}
+.flow-node{background:var(--indigo);color:var(--magnolia);padding:8px 14px;border-radius:6px;font-size:12px;font-weight:500;white-space:nowrap}
+.flow-node.gold{background:var(--gold);color:var(--ink)}
+.flow-node.lite{background:rgba(43,47,74,.08);color:var(--indigo)}
+.flow-arrow{color:var(--gold);font-size:16px;line-height:1}
+
+/* ── TWO COL ── */
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:18px}
+@media(max-width:680px){.two-col{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="hdr">
+  <div class="hdr-eye">Rumi-Nations LLC · Midnight Magnolia</div>
+  <h1 class="hdr-title">Canonical Master Plan</h1>
+  <p class="hdr-sub">Website · Notion · Airtable · Zapier / Make.com — one living record</p>
+  <div class="hdr-meta">
+    Latisha Vincent-Waters · Ravenel, SC · midnightmagnolia.com
+    <span class="vbadge">v2 · May 2026</span>
+  </div>
+</header>
+
+<!-- TAB NAV -->
+<nav class="tabs">
+  <button class="tab on"  onclick="show('canon')">🜁 Canonical Rules</button>
+  <button class="tab"     onclick="show('products')">🌿 Products</button>
+  <button class="tab"     onclick="show('site')">🌐 Website (Cursor)</button>
+  <button class="tab"     onclick="show('notion')">📓 Notion</button>
+  <button class="tab"     onclick="show('airtable')">📊 Airtable</button>
+  <button class="tab"     onclick="show('zapier')">⚡ Zapier / Make</button>
+  <button class="tab"     onclick="show('affiliate')">🔗 Affiliate</button>
+</nav>
+
+<!-- ════════════════ PANEL 1 · CANONICAL RULES ════════════════ -->
+<main class="main">
+<section class="panel on" id="panel-canon">
+  <div class="slabel">Section 01</div>
+  <h2 class="stitle">Canonical Brand Rules</h2>
+  <p class="sdesc">The single source of truth. Apply these to every tool, every session, every build.</p>
+
+  <div class="h2">Brand Identity Tokens</div>
+  <div class="swatch-row">
+    <div class="swatch">
+      <div class="swatch-color" style="background:#2B2F4A"></div>
+      <div class="swatch-info"><div class="swatch-name">Midnight Indigo</div><div class="swatch-hex">#2B2F4A — primary bg, headings</div></div>
+    </div>
+    <div class="swatch">
+      <div class="swatch-color" style="background:#C9A84C"></div>
+      <div class="swatch-info"><div class="swatch-name">Southern Amber / Gold</div><div class="swatch-hex">#C9A84C — accent, CTA, dividers</div></div>
+    </div>
+    <div class="swatch">
+      <div class="swatch-color" style="background:#F5F0E8;border-bottom:1px solid #ddd"></div>
+      <div class="swatch-info"><div class="swatch-name">Magnolia White</div><div class="swatch-hex">#F5F0E8 — page bg, interior pages</div></div>
+    </div>
+    <div class="swatch">
+      <div class="swatch-color" style="background:#1A1D2E"></div>
+      <div class="swatch-info"><div class="swatch-name">Deep Ink</div><div class="swatch-hex">#1A1D2E — body text</div></div>
+    </div>
+    <div class="swatch">
+      <div class="swatch-color" style="background:#6B7089"></div>
+      <div class="swatch-info"><div class="swatch-name">Lavender Mist</div><div class="swatch-hex">#6B7089 — secondary text, captions</div></div>
+    </div>
+  </div>
+
+  <div class="h3">Typography Stack</div>
+  <table class="tbl">
+    <tr><th>Role</th><th>Font</th><th>Weights</th><th>Use</th></tr>
+    <tr><td>Display / Headings</td><td><code>Cormorant Garamond</code></td><td>300, 400, 600; italic variants</td><td>Page titles, product names, journal prompts, cover art</td></tr>
+    <tr><td>Body / UI</td><td><code>DM Sans</code></td><td>300, 400, 500</td><td>Nav, descriptions, form labels, metadata, buttons</td></tr>
+    <tr><td>Fallback (body)</td><td><code>Georgia, serif</code></td><td>Regular, italic</td><td>Prompt framing text inside PDFs</td></tr>
+    <tr><td>Code / Tokens</td><td><code>SF Mono, Fira Code</code></td><td>Regular</td><td>Dev references, hex values, field names</td></tr>
+  </table>
+
+  <div class="h3">CSS Design Tokens — copy into every project</div>
+  <div class="code"><span class="c-comment">/* mm-tokens.css — Midnight Magnolia v2 */</span>
+:root {
+  <span class="c-comment">/* Palette */</span>
+  <span class="c-key">--mm-indigo</span>: <span class="c-val">#2B2F4A</span>;
+  <span class="c-key">--mm-gold</span>: <span class="c-val">#C9A84C</span>;
+  <span class="c-key">--mm-gold-light</span>: <span class="c-val">#E8C97A</span>;
+  <span class="c-key">--mm-magnolia</span>: <span class="c-val">#F5F0E8</span>;
+  <span class="c-key">--mm-magnolia-dark</span>: <span class="c-val">#E8E0D0</span>;
+  <span class="c-key">--mm-ink</span>: <span class="c-val">#1A1D2E</span>;
+  <span class="c-key">--mm-mist</span>: <span class="c-val">#6B7089</span>;
+
+  <span class="c-comment">/* Typography */</span>
+  <span class="c-key">--mm-font-display</span>: <span class="c-str">'Cormorant Garamond', Georgia, serif</span>;
+  <span class="c-key">--mm-font-body</span>: <span class="c-str">'DM Sans', system-ui, sans-serif</span>;
+
+  <span class="c-comment">/* Spacing */</span>
+  <span class="c-key">--mm-radius</span>: <span class="c-val">12px</span>;
+  <span class="c-key">--mm-radius-sm</span>: <span class="c-val">6px</span>;
+  <span class="c-key">--mm-border</span>: <span class="c-val">rgba(43,47,74,.14)</span>;
+}</div>
+
+  <div class="h2">Brand Voice Rules</div>
+  <div class="card">
+    <div class="card-title">Voice Principles <span class="badge b-gold">always apply</span></div>
+    <ul class="rlist" style="margin-top:10px">
+      <li>Healing-centered, not performative. The voice holds space; it does not command action.</li>
+      <li>Southern Gothic register: literary, rooted in place, not afraid of shadow or grief.</li>
+      <li>Anti-hustle always. Never use words: grind, crush, kill it, scale fast, optimize, leverage.</li>
+      <li>Neurodivergent-affirming: gentle pacing, one visible next action, no walls of text.</li>
+      <li>Trauma-informed: no urgency language, no countdown timers, no manufactured scarcity.</li>
+      <li>Lowcountry-rooted: Latisha's voice, story, and genealogy are the brand differentiator.</li>
+      <li>Recovery-aware: never shame or pathologize. The brand lives in reclamation, not diagnosis.</li>
+      <li>Preferred sentence length: medium. Two short sentences over one run-on.</li>
+      <li>Never open with "I" — open with the reader's experience or a grounded observation.</li>
+      <li>Calls to action are invitations, not commands: "Begin when you're ready." not "Buy now!"</li>
+    </ul>
+  </div>
+
+  <div class="h2">Persona System — Agent Triad</div>
+  <div class="two-col">
+    <div class="card">
+      <div class="card-title">🌿 ZORA</div>
+      <div class="card-meta">Essentialist Clarity Coach</div>
+      <div class="card-body" style="margin-top:10px">
+        Calm, concise, warm, reflective. Asks 3–5 scoping questions first. Ends every session with "Do this in the next 24 hours." One visible next action. No frameworks, no jargon. Trigger: overwhelm, emotional, unclear.
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-title">🔧 SAIMON</div>
+      <div class="card-meta">Technical Execution + Build Engineer</div>
+      <div class="card-body" style="margin-top:10px">
+        Direct, numbered steps, full code (never partials). Domains: Java, Python, HTML/CSS/JS, shell scripting, system configs. Prioritizes correctness and reproducibility. Trigger: build, debug, configure.
+      </div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-title">🌕 BUSINESS AGENT</div>
+    <div class="card-meta">Strategy, Monetization, Systems Designer</div>
+    <div class="card-body" style="margin-top:10px">
+      Confident, warm, elegant Southern Gothic sophistication. Maintains MM aesthetics in all outputs. Domains: brand, KDP/Etsy/Wix/Stan Store, marketing calendars, funnels, Airtable/Notion/Zapier automation. Never: corporate buzzwords, hustle culture, overly formal tone. Trigger: branding, products, strategy, monetization.
+    </div>
+  </div>
+
+  <div class="h2">Tech Stack — Canonical Mapping</div>
+  <table class="tbl">
+    <tr><th>Tool</th><th>Platform</th><th>Role</th><th>Owned By</th></tr>
+    <tr><td>midnight-magnolia.com</td><td>Wix Studio → Cursor for custom code</td><td>Brand site, trust builder, email capture</td><td>Rumi-Nations LLC</td></tr>
+    <tr><td>Stan Store</td><td>stanstore.com</td><td>Product delivery, checkout, memberships, email automation</td><td>Latisha Vincent</td></tr>
+    <tr><td>Notion</td><td>notion.so + Notion AI</td><td>Content planning, product build tracker, knowledge base</td><td>Latisha Vincent</td></tr>
+    <tr><td>Airtable</td><td>airtable.com + Omni</td><td>CRM, affiliate pipeline, job search tracker, analytics</td><td>Latisha Vincent</td></tr>
+    <tr><td>Canva Pro</td><td>canva.com</td><td>All PDF design, mockups, social content</td><td>Latisha Vincent</td></tr>
+    <tr><td>Zapier / Make.com</td><td>zapier.com / make.com</td><td>Cross-platform automation glue</td><td>Rumi-Nations LLC</td></tr>
+    <tr><td>Gumroad</td><td>gumroad.com</td><td>First sales platform (parallel to Stan Store)</td><td>Latisha Vincent</td></tr>
+    <tr><td>Printify</td><td>printify.com</td><td>POD physical products (Phase 1: journal + candle)</td><td>Rumi-Nations LLC</td></tr>
+    <tr><td>Career OS</td><td>Local HTML/CSS/JS + Anthropic API</td><td>Job search dashboard at /Users/latishaimara/Development/Projects/Active/CareerSystem/</td><td>Latisha Vincent</td></tr>
+  </table>
+
+  <div class="h2">Entity & Legal</div>
+  <table class="tbl">
+    <tr><th>Field</th><th>Value</th></tr>
+    <tr><td>Legal entity</td><td>Rumi-Nations LLC</td></tr>
+    <tr><td>Brand DBA</td><td>Midnight Magnolia</td></tr>
+    <tr><td>Founder</td><td>Latisha Vincent-Waters</td></tr>
+    <tr><td>Location</td><td>Ravenel, SC (Lowcountry South Carolina)</td></tr>
+    <tr><td>Website</td><td>midnightmagnolia.com · midnight-magnolia.com</td></tr>
+    <tr><td>Instagram</td><td>@noirmagnoliasc</td></tr>
+    <tr><td>Revenue goal</td><td>$4,000/month</td></tr>
+    <tr><td>MLIS goal</td><td>NCCU (ALA-accredited HBCU) or USC Columbia dual Public History + MLIS</td></tr>
+  </table>
+</section>
+
+<!-- ════════════════ PANEL 2 · PRODUCTS ════════════════ -->
+<section class="panel" id="panel-products">
+  <div class="slabel">Section 02</div>
+  <h2 class="stitle">Product Catalog</h2>
+  <p class="sdesc">Six products built as a complete healing ecosystem. Build order: P1 → P4 → P2 → P3 → P5 → P6.</p>
+
+  <p class="note">P1 + P4 + P2 = the minimum viable revenue loop. Launch these three before anything else.</p>
+
+  <table class="tbl">
+    <tr><th>#</th><th>Title</th><th>Price</th><th>Type</th><th>Stan Store Type</th><th>Status</th></tr>
+    <tr><td><strong>P1</strong></td><td>The Gentle Beginning</td><td>FREE</td><td>Lead Magnet PDF (8–10 pp)</td><td>Freebie / Email Optin</td><td><span class="badge b-crit">Build first</span></td></tr>
+    <tr><td><strong>P4</strong></td><td>Magnolia Circle Membership</td><td>$9/mo</td><td>Monthly Membership</td><td>Membership / Subscription</td><td><span class="badge b-crit">Build second</span></td></tr>
+    <tr><td><strong>P2</strong></td><td>Shadow Work Starter Kit</td><td>$9</td><td>Digital Download PDF (40–50 pp)</td><td>Digital Download</td><td><span class="badge b-crit">Build third</span></td></tr>
+    <tr><td><strong>P3</strong></td><td>Ancestral Healing Journal</td><td>$19</td><td>Digital Download PDF (50–60 pp)</td><td>Digital Download</td><td><span class="badge b-high">Week 1</span></td></tr>
+    <tr><td><strong>P5</strong></td><td>Creative Foundations Workbook</td><td>$29</td><td>Digital Download PDF (60–70 pp)</td><td>Digital Download</td><td><span class="badge b-high">Week 1</span></td></tr>
+    <tr><td><strong>P6</strong></td><td>Deep Roots Shadow Work System</td><td>$49</td><td>Bundle (3 PDFs + optional video)</td><td>Digital Download / Bundle</td><td><span class="badge b-med">Week 2</span></td></tr>
+    <tr><td><strong>S1</strong></td><td>1:1 Creative Strategy Session</td><td>$97–$147</td><td>Service / Booking</td><td>Booking + Calendar</td><td><span class="badge b-med">Week 3</span></td></tr>
+  </table>
+
+  <div class="h2">Product Design Specifications</div>
+  <div class="card">
+    <div class="card-title">PDF Design System — apply to all products</div>
+    <div style="margin-top:12px">
+      <table class="tbl">
+        <tr><th>Element</th><th>Spec</th></tr>
+        <tr><td>Cover background</td><td>Midnight Indigo <code>#2B2F4A</code></td></tr>
+        <tr><td>Interior background</td><td>Magnolia White <code>#F5F0E8</code></td></tr>
+        <tr><td>Primary text</td><td>Deep Ink <code>#1A1D2E</code></td></tr>
+        <tr><td>Accents / dividers</td><td>Southern Gold <code>#C9A84C</code></td></tr>
+        <tr><td>Prompt font</td><td>Cormorant Garamond 16–18pt, centered, generous white space</td></tr>
+        <tr><td>Body / framing</td><td>DM Sans or Georgia 11–12pt</td></tr>
+        <tr><td>Page size</td><td>8.5 × 11 US Letter (also readable on tablet)</td></tr>
+        <tr><td>Writing lines</td><td>Soft gold dot-grid or ruled — never dark, never clinical</td></tr>
+        <tr><td>Mockup style</td><td>Flat lay — journal on dark wood, candle, dried botanicals (Canva mockup)</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="h2">Magnolia Circle — 12-Month Content Calendar</div>
+  <table class="tbl">
+    <tr><th>Month</th><th>Theme</th><th>Shadow Work Focus</th><th>Bonus / Ritual</th></tr>
+    <tr><td>1</td><td>The Gentle Foundation</td><td>Who am I when no one is performing?</td><td>Welcome ritual — candle + intention</td></tr>
+    <tr><td>2</td><td>What Was Planted</td><td>Inherited beliefs and early wounding</td><td>Lineage mapping page</td></tr>
+    <tr><td>3</td><td>Grief as a Practice</td><td>Loss, mourning, what we never got to say</td><td>Letters to the ones who are gone</td></tr>
+    <tr><td>4</td><td>The Body Knows</td><td>Somatic shadow work, where emotion lives</td><td>Body scan + breath practice PDF</td></tr>
+    <tr><td>5</td><td>Rest as Resistance</td><td>Unlearning productivity as worth</td><td>Rest ritual + slow morning guide</td></tr>
+    <tr><td>6</td><td>The Neurodivergent Self</td><td>Masking, shame, late diagnosis, reclaiming</td><td>ND-affirming affirmation set</td></tr>
+    <tr><td>7</td><td>Creativity as Healing</td><td>Making things as a recovery practice</td><td>5-day creative prompt sprint</td></tr>
+    <tr><td>8</td><td>Ancestral Roots</td><td>Lineage, diaspora, what was lost and held</td><td>Bonus ancestral healing prompts</td></tr>
+    <tr><td>9</td><td>Boundaries and Becoming</td><td>Relationships, self-protection, saying no</td><td>Boundary reflection journal page</td></tr>
+    <tr><td>10</td><td>The Shadow of Success</td><td>Ambition, visibility, fear of being seen</td><td>Vision-clarity writing exercise</td></tr>
+    <tr><td>11</td><td>Sober and Reclaimed</td><td>Recovery, identity reconstruction</td><td>Letters to the version of you who was lost</td></tr>
+    <tr><td>12</td><td>The Return</td><td>Integration, what has changed, who you are now</td><td>Year-end reflection workbook (bonus)</td></tr>
+  </table>
+
+  <div class="h2">Revenue Model</div>
+  <table class="tbl">
+    <tr><th>Scenario</th><th>Magnolia Circle</th><th>Digital Products (est.)</th><th>Monthly Total</th></tr>
+    <tr><td>Launch (50 members)</td><td>$450</td><td>$300</td><td><strong>~$750</strong></td></tr>
+    <tr><td>Growth (100 members)</td><td>$900</td><td>$600</td><td><strong>~$1,500</strong></td></tr>
+    <tr><td>Target (300 members)</td><td>$2,700</td><td>$1,000+</td><td><strong>~$3,700+</strong></td></tr>
+    <tr><td>Goal (500 members)</td><td>$4,500</td><td>$1,500+</td><td><strong>~$6,000+</strong></td></tr>
+  </table>
+</section>
+
+<!-- ════════════════ PANEL 3 · WEBSITE ════════════════ -->
+<section class="panel" id="panel-site">
+  <div class="slabel">Section 03</div>
+  <h2 class="stitle">Website Plan (Cursor)</h2>
+  <p class="sdesc">midnight-magnolia.com on Wix Studio — all custom code work done in Cursor against mm-tokens.css.</p>
+
+  <p class="note">CRITICAL: Do not send affiliate traffic until Stan Store is live AND the Sanctuary + Library pages are rebuilt. The current site has Wix medical template placeholder content visible to visitors.</p>
+
+  <div class="h2">Emergency Fixes — Do These First (under 30 min total)</div>
+  <table class="tbl">
+    <tr><th>Fix</th><th>Where</th><th>Priority</th><th>Time</th></tr>
+    <tr><td>Delete Wix-branded social links from footer (second row)</td><td>Wix → Footer settings</td><td><span class="badge b-crit">Critical</span></td><td>5 min</td></tr>
+    <tr><td>Fix Shop nav → point to Stan Store URL</td><td>Wix → Nav settings</td><td><span class="badge b-crit">Critical</span></td><td>5 min</td></tr>
+    <tr><td>Fix About nav → redirect to Sanctuary temporarily</td><td>Wix → Nav settings</td><td><span class="badge b-crit">Critical</span></td><td>5 min</td></tr>
+    <tr><td>Fix Contact nav → point to Sanctuary contact form</td><td>Wix → Nav settings</td><td><span class="badge b-crit">Critical</span></td><td>5 min</td></tr>
+    <tr><td>Fix Grimoire submenu (all links → homepage)</td><td>Wix → Nav settings</td><td><span class="badge b-crit">Critical</span></td><td>10 min</td></tr>
+    <tr><td>Rename Blog → Dusk Letters in nav</td><td>Wix → Nav settings</td><td><span class="badge b-high">High</span></td><td>2 min</td></tr>
+  </table>
+
+  <div class="h2">Page-by-Page Build Plan</div>
+
+  <div class="card">
+    <div class="card-head">
+      <div><div class="card-title">Homepage</div><div class="card-meta">midnight-magnolia.com — LIVE, minor fixes</div></div>
+      <span class="badge b-high">High</span>
+    </div>
+    <ul class="rlist">
+      <li>Add email capture form above the fold OR as sticky footer bar (connect to Stan Store email list)</li>
+      <li>Verify all 3 section card CTAs: Journals → P2 Stan Store, Digital Tools → P5 Stan Store, Creative Support → S1 booking</li>
+      <li>Confirm mobile layout: hero text + images stack correctly on iPhone</li>
+      <li>Homepage hero CTA "Begin your healing kit" → Free Starter Kit Stan Store page</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <div class="card-head">
+      <div><div class="card-title">The Sanctuary</div><div class="card-meta">midnight-magnolia.com/the-sanctuary — FULL REBUILD required</div></div>
+      <span class="badge b-crit">Critical</span>
+    </div>
+    <p style="margin-bottom:12px;font-size:13.5px;color:#444">Remove ALL Wix medical template content (fake doctors, stock photos). Replace with:</p>
+    <ul class="rlist">
+      <li><strong>Hero:</strong> Headline "You don't have to earn your rest." · Subhead (brand voice) · CTA "Start with a free resource →"</li>
+      <li><strong>Free Resources (3 cards):</strong> The Gentle Beginning PDF · Moon Phase Ritual Guide · Ancestral Healing Prompts — each links to Stan Store freebie</li>
+      <li><strong>Magnolia Circle CTA block:</strong> "The Magnolia Circle is waiting for you." · 3 benefits · $9/month · "Join the Circle →"</li>
+      <li><strong>About Latisha (3–4 sentences):</strong> Lowcountry roots · neurodivergent · writer · builder · "I made this for you because I needed it first."</li>
+      <li><strong>Contact form:</strong> Name, Email, Message — simple, no medical template elements</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <div class="card-head">
+      <div><div class="card-title">The Library</div><div class="card-meta">midnight-magnolia.com/the-library-portfolio — FULL REBUILD (Option A recommended)</div></div>
+      <span class="badge b-crit">Critical</span>
+    </div>
+    <ul class="rlist">
+      <li>Replace stock art portfolio items (Silent Whispers, Digital Dreams, Forest Echoes) with MM products</li>
+      <li><strong>Option A (recommended):</strong> Digital Product Catalog — product cards with mockup, title, 1-sentence desc, price, "Get It →" linking to Stan Store</li>
+      <li>Each product card: P1 (Free), P2 ($9), P3 ($19), P4 ($9/mo), P5 ($29), P6 ($49), S1 ($97)</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <div class="card-head">
+      <div><div class="card-title">About Page</div><div class="card-meta">Build new — no page exists</div></div>
+      <span class="badge b-high">High</span>
+    </div>
+    <ul class="rlist">
+      <li>Hero image: Latisha, candid, Lowcountry setting — not a headshot</li>
+      <li>Opening: "I built Midnight Magnolia because I needed it first…" (voice-first, not formal bio)</li>
+      <li>What this place is (3 short bullets)</li>
+      <li>The Midnight Magnolia Name — Southern Gothic significance, magnolia as symbol, midnight as sacred dark time</li>
+      <li>Latisha's Roots — Lowcountry, Vincent family history, genealogy research</li>
+      <li>Brand Values: "Rest is strategy." / "You don't have to earn your healing." / "Slow creation is still creation."</li>
+      <li>CTA: "Come into the Sanctuary →"</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <div class="card-head">
+      <div><div class="card-title">The Grimoire</div><div class="card-meta">Build new — gated with email optin (Option 3)</div></div>
+      <span class="badge b-high">High</span>
+    </div>
+    <ul class="rlist">
+      <li>Gate: email optin collects list, grants Grimoire access — builds email list while delivering value</li>
+      <li><strong>Content categories:</strong> Shadow Work Prompts (by theme) · Moon Phase Rituals · Ancestral Healing · ND Creator Guides · Dusk Letters Archive</li>
+      <li>Future state: full Magnolia Circle members-only version with exclusive content</li>
+    </ul>
+  </div>
+
+  <div class="h2">Stan Store Architecture</div>
+  <table class="tbl">
+    <tr><th>Product</th><th>Price</th><th>Stan Type</th><th>Priority</th></tr>
+    <tr><td>Free Starter Kit (The Gentle Beginning)</td><td>$0</td><td>Freebie / Email Optin</td><td><span class="badge b-crit">Launch day</span></td></tr>
+    <tr><td>Magnolia Circle Membership</td><td>$9/mo</td><td>Membership / Subscription</td><td><span class="badge b-crit">Launch day</span></td></tr>
+    <tr><td>Shadow Work Starter Kit</td><td>$9</td><td>Digital Download</td><td><span class="badge b-crit">Launch day</span></td></tr>
+    <tr><td>Ancestral Healing Journal</td><td>$19</td><td>Digital Download</td><td><span class="badge b-high">Week 1</span></td></tr>
+    <tr><td>Creative Foundations Workbook</td><td>$29</td><td>Digital Download</td><td><span class="badge b-high">Week 1</span></td></tr>
+    <tr><td>Deep Roots Shadow Work System</td><td>$49</td><td>Bundle / Digital Download</td><td><span class="badge b-med">Week 2</span></td></tr>
+    <tr><td>1:1 Creative Strategy Session</td><td>$97–$147</td><td>Booking / Service</td><td><span class="badge b-med">Week 3</span></td></tr>
+    <tr><td>Dusk Letters Newsletter</td><td>$0</td><td>Email Optin</td><td><span class="badge b-crit">Launch day</span></td></tr>
+  </table>
+
+  <div class="h3">Stan Store Email Automations (build before launch)</div>
+  <table class="tbl">
+    <tr><th>Sequence</th><th>Email</th><th>Timing</th><th>Content</th></tr>
+    <tr><td rowspan="3">Free Starter Kit welcome</td><td>Email 1</td><td>Immediate</td><td>Deliver freebie PDF + warm welcome. No pitch.</td></tr>
+    <tr><td>Email 2</td><td>Day 3</td><td>"How are you using the prompts?" + soft intro to Magnolia Circle</td></tr>
+    <tr><td>Email 3</td><td>Day 7</td><td>Offer Shadow Work Starter Kit ($9) as "your next step"</td></tr>
+    <tr><td>Magnolia Circle onboarding</td><td>Welcome</td><td>On join</td><td>Welcome to the Circle · what to expect · this month's theme + first resource drop</td></tr>
+    <tr><td>Monthly newsletter</td><td>Dusk Letters</td><td>Monthly</td><td>1 journal prompt · 1 reflection · 1 soft announcement. No more.</td></tr>
+  </table>
+
+  <div class="h2">Wix → Stan Store Link Map</div>
+  <table class="tbl">
+    <tr><th>Wix Page / Element</th><th>Stan Store Destination</th><th>Purpose</th></tr>
+    <tr><td>Homepage hero CTA</td><td>Free Starter Kit page</td><td>Top-of-funnel email capture</td></tr>
+    <tr><td>Homepage — Journals card</td><td>Shadow Work Starter Kit ($9)</td><td>Product discovery</td></tr>
+    <tr><td>Homepage — Creative Tools card</td><td>Creative Foundations Workbook ($29)</td><td>Product discovery</td></tr>
+    <tr><td>Homepage — Creative Support card</td><td>1:1 Strategy Session booking</td><td>High-ticket service</td></tr>
+    <tr><td>Sanctuary — Magnolia Circle CTA</td><td>Magnolia Circle membership</td><td>Membership conversion</td></tr>
+    <tr><td>Sanctuary — 3 free resource cards</td><td>Freebie pages (email optin)</td><td>List building</td></tr>
+    <tr><td>Grimoire (gated)</td><td>Email optin or Magnolia Circle join</td><td>List building / membership</td></tr>
+    <tr><td>Every blog post — bottom CTA</td><td>Relevant product or freebie</td><td>Content-to-product bridge</td></tr>
+    <tr><td>Nav: Shop</td><td>Stan Store main page</td><td>Direct product access</td></tr>
+  </table>
+</section>
+
+<!-- ════════════════ PANEL 4 · NOTION ════════════════ -->
+<section class="panel" id="panel-notion">
+  <div class="slabel">Section 04</div>
+  <h2 class="stitle">Notion Workspace</h2>
+  <p class="sdesc">For Notion AI. Structure, database schemas, and naming conventions — apply exactly as specified.</p>
+
+  <div class="h2">Workspace Structure</div>
+  <div class="code"><span class="c-comment">## Midnight Magnolia — Notion Workspace Map</span>
+
+📁 <span class="c-key">HOME</span>
+├── 🌙 <span class="c-val">MM Dashboard</span>          <span class="c-comment"># linked views of all databases</span>
+├── 📋 <span class="c-val">Weekly Review</span>          <span class="c-comment"># ZORA template, energy-aware</span>
+└── 🜁 <span class="c-val">Canonical Rules</span>        <span class="c-comment"># this doc, synced</span>
+
+📁 <span class="c-key">BRAND</span>
+├── 🌿 <span class="c-val">Voice + Style Guide</span>
+├── 🎨 <span class="c-val">Design Tokens</span>          <span class="c-comment"># colors, fonts, spacing</span>
+└── 📸 <span class="c-val">Asset Library</span>
+
+📁 <span class="c-key">PRODUCTS</span>
+├── 📦 <span class="c-val">Product Pipeline DB</span>    <span class="c-comment"># database</span>
+├── 📅 <span class="c-val">Content Calendar DB</span>    <span class="c-comment"># database</span>
+├── 📝 <span class="c-val">Prompt Bank</span>            <span class="c-comment"># raw prompts for all products</span>
+└── 🎨 <span class="c-val">Canva Design Tracker</span>
+
+📁 <span class="c-key">AUDIENCE</span>
+├── 🤝 <span class="c-val">Affiliate DB</span>           <span class="c-comment"># database (mirror of Airtable)</span>
+├── 💌 <span class="c-val">Email Sequence Bank</span>
+└── 👥 <span class="c-val">Magnolia Circle Notes</span>  <span class="c-comment"># member themes, feedback</span>
+
+📁 <span class="c-key">CAREER</span>
+├── 💼 <span class="c-val">Job Search DB</span>          <span class="c-comment"># database (mirror of Airtable)</span>
+├── 📄 <span class="c-val">Resume Vault</span>           <span class="c-comment"># all 5 tracks + IAAM</span>
+└── 🎓 <span class="c-val">MLIS Research</span>
+
+📁 <span class="c-key">GENEALOGY</span>
+├── 🌳 <span class="c-val">Vincent / Vinson Lines</span>
+├── 📜 <span class="c-val">Source Log</span>
+└── 🗺 <span class="c-val">Geographic Index</span>       <span class="c-comment"># Caswell Co NC · SC Lowcountry · S. Virginia</span></div>
+
+  <div class="h2">Database Schemas</div>
+
+  <div class="card">
+    <div class="card-title">Product Pipeline DB</div>
+    <div class="card-meta">Tracks all 6 products + service through build stages</div>
+    <div style="margin-top:14px">
+      <table class="tbl">
+        <tr><th>Field Name</th><th>Type</th><th>Values / Notes</th></tr>
+        <tr><td><code>Product Name</code></td><td>Title</td><td>P1–P6, S1</td></tr>
+        <tr><td><code>Price</code></td><td>Number (currency)</td><td>0, 9, 19, 29, 49, 97</td></tr>
+        <tr><td><code>Type</code></td><td>Select</td><td>Lead Magnet · Paid Download · Membership · Bundle · Service</td></tr>
+        <tr><td><code>Build Stage</code></td><td>Select</td><td>Not Started · Content Draft · Design In Progress · Stan Store Live · Complete</td></tr>
+        <tr><td><code>Content Done</code></td><td>Checkbox</td><td></td></tr>
+        <tr><td><code>Design Done</code></td><td>Checkbox</td><td></td></tr>
+        <tr><td><code>Stan Store Live</code></td><td>Checkbox</td><td></td></tr>
+        <tr><td><code>Canva File URL</code></td><td>URL</td><td>Link to Canva design</td></tr>
+        <tr><td><code>Stan Store URL</code></td><td>URL</td><td>Live product page</td></tr>
+        <tr><td><code>Priority</code></td><td>Select</td><td>Critical · High · Medium · Low</td></tr>
+        <tr><td><code>Notes</code></td><td>Text</td><td>Build notes, next action</td></tr>
+        <tr><td><code>Last Updated</code></td><td>Last edited time</td><td>Auto</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Content Calendar DB</div>
+    <div class="card-meta">Blog posts, social, Dusk Letters, Magnolia Circle drops</div>
+    <div style="margin-top:14px">
+      <table class="tbl">
+        <tr><th>Field Name</th><th>Type</th><th>Values / Notes</th></tr>
+        <tr><td><code>Title</code></td><td>Title</td><td></td></tr>
+        <tr><td><code>Content Type</code></td><td>Select</td><td>Dusk Letters · Blog · TikTok · Facebook · Instagram · Magnolia Circle Drop · YouTube</td></tr>
+        <tr><td><code>Status</code></td><td>Select</td><td>Idea · Drafting · Designed · Scheduled · Published</td></tr>
+        <tr><td><code>Publish Date</code></td><td>Date</td><td></td></tr>
+        <tr><td><code>Platform</code></td><td>Multi-select</td><td>Wix Blog · Stan Store · TikTok · Facebook · Instagram · YouTube · Email</td></tr>
+        <tr><td><code>Product Link</code></td><td>Relation → Product Pipeline DB</td><td>Which product does this content serve?</td></tr>
+        <tr><td><code>Affiliate Link</code></td><td>Relation → Affiliate DB</td><td>Optional — if content promotes an affiliate</td></tr>
+        <tr><td><code>Theme Tag</code></td><td>Multi-select</td><td>Shadow Work · Ancestral Healing · ND Creator · Genealogy · Recovery · Rest · Southern Gothic</td></tr>
+        <tr><td><code>Copy Doc</code></td><td>URL</td><td>Link to Google Doc or Notion sub-page</td></tr>
+        <tr><td><code>Repurpose To</code></td><td>Text</td><td>Note which formats this can become</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Job Search DB</div>
+    <div class="card-meta">All active applications — MM track + corporate track</div>
+    <div style="margin-top:14px">
+      <table class="tbl">
+        <tr><th>Field Name</th><th>Type</th><th>Values / Notes</th></tr>
+        <tr><td><code>Role Title</code></td><td>Title</td><td></td></tr>
+        <tr><td><code>Company</code></td><td>Text</td><td></td></tr>
+        <tr><td><code>Track</code></td><td>Select</td><td>A (AI Enablement) · B (Implementation PM) · C (Digital Learning) · D (Program Mgmt) · E (Ops/Compliance) · IAAM / Archive</td></tr>
+        <tr><td><code>Salary Range</code></td><td>Text</td><td>e.g. $120K–$150K</td></tr>
+        <tr><td><code>Remote</code></td><td>Checkbox</td><td></td></tr>
+        <tr><td><code>Status</code></td><td>Select</td><td>Researching · Applied · Phone Screen · Interview · Final Round · Offer · Rejected · Withdrawn</td></tr>
+        <tr><td><code>Applied Date</code></td><td>Date</td><td></td></tr>
+        <tr><td><code>Resume Used</code></td><td>Select</td><td>Track A · B · C · D · E · IAAM Custom</td></tr>
+        <tr><td><code>Job URL</code></td><td>URL</td><td></td></tr>
+        <tr><td><code>Notes</code></td><td>Text</td><td>Key impact metrics used, tailoring notes</td></tr>
+        <tr><td><code>Follow-up Date</code></td><td>Date</td><td></td></tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="h2">Notion AI Prompt Templates</div>
+  <div class="card">
+    <div class="card-title">AI prompts to use inside Notion</div>
+    <div class="code" style="margin-top:12px"><span class="c-comment"># Content brief from Notion AI</span>
+<span class="c-str">"Write a Dusk Letters newsletter intro for the theme [THEME]. 
+Tone: healing-centered, Southern Gothic, warm and literary. 
+Length: 3 short paragraphs. No hustle language. 
+Voice: Latisha Vincent, Lowcountry South Carolina founder."</span>
+
+<span class="c-comment"># Product description</span>
+<span class="c-str">"Write a Stan Store product description for [PRODUCT NAME] at $[PRICE]. 
+Audience: neurodivergent women, healing-centered creators.
+Format: bold headline, 2-sentence description, 4-bullet what's inside, CTA invitation.
+Avoid: clinical language, urgency, hustle culture."</span>
+
+<span class="c-comment"># Journal prompt generation</span>
+<span class="c-str">"Generate 5 shadow work prompts for the theme [THEME]. 
+Style: Cormorant Garamond poetic — open, spacious, not clinical.
+Format: numbered, each prompt 1-2 sentences, no instructions."</span></div>
+  </div>
+</section>
+
+<!-- ════════════════ PANEL 5 · AIRTABLE ════════════════ -->
+<section class="panel" id="panel-airtable">
+  <div class="slabel">Section 05</div>
+  <h2 class="stitle">Airtable Bases (Omni)</h2>
+  <p class="sdesc">For Omni / Airtable AI. Two bases: Midnight Magnolia Operations and Career Command.</p>
+
+  <div class="h2">Base 1 — Midnight Magnolia Operations</div>
+
+  <div class="card">
+    <div class="card-title">Table: Products</div>
+    <div style="margin-top:12px">
+      <table class="tbl">
+        <tr><th>Field</th><th>Airtable Type</th><th>Options / Notes</th></tr>
+        <tr><td><code>Product Name</code></td><td>Single line text (Primary)</td><td>P1: The Gentle Beginning, etc.</td></tr>
+        <tr><td><code>Price</code></td><td>Currency</td><td>USD</td></tr>
+        <tr><td><code>Type</code></td><td>Single select</td><td>Lead Magnet · Paid Download · Membership · Bundle · Service</td></tr>
+        <tr><td><code>Build Stage</code></td><td>Single select</td><td>Not Started · Drafting · Designing · In Review · Live</td></tr>
+        <tr><td><code>Stan Store URL</code></td><td>URL</td><td></td></tr>
+        <tr><td><code>Monthly Revenue</code></td><td>Currency (formula or rollup)</td><td>Manual or rolled up from Sales table</td></tr>
+        <tr><td><code>Units Sold (MTD)</code></td><td>Number (rollup from Sales)</td><td></td></tr>
+        <tr><td><code>Linked Content</code></td><td>Link to Content table</td><td></td></tr>
+        <tr><td><code>Notes</code></td><td>Long text</td><td></td></tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Table: Content Calendar</div>
+    <div style="margin-top:12px">
+      <table class="tbl">
+        <tr><th>Field</th><th>Airtable Type</th><th>Options / Notes</th></tr>
+        <tr><td><code>Title</code></td><td>Single line text (Primary)</td><td></td></tr>
+        <tr><td><code>Content Type</code></td><td>Single select</td><td>Blog · Dusk Letters · TikTok · Reel · Facebook · Pin · YouTube · MC Drop</td></tr>
+        <tr><td><code>Status</code></td><td>Single select</td><td>Idea · Drafting · Ready · Scheduled · Published</td></tr>
+        <tr><td><code>Publish Date</code></td><td>Date</td><td></td></tr>
+        <tr><td><code>Platform(s)</code></td><td>Multi-select</td><td>Wix · Stan · TikTok · Facebook · Instagram · YouTube · Email</td></tr>
+        <tr><td><code>Product Link</code></td><td>Link to Products</td><td></td></tr>
+        <tr><td><code>Affiliate</code></td><td>Link to Affiliates</td><td></td></tr>
+        <tr><td><code>Theme Tag</code></td><td>Multi-select</td><td>Shadow Work · Ancestral · ND Creator · Genealogy · Recovery · Rest · Southern Gothic</td></tr>
+        <tr><td><code>Copy URL</code></td><td>URL</td><td>Google Doc link</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Table: Affiliate Pipeline</div>
+    <div style="margin-top:12px">
+      <table class="tbl">
+        <tr><th>Field</th><th>Airtable Type</th><th>Options / Notes</th></tr>
+        <tr><td><code>Partner Name</code></td><td>Single line text (Primary)</td><td></td></tr>
+        <tr><td><code>Category</code></td><td>Single select</td><td>ND Creator · Black Women Wellness · Recovery · Genealogy · ADHD · Sober-Curious · Dropship</td></tr>
+        <tr><td><code>Tier</code></td><td>Single select</td><td>Tier 1 (9–10) · Tier 2 (7–8) · Tier 3 (5–6)</td></tr>
+        <tr><td><code>Fit Score</code></td><td>Number (1–10)</td><td></td></tr>
+        <tr><td><code>Outreach Status</code></td><td>Single select</td><td>Not Started · Email Drafted · Sent · Replied · Partner · Declined</td></tr>
+        <tr><td><code>Contact Email</code></td><td>Email</td><td></td></tr>
+        <tr><td><code>Platform URL</code></td><td>URL</td><td></td></tr>
+        <tr><td><code>Commission Rate</code></td><td>Percent</td><td>20–40%</td></tr>
+        <tr><td><code>Outreach Date</code></td><td>Date</td><td></td></tr>
+        <tr><td><code>Follow-up Date</code></td><td>Date</td><td></td></tr>
+        <tr><td><code>Revenue Generated</code></td><td>Currency</td><td>Track affiliate-driven sales</td></tr>
+        <tr><td><code>Email Template Used</code></td><td>Single select</td><td>Custom Tier 1 · Custom Tier 2 · Universal Tier 3 · Genealogy · Recovery</td></tr>
+        <tr><td><code>Notes</code></td><td>Long text</td><td></td></tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Table: Sales Log</div>
+    <div style="margin-top:12px">
+      <table class="tbl">
+        <tr><th>Field</th><th>Airtable Type</th><th>Notes</th></tr>
+        <tr><td><code>Sale ID</code></td><td>Autonumber (Primary)</td><td></td></tr>
+        <tr><td><code>Product</code></td><td>Link to Products</td><td></td></tr>
+        <tr><td><code>Sale Date</code></td><td>Date</td><td></td></tr>
+        <tr><td><code>Amount</code></td><td>Currency</td><td></td></tr>
+        <tr><td><code>Platform</code></td><td>Single select</td><td>Stan Store · Gumroad · Wix Store</td></tr>
+        <tr><td><code>Source</code></td><td>Single select</td><td>Organic · Email · TikTok · Facebook · Affiliate · Direct</td></tr>
+        <tr><td><code>Affiliate Partner</code></td><td>Link to Affiliates</td><td>If applicable</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="h2">Base 2 — Career Command</div>
+  <div class="card">
+    <div class="card-title">Table: Job Applications</div>
+    <div style="margin-top:12px">
+      <table class="tbl">
+        <tr><th>Field</th><th>Airtable Type</th><th>Options / Notes</th></tr>
+        <tr><td><code>Role Title</code></td><td>Single line text (Primary)</td><td></td></tr>
+        <tr><td><code>Company</code></td><td>Single line text</td><td></td></tr>
+        <tr><td><code>Track</code></td><td>Single select</td><td>A · B · C · D · E · IAAM / Archive</td></tr>
+        <tr><td><code>Salary Min</code></td><td>Currency</td><td></td></tr>
+        <tr><td><code>Salary Max</code></td><td>Currency</td><td></td></tr>
+        <tr><td><code>Remote</code></td><td>Checkbox</td><td></td></tr>
+        <tr><td><code>Status</code></td><td>Single select</td><td>Researching · Applied · Phone Screen · Interview · Final · Offer · Rejected · Withdrawn</td></tr>
+        <tr><td><code>Applied Date</code></td><td>Date</td><td></td></tr>
+        <tr><td><code>Resume Version</code></td><td>Single select</td><td>Track A–E · IAAM Custom · Claflin/MLIS</td></tr>
+        <tr><td><code>Job Posting URL</code></td><td>URL</td><td></td></tr>
+        <tr><td><code>Match Score</code></td><td>Rating (1–5)</td><td>Personal assessment of alignment</td></tr>
+        <tr><td><code>Follow-up Date</code></td><td>Date</td><td></td></tr>
+        <tr><td><code>Notes</code></td><td>Long text</td><td></td></tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="h2">Airtable Views to Create</div>
+  <table class="tbl">
+    <tr><th>Table</th><th>View Name</th><th>Type</th><th>Filter / Group</th></tr>
+    <tr><td>Content Calendar</td><td>This Week</td><td>Calendar</td><td>Date = current week</td></tr>
+    <tr><td>Content Calendar</td><td>By Platform</td><td>Gallery</td><td>Grouped by Platform(s)</td></tr>
+    <tr><td>Affiliate Pipeline</td><td>Priority Outreach</td><td>Grid</td><td>Filter: Tier = Tier 1, Status ≠ Partner</td></tr>
+    <tr><td>Affiliate Pipeline</td><td>Active Partners</td><td>Grid</td><td>Filter: Status = Partner</td></tr>
+    <tr><td>Sales Log</td><td>Monthly Revenue</td><td>Summary</td><td>Group by month, sum Amount</td></tr>
+    <tr><td>Job Applications</td><td>Active Pipeline</td><td>Kanban</td><td>Grouped by Status</td></tr>
+    <tr><td>Job Applications</td><td>$100K+ Remote</td><td>Grid</td><td>Filter: Salary Min ≥ 100000, Remote = true</td></tr>
+  </table>
+</section>
+
+<!-- ════════════════ PANEL 6 · ZAPIER / MAKE ════════════════ -->
+<section class="panel" id="panel-zapier">
+  <div class="slabel">Section 06</div>
+  <h2 class="stitle">Automation Schemas</h2>
+  <p class="sdesc">Zapier and Make.com — every cross-platform workflow mapped with trigger, action, and field logic.</p>
+
+  <p class="note">Use Zapier for simple single-step flows (Stan Store → Airtable). Use Make.com for multi-step or conditional flows (new subscriber → tag → email sequence → Notion log).</p>
+
+  <div class="h2">Automation Index</div>
+  <table class="tbl">
+    <tr><th>#</th><th>Name</th><th>Tool</th><th>Trigger</th><th>Priority</th></tr>
+    <tr><td>Z-01</td><td>New Stan Store purchase → Airtable Sales Log</td><td><span class="badge b-zap">Zapier</span></td><td>New Stan Store purchase</td><td><span class="badge b-crit">Launch</span></td></tr>
+    <tr><td>Z-02</td><td>New email subscriber → Airtable Contacts</td><td><span class="badge b-zap">Zapier</span></td><td>New subscriber in Stan Store / email platform</td><td><span class="badge b-crit">Launch</span></td></tr>
+    <tr><td>Z-03</td><td>New Magnolia Circle member → Notion log</td><td><span class="badge b-zap">Zapier</span></td><td>New Stan Store subscription</td><td><span class="badge b-high">Week 1</span></td></tr>
+    <tr><td>M-01</td><td>Affiliate partner onboarding flow</td><td><span class="badge b-make">Make</span></td><td>Airtable: Affiliate Status = "Partner"</td><td><span class="badge b-high">Week 1</span></td></tr>
+    <tr><td>M-02</td><td>Content publish → social cross-post reminder</td><td><span class="badge b-make">Make</span></td><td>Airtable: Content Status = "Published"</td><td><span class="badge b-high">Week 2</span></td></tr>
+    <tr><td>M-03</td><td>New sale → affiliate commission tracker</td><td><span class="badge b-make">Make</span></td><td>Airtable: Sale has Affiliate Partner</td><td><span class="badge b-high">Week 2</span></td></tr>
+    <tr><td>M-04</td><td>Monthly revenue rollup → Notion dashboard</td><td><span class="badge b-make">Make</span></td><td>Schedule: 1st of each month</td><td><span class="badge b-med">Month 1</span></td></tr>
+    <tr><td>Z-04</td><td>Job application added → follow-up date auto-set</td><td><span class="badge b-zap">Zapier</span></td><td>Airtable: New record in Job Applications</td><td><span class="badge b-med">Ongoing</span></td></tr>
+    <tr><td>M-05</td><td>Genealogy research find → Notion + Airtable log</td><td><span class="badge b-make">Make</span></td><td>Manual trigger or form submission</td><td><span class="badge b-med">Ongoing</span></td></tr>
+  </table>
+
+  <hr class="gd"/>
+
+  <div class="h2">Zapier Schemas</div>
+
+  <!-- Z-01 -->
+  <div class="card">
+    <div class="card-head">
+      <div><div class="card-title">Z-01 — New Purchase → Airtable Sales Log</div><div class="card-meta">Stan Store → Airtable · Single-step · Launch day</div></div>
+      <span class="badge b-crit">Critical</span>
+    </div>
+    <div class="code"><span class="c-comment">## Z-01: Stan Store Purchase → Airtable Sales Log</span>
+
+<span class="c-key">TRIGGER</span>: Stan Store — <span class="c-val">New Sale</span>
+  App: Stan Store (or webhook if Stan Store has Zapier integration)
+  Alternative trigger: Webhook from Stan Store → Zapier catch hook
+
+<span class="c-key">ACTION</span>: Airtable — <span class="c-val">Create Record</span>
+  Base: Midnight Magnolia Operations
+  Table: Sales Log
+  Field Mapping:
+    Product        → <span class="c-str">{{product_name}}</span>
+    Sale Date      → <span class="c-str">{{purchase_date}}</span>   <span class="c-comment"># format: YYYY-MM-DD</span>
+    Amount         → <span class="c-str">{{amount_paid}}</span>
+    Platform       → <span class="c-str">"Stan Store"</span>        <span class="c-comment"># static value</span>
+    Source         → <span class="c-str">{{utm_source}}</span>       <span class="c-comment"># or "Organic" if blank</span>
+    Affiliate      → <span class="c-str">{{affiliate_id}}</span>    <span class="c-comment"># map to Affiliates table if present</span>
+
+<span class="c-key">FILTER</span>: Only run if Amount > 0 (exclude free downloads)</div>
+  </div>
+
+  <!-- Z-02 -->
+  <div class="card">
+    <div class="card-head">
+      <div><div class="card-title">Z-02 — New Subscriber → Airtable Contacts</div><div class="card-meta">Email Platform → Airtable · Single-step · Launch day</div></div>
+      <span class="badge b-crit">Critical</span>
+    </div>
+    <div class="code"><span class="c-comment">## Z-02: New Email Subscriber → Airtable Contacts</span>
+
+<span class="c-key">TRIGGER</span>: Stan Store / Mailchimp / ConvertKit — <span class="c-val">New Subscriber</span>
+
+<span class="c-key">ACTION</span>: Airtable — <span class="c-val">Create or Update Record</span>
+  Base: Midnight Magnolia Operations
+  Table: Contacts (add this table)
+  Field Mapping:
+    Email          → <span class="c-str">{{subscriber_email}}</span>
+    First Name     → <span class="c-str">{{first_name}}</span>
+    Subscribed Via → <span class="c-str">{{form_name}}</span>     <span class="c-comment"># e.g. "Gentle Beginning Freebie"</span>
+    Subscribed Date→ <span class="c-str">{{created_date}}</span>
+    Tags           → <span class="c-str">{{tags}}</span>           <span class="c-comment"># e.g. "freebie", "magnolia-circle"</span>
+    Status         → <span class="c-str">"Active"</span>           <span class="c-comment"># static</span>
+
+<span class="c-key">MATCH ON</span>: Email field (prevent duplicate records)</div>
+  </div>
+
+  <!-- Z-03 -->
+  <div class="card">
+    <div class="card-head">
+      <div><div class="card-title">Z-03 — New Magnolia Circle Member → Notion Log</div><div class="card-meta">Stan Store → Notion · Single-step</div></div>
+      <span class="badge b-high">High</span>
+    </div>
+    <div class="code"><span class="c-comment">## Z-03: New Magnolia Circle Member → Notion</span>
+
+<span class="c-key">TRIGGER</span>: Stan Store — <span class="c-val">New Subscription</span>
+  Filter: Product = "Magnolia Circle"
+
+<span class="c-key">ACTION</span>: Notion — <span class="c-val">Create Database Item</span>
+  Database: Magnolia Circle Members (in Audience section)
+  Properties:
+    Name           → <span class="c-str">{{customer_name}}</span>
+    Email          → <span class="c-str">{{customer_email}}</span>
+    Join Date      → <span class="c-str">{{subscription_date}}</span>
+    Status         → <span class="c-str">"Active"</span>
+    Current Month  → <span class="c-str">1</span>              <span class="c-comment"># incremented monthly via M-04</span>
+    Notes          → <span class="c-str">""</span>              <span class="c-comment"># manual — member feedback, themes</span></div>
+  </div>
+
+  <!-- Z-04 -->
+  <div class="card">
+    <div class="card-head">
+      <div><div class="card-title">Z-04 — New Job Application → Auto Follow-up Date</div><div class="card-meta">Airtable → Airtable · Self-referential</div></div>
+      <span class="badge b-med">Medium</span>
+    </div>
+    <div class="code"><span class="c-comment">## Z-04: New Job App → Set Follow-up Date (+7 days)</span>
+
+<span class="c-key">TRIGGER</span>: Airtable — <span class="c-val">New Record</span>
+  Base: Career Command
+  Table: Job Applications
+  Filter: Status = "Applied"
+
+<span class="c-key">ACTION</span>: Airtable — <span class="c-val">Update Record</span>
+  Base: Career Command
+  Table: Job Applications
+  Record ID: <span class="c-str">{{record_id}}</span>
+  Field Mapping:
+    Follow-up Date → <span class="c-str">{{applied_date + 7 days}}</span>
+    <span class="c-comment"># Zapier formatter: Date/Time → Add/Subtract Time → +7 days</span>
+
+<span class="c-key">OPTIONAL 2ND ACTION</span>: Google Calendar — <span class="c-val">Create Event</span>
+  Title: <span class="c-str">"Follow up: {{role_title}} @ {{company}}"</span>
+  Date: <span class="c-str">{{applied_date + 7 days}}</span>
+  Calendar: Career</div>
+  </div>
+
+  <hr class="gd"/>
+  <div class="h2">Make.com Schemas</div>
+
+  <!-- M-01 -->
+  <div class="card">
+    <div class="card-head">
+      <div><div class="card-title">M-01 — Affiliate Partner Onboarding Flow</div><div class="card-meta">Airtable watch → Email → Notion log · Multi-step</div></div>
+      <span class="badge b-high">High</span>
+    </div>
+    <div class="code"><span class="c-comment">## M-01: Affiliate Onboarded → Welcome Email + Notion Log</span>
+
+<span class="c-key">MODULE 1 — TRIGGER</span>: Airtable — <span class="c-val">Watch Records</span>
+  Base: Midnight Magnolia Operations
+  Table: Affiliate Pipeline
+  Trigger field: <span class="c-val">Outreach Status</span> changed to <span class="c-str">"Partner"</span>
+
+<span class="c-key">MODULE 2 — ROUTER</span>: Based on <span class="c-val">Category</span>
+  Route A → ND / Wellness affiliate welcome template
+  Route B → Genealogy affiliate welcome template
+  Route C → Recovery affiliate welcome template
+
+<span class="c-key">MODULE 3 — ACTION</span>: Gmail / Email — <span class="c-val">Send Email</span>
+  To: <span class="c-str">{{contact_email}}</span>
+  Subject: <span class="c-str">"Welcome to the Midnight Magnolia affiliate family, {{first_name}}"</span>
+  Body: [route-specific template — see Email Bank in Notion]
+  Attachments: MM Affiliate One-Pager PDF
+
+<span class="c-key">MODULE 4 — ACTION</span>: Notion — <span class="c-val">Create Page</span>
+  Parent DB: Affiliate Partners (Notion)
+  Properties:
+    Name           → <span class="c-str">{{partner_name}}</span>
+    Category       → <span class="c-str">{{category}}</span>
+    Commission     → <span class="c-str">{{commission_rate}}</span>
+    Partner Since  → <span class="c-str">{{today}}</span>
+    Airtable ID    → <span class="c-str">{{airtable_record_id}}</span>  <span class="c-comment"># for sync</span>
+
+<span class="c-key">MODULE 5 — ACTION</span>: Airtable — <span class="c-val">Update Record</span>
+  Set <span class="c-val">Outreach Date</span> = today (marks welcome email sent)</div>
+  </div>
+
+  <!-- M-02 -->
+  <div class="card">
+    <div class="card-head">
+      <div><div class="card-title">M-02 — Content Published → Cross-Post Reminder</div><div class="card-meta">Airtable watch → Notification · Multi-step</div></div>
+      <span class="badge b-high">High</span>
+    </div>
+    <div class="code"><span class="c-comment">## M-02: Content Published → Social Reminder Notifications</span>
+
+<span class="c-key">MODULE 1 — TRIGGER</span>: Airtable — <span class="c-val">Watch Records</span>
+  Table: Content Calendar
+  Trigger: <span class="c-val">Status</span> changed to <span class="c-str">"Published"</span>
+
+<span class="c-key">MODULE 2 — FILTER</span>: Platform(s) contains <span class="c-str">"TikTok"</span> OR <span class="c-str">"Instagram"</span>
+
+<span class="c-key">MODULE 3 — ITERATOR</span>: Loop over each platform in <span class="c-val">Platform(s)</span>
+
+<span class="c-key">MODULE 4 — ACTION</span>: Gmail — <span class="c-val">Send Email</span> (to self)
+  OR: Slack / Discord — <span class="c-val">Send Message</span> (to personal workspace)
+  Subject: <span class="c-str">"🌙 Cross-post ready: {{title}}"</span>
+  Body:
+    <span class="c-str">"{{title}} is live. Cross-post to: {{platform}}
+     Copy URL: {{copy_url}}
+     Affiliate link: {{affiliate_link if present}}
+     Product link: {{product_stan_store_url}}"</span>
+
+<span class="c-key">MODULE 5 — ACTION</span>: Airtable — <span class="c-val">Update Record</span>
+  Add note: <span class="c-str">"Cross-post reminder sent {{today}}"</span></div>
+  </div>
+
+  <!-- M-03 -->
+  <div class="card">
+    <div class="card-head">
+      <div><div class="card-title">M-03 — Sale with Affiliate → Commission Tracker Update</div><div class="card-meta">Airtable watch → Calculate → Update affiliate record</div></div>
+      <span class="badge b-high">High</span>
+    </div>
+    <div class="code"><span class="c-comment">## M-03: Affiliate-Sourced Sale → Update Commission Owed</span>
+
+<span class="c-key">MODULE 1 — TRIGGER</span>: Airtable — <span class="c-val">Watch Records</span>
+  Table: Sales Log
+  Trigger: New record AND <span class="c-val">Affiliate Partner</span> is not empty
+
+<span class="c-key">MODULE 2 — GET</span>: Airtable — <span class="c-val">Get Record</span>
+  Table: Affiliate Pipeline
+  Record: <span class="c-str">{{affiliate_partner_id}}</span>
+  Fetch: <span class="c-val">Commission Rate</span>, <span class="c-val">Revenue Generated</span>, <span class="c-val">Units Referred</span>
+
+<span class="c-key">MODULE 3 — MATH</span>: Make Tools — <span class="c-val">Set Variable</span>
+  commission_amount = <span class="c-str">{{sale_amount}} × {{commission_rate / 100}}</span>
+  new_revenue = <span class="c-str">{{revenue_generated}} + {{sale_amount}}</span>
+  new_commission_owed = <span class="c-str">{{commission_owed}} + {{commission_amount}}</span>
+
+<span class="c-key">MODULE 4 — ACTION</span>: Airtable — <span class="c-val">Update Record</span>
+  Table: Affiliate Pipeline
+  Revenue Generated  → <span class="c-str">{{new_revenue}}</span>
+  Commission Owed    → <span class="c-str">{{new_commission_owed}}</span>   <span class="c-comment"># add this field to table</span>
+  Units Referred     → <span class="c-str">{{units_referred + 1}}</span>
+  Last Sale Date     → <span class="c-str">{{today}}</span>
+
+<span class="c-key">MODULE 5 — OPTIONAL</span>: Email — notify self when commission &gt; $25 threshold
+  Subject: <span class="c-str">"Commission milestone: {{partner_name}} → ${{commission_amount}}"</span></div>
+  </div>
+
+  <!-- M-04 -->
+  <div class="card">
+    <div class="card-head">
+      <div><div class="card-title">M-04 — Monthly Revenue Rollup → Notion Dashboard</div><div class="card-meta">Scheduled · 1st of each month · Airtable → Notion</div></div>
+      <span class="badge b-med">Medium</span>
+    </div>
+    <div class="code"><span class="c-comment">## M-04: Monthly Revenue Report → Notion</span>
+
+<span class="c-key">MODULE 1 — TRIGGER</span>: Make — <span class="c-val">Scheduled</span>
+  Schedule: 1st of each month at 8:00 AM ET
+
+<span class="c-key">MODULE 2 — SEARCH</span>: Airtable — <span class="c-val">Search Records</span>
+  Table: Sales Log
+  Filter: <span class="c-str">Sale Date is in previous month</span>
+
+<span class="c-key">MODULE 3 — AGGREGATOR</span>: Make — <span class="c-val">Numeric Aggregator</span>
+  Field: Amount
+  Function: SUM  → <span class="c-str">total_revenue</span>
+  Function: COUNT → <span class="c-str">total_sales</span>
+
+<span class="c-key">MODULE 4 — SEARCH</span>: Airtable — <span class="c-val">Search Records</span>
+  Table: Contacts
+  Filter: <span class="c-str">Subscribed Date is in previous month</span>
+  Aggregator: COUNT → <span class="c-str">new_subscribers</span>
+
+<span class="c-key">MODULE 5 — ACTION</span>: Notion — <span class="c-val">Create Database Item</span>
+  DB: Monthly Revenue Log (in MM Dashboard)
+  Properties:
+    Month          → <span class="c-str">"{{previous_month_name}} {{year}}"</span>
+    Total Revenue  → <span class="c-str">{{total_revenue}}</span>
+    Total Sales    → <span class="c-str">{{total_sales}}</span>
+    New Subscribers→ <span class="c-str">{{new_subscribers}}</span>
+    MC Members     → <span class="c-str">{{magnolia_circle_active_count}}</span>
+    Notes          → <span class="c-str">""</span>  <span class="c-comment"># fill manually with reflection</span>
+
+<span class="c-key">MODULE 6 — ACTION</span>: Gmail — <span class="c-val">Send Email</span> (to self)
+  Subject: <span class="c-str">"🌙 MM Monthly Report: ${{total_revenue}} · {{total_sales}} sales"</span></div>
+  </div>
+
+  <!-- M-05 -->
+  <div class="card">
+    <div class="card-head">
+      <div><div class="card-title">M-05 — Genealogy Research Find → Log to Notion + Airtable</div><div class="card-meta">Form trigger → Notion + Airtable · Research workflow</div></div>
+      <span class="badge b-med">Medium</span>
+    </div>
+    <div class="code"><span class="c-comment">## M-05: Research Finding → Multi-Platform Log</span>
+<span class="c-comment"># Use when you find a new record, census entry, or family connection</span>
+
+<span class="c-key">MODULE 1 — TRIGGER</span>: Make — <span class="c-val">Watch a Webhook</span>
+  OR: Google Forms — <span class="c-val">New Response</span>
+  Form fields:
+    family_line    <span class="c-comment"># Vincent / Vinson / Susie Smith Piles / Other</span>
+    individual_name
+    record_type    <span class="c-comment"># Census · Death · Birth · Marriage · Newspaper · DNA</span>
+    year
+    location       <span class="c-comment"># Caswell Co NC / SC Lowcountry / S. Virginia / Other</span>
+    source_url
+    notes
+
+<span class="c-key">MODULE 2 — ACTION</span>: Notion — <span class="c-val">Create Page</span>
+  Parent: Genealogy / Source Log
+  Properties:
+    Name           → <span class="c-str">"{{individual_name}} · {{record_type}} · {{year}}"</span>
+    Family Line    → <span class="c-str">{{family_line}}</span>
+    Record Type    → <span class="c-str">{{record_type}}</span>
+    Year           → <span class="c-str">{{year}}</span>
+    Location       → <span class="c-str">{{location}}</span>
+    Source URL     → <span class="c-str">{{source_url}}</span>
+    Notes          → <span class="c-str">{{notes}}</span>
+    Date Added     → <span class="c-str">{{today}}</span>
+
+<span class="c-key">MODULE 3 — ACTION</span>: Airtable — <span class="c-val">Create Record</span>
+  Base: Midnight Magnolia Operations
+  Table: Genealogy Finds (add this table)
+  Same field mapping as Notion above
+  <span class="c-comment"># Airtable copy is for content pipeline — "which finds become content?"</span>
+  Extra field:
+    Content Potential → <span class="c-str">"High / Medium / Low"</span>  <span class="c-comment"># set manually</span>
+    Linked Content    → <span class="c-str">""</span>  <span class="c-comment"># fill when blog/journal is created</span></div>
+  </div>
+
+  <hr class="gd"/>
+  <div class="h2">Full System Automation Map</div>
+  <div class="flow">
+    <div class="flow-node">New subscriber</div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-node gold">Z-02</div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-node lite">Airtable Contacts</div>
+  </div>
+  <div class="flow">
+    <div class="flow-node">Stan Store purchase</div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-node gold">Z-01</div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-node lite">Airtable Sales Log</div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-node gold">M-03 (if affiliate)</div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-node lite">Commission updated</div>
+  </div>
+  <div class="flow">
+    <div class="flow-node">New MC member</div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-node gold">Z-03</div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-node lite">Notion MC log</div>
+  </div>
+  <div class="flow">
+    <div class="flow-node">Affiliate → "Partner"</div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-node gold">M-01</div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-node lite">Welcome email + Notion</div>
+  </div>
+  <div class="flow">
+    <div class="flow-node">Content published</div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-node gold">M-02</div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-node lite">Cross-post reminder</div>
+  </div>
+  <div class="flow">
+    <div class="flow-node">1st of month</div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-node gold">M-04</div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-node lite">Notion revenue log + email</div>
+  </div>
+  <div class="flow">
+    <div class="flow-node">Research find (form)</div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-node gold">M-05</div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-node lite">Notion + Airtable genealogy</div>
+  </div>
+</section>
+
+<!-- ════════════════ PANEL 7 · AFFILIATE ════════════════ -->
+<section class="panel" id="panel-affiliate">
+  <div class="slabel">Section 07</div>
+  <h2 class="stitle">Affiliate Strategy</h2>
+  <p class="sdesc">28 vetted partners + addendum (genealogy, recovery, dropship). Priority outreach order below.</p>
+
+  <div class="h2">Tier 1 — Priority Outreach (Score 9–10)</div>
+  <table class="tbl">
+    <tr><th>Partner</th><th>Score</th><th>Category</th><th>Commission</th><th>Contact</th></tr>
+    <tr><td><strong>Neurodivergent Rebel</strong></td><td>10/10</td><td>ND Creator</td><td>20–40% negotiated</td><td>neurodivergentrebel.com/contact</td></tr>
+    <tr><td><strong>Neurodivergent Insights (Dr. Neff)</strong></td><td>9/10</td><td>ND Creator</td><td>20–30%</td><td>neurodivergentinsights.com/contact</td></tr>
+    <tr><td><strong>Balanced Black Girl</strong></td><td>9/10</td><td>WOC Wellness</td><td>20–40%</td><td>info@balancedblackgirl.com</td></tr>
+    <tr><td><strong>Useful Planner / Plannerlover</strong></td><td>9/10</td><td>ND Planners</td><td>Gumroad standard</td><td>plannerlover.gumroad.com/affiliates — INSTANT APPLY</td></tr>
+    <tr><td><strong>Learning for a Purpose</strong></td><td>9/10</td><td>ND Family</td><td>40%</td><td>learningforapurpose.com — INSTANT APPLY</td></tr>
+    <tr><td><strong>Reflection.app</strong></td><td>8/10</td><td>Journaling App</td><td>Recurring</td><td>reflection.app affiliate link in footer</td></tr>
+  </table>
+
+  <div class="h2">Genealogy Partners (Addendum)</div>
+  <table class="tbl">
+    <tr><th>#</th><th>Partner</th><th>Commission</th><th>Apply</th></tr>
+    <tr><td>G1</td><td><strong>Ancestry.com</strong></td><td>10% DNA kit · 20% subscriptions · 30-day cookie</td><td>ancestry.com/c/affiliates via Partnerize</td></tr>
+    <tr><td>G2</td><td><strong>MyHeritage</strong></td><td>$3–$10 free trial · 10% DNA kits</td><td>myheritage.com/affiliates via Impact/Awin</td></tr>
+    <tr><td>G3</td><td>Newspapers.com</td><td>Similar to Ancestry</td><td>Via Ancestry affiliate portal</td></tr>
+    <tr><td>G4</td><td>GenealogyBank</td><td>Base → up to 40% at $1,200+ sales</td><td>genealogybank.com/affiliate</td></tr>
+    <tr><td>G5</td><td>FamilyTreeDNA</td><td>Commission on DNA kits</td><td>familytreedna.com affiliate</td></tr>
+    <tr><td>G6</td><td>Genealogy Freelancers</td><td>Up to 40% on project referrals</td><td>genealogyfreelancers.com/affiliates</td></tr>
+  </table>
+
+  <div class="h2">Recovery Partners (Addendum)</div>
+  <table class="tbl">
+    <tr><th>#</th><th>Partner</th><th>Alignment</th><th>Contact</th></tr>
+    <tr><td>R1</td><td><strong>Sober Black Girls Club</strong></td><td>HIGHEST — exact audience overlap for Black women</td><td>info@soberblackgirlsclub.com · @soberblackgirlsclub</td></tr>
+    <tr><td>R3</td><td>Served Up Sober (Shari Hampton)</td><td>Sober/sober-curious WOC — direct match</td><td>servedupsober.com/contact · DM first</td></tr>
+    <tr><td>R2</td><td>The Sober Curator</td><td>Publishes sober poetry — pitch guest essay first</td><td>thesobercurator.com/contact</td></tr>
+    <tr><td>R4</td><td>The Luckiest Club (Laura McKowen)</td><td>Literary, feminist, healing-centered recovery</td><td>theluckiestclub.com/contact</td></tr>
+  </table>
+
+  <div class="h2">Dropship Phase 1 — Do This Month</div>
+  <table class="tbl">
+    <tr><th>Supplier</th><th>Products</th><th>Margin</th><th>Action</th></tr>
+    <tr><td><strong>Printify</strong></td><td>Branded journal (hardcover) · Soy candle · Tote bag</td><td>35–60%</td><td>Sign up free → design Phase 1 products: journal + candle</td></tr>
+    <tr><td><strong>Enchanted Soul</strong></td><td>Crystal sets · Ritual candles · Spell kits</td><td>35–50%</td><td>Apply at enchantedsoul.store/pages/metaphysical-supplies-dropshipping</td></tr>
+    <tr><td>Printful</td><td>Premium apparel · Wall art · Hoodies</td><td>30–50%</td><td>Magnolia Circle member gifts</td></tr>
+    <tr><td>Starlinks Gifts</td><td>Gothic jewelry · Tarot bags · Charms</td><td>50–80%</td><td>Southern Gothic alignment — charm bracelet, pendant</td></tr>
+  </table>
+
+  <div class="h2">Commission Structure for MM's Own Affiliate Program</div>
+  <table class="tbl">
+    <tr><th>Tier</th><th>Rate</th><th>When to Apply</th></tr>
+    <tr><td>Standard affiliates</td><td>20%</td><td>All Tier 2 + Tier 3 partners</td></tr>
+    <tr><td>Priority affiliates (Tier 1)</td><td>30–40%</td><td>Neurodivergent Rebel, Balanced Black Girl, etc.</td></tr>
+    <tr><td>Bundle affiliates</td><td>25%</td><td>When promoting bundle products</td></tr>
+    <tr><td>Magnolia Circle recurring</td><td>$2–$3/month</td><td>Per active subscription they referred</td></tr>
+  </table>
+</section>
+</main>
+
+<script>
+function show(id) {
+  document.querySelectorAll('.panel').forEach(p => p.classList.remove('on'));
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('on'));
+  document.getElementById('panel-' + id).classList.add('on');
+  event.currentTarget.classList.add('on');
+}
+</script>
+</body>
+</html>

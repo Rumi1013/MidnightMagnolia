@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Midnight Magnolia — Integration Layer v4</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+<style>
+:root{
+  --indigo:#2B2F4A;--gold:#C9A84C;--gold-light:#E8C97A;
+  --magnolia:#F5F0E8;--magnolia-dark:#E8E0D0;
+  --ink:#1A1D2E;--mist:#6B7089;--border:rgba(43,47,74,.13);
+  --card:#FFFFFF;--page:#F5F0E8;
+  --fd:'Cormorant Garamond',Georgia,serif;
+  --fb:'DM Sans',system-ui,sans-serif;
+  --moss:#5A665C;--clay:#C7B09A;--rose:#C46A5A;--plum:#4A2D4E;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:var(--fb);background:var(--page);color:var(--ink);font-size:14.5px;line-height:1.75}
+.hdr{background:var(--indigo);color:var(--magnolia);padding:52px 44px 40px;position:relative;overflow:hidden}
+.hdr::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 80% 40%,rgba(201,168,76,.13) 0%,transparent 65%);pointer-events:none}
+.hdr-eye{font-size:10.5px;font-weight:500;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);margin-bottom:10px}
+.hdr-title{font-family:var(--fd);font-size:52px;font-weight:300;line-height:1.05;margin-bottom:8px}
+.hdr-sub{font-family:var(--fd);font-style:italic;font-size:17px;color:rgba(245,240,232,.65);margin-bottom:28px}
+.hdr-meta{font-size:11.5px;color:rgba(245,240,232,.45);letter-spacing:.06em}
+.vbadge{display:inline-block;background:rgba(201,168,76,.18);border:1px solid rgba(201,168,76,.4);color:var(--gold-light);font-size:10px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;padding:3px 10px;border-radius:20px;margin-left:10px}
+.stat-bar{background:var(--indigo);border-top:1px solid rgba(201,168,76,.18);padding:24px 44px;display:flex;justify-content:center;gap:48px;flex-wrap:wrap}
+.stat{text-align:center}
+.stat-n{font-family:var(--fd);font-size:2.2rem;font-weight:600;color:var(--gold);line-height:1}
+.stat-l{font-family:var(--fb);font-size:10px;color:var(--clay);text-transform:uppercase;letter-spacing:.12em;margin-top:4px}
+.tabs{background:var(--indigo);border-top:1px solid rgba(201,168,76,.12);display:flex;overflow-x:auto;padding:0 44px}
+.tabs::-webkit-scrollbar{display:none}
+.tab{font-size:11px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:rgba(245,240,232,.42);background:none;border:none;border-bottom:2px solid transparent;padding:13px 16px 11px;cursor:pointer;white-space:nowrap;transition:color .2s,border-color .2s}
+.tab:hover{color:rgba(245,240,232,.8)}
+.tab.on{color:var(--gold);border-bottom-color:var(--gold)}
+.main{padding:44px;max-width:1080px}
+.panel{display:none}.panel.on{display:block}
+.slabel{font-size:10px;font-weight:500;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);margin-bottom:8px}
+.stitle{font-family:var(--fd);font-size:36px;font-weight:300;color:var(--indigo);margin-bottom:4px;line-height:1.15}
+.sdesc{font-family:var(--fd);font-style:italic;font-size:16px;color:var(--mist);margin-bottom:36px}
+.card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:22px 26px;margin-bottom:16px}
+.card-head{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:12px}
+.card-title{font-family:var(--fd);font-size:20px;font-weight:400;color:var(--indigo)}
+.card-meta{font-size:11.5px;color:var(--mist);letter-spacing:.04em;margin-top:2px}
+.badge{display:inline-block;font-size:10px;font-weight:500;letter-spacing:.07em;text-transform:uppercase;padding:2px 9px;border-radius:20px;line-height:1.5;white-space:nowrap}
+.b-done{background:#D1FAE5;color:#065F46}
+.b-gold{background:rgba(201,168,76,.15);color:#7A5C12;border:1px solid rgba(201,168,76,.3)}
+.b-indigo{background:rgba(43,47,74,.08);color:var(--indigo)}
+.b-plum{background:rgba(74,45,78,.12);color:var(--plum)}
+.tbl{width:100%;border-collapse:collapse;font-size:13px;margin-bottom:16px}
+.tbl th{text-align:left;padding:9px 13px;background:rgba(43,47,74,.04);border-bottom:1px solid var(--border);font-size:10px;font-weight:500;letter-spacing:.09em;text-transform:uppercase;color:var(--mist)}
+.tbl td{padding:9px 13px;border-bottom:1px solid rgba(43,47,74,.06);vertical-align:top;line-height:1.5}
+.tbl tr:last-child td{border-bottom:none}
+.tbl tr:hover td{background:rgba(43,47,74,.02)}
+.rlist{list-style:none;padding:0}
+.rlist li{padding:7px 0 7px 18px;position:relative;border-bottom:1px solid rgba(43,47,74,.06);font-size:13.5px}
+.rlist li:last-child{border-bottom:none}
+.rlist li::before{content:'—';position:absolute;left:0;color:var(--gold)}
+hr.gd{border:none;border-top:1px solid rgba(201,168,76,.25);margin:28px 0}
+.h2{font-family:var(--fd);font-size:22px;font-weight:400;color:var(--indigo);margin:26px 0 12px;padding-bottom:8px;border-bottom:1px solid var(--border)}
+.h3{font-size:11px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:var(--mist);margin:20px 0 9px}
+p.note{font-size:13px;font-style:italic;color:var(--mist);padding:10px 14px;border-left:3px solid var(--gold);background:rgba(201,168,76,.06);border-radius:0 6px 6px 0;margin-bottom:14px}
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:16px}
+@media(max-width:700px){.two-col{grid-template-columns:1fr}}
+
+/* PILLAR CARDS */
+.pillar{border-radius:12px;padding:20px 24px;margin-bottom:14px;border-left:5px solid var(--gold)}
+.pillar-teal{background:#EEF9F4;border-left-color:#0F6E56}
+.pillar-amber{background:#FEF9EC;border-left-color:var(--gold)}
+.pillar-purple{background:#EEECFC;border-left-color:#5B52C9}
+.pillar-green{background:#EEF5EE;border-left-color:#2D6B2D}
+.pillar-coral{background:#FCEEE8;border-left-color:#C46A5A}
+.pillar-ground{background:#EAEBF0;border-left-color:var(--indigo)}
+.pillar-num{font-family:var(--fd);font-size:2.8rem;font-weight:600;line-height:1;margin-bottom:4px;opacity:.25}
+.pillar-name{font-family:var(--fd);font-size:1.5rem;font-weight:400;color:var(--indigo);margin-bottom:4px}
+.pillar-claim{font-family:var(--fd);font-style:italic;font-size:13px;color:var(--mist);margin-bottom:10px}
+.pillar-sources{font-size:11px;font-weight:500;letter-spacing:.07em;text-transform:uppercase;color:var(--clay);margin-top:8px}
+
+/* LINEAGE */
+.lineage{position:relative;padding-left:32px}
+.lineage::before{content:'';position:absolute;left:12px;top:0;bottom:0;width:2px;background:linear-gradient(180deg,var(--gold),rgba(201,168,76,.15))}
+.gen{position:relative;margin-bottom:20px}
+.gen::before{content:'';position:absolute;left:-20px;top:14px;width:12px;height:2px;background:var(--gold)}
+.gen-num{font-size:9px;font-weight:500;letter-spacing:.15em;text-transform:uppercase;color:var(--clay);margin-bottom:2px}
+.gen-name{font-family:var(--fd);font-size:17px;font-weight:400;color:var(--indigo)}
+.gen-dates{font-size:12px;color:var(--mist);margin-bottom:4px}
+.gen-note{font-size:12.5px;color:#555;line-height:1.5}
+.gen-you{background:rgba(201,168,76,.1);border:1px solid rgba(201,168,76,.3);border-radius:8px;padding:10px 14px}
+
+/* INTEGRATION MAP */
+.map-row{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:16px 20px;margin-bottom:10px;display:grid;grid-template-columns:140px 1fr 1fr 1fr;gap:16px;align-items:start}
+@media(max-width:800px){.map-row{grid-template-columns:1fr}}
+.map-root{font-family:var(--fd);font-size:1.1rem;font-weight:400;color:var(--indigo)}
+.map-label{font-size:9px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:var(--clay);margin-bottom:4px}
+.map-val{font-size:12.5px;color:#444;line-height:1.5}
+.map-hdr{display:grid;grid-template-columns:140px 1fr 1fr 1fr;gap:16px;padding:6px 20px;margin-bottom:6px}
+.map-hdr-l{font-size:9px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:var(--mist)}
+@media(max-width:800px){.map-hdr{display:none}}
+</style>
+</head>
+<body>
+
+<header class="hdr">
+  <div class="hdr-eye">Rumi-Nations LLC · Midnight Magnolia</div>
+  <h1 class="hdr-title">Integration Layer</h1>
+  <p class="hdr-sub">Theory of Change · Ancestral Archive · Brand Strategy — woven into one living record</p>
+  <div class="hdr-meta">Latisha Vincent-Waters · Ravenel, SC · midnight-magnolia.com <span class="vbadge">v4 · May 2026</span></div>
+</header>
+
+<div class="stat-bar">
+  <div class="stat"><div class="stat-n">5</div><div class="stat-l">Framework Roots</div></div>
+  <div class="stat"><div class="stat-n">6</div><div class="stat-l">Generations Documented</div></div>
+  <div class="stat"><div class="stat-n">939</div><div class="stat-l">Family Members Archived</div></div>
+  <div class="stat"><div class="stat-n">86</div><div class="stat-l">Vincent · Vinson</div></div>
+  <div class="stat"><div class="stat-n">162</div><div class="stat-l">Surnames Traced</div></div>
+</div>
+
+<nav class="tabs">
+  <button class="tab on"  onclick="show('overview')">🜁 Overview</button>
+  <button class="tab"     onclick="show('roots')">🌿 The Five Roots</button>
+  <button class="tab"     onclick="show('archive')">🌳 Ancestral Archive</button>
+  <button class="tab"     onclick="show('map')">📡 Integration Map</button>
+  <button class="tab"     onclick="show('narrative')">📖 Brand Narrative</button>
+</nav>
+
+<main class="main">
+
+<!-- ══════════════════════════════════════════════════════
+     OVERVIEW
+══════════════════════════════════════════════════════ -->
+<section class="panel on" id="panel-overview">
+  <div class="slabel">Section 01</div>
+  <h2 class="stitle">What This Document Is</h2>
+  <p class="sdesc">The integration layer between three bodies of work — the Theory of Change, the Vincent/Vinson genealogical archive, and the Midnight Magnolia master plan.</p>
+
+  <p class="note">This document does not replace the Canonical Master Plan v3. It is the philosophical and ancestral foundation beneath it — the ground the business strategy is planted in. Read this first. Build from here.</p>
+
+  <div class="h2">The Three Sources</div>
+  <div class="two-col">
+    <div class="card">
+      <div class="card-title">The Five Roots — Theory of Change</div>
+      <div class="card-meta">Framework document · Georgia + Navy + Gold · comprehensive docx</div>
+      <ul class="rlist" style="margin-top:12px">
+        <li>A healing-centered theory of change drawn from CBT, SMART Recovery, Recovery Dharma, MARA, the 4 Agreements, the Feelings Wheel, and the Burn the Stigma framework</li>
+        <li>Spiritually grounded in hoodoo, mediumship, and ancestor veneration rooted in Black Southern / Lowcountry tradition</li>
+        <li>Five pillars: Name It · Burn It · Examine It · Tend It · Root It</li>
+        <li>Foundation layer: The Ancestral Ground — what cannot be curriculum, only context</li>
+      </ul>
+    </div>
+    <div class="card">
+      <div class="card-title">Vincent · Vinson Genealogical Archive</div>
+      <div class="card-meta">Excel workbook · 939 individuals · 6 sheets · Ancestry.com export 2025</div>
+      <ul class="rlist" style="margin-top:12px">
+        <li>939 individuals, 235 families, 162 unique surnames</li>
+        <li>Primary research line: 86 Vincent and Vinson individuals, rooted in Caswell County, NC</li>
+        <li>6 documented generations from Greene Vincent (~1820) to Noah Christopher Vincent (2011)</li>
+        <li>Post-Emancipation surname split: Vincent / Vinson from the same Greene Vincent household</li>
+        <li>Samuel Lee Vincent (30 Jul 1934 – 26 Mar 2026) — last of his generation, family historian, recently passed</li>
+      </ul>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-title">Midnight Magnolia Canonical Master Plan v3</div>
+    <div class="card-meta">HTML dashboard · 11 tabs · May 2026</div>
+    <ul class="rlist" style="margin-top:12px">
+      <li>Brand identity: Midnight Indigo · Southern Gold · Magnolia White · Cormorant Garamond + DM Sans</li>
+      <li>Products: P0–P7 digital ladder ($5–$49) · Magnolia Circle ($9/mo) · 4 KDP titles · POD line</li>
+      <li>Services: 4 live ($127–$497) · Brand Voice Clarity · Notion Sanctuary · Creative Direction · VIP Intensive</li>
+      <li>Platforms: TikTok (discovery) · Facebook (conversion) · YouTube (depth) · Instagram (presence)</li>
+      <li>Infrastructure: Wix Studio · Notion · Airtable · Make/Zapier · Stan Store · BMAC</li>
+      <li>Revenue goal: $4,000/month</li>
+    </ul>
+  </div>
+
+  <div class="h2">How They Connect</div>
+  <div class="card" style="border-left:5px solid var(--gold)">
+    <p style="font-family:var(--fd);font-size:1.15rem;font-style:italic;color:var(--indigo);line-height:1.7">
+      The master plan is the structure. The Theory of Change is the philosophy. The family archive is the proof that this work has always been happening — that healing, survival, and intergenerational care are not a brand angle but a lineage.
+    </p>
+  </div>
+  <div class="card">
+    <div class="card-title">The Integration Logic</div>
+    <table class="tbl" style="margin-top:12px">
+      <tr><th>Layer</th><th>Document</th><th>Function</th></tr>
+      <tr><td>Operational</td><td>Master Plan v3</td><td>What to build, when, and how — the business scaffold</td></tr>
+      <tr><td>Philosophical</td><td>Five Roots Theory of Change</td><td>Why this work matters — the healing framework and ethical grounding</td></tr>
+      <tr><td>Ancestral</td><td>Vincent · Vinson Archive</td><td>Where this work comes from — proof of lineage, source material for all "Southern Gothic & Roots" content</td></tr>
+      <tr><td>Integration</td><td>This document</td><td>The bridge — how all three speak to each other and inform every content decision</td></tr>
+    </table>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════
+     THE FIVE ROOTS
+══════════════════════════════════════════════════════ -->
+<section class="panel" id="panel-roots">
+  <div class="slabel">Section 02</div>
+  <h2 class="stitle">The Five Roots</h2>
+  <p class="sdesc">A Midnight Magnolia Theory of Change — not a program to complete, but a living practice to return to. Built from the inside out: from lived experience, from the traditions that held when nothing else could, from the frameworks that gave language to what was already known.</p>
+
+  <p class="note">The full framework document — with each pillar expanded, all source attributions, the Layered Access Model, and the Brand Language Guide — lives in <strong>Midnight_Magnolia_Theory_of_Change.docx</strong>. This tab is the living reference summary.</p>
+
+  <div class="h2">Core Premise</div>
+  <div class="card" style="border-left:5px solid var(--gold)">
+    <p style="font-family:var(--fd);font-size:1.2rem;font-style:italic;color:var(--indigo);line-height:1.7">
+      Healing is not a destination. It is a living practice, approached through a spiral rather than a staircase. Your survival was not a mistake. Your healing is not a performance. Your worth is not conditional on your productivity. You come from people. Those people are still with you.
+    </p>
+  </div>
+
+  <div class="h2">The Ancestral Ground</div>
+  <div class="pillar pillar-ground" style="margin-bottom:28px">
+    <div class="pillar-name">The Ancestral Ground</div>
+    <div class="pillar-claim">"Before the roots, there is the soil."</div>
+    <p style="font-size:13px;color:#444;line-height:1.7">This is not a pillar — it is the foundation all five roots grow from. Hoodoo, mediumship, and ancestor veneration rooted in Black Southern Lowcountry tradition. Named here as context, not curriculum. It is the epistemological ground beneath the framework: a way of knowing that is lineage-based, place-based, and body-based. The dead remain in relationship with the living. Recovery is always intergenerational.</p>
+    <div class="pillar-sources" style="margin-top:12px">Spiritual ground · Hoodoo · Mediumship · Ancestor veneration · Lowcountry, SC — present as context, not available as curriculum</div>
+  </div>
+
+  <div class="h2">The Five Pillars</div>
+
+  <div class="pillar pillar-teal">
+    <div class="pillar-num">01</div>
+    <div class="pillar-name">Name It</div>
+    <div class="pillar-claim">"You cannot heal what you cannot name. Emotional literacy is not a luxury — it is the first act of care."</div>
+    <p style="font-size:13px;color:#444;line-height:1.7;margin-bottom:8px">Most people were taught to manage feelings, not name them. Name It interrupts that training. It asks: what is actually happening in this body, right now? The Feelings Wheel moves from surface word to root word — from "I feel bad" to "I feel ashamed, and underneath that, I feel afraid." CBT maps the thought-feeling-behavior loop. Mediumship teaches the more subtle skill: distinguishing what is yours from what is being transmitted through you.</p>
+    <div class="pillar-sources">Feelings Wheel · CBT · Mediumship attunement</div>
+  </div>
+
+  <div class="pillar pillar-amber">
+    <div class="pillar-num">02</div>
+    <div class="pillar-name">Burn It</div>
+    <div class="pillar-claim">"Release shame without burning the self. We stop turning pain into a verdict."</div>
+    <p style="font-size:13px;color:#444;line-height:1.7;margin-bottom:8px">Shame is not feedback. It is what happens when pain meets judgment instead of witness. Burn It creates a container for releasing the stories that punish survival. MARA holds the code: non-judgment. Recovery Dharma holds the First Noble Truth: there is suffering — not as verdict, but as fact that makes practice possible. Hoodoo has always included literal fire — candle work, petition burning, cleansing smoke. To practice hoodoo openly is itself an act of burning stigma; Black spiritual traditions were criminalized and pathologized. Reclamation is sacred act.</p>
+    <div class="pillar-sources">Burn the Stigma · MARA · Recovery Dharma (First Noble Truth) · Hoodoo fire practice</div>
+  </div>
+
+  <div class="pillar pillar-purple">
+    <div class="pillar-num">03</div>
+    <div class="pillar-name">Examine It</div>
+    <div class="pillar-claim">"Honest inventory is not self-indictment. It is curiosity with enough love to look clearly."</div>
+    <p style="font-size:13px;color:#444;line-height:1.7;margin-bottom:8px">After shame is released, the question becomes: what remains? The Four Agreements function as an examination toolkit: be impeccable with your word — first to yourself. Don't make assumptions — especially about your own unworthiness. SMART Recovery's Cost-Benefit Analysis asks honestly: what is this costing me? Ancestor veneration requires looking honestly at lineage — the gifts and the wounds both. The genealogical research is itself the most rigorous self-inventory there is: sitting with what was passed down, what was broken, what survived, what is yours to change.</p>
+    <div class="pillar-sources">The Four Agreements · SMART Recovery (CBA) · CBT restructuring · Ancestor veneration · Lineage work</div>
+  </div>
+
+  <div class="pillar pillar-green">
+    <div class="pillar-num">04</div>
+    <div class="pillar-name">Tend It</div>
+    <div class="pillar-claim">"Cultivation over correction. You are not a problem to be fixed. You are a life to be tended."</div>
+    <p style="font-size:13px;color:#444;line-height:1.7;margin-bottom:8px">Correction assumes something is wrong. Cultivation assumes something is alive. Recovery Dharma's Eightfold Path offers a daily ethic — wise effort, wise intention, wise livelihood — not commandments but orientation. SMART's Lifestyle Balance Wheel reveals where you're depleting without receiving. The Fourth Agreement: always do your best — which changes from day to day, energy to energy. An ancestor altar is tended with regularity, not urgency. This is what cultivation looks like in spiritual form: not crisis prayer, but ongoing loving attention. Samuel Vincent continued in relationship through exactly this kind of sustained attention.</p>
+    <div class="pillar-sources">Recovery Dharma (Eightfold Path) · SMART Recovery (Balanced Living) · 4 Agreements · Altar practice</div>
+  </div>
+
+  <div class="pillar pillar-coral">
+    <div class="pillar-num">05</div>
+    <div class="pillar-name">Root It</div>
+    <div class="pillar-claim">"Connection is not extra. It is the ground everything else grows from."</div>
+    <p style="font-size:13px;color:#444;line-height:1.7;margin-bottom:8px">The wounds that bring most people to this framework were relational in origin — and relational healing is part of their repair. AA's First Tradition: our common welfare should come first. MARA: our recovery may depend upon our unity. Recovery Dharma places sangha at the center of the practice — not as support structure for the real work, but as part of the real work. Ancestor veneration is community extending across time. The Lowcountry roots — the Gullah Geechee spiritual tradition, the African diasporic thread that hoodoo carries — understand community as medicine not merely in metaphor but in practice. You do not belong only to living people. You belong to a lineage.</p>
+    <div class="pillar-sources">AA Traditions · MARA Traditions · Recovery Dharma (Sangha) · Gullah Geechee / African diasporic lineage · Midnight Magnolia community</div>
+  </div>
+
+  <div class="h2">The Layered Access Model</div>
+  <table class="tbl">
+    <tr><th>Layer</th><th>What it holds</th><th>Language</th><th>Access</th></tr>
+    <tr><td><strong>Public framework</strong></td><td>The Five Roots are named. The Ancestral Ground is named as context. Spiritual grounding stated, not elaborated.</td><td>"Spiritually grounded in Black Southern ancestral tradition."</td><td>Public — anyone</td></tr>
+    <tr><td><strong>Magnolia Circle</strong></td><td>Cultural context explored with reciprocity. Deeper engagement through earned relationship, not transaction.</td><td>"Within this container, we explore the cultural roots together — with care, context, and the understanding that some knowledge belongs to lineage."</td><td>Community — members in sustained relationship</td></tr>
+    <tr><td><strong>Sacred personal practice</strong></td><td>Specific rituals, altar objects, ancestor names, mediumship register. Not for the brand. Not content.</td><td>Not articulated publicly.</td><td>Private — held alone</td></tr>
+  </table>
+</section>
+
+<!-- ══════════════════════════════════════════════════════
+     ANCESTRAL ARCHIVE
+══════════════════════════════════════════════════════ -->
+<section class="panel" id="panel-archive">
+  <div class="slabel">Section 03</div>
+  <h2 class="stitle">Vincent · Vinson Ancestral Archive</h2>
+  <p class="sdesc">Six generations documented. 939 individuals. 86 bearing the Vincent or Vinson name. Rooted in Caswell County, NC — moving through Guilford, Alamance, and into the SC Lowcountry.</p>
+
+  <p class="note">This archive is source material for the "Southern Gothic & Roots" content pillar. The depth here is yours. No one else can make this content.</p>
+
+  <div class="h2">Archive Overview</div>
+  <table class="tbl">
+    <tr><th>Metric</th><th>Count</th><th>Notes</th></tr>
+    <tr><td>Total individuals</td><td><strong>939</strong></td><td>Sourced from Ancestry.com member trees · Export 2025</td></tr>
+    <tr><td>Family units</td><td><strong>235</strong></td><td>Marriage records, parent-child links, household groupings</td></tr>
+    <tr><td>Unique surnames</td><td><strong>162</strong></td><td>Phifer (91) · Vincent (77) · Graves (57) · Turner (56) are top 4</td></tr>
+    <tr><td>Vincent · Vinson individuals</td><td><strong>86</strong></td><td>Primary research line — same ancestral root, post-Emancipation surname split</td></tr>
+    <tr><td>North Carolina-born</td><td><strong>748</strong> (74.5%)</td><td>Caswell County is the primary ancestral county within NC</td></tr>
+    <tr><td>South Carolina-born</td><td><strong>15</strong> (1.6%)</td><td>Lowcountry SC — Latisha's current home region, completing the circle</td></tr>
+    <tr><td>Virginia-born</td><td><strong>19</strong> (2.0%)</td><td>Southern Virginia — aligns with the Vincent/Vinson migration corridor</td></tr>
+    <tr><td>Generations documented</td><td><strong>6</strong></td><td>Greene Vincent (~1820) through Noah Christopher Vincent (2011)</td></tr>
+  </table>
+
+  <div class="h2">The Vincent Line — Six Generations</div>
+  <div class="lineage">
+    <div class="gen">
+      <div class="gen-num">Generation 1 · ~1820</div>
+      <div class="gen-name">Greene Vincent</div>
+      <div class="gen-dates">Born: February 1820 · Person County, NC · Died: unknown, North Carolina</div>
+      <div class="gen-note">The earliest documented Vincent patriarch in the tree. Married Mary Anne Vincent Thomas on 5 May 1866 in Orange County, NC. Together they had 24 children — an extraordinary family that became the root system for every Vincent and Vinson in this archive. Their household in Leasburg and Caswell County, NC, is the ancestral home ground.</div>
+    </div>
+
+    <div class="gen">
+      <div class="gen-num">Generation 2 · ~1854</div>
+      <div class="gen-name">Marshal Vincent</div>
+      <div class="gen-dates">Born: ~1854 · North Carolina · Died: 12 May 1934 · Caswell County, NC</div>
+      <div class="gen-note">Son of Greene Vincent. One of the 24. Married Ella Vincent in Caswell County (10 Jan 1891) — their children include Clarence L Vincent, who carries the line forward. Marshal and Ella are buried in the ancestral ground of Stony Creek, Caswell County. He lived to 80 — a long life that bridged Reconstruction and the Depression era.</div>
+    </div>
+
+    <div class="gen">
+      <div class="gen-num">Generation 3 · 1874</div>
+      <div class="gen-name">Clarence L Vincent</div>
+      <div class="gen-dates">Born: 14 June 1874 · Caswell County, NC · Died: 6 November 1961 · Greensboro, NC</div>
+      <div class="gen-note">Son of Marshal + Ella Vincent. Married twice: first to Susie Smith Piles (25 Jul 1896, Caswell County — 17 children); after Susie's death in 1918, married Mamie Fannie Graves Wright (26 May 1920, Caswell County — 13 children). Clarence lived 87 years and fathered many children across both families. <strong>The Susie Smith Piles connection</strong> — a key ancestral line in Latisha's genealogical research. Clarence died in Greensboro, NC, completing the geographic shift from Caswell County to the Piedmont.</div>
+    </div>
+
+    <div class="gen">
+      <div class="gen-num">Generation 4 · 1934</div>
+      <div class="gen-name">Samuel Lee Vincent</div>
+      <div class="gen-dates">Born: 30 July 1934 · Caswell County, NC · Died: 26 March 2026 · Greensboro, NC</div>
+      <div class="gen-note">Son of Clarence L Vincent + Mamie Fannie Graves Wright. The last of his generation. A beloved family historian who held the family's history in his memory when no one else could. Married Queen Esther Bigelow Vincent (23 Jun 1957, Guilford County) — she preceded him in death on 10 May 1984. Samuel lived 91 years. His death on 26 March 2026 was the closing of a direct living link to Caswell County, to the Great Migration generation, and to all that Clarence and Mamie built. He is central to the Ancestral Ground of this framework — one of the presences that continues in relationship.</div>
+    </div>
+
+    <div class="gen">
+      <div class="gen-num">Generation 5 · 1958</div>
+      <div class="gen-name">Christopher Samuel Vincent</div>
+      <div class="gen-dates">Born: 26 June 1958 · Greensboro, Guilford County, NC</div>
+      <div class="gen-note">Son of Samuel Lee Vincent + Queen Esther Bigelow Vincent. Named in clear inheritance of his father's name — Christopher Samuel, Samuel's son. Married Sharon P Vincent (August 1982, Greensboro, NC). Their family is rooted in Greensboro before the move south to the SC Lowcountry. The Walterboro and South Carolina connection begins with Christopher — the westward-to-coastal migration that places the family in Lowcountry territory.</div>
+    </div>
+
+    <div class="gen gen-you">
+      <div class="gen-num">Generation 6 · 1982 · You are here</div>
+      <div class="gen-name">Latisha Vincent-Waters</div>
+      <div class="gen-dates">Born: 13 October 1982 · Greensboro, Guilford County, NC · Now: Ravenel / Summerville, SC</div>
+      <div class="gen-note">Daughter of Christopher Samuel Vincent + Sharon P Vincent. Granddaughter of Samuel Lee Vincent. The geographic arc completes: Caswell County, NC → Greensboro → SC Lowcountry. The research arc completes: Latisha is the one who built the archive, who traced the 939 individuals, who is returning the family's history to public record through the International African American Museum and through Midnight Magnolia. She is the archivist her grandfather was training her to be.</div>
+    </div>
+
+    <div class="gen">
+      <div class="gen-num">Generation 7 · 2011</div>
+      <div class="gen-name">Noah Christopher Vincent</div>
+      <div class="gen-dates">Born: 20 November 2011 · North Charleston, Charleston County, SC</div>
+      <div class="gen-note">Born in South Carolina — the first Vincent in this direct line to be born in the Lowcountry. The migration that began in Caswell County, NC has arrived. The name continues: Noah Christopher, his grandmother a Sharon, his great-grandfather Christopher Samuel, his great-great-grandfather Samuel Lee. The lineage holds in the names even when the soil shifts.</div>
+    </div>
+  </div>
+
+  <div class="h2">The Vincent · Vinson Surname Split</div>
+  <div class="card" style="border-left:5px solid var(--indigo)">
+    <div class="card-title">The Same Root, Two Names</div>
+    <p style="margin-top:12px;font-size:13.5px;color:#444;line-height:1.7">In the 1870 census, George Vincent appears in Greene Vincent's household in Caswell County, NC. In genealogical records, he also appears as George Brown VINSON — the same individual, two surnames. This is not an error. It is history.</p>
+    <p style="margin-top:10px;font-size:13.5px;color:#444;line-height:1.7">After Emancipation, formerly enslaved people and free Black families faced the question of what to call themselves. Some took or retained the surname of the last enslaver. Some chose entirely new names. Some families split — some siblings taking one form, others another — the names diverging even as the blood remained the same.</p>
+    <p style="margin-top:10px;font-size:13.5px;color:#444;line-height:1.7">The tree holds both: 77 Vincents and 9 Vinsons, all descending from Greene Vincent's household, all documented in Caswell County during the same Reconstruction-era years. The archive notes this explicitly: <em>"VINSON — surname changed post-Emancipation; same ancestral line as VINCENT."</em></p>
+    <p style="margin-top:10px;font-family:var(--fd);font-style:italic;font-size:15px;color:var(--indigo)">This is content. This is history. This is yours to tell.</p>
+  </div>
+
+  <div class="h2">Key Allied Family Lines</div>
+  <table class="tbl">
+    <tr><th>Surname</th><th>Count</th><th>Connection to Vincent Line</th></tr>
+    <tr><td><strong>Graves</strong></td><td>57</td><td>Mamie Fannie Graves Wright Vincent — Samuel Lee's mother; Robert T Graves + Susie Turner Graves had 20 children including Mamie. Caswell County, Stony Creek.</td></tr>
+    <tr><td><strong>Turner</strong></td><td>56</td><td>Susan A. "Susie" Turner Graves — grandmother of Samuel Lee Vincent (Susie Turner married Robert T Graves). Stony Creek, Caswell County.</td></tr>
+    <tr><td><strong>Bigelow</strong></td><td>25</td><td>Queen Esther Bigelow Vincent — Samuel Lee's wife, Latisha's paternal grandmother. Burlington, Alamance County to Greensboro.</td></tr>
+    <tr><td><strong>Smith Piles</strong></td><td>1 key entry</td><td>Susie Smith Piles (b. 1879) — Clarence L Vincent's first wife. Central to Latisha's research. Stony Creek, Caswell County. Died 1918.</td></tr>
+    <tr><td><strong>Phifer</strong></td><td>91 (most frequent)</td><td>Significant allied family — Rowan, Iredell, Cabarrus counties. Connected through multiple marriage lines. Anderson Phifer line is deeply documented.</td></tr>
+  </table>
+
+  <div class="h2">Geographic Migration Corridor</div>
+  <div class="card">
+    <div style="display:flex;align-items:center;gap:14px;flex-wrap:wrap;font-size:13px;color:#444">
+      <div style="text-align:center;padding:10px 16px;background:rgba(201,168,76,.1);border-radius:8px;border:1px solid rgba(201,168,76,.3)">
+        <div style="font-family:var(--fd);font-size:1.1rem;color:var(--indigo)">Caswell County, NC</div>
+        <div style="font-size:11px;color:var(--mist)">Ancestral home · 1820–1960s</div>
+      </div>
+      <div style="color:var(--gold);font-size:1.2rem">→</div>
+      <div style="text-align:center;padding:10px 16px;background:rgba(201,168,76,.1);border-radius:8px;border:1px solid rgba(201,168,76,.3)">
+        <div style="font-family:var(--fd);font-size:1.1rem;color:var(--indigo)">Greensboro, NC</div>
+        <div style="font-size:11px;color:var(--mist)">Piedmont migration · 1920–1980s</div>
+      </div>
+      <div style="color:var(--gold);font-size:1.2rem">→</div>
+      <div style="text-align:center;padding:10px 16px;background:rgba(43,47,74,.08);border-radius:8px;border:1px solid rgba(43,47,74,.2)">
+        <div style="font-family:var(--fd);font-size:1.1rem;color:var(--indigo)">SC Lowcountry</div>
+        <div style="font-size:11px;color:var(--mist)">Present · returning home</div>
+      </div>
+    </div>
+    <p style="margin-top:14px;font-size:13px;color:#555;line-height:1.6">74.5% of the 939 individuals in this tree were born in North Carolina, with Caswell County as the concentrated ancestral ground. The movement south to the SC Lowcountry is not incidental — it is a return to the regional spiritual and cultural tradition that hoodoo, Gullah Geechee practice, and the African diasporic thread all carry. The archive begins in the Piedmont and ends in the Lowcountry. So does this framework.</p>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════
+     INTEGRATION MAP
+══════════════════════════════════════════════════════ -->
+<section class="panel" id="panel-map">
+  <div class="slabel">Section 04</div>
+  <h2 class="stitle">Integration Map</h2>
+  <p class="sdesc">How the Five Roots, the ancestral archive, and the master plan connect. Use this when deciding what to create, what to post, and what to charge for.</p>
+
+  <div class="h2">Five Roots → Content Pillar → Product → Ancestral Anchor</div>
+
+  <div class="map-hdr">
+    <div class="map-hdr-l">Root</div>
+    <div class="map-hdr-l">Content Pillar (Master Plan)</div>
+    <div class="map-hdr-l">Product Connection</div>
+    <div class="map-hdr-l">Ancestral / Genealogical Anchor</div>
+  </div>
+
+  <div class="map-row">
+    <div><span class="badge b-indigo" style="margin-bottom:6px;display:inline-block">01</span><div class="map-root">Name It</div><div style="font-size:11px;color:var(--mist)">Emotional literacy as foundation</div></div>
+    <div><div class="map-label">Content Pillar</div><div class="map-val">🌿 Healing & Shadow Work — journaling prompts, feelings check-in content, nervous system education</div></div>
+    <div><div class="map-label">Products</div><div class="map-val">Soft Reset Page ($5) · Shadow Work Starter Kit ($9) · Feelings wheel content in The Gentle Beginning (free) · Deep Roots Shadow Work System ($49)</div></div>
+    <div><div class="map-label">Ancestral Anchor</div><div class="map-val">Susie Smith Piles (d. 1918, Stony Creek) — naming what was lost. The archive itself as an act of naming: 939 individuals who were almost unnamed.</div></div>
+  </div>
+
+  <div class="map-row">
+    <div><span class="badge b-gold" style="margin-bottom:6px;display:inline-block">02</span><div class="map-root">Burn It</div><div style="font-size:11px;color:var(--mist)">Release shame, keep the story</div></div>
+    <div><div class="map-label">Content Pillar</div><div class="map-val">🌙 Southern Gothic & Roots — Burn the Stigma content, reclamation narratives, ancestral healing, Lowcountry storytelling</div></div>
+    <div><div class="map-label">Products</div><div class="map-val">Altar Keeper's Affirmation Deck ($12) · Dusk Letters blog content · Grimoire gated content (Ancestral Healing category) · Future: Burn the Stigma workshop</div></div>
+    <div><div class="map-label">Ancestral Anchor</div><div class="map-val">The Vincent/Vinson surname split — the story of one family, two names, post-Emancipation. George Brown VINSON as the embodiment of burned stigma and kept story.</div></div>
+  </div>
+
+  <div class="map-row">
+    <div><span class="badge b-plum" style="margin-bottom:6px;display:inline-block">03</span><div class="map-root">Examine It</div><div style="font-size:11px;color:var(--mist)">Honest inquiry, no self-punishment</div></div>
+    <div><div class="map-label">Content Pillar</div><div class="map-val">🌿 Healing & Shadow Work + ✨ Creative Process — shadow work education, 4 Agreements content, lineage examination narratives</div></div>
+    <div><div class="map-label">Products</div><div class="map-val">Deep Roots Shadow Work System ($49) — the name carries the genealogy · Brand Voice Workbook ($22) · Genealogy Healing Journal (future product — examining inherited patterns through lineage research)</div></div>
+    <div><div class="map-label">Ancestral Anchor</div><div class="map-val">Clarence L Vincent's two families (Susie Smith Piles + Mamie Graves Wright) — the gifts and wounds of a complex lineage. Honest examination of what was passed down: names, places, patterns, losses.</div></div>
+  </div>
+
+  <div class="map-row">
+    <div><span class="badge b-done" style="margin-bottom:6px;display:inline-block">04</span><div class="map-root">Tend It</div><div style="font-size:11px;color:var(--mist)">Cultivation over correction</div></div>
+    <div><div class="map-label">Content Pillar</div><div class="map-val">🧠 Neurodivergent Creator Life — ND-friendly systems, energy-aware work, anti-hustle building, sustainable creative practice</div></div>
+    <div><div class="map-label">Products</div><div class="map-val">Sanctuary OS Template ($37) · Notion Sanctuary Setup service ($297) · Brand Voice Clarity ($197) · Career OS dashboard (internal) · Soft Launch Guide ($27)</div></div>
+    <div><div class="map-label">Ancestral Anchor</div><div class="map-val">Samuel Lee Vincent — 91 years of sustained attention, tending his family's history across decades. The genealogical archive itself is an altar: tended over time, not built in crisis.</div></div>
+  </div>
+
+  <div class="map-row">
+    <div><span class="badge" style="background:rgba(196,106,90,.15);color:var(--rose);margin-bottom:6px;display:inline-block">05</span><div class="map-root">Root It</div><div style="font-size:11px;color:var(--mist)">Community as medicine</div></div>
+    <div><div class="map-label">Content Pillar</div><div class="map-val">🌙 Southern Gothic & Roots + 🌿 Healing & Shadow Work — community content, ancestral healing collective practice, Magnolia Circle as sangha</div></div>
+    <div><div class="map-label">Products</div><div class="map-val">Magnolia Circle membership ($9/mo) — this IS Root It in product form · Patreon community tiers · IAAM archivist work (professional application of Root It)</div></div>
+    <div><div class="map-label">Ancestral Anchor</div><div class="map-val">The 235 documented families — 939 people who survived, who stayed in relationship across generations, who named their children in inheritance of those before them. The archive IS community as medicine, extended across time.</div></div>
+  </div>
+
+  <div class="h2">Services → Root Alignment</div>
+  <table class="tbl">
+    <tr><th>Service</th><th>Price</th><th>Root(s) It Embodies</th><th>Client Outcome</th></tr>
+    <tr><td>Brand Voice Clarity Session</td><td>$197</td><td>Name It (01) + Examine It (03)</td><td>Client can name their brand voice clearly; honest self-inventory of what they're actually saying vs. what they mean</td></tr>
+    <tr><td>Notion Sanctuary Setup</td><td>$297</td><td>Tend It (04)</td><td>A system that cultivates rather than corrects — built for the client's actual energy and neurodivergent reality</td></tr>
+    <tr><td>Creative Direction</td><td>$127</td><td>Name It (01) + Burn It (02)</td><td>Release the stories that block creative clarity; name the actual creative vision</td></tr>
+    <tr><td>VIP Half-Day Intensive</td><td>$497</td><td>All Five Roots</td><td>The full spiral — naming, releasing, examining, tending, rooting — in one concentrated container</td></tr>
+  </table>
+
+  <div class="h2">Content Calendar Integration</div>
+  <p class="note">Every piece of content can be rooted in one of the five pillars or the Ancestral Ground. Use this as a filter before creating anything new.</p>
+  <table class="tbl">
+    <tr><th>Content Type</th><th>Root</th><th>Ancestral Angle (optional layer)</th><th>Platform</th></tr>
+    <tr><td>Feelings check-in / prompt</td><td>01 Name It</td><td>—</td><td>TikTok, Instagram</td></tr>
+    <tr><td>Burn the Stigma narrative</td><td>02 Burn It</td><td>Vincent/Vinson surname split story</td><td>Facebook, YouTube, Dusk Letters</td></tr>
+    <tr><td>Shadow work journal prompt</td><td>03 Examine It</td><td>Inherited patterns from the lineage</td><td>TikTok, Grimoire, Stan Store</td></tr>
+    <tr><td>ND systems / anti-hustle</td><td>04 Tend It</td><td>Samuel Lee's 91 years of tending</td><td>TikTok, YouTube, Dusk Letters</td></tr>
+    <tr><td>Community / membership CTA</td><td>05 Root It</td><td>235 families who stayed in relationship</td><td>All platforms, Magnolia Circle</td></tr>
+    <tr><td>Genealogy research finds</td><td>Ancestral Ground + 02 + 05</td><td>Direct archive content — no angle needed, this IS the angle</td><td>YouTube depth, Dusk Letters, IAAM portfolio</td></tr>
+    <tr><td>Lowcountry / Southern Gothic</td><td>Ancestral Ground + 02</td><td>Geographic arc: Caswell → Greensboro → SC Lowcountry</td><td>TikTok, Instagram, Dusk Letters</td></tr>
+  </table>
+
+  <div class="h2">The IAAM Connection</div>
+  <div class="card" style="border-left:5px solid var(--gold)">
+    <div class="card-title">International African American Museum — Archivist Application</div>
+    <p style="margin-top:10px;font-size:13.5px;color:#444;line-height:1.7">The Five Roots Theory of Change is the intellectual framework that makes the IAAM application distinctive. No other candidate brings to the Center for Family History both the archival methodology (939 individuals, 6 generations documented) and the healing-centered theory of what genealogical research does for living communities.</p>
+    <p style="margin-top:10px;font-size:13.5px;color:#444;line-height:1.7">The genealogical narrative writing sample planned for the IAAM application should draw from the Vincent/Vinson surname split story — it is concrete, historically specific, emotionally resonant, and directly demonstrates the kind of intergenerational healing work the IAAM Center for Family History exists to do.</p>
+    <ul class="rlist" style="margin-top:12px">
+      <li>Root 03 (Examine It) = what archival research requires: honest inventory of lineage, gifts and wounds both</li>
+      <li>Root 05 (Root It) = what archives do for communities: community as medicine extended across time</li>
+      <li>The Ancestral Ground = the epistemological grounding that makes this archivist different from others</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════
+     BRAND NARRATIVE
+══════════════════════════════════════════════════════ -->
+<section class="panel" id="panel-narrative">
+  <div class="slabel">Section 05</div>
+  <h2 class="stitle">Brand Narrative</h2>
+  <p class="sdesc">The connective story — who this is, where it comes from, and why it exists. Paste-ready for About page, grant applications, IAAM writing sample drafts, and media inquiries.</p>
+
+  <div class="h2">The Origin Statement</div>
+  <div class="card" style="border-left:5px solid var(--gold)">
+    <p style="font-family:var(--fd);font-size:1.15rem;color:var(--indigo);line-height:1.8">
+      Midnight Magnolia was not invented. It was remembered.<br><br>
+      It came from a granddaughter who sat with a grandfather who held the family's history in his body when no one else could. From a Lowcountry porch and a Caswell County archive. From the moment she realized that the genealogy she was building and the healing work she was doing were the same practice — that tracing where you come from and understanding what you carry are not separate inquiries. They are one.<br><br>
+      The brand is named for the liminal — midnight, the hour between worlds; magnolia, the flower that blooms where other things can't survive. It is a digital sanctuary for people who are healing in the dark: neurodivergent creators, people in recovery, people who are trying to figure out who they are without the noise of hustle culture telling them what they should want. People who, like the founder, are descended from people who survived things that were not supposed to be survivable.
+    </p>
+  </div>
+
+  <div class="h2">The Lineage Paragraph</div>
+  <div class="card">
+    <p class="note" style="margin-bottom:12px">For About page, IAAM application, grant narrative, press bio. Adapt length as needed.</p>
+    <p style="font-family:var(--fd);font-size:1.1rem;color:var(--indigo);line-height:1.8">
+      My grandfather Samuel Lee Vincent was the last of his generation — the youngest child of Clarence L Vincent and Mamie Fannie Graves Wright, whose family had been rooted in Caswell County, North Carolina since before Emancipation. He died on 26 March 2026 at 91 years old, and with him passed a living link to a Caswell County that no longer exists as it was — to the Stony Creek and Leasburg of the 1930s and 1940s, to the Great Migration years, to the years when the family still spelled its name both Vincent and Vinson depending on which census taker wrote it down.<br><br>
+      He was the family historian. I am the archivist he was training me to be — though neither of us would have used that word. I have documented 939 members of our extended family, traced six generations from Greene Vincent born in 1820 to my son Noah Christopher Vincent born in 2011 in North Charleston, South Carolina, completing a geographic arc from the Piedmont to the Lowcountry that took 200 years. The names repeat themselves down the line — Christopher, Samuel, the initials preserved even when the full names changed. This is how families remember. This is what archives are made of.
+    </p>
+  </div>
+
+  <div class="h2">The Framework Paragraph</div>
+  <div class="card">
+    <p class="note" style="margin-bottom:12px">For Theory of Change summaries, grant applications, MLIS application statements, brand pitches.</p>
+    <p style="font-family:var(--fd);font-size:1.1rem;color:var(--indigo);line-height:1.8">
+      The Five Roots is a healing-centered theory of change I developed through Midnight Magnolia — not in a vacuum, but from lived experience, from the recovery frameworks that held me, from the clinical tools that gave language to what I already knew, and from a spiritual practice rooted in Black Southern ancestral tradition that I have never fully named in public and do not intend to. The framework has five pillars: naming what you feel, releasing what shamed you for feeling it, examining what you carry honestly, tending your life with cultivation rather than correction, and finding the community — living and ancestral — that will hold you while you do all of that. The Ancestral Ground beneath all five pillars is not a metaphor. It is epistemology. My grandfather is in there. Susie Smith Piles is in there. The 939 people whose names I have spent years learning to pronounce correctly are in there. Healing, in this framework, is always also intergenerational. The archive and the theory of change are the same document.
+    </p>
+  </div>
+
+  <div class="h2">Voice Reference — Language to Use</div>
+  <table class="tbl">
+    <tr><th>Say this</th><th>Not this</th><th>Why</th></tr>
+    <tr><td>"Spiritually grounded in Black Southern ancestral tradition"</td><td>"Drawing from African spirituality" / "inspired by indigenous wisdom"</td><td>Specific vs. generic; avoids collapsing distinct lineages</td></tr>
+    <tr><td>"My practice" / "my relationship with my ancestors"</td><td>"The practice" / "ancestor work" as universal instruction</td><td>Testimony vs. curriculum; yours to give, not to universalize</td></tr>
+    <tr><td>"Informed by" genealogical research</td><td>"Based on" genealogical research</td><td>"Based on" suggests derivation; "informed by" preserves voice</td></tr>
+    <tr><td>"The archive" / "the Vincent family archive"</td><td>"My family history" (too casual) / "genealogical database" (too clinical)</td><td>Archive carries the weight: something intentionally preserved</td></tr>
+    <tr><td>"Healing is intergenerational"</td><td>"We're all connected" (vague)</td><td>Specificity — the 939 people make this concrete, not abstract</td></tr>
+    <tr><td>"The last of his generation" (for Samuel)</td><td>"My grandfather died" (for public contexts)</td><td>Honors the weight without oversharing the grief</td></tr>
+  </table>
+
+  <div class="h2">The IAAM Genealogical Writing Sample — Draft Seed</div>
+  <div class="card" style="border-left:5px solid var(--indigo)">
+    <div class="card-title">The Split — A Vincent / Vinson Surname Narrative</div>
+    <p class="note" style="margin:12px 0">Seed paragraph for the IAAM writing sample. Expand from here.</p>
+    <p style="font-family:var(--fd);font-size:1.1rem;color:var(--indigo);line-height:1.8">
+      In the 1870 census for Caswell County, North Carolina, the household of Greene Vincent is recorded: a free Black man born around 1820 in Person County, his wife Mary Anne, and their children — some bearing the name Vincent, one recorded as Vinson. This was not a clerical error. This was what freedom looked like in the first years after Emancipation: a family deciding, name by name, child by child, what they would carry forward and what they would set down.<br><br>
+      The tree I have built holds both names: 77 Vincents and 9 Vinsons, all from the same Caswell County soil, all traceable to the same Greene and Mary Anne. The split in the name is also a record of choice — however constrained — made in the immediate aftermath of legal freedom. My surname is Vincent. My grandfather's was Vincent. His grandfather's was Vincent, though his grandfather's father may have been the one who decided which form of the name to keep and which to let drift into the next census column.<br><br>
+      I am the archivist. I hold both names in the same spreadsheet. That is what reconciliation looks like when it happens at the level of the archive.
+    </p>
+  </div>
+</section>
+
+</main>
+
+<footer style="background:var(--indigo);padding:36px 44px;text-align:center">
+  <p style="font-family:var(--fd);font-size:1.2rem;font-style:italic;color:var(--clay)">The archive and the theory of change are the same document.</p>
+  <p style="font-family:var(--fb);font-size:11px;color:rgba(199,176,154,.5);margin-top:10px">Midnight Magnolia · Integration Layer v4 · May 2026 · Rumi-Nations LLC</p>
+  <p style="font-family:var(--fb);font-size:11px;color:rgba(199,176,154,.35);margin-top:6px">Use alongside: Canonical Master Plan v3 · Theory of Change.docx · Vincent Family Tree.xlsx</p>
+</footer>
+
+<script>
+function show(id){
+  document.querySelectorAll('.panel').forEach(p=>p.classList.remove('on'));
+  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('on'));
+  document.getElementById('panel-'+id).classList.add('on');
+  event.currentTarget.classList.add('on');
+}
+</script>
+</body>
+</html>
