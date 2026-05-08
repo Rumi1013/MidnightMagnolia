@@ -1,91 +1,165 @@
 import Link from 'next/link';
+import { useState } from 'react';
 import Layout from '../components/Layout';
 import PageIllustration from '../components/PageIllustration';
 import { PAGE_ILLUSTRATIONS } from '../lib/brandAssets';
 import { URLS } from '../lib/constants';
 
 export default function Sanctuary() {
+  const [form, setForm] = useState({
+    name: '',
+    email: '',
+    message: '',
+  });
+
+  const mailtoHref = `mailto:bgconscious@gmail.com?subject=${encodeURIComponent(
+    `Sanctuary contact from ${form.name || 'Website visitor'}`
+  )}&body=${encodeURIComponent(
+    `Name: ${form.name}\nEmail: ${form.email}\n\nMessage:\n${form.message}`
+  )}`;
+
   return (
     <Layout
       title="The Sanctuary"
-      description="The story of Midnight Magnolia and Latisha Vincent-Waters — Senior Program Manager, digital entrepreneur, and Lowcountry SC native."
+      description="Free resources, Magnolia Circle pathways, and a direct contact entry point for Midnight Magnolia."
     >
       <div className="container">
         <div className="page-hero">
-          <p className="page-hero__eyebrow">About</p>
+          <p className="page-hero__eyebrow">The Sanctuary</p>
           <h1>You found the right quiet.</h1>
           <div className="divider" />
           <p className="hero__subtitle">
-            This is a space for neurodivergent creators, healing-centered women, and quiet builders
-            who are done performing urgency they don't feel.
+            A soft landing for neurodivergent creators, healing-centered women, and quiet builders.
+            Start with free resources, then choose the next step that fits your energy.
           </p>
         </div>
 
         <PageIllustration illustration={PAGE_ILLUSTRATIONS.sanctuary} />
 
-        {/* Story */}
+        {/* Free Resources (3 cards) */}
         <section className="section">
-          <div style={{ maxWidth: '680px' }}>
-            <h2>The story.</h2>
-            <div className="divider" />
-            <p style={{ marginBottom: 'var(--space-md)' }}>
-              I am Latisha Vincent-Waters — a Senior Program Manager, digital entrepreneur,
-              and Lowcountry South Carolina native with 15+ years building systems that actually hold people.
-            </p>
-            <p style={{ marginBottom: 'var(--space-md)' }}>
-              I have secured over $1.5 million in funding, managed $300K+ budgets, and directed programs
-              serving 600+ community members across four counties. I am a Soros Justice Fellow,
-              completing my A.A.S. in Information Technology at Trident Technical College,
-              and building toward an M.L.I.S. with a concentration in digital archival science
-              and cultural heritage preservation.
-            </p>
-            <p>
-              Now I am building Midnight Magnolia — because the tools that help people should feel like rest, not labor.
-            </p>
+          <h2>Free resources.</h2>
+          <div className="divider" />
+          <p className="muted" style={{ maxWidth: '56ch', marginBottom: 'var(--space-lg)' }}>
+            Pick one entry point. No pressure to do everything at once.
+          </p>
+          <div className="grid-3">
+            {[
+              {
+                title: 'Gentle Beginning',
+                desc: 'Start with grounding prompts and low-spoon structure.',
+                href: URLS.stanStore,
+                cta: 'Get the free starter',
+              },
+              {
+                title: 'Dusk Letters',
+                desc: 'Read reflective writing at the intersection of healing, lineage, and creativity.',
+                href: '/grimoire',
+                cta: 'Read now',
+                internal: true,
+              },
+              {
+                title: 'Tools Library',
+                desc: 'Curated tools for systems, content, and archive-centered work.',
+                href: '/resources',
+                cta: 'Browse resources',
+                internal: true,
+              },
+            ].map((item) => (
+              <div className="card" key={item.title} style={{ display: 'flex', flexDirection: 'column' }}>
+                <h3>{item.title}</h3>
+                <p className="muted" style={{ flex: 1 }}>{item.desc}</p>
+                {item.internal ? (
+                  <Link href={item.href} className="btn btn--outline">{item.cta}</Link>
+                ) : (
+                  <a href={item.href} className="btn btn--outline" target="_blank" rel="noopener noreferrer">
+                    {item.cta}
+                  </a>
+                )}
+              </div>
+            ))}
           </div>
         </section>
 
-        {/* Who this is for */}
         <section className="section section--dark" style={{ borderRadius: 'var(--radius-lg)', padding: 'var(--space-xl)', marginBottom: 'var(--space-xl)' }}>
-          <h2>This space is for you if:</h2>
+          <h2>Magnolia Circle</h2>
           <div className="divider" />
-          <div className="grid-2" style={{ marginTop: 'var(--space-lg)' }}>
-            {[
-              'You are neurodivergent and done apologizing for how your brain works.',
-              'You want to build income without burning yourself down.',
-              'You are a quiet builder who needs structure that breathes.',
-              'You are in transition and need real tools, not motivation.',
-            ].map((line, i) => (
-              <div key={i} style={{ display: 'flex', gap: '1rem', alignItems: 'flex-start' }}>
-                <span style={{ color: 'var(--color-amber)', fontFamily: 'var(--font-display)', fontSize: '1.5rem', lineHeight: 1 }}>—</span>
-                <p>{line}</p>
-              </div>
-            ))}
+          <p className="muted" style={{ maxWidth: '58ch', marginBottom: 'var(--space-md)' }}>
+            A gentle monthly membership for reflection, prompts, and community practice.
+            Begin with Candle Tender, then scale only when it still feels sustainable.
+          </p>
+          <div style={{ display: 'flex', gap: 'var(--space-md)', flexWrap: 'wrap' }}>
+            <Link href="/membership" className="btn btn--primary">View membership tiers</Link>
+            <a href={URLS.patreon} className="btn btn--outline" target="_blank" rel="noopener noreferrer">
+              Join on Patreon
+            </a>
+            <a href={URLS.bmac} className="btn btn--ghost" target="_blank" rel="noopener noreferrer">
+              Support on BMAC
+            </a>
           </div>
         </section>
 
-        {/* Credentials */}
         <section className="section">
-          <h2>Credentials.</h2>
+          <h2>About Latisha.</h2>
           <div className="divider" />
-          <div className="grid-2">
-            {[
-              { label: 'Education', items: ['B.A. Mass Communications · Claflin University', 'A.A.S. Information Technology (in progress) · Trident Technical College', 'Database Administrator Cert (concurrent) · Trident Tech'] },
-              { label: 'Recognition', items: ['Soros Justice Fellow · Open Society Foundations 2022', 'Workforce Development Scholarship Recipient', 'Google Data Analytics Certificate (2025)'] },
-            ].map(col => (
-              <div className="card" key={col.label}>
-                <h4 style={{ color: 'var(--color-burnt-rose)', marginBottom: 'var(--space-md)' }}>{col.label}</h4>
-                {col.items.map(item => <p key={item} style={{ fontSize: '0.9rem', color: 'var(--color-muted)', marginBottom: '0.5rem' }}>{item}</p>)}
-              </div>
-            ))}
+          <div style={{ maxWidth: '70ch' }}>
+            <p style={{ marginBottom: 'var(--space-md)' }}>
+              I am Latisha Vincent-Waters, a Senior Program Manager, systems strategist, and Lowcountry
+              South Carolina builder with 15+ years of program, funding, and operations leadership.
+            </p>
+            <p style={{ marginBottom: 'var(--space-md)' }} className="muted">
+              Midnight Magnolia grows from a healing-centered framework and a living family archive:
+              work that honors lineage, sustainability, and practical structure for real life.
+            </p>
+            <p className="muted">
+              If you want the full story and brand roots, visit the About page.
+            </p>
+            <div style={{ marginTop: 'var(--space-md)' }}>
+              <Link href="/about" className="btn btn--outline">Read full About page</Link>
+            </div>
           </div>
         </section>
 
-        {/* CTAs */}
-        <section className="section" style={{ display: 'flex', gap: 'var(--space-md)', flexWrap: 'wrap', paddingBottom: 'var(--space-2xl)' }}>
-          <a href={URLS.booking} className="btn btn--primary" target="_blank" rel="noopener">Book a Session</a>
-          <Link href="/portfolio" className="btn btn--outline">View the Portfolio</Link>
-          <a href={URLS.stanStore} className="btn btn--ghost" target="_blank" rel="noopener">Visit the Shop</a>
+        <section className="section" style={{ paddingBottom: 'var(--space-2xl)' }}>
+          <h2>Contact</h2>
+          <div className="divider" />
+          <p className="muted" style={{ maxWidth: '56ch', marginBottom: 'var(--space-md)' }}>
+            Send a quick note for services, collaborations, or support questions.
+          </p>
+          <div className="card" style={{ maxWidth: 760 }}>
+            <div className="grid-2" style={{ marginBottom: 'var(--space-md)' }}>
+              <label style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
+                <span style={{ fontSize: '0.85rem' }}>Name</span>
+                <input
+                  value={form.name}
+                  onChange={(e) => setForm((f) => ({ ...f, name: e.target.value }))}
+                  style={{ padding: '0.7rem', borderRadius: 8, border: '1px solid rgba(255,255,255,0.15)', background: 'rgba(255,255,255,0.04)', color: 'inherit' }}
+                />
+              </label>
+              <label style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
+                <span style={{ fontSize: '0.85rem' }}>Email</span>
+                <input
+                  type="email"
+                  value={form.email}
+                  onChange={(e) => setForm((f) => ({ ...f, email: e.target.value }))}
+                  style={{ padding: '0.7rem', borderRadius: 8, border: '1px solid rgba(255,255,255,0.15)', background: 'rgba(255,255,255,0.04)', color: 'inherit' }}
+                />
+              </label>
+            </div>
+            <label style={{ display: 'flex', flexDirection: 'column', gap: 6, marginBottom: 'var(--space-md)' }}>
+              <span style={{ fontSize: '0.85rem' }}>Message</span>
+              <textarea
+                rows={5}
+                value={form.message}
+                onChange={(e) => setForm((f) => ({ ...f, message: e.target.value }))}
+                style={{ padding: '0.7rem', borderRadius: 8, border: '1px solid rgba(255,255,255,0.15)', background: 'rgba(255,255,255,0.04)', color: 'inherit' }}
+              />
+            </label>
+            <div style={{ display: 'flex', gap: 'var(--space-md)', flexWrap: 'wrap' }}>
+              <a href={mailtoHref} className="btn btn--primary">Send Message</a>
+              <a href={URLS.booking} className="btn btn--outline" target="_blank" rel="noopener noreferrer">Book a Session</a>
+            </div>
+          </div>
         </section>
       </div>
     </Layout>
