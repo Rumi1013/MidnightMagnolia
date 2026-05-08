@@ -304,8 +304,9 @@ Create a table named **Patreon Members**.
 
 1. **Active Members** — Grid · filter: Status = Active · sort by Join Date
 2. **Altar Keeper Roster** — Grid · filter: Tier = Altar Keeper (35) · Status = Active
-   > ⚠ This view must never show more than 10 records with Status = Active.
-   > Add a count field or manually verify each time a new Altar Keeper joins.
+   > ⚠ Airtable views cannot enforce hard row limits.
+   > Enforce the 10-member cap with an Airtable Automation (or app-level validation) that blocks setting Status = Active when active Altar Keeper count is already 10.
+   > Keep this view for visibility only, and still review changes whenever a new Altar Keeper is added.
 3. **Content Due** — Grid · filter: Status = Active · sort by Last Content Delivered asc
    (oldest delivery first = most overdue)
 4. **Churned Members** — Grid · filter: Status = Churned · sort by Join Date desc

@@ -1,0 +1,13 @@
+# macOS
+.DS_Store
+**/.DS_Store
+.AppleDouble
+.LSOverride
+
+# Microsoft Office lock files (created while a document is open)
+~$*.docx
+~$*.doc
+~$*.xlsx
+~$*.pptx
+~$*.xls
+~$*.ppt

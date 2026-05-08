@@ -1,0 +1,1538 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta
+			name="viewport"
+			content="width=device-width, initial-scale=1.0" />
+		<title>🌙 Midnight Magnolia Dashboard</title>
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Quicksand:wght@400;500;600&display=swap" rel="stylesheet">
+		<style>
+			:root {
+				--magnolia-cream: #faf7f2;
+				--magnolia-blush: #f5e6d8;
+				--deep-plum: #4a3728;
+				--midnight-navy: #1a1a2e;
+				--soft-gold: #d4a574;
+				--rose-dust: #c9a8a8;
+				--sage-green: #a8c4a8;
+				--lavender-mist: #b8a8c8;
+				--warm-coral: #e8a89c;
+				--text-primary: #2d2d2d;
+				--text-secondary: #5a5a5a;
+				--gradient-magnolia: linear-gradient(135deg, #faf7f2 0%, #f5e6d8 50%, #e8d4c4 100%);
+				--gradient-evening: linear-gradient(135deg, #1a1a2e 0%, #2d1f3d 50%, #4a3728 100%);
+				--gradient-rose: linear-gradient(135deg, #f5e6d8 0%, #e8d4c4 50%, #c9a8a8 100%);
+			}
+
+			* {
+				margin: 0;
+				padding: 0;
+				box-sizing: border-box;
+			}
+
+			body {
+				font-family: 'Quicksand', -apple-system, BlinkMacSystemFont, sans-serif;
+				background: var(--gradient-evening);
+				color: var(--magnolia-cream);
+				min-height: 100vh;
+				padding: 20px;
+			}
+
+			h1, h2, h3, h4 {
+				font-family: 'Cormorant Garamond', Georgia, serif;
+				font-weight: 600;
+			}
+
+			.container {
+				max-width: 1400px;
+				margin: 0 auto;
+			}
+
+			.header {
+				text-align: center;
+				margin-bottom: 40px;
+				padding: 30px 20px;
+				background: linear-gradient(135deg, rgba(250, 247, 242, 0.08) 0%, rgba(212, 165, 116, 0.12) 100%);
+				border-radius: 20px;
+				border: 1px solid rgba(212, 165, 116, 0.2);
+				backdrop-filter: blur(10px);
+			}
+
+			.header h1 {
+				font-size: 3em;
+				margin-bottom: 10px;
+				background: linear-gradient(135deg, var(--magnolia-cream) 0%, var(--soft-gold) 50%, var(--rose-dust) 100%);
+				-webkit-background-clip: text;
+				-webkit-text-fill-color: transparent;
+				background-clip: text;
+				letter-spacing: 0.05em;
+			}
+
+			.header p {
+				color: var(--rose-dust);
+				font-size: 1.1em;
+				font-style: italic;
+				font-family: 'Cormorant Garamond', serif;
+			}
+
+			.tabs {
+				display: flex;
+				gap: 8px;
+				margin-bottom: 30px;
+				border-bottom: 2px solid rgba(212, 165, 116, 0.3);
+				flex-wrap: wrap;
+				padding-bottom: 10px;
+			}
+
+			.tab-button {
+				padding: 12px 20px;
+				border: none;
+				background: rgba(250, 247, 242, 0.05);
+				color: var(--rose-dust);
+				cursor: pointer;
+				font-size: 0.95em;
+				font-family: 'Quicksand', sans-serif;
+				font-weight: 500;
+				border-radius: 12px 12px 0 0;
+				transition: all 0.3s ease;
+				border: 1px solid transparent;
+			}
+
+			.tab-button:hover {
+				color: var(--soft-gold);
+				background: rgba(212, 165, 116, 0.1);
+			}
+
+			.tab-button.active {
+				color: var(--magnolia-cream);
+				background: rgba(212, 165, 116, 0.2);
+				border-color: rgba(212, 165, 116, 0.4);
+				border-bottom-color: transparent;
+			}
+
+			.tab-content {
+				display: none;
+				animation: fadeIn 0.4s ease;
+			}
+
+			.tab-content.active {
+				display: block;
+			}
+
+			@keyframes fadeIn {
+				from {
+					opacity: 0;
+					transform: translateY(10px);
+				}
+				to {
+					opacity: 1;
+					transform: translateY(0);
+				}
+			}
+
+			.card {
+				background: linear-gradient(135deg, rgba(74, 55, 40, 0.4) 0%, rgba(45, 31, 61, 0.4) 100%);
+				border: 1px solid rgba(212, 165, 116, 0.2);
+				border-radius: 16px;
+				padding: 24px;
+				margin-bottom: 20px;
+				backdrop-filter: blur(10px);
+				box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+			}
+
+			.card h3 {
+				font-size: 1.4em;
+				margin-bottom: 16px;
+				color: var(--soft-gold);
+				display: flex;
+				align-items: center;
+				gap: 10px;
+			}
+
+			.stat-grid {
+				display: grid;
+				grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+				gap: 20px;
+				margin-bottom: 24px;
+			}
+
+			.stat-card {
+				background: linear-gradient(135deg, rgba(250, 247, 242, 0.08) 0%, rgba(212, 165, 116, 0.08) 100%);
+				border: 1px solid rgba(212, 165, 116, 0.3);
+				border-radius: 16px;
+				padding: 24px;
+				text-align: center;
+				transition: transform 0.3s ease, box-shadow 0.3s ease;
+			}
+
+			.stat-card:hover {
+				transform: translateY(-4px);
+				box-shadow: 0 12px 40px rgba(212, 165, 116, 0.15);
+			}
+
+			.stat-value {
+				font-family: 'Cormorant Garamond', serif;
+				font-size: 2.8em;
+				font-weight: 600;
+				background: linear-gradient(135deg, var(--soft-gold) 0%, var(--warm-coral) 100%);
+				-webkit-background-clip: text;
+				-webkit-text-fill-color: transparent;
+				background-clip: text;
+				margin-bottom: 8px;
+			}
+
+			.stat-label {
+				color: var(--rose-dust);
+				font-size: 0.9em;
+				text-transform: uppercase;
+				letter-spacing: 0.1em;
+			}
+
+			.file-list {
+				max-height: 500px;
+				overflow-y: auto;
+				border: 1px solid rgba(212, 165, 116, 0.2);
+				border-radius: 12px;
+			}
+
+			.file-list::-webkit-scrollbar {
+				width: 8px;
+			}
+
+			.file-list::-webkit-scrollbar-track {
+				background: rgba(0, 0, 0, 0.2);
+				border-radius: 4px;
+			}
+
+			.file-list::-webkit-scrollbar-thumb {
+				background: var(--soft-gold);
+				border-radius: 4px;
+			}
+
+			.file-item {
+				display: flex;
+				align-items: center;
+				padding: 16px;
+				border-bottom: 1px solid rgba(212, 165, 116, 0.1);
+				transition: background 0.3s ease;
+			}
+
+			.file-item:hover {
+				background: rgba(212, 165, 116, 0.08);
+			}
+
+			.file-item:last-child {
+				border-bottom: none;
+			}
+
+			.file-checkbox {
+				width: 20px;
+				height: 20px;
+				margin-right: 15px;
+				cursor: pointer;
+				accent-color: var(--soft-gold);
+			}
+
+			.file-info {
+				flex: 1;
+			}
+
+			.file-name {
+				font-weight: 500;
+				margin-bottom: 4px;
+				color: var(--magnolia-cream);
+			}
+
+			.file-path {
+				color: var(--rose-dust);
+				font-size: 0.85em;
+				word-break: break-all;
+				opacity: 0.8;
+			}
+
+			.file-size {
+				color: var(--soft-gold);
+				font-weight: 600;
+				margin-right: 20px;
+				font-family: 'Cormorant Garamond', serif;
+				font-size: 1.1em;
+			}
+
+			.button-group {
+				display: flex;
+				gap: 12px;
+				margin-top: 20px;
+				flex-wrap: wrap;
+			}
+
+			button {
+				padding: 12px 24px;
+				border: none;
+				border-radius: 12px;
+				cursor: pointer;
+				font-weight: 500;
+				font-family: 'Quicksand', sans-serif;
+				transition: all 0.3s ease;
+			}
+
+			.btn-primary {
+				background: linear-gradient(135deg, var(--soft-gold) 0%, var(--warm-coral) 100%);
+				color: var(--deep-plum);
+			}
+
+			.btn-primary:hover {
+				transform: translateY(-2px);
+				box-shadow: 0 8px 24px rgba(212, 165, 116, 0.4);
+			}
+
+			.btn-secondary {
+				background: rgba(250, 247, 242, 0.1);
+				color: var(--magnolia-cream);
+				border: 1px solid rgba(212, 165, 116, 0.3);
+			}
+
+			.btn-secondary:hover {
+				background: rgba(212, 165, 116, 0.15);
+			}
+
+			.btn-success {
+				background: linear-gradient(135deg, var(--sage-green) 0%, #8ab48a 100%);
+				color: var(--deep-plum);
+			}
+
+			.btn-danger {
+				background: linear-gradient(135deg, var(--warm-coral) 0%, #d88878 100%);
+				color: white;
+			}
+
+			.btn-small {
+				padding: 6px 12px;
+				font-size: 0.8em;
+				border-radius: 8px;
+			}
+
+			.btn-archive {
+				background: rgba(184, 168, 200, 0.3);
+				color: var(--lavender-mist);
+				border: 1px solid var(--lavender-mist);
+			}
+
+			.btn-archive:hover {
+				background: rgba(184, 168, 200, 0.5);
+			}
+
+			.btn-delete {
+				background: rgba(232, 168, 156, 0.2);
+				color: var(--warm-coral);
+				border: 1px solid var(--warm-coral);
+			}
+
+			.btn-delete:hover {
+				background: rgba(232, 168, 156, 0.4);
+			}
+
+			/* File thumbnails and previews */
+			.file-thumbnail {
+				width: 48px;
+				height: 48px;
+				border-radius: 8px;
+				margin-right: 16px;
+				object-fit: cover;
+				background: rgba(250, 247, 242, 0.1);
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				font-size: 1.5em;
+				flex-shrink: 0;
+			}
+
+			.file-thumbnail img {
+				width: 100%;
+				height: 100%;
+				object-fit: cover;
+				border-radius: 8px;
+			}
+
+			.file-actions {
+				display: flex;
+				gap: 8px;
+				margin-left: 12px;
+			}
+
+			.alert {
+				padding: 16px 20px;
+				border-radius: 12px;
+				margin-bottom: 20px;
+			}
+
+			.alert-success {
+				background: rgba(168, 196, 168, 0.2);
+				border: 1px solid var(--sage-green);
+				color: var(--sage-green);
+			}
+
+			.alert-info {
+				background: rgba(184, 168, 200, 0.2);
+				border: 1px solid var(--lavender-mist);
+				color: var(--lavender-mist);
+			}
+
+			.duplicate-set {
+				background: rgba(45, 31, 61, 0.4);
+				border: 1px solid rgba(212, 165, 116, 0.25);
+				border-radius: 12px;
+				padding: 16px;
+				margin-bottom: 16px;
+			}
+
+			.duplicate-set-header {
+				display: flex;
+				justify-content: space-between;
+				align-items: center;
+				margin-bottom: 12px;
+				padding-bottom: 12px;
+				border-bottom: 1px solid rgba(212, 165, 116, 0.15);
+			}
+
+			.duplicate-set-size {
+				color: var(--warm-coral);
+				font-weight: 600;
+				font-family: 'Cormorant Garamond', serif;
+				font-size: 1.1em;
+			}
+
+			.monetization-type {
+				display: inline-block;
+				padding: 6px 14px;
+				border-radius: 20px;
+				font-size: 0.8em;
+				font-weight: 500;
+				margin-right: 10px;
+			}
+
+			.type-artwork {
+				background: linear-gradient(135deg, var(--lavender-mist) 0%, #a898b8 100%);
+				color: var(--deep-plum);
+			}
+
+			.type-writing {
+				background: linear-gradient(135deg, #88b4d4 0%, #6894b4 100%);
+				color: var(--deep-plum);
+			}
+
+			.type-templates {
+				background: linear-gradient(135deg, var(--sage-green) 0%, #88a888 100%);
+				color: var(--deep-plum);
+			}
+
+			.type-ready {
+				background: linear-gradient(135deg, var(--soft-gold) 0%, #c49564 100%);
+				color: var(--deep-plum);
+			}
+
+			.type-needs-work {
+				background: linear-gradient(135deg, var(--warm-coral) 0%, #d88878 100%);
+				color: var(--deep-plum);
+			}
+
+			.loading {
+				text-align: center;
+				padding: 40px;
+				color: var(--rose-dust);
+			}
+
+			.spinner {
+				border: 3px solid rgba(212, 165, 116, 0.2);
+				border-top: 3px solid var(--soft-gold);
+				border-radius: 50%;
+				width: 40px;
+				height: 40px;
+				animation: spin 1s linear infinite;
+				margin: 0 auto 20px;
+			}
+
+			@keyframes spin {
+				0% { transform: rotate(0deg); }
+				100% { transform: rotate(360deg); }
+			}
+
+			.week-schedule {
+				display: grid;
+				grid-template-columns: repeat(7, 1fr);
+				gap: 10px;
+				margin: 20px 0;
+			}
+
+			.day-option {
+				padding: 16px 12px;
+				text-align: center;
+				border: 2px solid rgba(212, 165, 116, 0.2);
+				border-radius: 12px;
+				cursor: pointer;
+				transition: all 0.3s ease;
+				font-weight: 500;
+			}
+
+			.day-option:hover {
+				border-color: var(--soft-gold);
+				background: rgba(212, 165, 116, 0.1);
+			}
+
+			.day-option.selected {
+				border-color: var(--soft-gold);
+				background: linear-gradient(135deg, rgba(212, 165, 116, 0.2) 0%, rgba(232, 168, 156, 0.2) 100%);
+			}
+
+			/* ==================== ZORA COACHING STYLES ==================== */
+			.zora-section {
+				background: linear-gradient(135deg, rgba(184, 168, 200, 0.15) 0%, rgba(201, 168, 168, 0.15) 100%);
+				border: 1px solid rgba(184, 168, 200, 0.3);
+			}
+
+			.zora-quote {
+				font-family: 'Cormorant Garamond', serif;
+				font-style: italic;
+				font-size: 1.2em;
+				color: var(--lavender-mist);
+				padding: 20px 24px;
+				border-left: 4px solid var(--lavender-mist);
+				margin-bottom: 24px;
+				background: rgba(184, 168, 200, 0.08);
+				border-radius: 0 12px 12px 0;
+			}
+
+			.framework-grid {
+				display: grid;
+				grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+				gap: 20px;
+				margin-top: 20px;
+			}
+
+			.framework-card {
+				background: rgba(45, 31, 61, 0.5);
+				border: 1px solid rgba(212, 165, 116, 0.2);
+				border-radius: 16px;
+				padding: 20px;
+				transition: transform 0.3s ease, box-shadow 0.3s ease;
+			}
+
+			.framework-card:hover {
+				transform: translateY(-4px);
+				box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3);
+				border-color: rgba(212, 165, 116, 0.4);
+			}
+
+			.framework-card h4 {
+				color: var(--soft-gold);
+				font-size: 1.2em;
+				margin-bottom: 12px;
+				display: flex;
+				align-items: center;
+				gap: 10px;
+			}
+
+			.framework-card p {
+				color: var(--rose-dust);
+				font-size: 0.95em;
+				line-height: 1.6;
+				margin-bottom: 12px;
+			}
+
+			.framework-tag {
+				display: inline-block;
+				padding: 4px 10px;
+				border-radius: 12px;
+				font-size: 0.75em;
+				margin-right: 6px;
+				margin-bottom: 6px;
+			}
+
+			.tag-productivity {
+				background: rgba(168, 196, 168, 0.3);
+				color: var(--sage-green);
+			}
+
+			.tag-healing {
+				background: rgba(184, 168, 200, 0.3);
+				color: var(--lavender-mist);
+			}
+
+			.tag-spiritual {
+				background: rgba(212, 165, 116, 0.3);
+				color: var(--soft-gold);
+			}
+
+			/* Wellness Tracker */
+			.wellness-tracker {
+				background: linear-gradient(135deg, rgba(168, 196, 168, 0.1) 0%, rgba(184, 168, 200, 0.1) 100%);
+				border-radius: 16px;
+				padding: 24px;
+				margin-top: 20px;
+			}
+
+			.wellness-row {
+				display: flex;
+				align-items: center;
+				gap: 16px;
+				margin-bottom: 20px;
+			}
+
+			.wellness-label {
+				min-width: 120px;
+				color: var(--magnolia-cream);
+				font-weight: 500;
+			}
+
+			.wellness-scale {
+				display: flex;
+				gap: 8px;
+				flex: 1;
+			}
+
+			.wellness-option {
+				flex: 1;
+				padding: 12px 8px;
+				text-align: center;
+				background: rgba(250, 247, 242, 0.05);
+				border: 2px solid rgba(212, 165, 116, 0.2);
+				border-radius: 10px;
+				cursor: pointer;
+				transition: all 0.3s ease;
+				font-size: 0.85em;
+			}
+
+			.wellness-option:hover {
+				border-color: var(--soft-gold);
+				background: rgba(212, 165, 116, 0.1);
+			}
+
+			.wellness-option.selected {
+				border-color: var(--sage-green);
+				background: rgba(168, 196, 168, 0.2);
+				color: var(--sage-green);
+			}
+
+			.recovery-grid {
+				display: grid;
+				grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+				gap: 10px;
+				margin-top: 16px;
+			}
+
+			.recovery-item {
+				padding: 12px;
+				text-align: center;
+				background: rgba(250, 247, 242, 0.05);
+				border: 1px solid rgba(212, 165, 116, 0.15);
+				border-radius: 10px;
+				cursor: pointer;
+				transition: all 0.3s ease;
+				font-size: 0.9em;
+			}
+
+			.recovery-item:hover {
+				border-color: var(--lavender-mist);
+				background: rgba(184, 168, 200, 0.1);
+			}
+
+			.recovery-item.selected {
+				border-color: var(--lavender-mist);
+				background: rgba(184, 168, 200, 0.2);
+				color: var(--lavender-mist);
+			}
+
+			/* Quick Coaching Prompts */
+			.prompt-card {
+				background: rgba(45, 31, 61, 0.6);
+				border: 1px solid rgba(184, 168, 200, 0.3);
+				border-radius: 12px;
+				padding: 16px;
+				margin-bottom: 12px;
+				cursor: pointer;
+				transition: all 0.3s ease;
+			}
+
+			.prompt-card:hover {
+				border-color: var(--lavender-mist);
+				background: rgba(184, 168, 200, 0.15);
+				transform: translateX(8px);
+			}
+
+			.prompt-category {
+				font-size: 0.75em;
+				text-transform: uppercase;
+				letter-spacing: 0.1em;
+				color: var(--lavender-mist);
+				margin-bottom: 6px;
+			}
+
+			.prompt-text {
+				color: var(--magnolia-cream);
+				font-family: 'Cormorant Garamond', serif;
+				font-size: 1.15em;
+				font-style: italic;
+			}
+
+			@media (max-width: 768px) {
+				.header h1 {
+					font-size: 2em;
+				}
+
+				.stat-grid {
+					grid-template-columns: 1fr 1fr;
+				}
+
+				.tabs {
+					flex-direction: column;
+				}
+
+				.week-schedule {
+					grid-template-columns: repeat(4, 1fr);
+				}
+
+				.framework-grid {
+					grid-template-columns: 1fr;
+				}
+			}
+		</style>
+	</head>
+	<body>
+		<div class="container">
+			<div class="header">
+				<h1>🌸 Midnight Magnolia</h1>
+				<p>"Do less, but better — focus on what matters most"</p>
+			</div>
+
+			<div class="tabs">
+				<button class="tab-button active" data-tab="overview">📊 Overview</button>
+				<button class="tab-button" data-tab="coaching">🌿 Zora Coach</button>
+				<button class="tab-button" data-tab="monetization">💰 Monetization</button>
+				<button class="tab-button" data-tab="duplicates">🔍 Duplicates</button>
+				<button class="tab-button" data-tab="organize">📁 Organize</button>
+				<button class="tab-button" data-tab="settings">⚙️ Settings</button>
+			</div>
+
+			<!-- OVERVIEW TAB -->
+			<div id="overview" class="tab-content active">
+				<div class="stat-grid" id="statsGrid">
+					<div class="stat-card">
+						<div class="stat-value">-</div>
+						<div class="stat-label">Total Files</div>
+					</div>
+					<div class="stat-card">
+						<div class="stat-value">-</div>
+						<div class="stat-label">Total Size</div>
+					</div>
+					<div class="stat-card">
+						<div class="stat-value">-</div>
+						<div class="stat-label">Duplicates</div>
+					</div>
+					<div class="stat-card">
+						<div class="stat-value">-</div>
+						<div class="stat-label">Space to Save</div>
+					</div>
+				</div>
+
+				<div class="card">
+					<h3>📁 Category Breakdown</h3>
+					<div id="categoryBreakdown"></div>
+				</div>
+
+				<div class="card">
+					<h3>⚡ Quick Actions</h3>
+					<div class="button-group">
+						<button class="btn-primary" onclick="runScan()">🔄 Run Scan Now</button>
+						<button class="btn-secondary" onclick="loadDashboard()">🔄 Refresh Dashboard</button>
+					</div>
+				</div>
+			</div>
+
+			<!-- ZORA COACHING TAB -->
+			<div id="coaching" class="tab-content">
+				<div class="card zora-section">
+					<h3>🌿 Zora — Your Essentialist Clarity Coach</h3>
+					<div class="zora-quote">
+						"Caring for myself is not self-indulgence, it is self-preservation, and that is an act of political warfare." — Audre Lorde
+					</div>
+
+					<p style="color: var(--rose-dust); margin-bottom: 20px; line-height: 1.7;">
+						Welcome, love. I'm here to help you do less, but better. Let's check in with where you're at today, 
+						then explore frameworks that honor both your productivity AND your healing journey.
+					</p>
+
+					<!-- Daily Check-In -->
+					<div class="wellness-tracker">
+						<h4 style="color: var(--soft-gold); margin-bottom: 16px;">🌡️ Daily Energy Check-In</h4>
+						
+						<div class="wellness-row">
+							<span class="wellness-label">Energy Level</span>
+							<div class="wellness-scale" id="energyScale">
+								<div class="wellness-option" data-value="1" onclick="selectWellness('energy', 1, this)">😴 Depleted</div>
+								<div class="wellness-option" data-value="2" onclick="selectWellness('energy', 2, this)">😔 Low</div>
+								<div class="wellness-option" data-value="3" onclick="selectWellness('energy', 3, this)">😐 Neutral</div>
+								<div class="wellness-option" data-value="4" onclick="selectWellness('energy', 4, this)">😊 Good</div>
+								<div class="wellness-option" data-value="5" onclick="selectWellness('energy', 5, this)">✨ Thriving</div>
+							</div>
+						</div>
+
+						<div class="wellness-row">
+							<span class="wellness-label">Focus Quality</span>
+							<div class="wellness-scale" id="focusScale">
+								<div class="wellness-option" data-value="1" onclick="selectWellness('focus', 1, this)">🌪️ Scattered</div>
+								<div class="wellness-option" data-value="2" onclick="selectWellness('focus', 2, this)">👀 Distracted</div>
+								<div class="wellness-option" data-value="3" onclick="selectWellness('focus', 3, this)">🎯 Moderate</div>
+								<div class="wellness-option" data-value="4" onclick="selectWellness('focus', 4, this)">🔍 Focused</div>
+								<div class="wellness-option" data-value="5" onclick="selectWellness('focus', 5, this)">🌊 Flow State</div>
+							</div>
+						</div>
+
+						<h4 style="color: var(--lavender-mist); margin: 20px 0 12px;">💜 Recovery Activities (select what you'll do today)</h4>
+						<div class="recovery-grid" id="recoveryGrid">
+							<div class="recovery-item" onclick="toggleRecovery(this)">🌬️ Deep Breathing</div>
+							<div class="recovery-item" onclick="toggleRecovery(this)">🚶 Short Walk</div>
+							<div class="recovery-item" onclick="toggleRecovery(this)">✨ Joy Interval</div>
+							<div class="recovery-item" onclick="toggleRecovery(this)">💧 Hydration</div>
+							<div class="recovery-item" onclick="toggleRecovery(this)">🧘 Stretch</div>
+							<div class="recovery-item" onclick="toggleRecovery(this)">🌿 Nature</div>
+							<div class="recovery-item" onclick="toggleRecovery(this)">🎨 Creative Play</div>
+							<div class="recovery-item" onclick="toggleRecovery(this)">😴 Rest/Nap</div>
+							<div class="recovery-item" onclick="toggleRecovery(this)">💕 Social Connection</div>
+							<div class="recovery-item" onclick="toggleRecovery(this)">🕯️ Ritual Practice</div>
+						</div>
+					</div>
+				</div>
+
+				<!-- Quick Coaching Prompts -->
+				<div class="card">
+					<h3>💭 Zora's Coaching Prompts</h3>
+					<p style="color: var(--rose-dust); margin-bottom: 16px;">Click any prompt to reflect. Questions first, action second.</p>
+					
+					<div class="prompt-card" onclick="showPromptModal('outcome')">
+						<div class="prompt-category">🎯 Outcome</div>
+						<div class="prompt-text">"What does good look like by the end of this week?"</div>
+					</div>
+					
+					<div class="prompt-card" onclick="showPromptModal('scope')">
+						<div class="prompt-category">📦 Scope</div>
+						<div class="prompt-text">"What's the smallest valuable version you can finish today?"</div>
+					</div>
+					
+					<div class="prompt-card" onclick="showPromptModal('priority')">
+						<div class="prompt-category">⚖️ Priority</div>
+						<div class="prompt-text">"Is this important, or just loud?"</div>
+					</div>
+					
+					<div class="prompt-card" onclick="showPromptModal('energy')">
+						<div class="prompt-category">🔋 Energy</div>
+						<div class="prompt-text">"What will you do to recover today?"</div>
+					</div>
+					
+					<div class="prompt-card" onclick="showPromptModal('letgo')">
+						<div class="prompt-category">🍃 Let Go</div>
+						<div class="prompt-text">"What can you release to create space for what matters?"</div>
+					</div>
+				</div>
+
+				<!-- Framework Library -->
+				<div class="card">
+					<h3>📚 Productivity & Healing Frameworks</h3>
+					
+					<div class="framework-grid">
+						<!-- Productivity Frameworks -->
+						<div class="framework-card">
+							<h4>🎯 Essentialism</h4>
+							<p>Do less, but better. The disciplined pursuit of less. Ask: "What is the ONE thing that really matters now?"</p>
+							<span class="framework-tag tag-productivity">GTD</span>
+							<span class="framework-tag tag-productivity">Focus</span>
+						</div>
+						
+						<div class="framework-card">
+							<h4>🧠 Deep Work</h4>
+							<p>Time-block 60-120 minute sessions. High-quality work = Time × Intensity of Focus.</p>
+							<span class="framework-tag tag-productivity">Cal Newport</span>
+						</div>
+						
+						<div class="framework-card">
+							<h4>🔲 PARA Method</h4>
+							<p>Projects, Areas, Resources, Archives. Organize for actionability, not categorization.</p>
+							<span class="framework-tag tag-productivity">Tiago Forte</span>
+						</div>
+						
+						<div class="framework-card">
+							<h4>⚡ Atomic Habits</h4>
+							<p>Cue → Craving → Response → Reward. Small 2-minute starts compound into transformation.</p>
+							<span class="framework-tag tag-productivity">James Clear</span>
+						</div>
+						
+						<!-- Healing Frameworks -->
+						<div class="framework-card">
+							<h4>🍃 Let Go Theory</h4>
+							<p>Release what weighs you down. The 5-Second Rule. Physical rituals for letting go. Reverse to-do lists.</p>
+							<span class="framework-tag tag-healing">Mel Robbins</span>
+						</div>
+						
+						<div class="framework-card">
+							<h4>🧩 SMART Recovery ABC</h4>
+							<p>Activating Event → Beliefs → Consequences. Dispute irrational beliefs that sabotage your focus.</p>
+							<span class="framework-tag tag-healing">CBT</span>
+						</div>
+						
+						<div class="framework-card">
+							<h4>✊ Self-Preservation</h4>
+							<p>Rest is resistance. Joy is necessary. Honor your whole self. Cyclical, not linear productivity.</p>
+							<span class="framework-tag tag-healing">Audre Lorde</span>
+							<span class="framework-tag tag-spiritual">Liberation</span>
+						</div>
+						
+						<div class="framework-card">
+							<h4>💜 Love Ethics</h4>
+							<p>Love as practice. Community care enables individual thriving. Honest communication sustains work.</p>
+							<span class="framework-tag tag-healing">bell hooks</span>
+						</div>
+						
+						<div class="framework-card">
+							<h4>🕯️ Spiritual Productivity</h4>
+							<p>Ancestral wisdom. Ritual as focus. Natural cycles. Workspace altars. Begin and close with intention.</p>
+							<span class="framework-tag tag-spiritual">Luisah Teish</span>
+							<span class="framework-tag tag-spiritual">Hoodoo</span>
+						</div>
+						
+						<div class="framework-card">
+							<h4>📿 12-Step Adaptation</h4>
+							<p>Admit you can't do everything. Daily inventory. Make productivity amends. Surrender what's beyond capacity.</p>
+							<span class="framework-tag tag-healing">Recovery</span>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<!-- MONETIZATION TAB -->
+			<div id="monetization" class="tab-content">
+				<div class="card">
+					<h3>💰 Ready to Sell (High Priority)</h3>
+					<div class="file-list" id="readyToSell">
+						<div class="loading">
+							<div class="spinner"></div>
+							Loading...
+						</div>
+					</div>
+				</div>
+
+				<div class="card">
+					<h3>🔧 Needs Work Before Selling</h3>
+					<div class="file-list" id="needsWork">
+						<div class="loading">
+							<div class="spinner"></div>
+							Loading...
+						</div>
+					</div>
+				</div>
+
+				<div class="card">
+					<h3>📦 Archive (Historical/Personal)</h3>
+					<div class="file-list" id="archive">
+						<div class="loading">
+							<div class="spinner"></div>
+							Loading...
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<!-- DUPLICATES TAB -->
+			<div id="duplicates" class="tab-content">
+				<div class="card">
+					<h3>🔍 Duplicate File Sets</h3>
+					<p style="margin-bottom: 20px; color: var(--rose-dust);">
+						Keep the best version, delete the rest. Files moved to Trash (recoverable for 30 days).
+					</p>
+
+					<div id="duplicateSets">
+						<div class="loading">
+							<div class="spinner"></div>
+							Loading duplicates...
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<!-- ORGANIZE TAB -->
+			<div id="organize" class="tab-content">
+				<div class="card">
+					<h3>📁 Smart File Organization</h3>
+					<p style="margin-bottom: 20px; color: var(--rose-dust);">
+						Organize files by type while keeping projects intact. Your code repos stay together.
+					</p>
+
+					<div id="organizationOptions">
+						<button class="btn-primary" onclick="organizeByType()">📂 Organize by File Type</button>
+						<button class="btn-secondary" onclick="organizeByProject()">🔗 Keep Projects Together</button>
+					</div>
+				</div>
+			</div>
+
+			<!-- SETTINGS TAB -->
+			<div id="settings" class="tab-content">
+				<div class="card">
+					<h3>⚙️ Scan Schedule</h3>
+					<p style="margin-bottom: 20px; color: var(--rose-dust);">
+						When would you like weekly scans to run? (Default: Thursday 10 PM)
+					</p>
+					<div class="week-schedule">
+						<div class="day-option" onclick="toggleDay(this)">Sun</div>
+						<div class="day-option" onclick="toggleDay(this)">Mon</div>
+						<div class="day-option" onclick="toggleDay(this)">Tue</div>
+						<div class="day-option" onclick="toggleDay(this)">Wed</div>
+						<div class="day-option selected" onclick="toggleDay(this)">Thu</div>
+						<div class="day-option" onclick="toggleDay(this)">Fri</div>
+						<div class="day-option" onclick="toggleDay(this)">Sat</div>
+						</div>
+					<button class="btn-primary" onclick="saveSchedule()">💾 Save Schedule</button>
+						</div>
+
+				<div class="card">
+					<h3>📊 Report Storage</h3>
+					<p style="color: var(--rose-dust);">
+						Latest reports: <code style="color: var(--soft-gold); background: rgba(212,165,116,0.15); padding: 2px 8px; border-radius: 4px;">~/MidnightMagnolia_Reports/</code>
+					</p>
+					<div class="button-group">
+						<button class="btn-secondary" onclick="openReports()">📂 Open Reports Folder</button>
+						</div>
+				</div>
+
+				<div class="card">
+					<h3>🌿 Coaching Frameworks Data</h3>
+					<p style="color: var(--rose-dust);">
+						Framework reference: <code style="color: var(--soft-gold); background: rgba(212,165,116,0.15); padding: 2px 8px; border-radius: 4px;">~/MidnightMagnolia_Dashboard/coaching_frameworks.json</code>
+					</p>
+				</div>
+			</div>
+		</div>
+
+		<script>
+			// State management
+			const wellnessState = {
+				energy: null,
+				focus: null,
+				recoveryActivities: []
+			};
+
+			// Tab switching
+			document.querySelectorAll(".tab-button").forEach((button) => {
+				button.addEventListener("click", () => {
+					const tabName = button.getAttribute("data-tab");
+
+					document.querySelectorAll(".tab-content").forEach((tab) => {
+						tab.classList.remove("active");
+					});
+
+					document.querySelectorAll(".tab-button").forEach((btn) => {
+						btn.classList.remove("active");
+					});
+
+					document.getElementById(tabName).classList.add("active");
+					button.classList.add("active");
+
+					if (tabName === "monetization") loadMonetization();
+					if (tabName === "duplicates") loadDuplicates();
+					if (tabName === "coaching") loadCoachingData();
+				});
+			});
+
+			// Wellness tracker functions
+			function selectWellness(type, value, element) {
+				const scale = element.parentElement;
+				scale.querySelectorAll('.wellness-option').forEach(opt => opt.classList.remove('selected'));
+				element.classList.add('selected');
+				wellnessState[type] = value;
+				saveWellnessState();
+			}
+
+			function toggleRecovery(element) {
+				element.classList.toggle('selected');
+				const activity = element.textContent.trim();
+				if (element.classList.contains('selected')) {
+					wellnessState.recoveryActivities.push(activity);
+				} else {
+					wellnessState.recoveryActivities = wellnessState.recoveryActivities.filter(a => a !== activity);
+				}
+				saveWellnessState();
+			}
+
+			function saveWellnessState() {
+				const today = new Date().toISOString().split('T')[0];
+				
+				// Save to localStorage as backup
+				localStorage.setItem(`wellness_${today}`, JSON.stringify(wellnessState));
+				
+				// Sync to server for persistent storage
+				fetch('/api/wellness/log', {
+					method: 'POST',
+					headers: { 'Content-Type': 'application/json' },
+					body: JSON.stringify({
+						energy: wellnessState.energy,
+						focus: wellnessState.focus,
+						recovery_activities: wellnessState.recoveryActivities,
+						notes: ''
+					})
+				})
+				.then(response => response.json())
+				.then(data => {
+					if (data.success) {
+						console.log('✅ Wellness data synced to server');
+					}
+				})
+				.catch(err => {
+					console.log('⚠️ Server sync failed, data saved locally:', err);
+				});
+			}
+
+			function loadWellnessState() {
+				const today = new Date().toISOString().split('T')[0];
+				
+				// First try to load from server
+				fetch('/api/wellness/today')
+					.then(response => response.json())
+					.then(data => {
+						if (data.energy || data.focus || (data.recovery_activities && data.recovery_activities.length > 0)) {
+							// Server has data - use it
+							applyWellnessState(data.energy, data.focus, data.recovery_activities || []);
+							console.log('✅ Wellness data loaded from server');
+						} else {
+							// Fallback to localStorage
+							loadFromLocalStorage(today);
+						}
+					})
+					.catch(err => {
+						console.log('⚠️ Server load failed, using localStorage:', err);
+						loadFromLocalStorage(today);
+					});
+			}
+			
+			function loadFromLocalStorage(today) {
+				const saved = localStorage.getItem(`wellness_${today}`);
+				if (saved) {
+					const state = JSON.parse(saved);
+					applyWellnessState(state.energy, state.focus, state.recoveryActivities || []);
+				}
+			}
+			
+			function applyWellnessState(energy, focus, recoveryActivities) {
+				if (energy) {
+					document.querySelector(`#energyScale .wellness-option[data-value="${energy}"]`)?.classList.add('selected');
+					wellnessState.energy = energy;
+				}
+				if (focus) {
+					document.querySelector(`#focusScale .wellness-option[data-value="${focus}"]`)?.classList.add('selected');
+					wellnessState.focus = focus;
+				}
+				if (recoveryActivities && recoveryActivities.length > 0) {
+					wellnessState.recoveryActivities = recoveryActivities;
+					// Re-select recovery activity buttons
+					document.querySelectorAll('#recoveryGrid .recovery-item').forEach(item => {
+						if (recoveryActivities.includes(item.textContent.trim())) {
+							item.classList.add('selected');
+						}
+					});
+				}
+			}
+
+			function showPromptModal(type) {
+				const prompts = {
+					outcome: "Take a moment to envision: What does 'good' look like by the end of this week? Be specific. Write it down.",
+					scope: "Essentialism in action: What's the SMALLEST valuable version you can complete today? Start there.",
+					priority: "Pause. Is this task truly important to YOUR goals... or is it just making noise?",
+					energy: "Your energy is finite and precious. What recovery activity will you gift yourself today?",
+					letgo: "What thought, task, or commitment can you release right now to create space for what truly matters?"
+				};
+				alert(`🌿 Zora asks:\n\n${prompts[type]}\n\n✨ Take 2 minutes to journal your response.`);
+			}
+
+			function loadCoachingData() {
+				loadWellnessState();
+			}
+
+			function loadDashboard() {
+				loadOverview();
+			}
+
+			function loadOverview() {
+				fetch("/api/overview")
+					.then((r) => r.json())
+					.then((data) => {
+						if (data.status === "no_scan") {
+							document.getElementById("statsGrid").innerHTML = `
+                            <div class="stat-card" style="grid-column: 1/-1;">
+									<p style="color: var(--rose-dust); font-size: 1.1em;">
+										✨ No scan data yet. Run a scan to discover your files and start organizing!
+									</p>
+                            </div>
+                        `;
+							return;
+						}
+
+						const stats = [
+							{ value: data.total_files.toLocaleString(), label: "Total Files" },
+							{ value: data.total_size_gb.toFixed(1) + " GB", label: "Total Size" },
+							{ value: data.duplicates.toLocaleString(), label: "Duplicates Found" },
+							{ value: data.potential_savings_gb.toFixed(1) + " GB", label: "Space to Save" },
+						];
+
+						let html = "";
+						stats.forEach((stat) => {
+							html += `
+                            <div class="stat-card">
+                                <div class="stat-value">${stat.value}</div>
+                                <div class="stat-label">${stat.label}</div>
+                            </div>
+                        `;
+						});
+
+						document.getElementById("statsGrid").innerHTML = html;
+
+						let categoryHtml = '<table style="width: 100%; color: var(--magnolia-cream);"><tr style="border-bottom: 1px solid rgba(212,165,116,0.2);"><th style="text-align: left; padding: 12px; color: var(--soft-gold);">Category</th><th style="text-align: right; padding: 12px; color: var(--soft-gold);">Files</th><th style="text-align: right; padding: 12px; color: var(--soft-gold);">Size</th></tr>';
+
+						Object.entries(data.categories).forEach(([cat, stats]) => {
+							categoryHtml += `
+								<tr style="border-bottom: 1px solid rgba(212,165,116,0.1);">
+									<td style="padding: 12px;">${cat}</td>
+									<td style="text-align: right; padding: 12px;">${stats.count.toLocaleString()}</td>
+									<td style="text-align: right; padding: 12px; color: var(--soft-gold);">${stats.size_gb.toFixed(1)} GB</td>
+                            </tr>
+                        `;
+						});
+
+						categoryHtml += "</table>";
+						document.getElementById("categoryBreakdown").innerHTML = categoryHtml;
+					});
+			}
+
+			function loadMonetization() {
+				fetch("/api/monetization")
+					.then((r) => r.json())
+					.then((data) => {
+						loadMonetizationSection("readyToSell", data.ready || [], "type-ready");
+						loadMonetizationSection("needsWork", data.needs_work || [], "type-needs-work");
+						loadMonetizationSection("archive", data.archive || [], "type-archive");
+					});
+			}
+
+			// Helper function to safely escape file paths for HTML attributes
+			function escapeHtml(str) {
+				const div = document.createElement('div');
+				div.textContent = str;
+				return div.innerHTML;
+			}
+			
+			// Helper function to encode file path for data attribute (base64)
+			function encodeFilePath(filePath) {
+				return btoa(encodeURIComponent(filePath));
+			}
+			
+			// Helper function to decode file path from data attribute
+			function decodeFilePath(encoded) {
+				return decodeURIComponent(atob(encoded));
+			}
+
+			// Helper function to get file icon/thumbnail based on extension
+			function getFileThumbnail(filePath, extension) {
+				const imageExts = ['.jpg', '.jpeg', '.png', '.gif', '.webp', '.heic', '.bmp', '.svg'];
+				const ext = extension?.toLowerCase() || '';
+				
+				// For images, try to show actual thumbnail (URL encoded for safety)
+				if (imageExts.includes(ext)) {
+					const encodedPath = encodeURI(filePath);
+					return `<div class="file-thumbnail"><img src="file://${encodedPath}" onerror="this.parentElement.innerHTML='🖼️'" alt="preview"></div>`;
+				}
+				
+				// Icons for different file types
+				const icons = {
+					'.pdf': '📄', '.doc': '📝', '.docx': '📝', '.txt': '📝',
+					'.xlsx': '📊', '.xls': '📊', '.csv': '📊', '.numbers': '📊',
+					'.pptx': '📽️', '.ppt': '📽️', '.key': '📽️',
+					'.psd': '🎨', '.ai': '🎨', '.fig': '🎨', '.sketch': '🎨', '.xd': '🎨',
+					'.mp4': '🎬', '.mov': '🎬', '.avi': '🎬', '.mkv': '🎬',
+					'.mp3': '🎵', '.wav': '🎵', '.m4a': '🎵', '.flac': '🎵',
+					'.zip': '📦', '.rar': '📦', '.7z': '📦',
+					'.py': '🐍', '.js': '⚡', '.html': '🌐', '.css': '🎨',
+					'.json': '📋', '.md': '📖'
+				};
+				
+				const icon = icons[ext] || '📁';
+				return `<div class="file-thumbnail">${icon}</div>`;
+			}
+
+			function loadMonetizationSection(elementId, files, typeClass) {
+				const element = document.getElementById(elementId);
+
+				if (!files || files.length === 0) {
+					element.innerHTML = '<div style="padding: 24px; text-align: center; color: var(--rose-dust);">✨ No files in this category yet</div>';
+					return;
+				}
+
+				let html = "";
+				files.forEach((file) => {
+					const thumbnail = getFileThumbnail(file.path, file.extension || '.' + file.name.split('.').pop());
+					const encodedPath = encodeFilePath(file.path);
+					const escapedName = escapeHtml(file.name);
+					const escapedPath = escapeHtml(file.path);
+					html += `
+						<div class="file-item">
+							${thumbnail}
+							<div class="file-info">
+								<div class="file-name">${escapedName}</div>
+								<div class="file-path">${escapedPath}</div>
+							</div>
+							<span class="monetization-type ${typeClass}">${escapeHtml(file.type || file.category || 'file')}</span>
+							<div class="file-size">${(file.size_mb || 0).toFixed(1)} MB</div>
+							<div class="file-actions">
+								<button class="btn-small btn-secondary" data-filepath="${encodedPath}" data-action="open" title="Open in Finder">👁️</button>
+								<button class="btn-small btn-archive" data-filepath="${encodedPath}" data-action="archive" title="Archive">📦</button>
+								<button class="btn-small btn-delete" data-filepath="${encodedPath}" data-action="delete" title="Delete">🗑️</button>
+							</div>
+						</div>
+					`;
+				});
+
+				element.innerHTML = html;
+			}
+
+			function loadDuplicates() {
+				fetch("/api/duplicates")
+					.then((r) => r.json())
+					.then((data) => {
+						if (!data.duplicates || data.duplicates.length === 0) {
+							document.getElementById("duplicateSets").innerHTML = '<p style="color: var(--sage-green); font-size: 1.1em;">✨ No duplicates found! Your files are beautifully organized.</p>';
+							return;
+						}
+
+						let html = "";
+						data.duplicates.forEach((dupSet, idx) => {
+							const wastedSpace = dupSet.wasted_space_mb || 0;
+							html += `
+                            <div class="duplicate-set">
+                                <div class="duplicate-set-header">
+                                    <div>
+											<strong>Set ${idx + 1}</strong> — ${dupSet.count} copies
+                                    </div>
+                                    <div class="duplicate-set-size">
+                                        Wasted: ${wastedSpace.toFixed(1)} MB
+                                    </div>
+                                </div>
+                                <div class="file-list">
+        `;
+
+							dupSet.files.forEach((file, fileIdx) => {
+								const isFirst = fileIdx === 0;
+								const fileName = file.path.split("/").pop();
+								const ext = '.' + fileName.split('.').pop().toLowerCase();
+								const thumbnail = getFileThumbnail(file.path, ext);
+								const encodedPath = encodeFilePath(file.path);
+								const escapedFileName = escapeHtml(fileName);
+								const escapedPath = escapeHtml(file.path);
+								html += `
+									<div class="file-item" style="background: ${isFirst ? "rgba(168, 196, 168, 0.1)" : ""}">
+										<input type="checkbox" class="file-checkbox" ${!isFirst ? "checked" : ""}
+											data-filepath="${encodedPath}" data-action="toggle">
+										${thumbnail}
+										<div class="file-info">
+											<div class="file-name">${escapedFileName} ${isFirst ? '<span style="color: var(--sage-green);">✓ KEEP</span>' : ""}</div>
+											<div class="file-path">${escapedPath}</div>
+										</div>
+										<div class="file-size">${file.size_mb.toFixed(1)} MB</div>
+										<div class="file-actions">
+											<button class="btn-small btn-secondary" data-filepath="${encodedPath}" data-action="open" title="Open in Finder">👁️</button>
+											${!isFirst ? `<button class="btn-small btn-delete" data-filepath="${encodedPath}" data-action="delete" title="Delete">🗑️</button>` : ''}
+										</div>
+									</div>
+								`;
+							});
+
+							html += `
+                                </div>
+                            </div>
+                        `;
+						});
+
+						document.getElementById("duplicateSets").innerHTML = html;
+					});
+			}
+
+			function toggleFileForDelete(filePath) {
+				console.log("Toggle delete for:", filePath);
+			}
+
+			function deleteFile(filePath) {
+				if (!confirm(`🗑️ Move to Trash?\n\n${filePath}\n\nThis file will be moved to your Mac Trash (recoverable for 30 days).`)) {
+					return;
+				}
+				
+				fetch('/api/delete-duplicate', {
+					method: 'POST',
+					headers: { 'Content-Type': 'application/json' },
+					body: JSON.stringify({ file_path: filePath })
+				})
+				.then(response => response.json())
+				.then(data => {
+					if (data.success) {
+						alert(`✅ ${data.message}`);
+						// Reload the current view
+						loadDuplicates();
+						loadMonetization();
+					} else {
+						alert(`❌ Error: ${data.message}`);
+					}
+				})
+				.catch(err => {
+					alert(`❌ Error deleting file: ${err}`);
+				});
+			}
+
+			function archiveFile(filePath) {
+				const archivePath = prompt(
+					`📦 Archive this file?\n\n${filePath}\n\nEnter archive folder name (will be created in ~/MidnightMagnolia_Archive/):`,
+					'Archived_' + new Date().toISOString().split('T')[0]
+				);
+				
+				if (!archivePath) return;
+				
+				// Get archive base path dynamically from server
+				fetch('/api/config')
+					.then(r => r.json())
+					.then(config => {
+						const destDir = `${config.archive_base_path}/${archivePath}`;
+						
+						return fetch('/api/organize-file', {
+							method: 'POST',
+							headers: { 'Content-Type': 'application/json' },
+							body: JSON.stringify({ 
+								source_path: filePath,
+								destination_dir: destDir
+							})
+						});
+					})
+					.then(response => response.json())
+					.then(data => {
+						if (data.success) {
+							alert(`✅ ${data.message}`);
+							loadMonetization();
+						} else {
+							alert(`❌ Error: ${data.message}`);
+						}
+					})
+					.catch(err => {
+						alert(`❌ Error archiving file: ${err}`);
+					});
+			}
+			
+			function openFile(filePath) {
+				fetch('/api/open-file', {
+					method: 'POST',
+					headers: { 'Content-Type': 'application/json' },
+					body: JSON.stringify({ file_path: filePath })
+				})
+				.then(response => response.json())
+				.then(data => {
+					if (!data.success) {
+						alert(`❌ ${data.message}`);
+					}
+				})
+				.catch(err => {
+					alert(`❌ Error opening file: ${err}`);
+				});
+			}
+			
+			// Event delegation for file action buttons
+			document.addEventListener('click', function(e) {
+				const target = e.target;
+				
+				// Handle open buttons
+				if (target.matches('[data-action="open"]')) {
+					const encodedPath = target.dataset.filepath;
+					if (encodedPath) {
+						const filePath = decodeFilePath(encodedPath);
+						openFile(filePath);
+					}
+				}
+				
+				// Handle delete buttons
+				if (target.matches('[data-action="delete"]')) {
+					const encodedPath = target.dataset.filepath;
+					if (encodedPath) {
+						const filePath = decodeFilePath(encodedPath);
+						deleteFile(filePath);
+					}
+				}
+				
+				// Handle archive buttons
+				if (target.matches('[data-action="archive"]')) {
+					const encodedPath = target.dataset.filepath;
+					if (encodedPath) {
+						const filePath = decodeFilePath(encodedPath);
+						archiveFile(filePath);
+					}
+				}
+			});
+			
+			// Event delegation for checkbox changes
+			document.addEventListener('change', function(e) {
+				const target = e.target;
+				
+				if (target.matches('[data-action="toggle"]')) {
+					const encodedPath = target.dataset.filepath;
+					if (encodedPath) {
+						const filePath = decodeFilePath(encodedPath);
+						toggleFileForDelete(filePath);
+					}
+				}
+			});
+
+			function runScan() {
+				const button = event.target;
+				button.disabled = true;
+				button.innerText = "🔄 Scanning...";
+
+				fetch("/api/run-scan", { method: "POST" })
+					.then((r) => r.json())
+					.then((data) => {
+						if (data.success) {
+							alert("✨ Scan completed! Refreshing your dashboard...");
+							loadDashboard();
+						} else {
+							alert("❌ Scan failed: " + data.message);
+						}
+					})
+					.finally(() => {
+						button.disabled = false;
+						button.innerText = "🔄 Run Scan Now";
+					});
+			}
+
+			function toggleDay(element) {
+				element.classList.toggle("selected");
+			}
+
+			function saveSchedule() {
+				alert("✨ Schedule saved! Weekly scans will run on your selected days.");
+			}
+
+			function openReports() {
+				alert("📂 Open in Finder:\n~/MidnightMagnolia_Reports/");
+			}
+
+			function organizeByType() {
+				alert("📂 Organizing by file type...\n\n(Feature in development — files will be sorted into Images, Videos, Documents, etc.)");
+			}
+
+			function organizeByProject() {
+				alert("🔗 Organizing while preserving projects...\n\n(Feature in development — code repos and project folders stay intact)");
+			}
+
+			// Load dashboard on startup
+			loadDashboard();
+		</script>
+	</body>
+</html>

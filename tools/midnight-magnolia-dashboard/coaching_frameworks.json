@@ -1,0 +1,320 @@
+{
+  "meta": {
+    "title": "Midnight Magnolia Coaching Frameworks",
+    "version": "1.0",
+    "created": "2026-01-03",
+    "philosophy": "Do less, but better - essentialism over efficiency, deep work over busy work",
+    "cultural_roots": [
+      "Nina Simone", "Audre Lorde", "Luisah Teish", "Maya Angelou", "Nikki Giovanni",
+      "Alice Walker", "Isabel Wilkerson", "Bernice McFadden", "Beyoncé", "Megan Thee Stallion",
+      "Kendrick Lamar", "Chance the Rapper", "Chadwick Boseman", "GloRilla", "Cardi B",
+      "Keke Palmer", "Josh Johnson", "Katt Williams", "Teyana Taylor"
+    ]
+  },
+  "agents": {
+    "zora": {
+      "name": "Zora",
+      "role": "Essentialist Clarity Coach",
+      "description": "Part strategist, part gentle accountability partner. Helps people do less, but better.",
+      "use_when": ["Need clarity", "Scope management", "Simplification", "Boundaries", "Recovery-aware pacing"],
+      "vibe": "Grounded, witty, soulful - like a therapist who also color-codes her Google Calendar",
+      "personality_blend": {
+        "nurturing_coach": 60,
+        "witty_strategist": 30,
+        "chaos_management": 10
+      }
+    },
+    "saimon": {
+      "name": "S(ai)mon",
+      "role": "Technical Execution Engine",
+      "description": "Merged decision-making strategist, productivity mentor, and recovery-aware creative coach.",
+      "use_when": ["Code/debugging", "Implementation steps", "File structure", "TTC coursework precision"],
+      "vibe": "Millennial professional meets mindful philosopher - confident, curious, grounded"
+    },
+    "business_agent": {
+      "name": "Midnight Magnolia Business Agent",
+      "role": "Brand Strategist & Systems Designer",
+      "use_when": ["Product design", "Marketing", "Automation", "Content plans", "Business structure"]
+    }
+  },
+  "productivity_frameworks": {
+    "gtd": {
+      "name": "Getting Things Done (GTD)",
+      "author": "David Allen",
+      "core_flow": ["Capture", "Clarify", "Organize", "Reflect", "Engage"],
+      "key_principles": [
+        "Use an inbox for everything",
+        "Define concrete next actions",
+        "Maintain clean lists",
+        "Run weekly reviews"
+      ],
+      "source": "https://grahammann.net/book-notes/getting-things-done"
+    },
+    "essentialism": {
+      "name": "Essentialism",
+      "author": "Greg McKeown",
+      "tagline": "Do less, but better",
+      "core_flow": ["Explore broadly", "Eliminate non-essentials", "Execute effortlessly"],
+      "key_question": "What is the one thing that really matters now?",
+      "source": "https://gregmckeown.com/books/essentialism/"
+    },
+    "covey_matrix": {
+      "name": "Covey/Eisenhower Priority Matrix",
+      "concept": "Important vs Urgent",
+      "quadrants": {
+        "Q1": "Important & Urgent (DO)",
+        "Q2": "Important & Not-Urgent (SCHEDULE - Most valuable!)",
+        "Q3": "Urgent & Not-Important (DELEGATE)",
+        "Q4": "Not-Important & Not-Urgent (DELETE)"
+      },
+      "source": "https://toggl.com/blog/covey-time-management-matrix"
+    },
+    "deep_work": {
+      "name": "Deep Work",
+      "author": "Cal Newport",
+      "core_practice": "Time-block 60-120 minute focus sessions on a single cognitively demanding task",
+      "formula": "High-quality work = Time Spent × Intensity of Focus",
+      "elements": ["Define location", "Set duration", "Clear objective", "Shutdown ritual"],
+      "source": "https://www.calnewport.com/books/deep-work/"
+    },
+    "atomic_habits": {
+      "name": "Atomic Habits",
+      "author": "James Clear",
+      "habit_loop": ["Cue", "Craving", "Response", "Reward"],
+      "strategies": [
+        "Habit stacking",
+        "Environment design",
+        "Identity statements",
+        "2-minute starting steps"
+      ],
+      "source": "https://jamesclear.com/atomic-habits"
+    },
+    "para": {
+      "name": "PARA Method",
+      "author": "Tiago Forte",
+      "categories": {
+        "Projects": "Short-term efforts with a goal",
+        "Areas": "Ongoing responsibilities requiring attention",
+        "Resources": "Topics of interest for learning",
+        "Archives": "Inactive items from other categories"
+      },
+      "source": "https://fortelabs.com/blog/para/"
+    },
+    "code": {
+      "name": "CODE Method",
+      "author": "Tiago Forte",
+      "steps": {
+        "Capture": "Save valuable information with minimal friction",
+        "Organize": "Break into small chunks for later use",
+        "Distill": "Extract pieces most relevant to current goals",
+        "Express": "Turn knowledge into creative output"
+      },
+      "source": "https://fortelabs.com/blog/basboverview/"
+    }
+  },
+  "healing_frameworks": {
+    "mel_robbins_let_go": {
+      "name": "Mel Robbins 'The Let Go Theory'",
+      "core_concept": "Intentionally releasing what weighs us down to create space for what matters",
+      "principles": [
+        "Recognize what you need to let go (thoughts, habits, people, obligations)",
+        "Apply the 5-Second Rule to interrupt overthinking and take decisive action",
+        "Honor the emotional process of releasing through physical rituals"
+      ],
+      "practices": [
+        {
+          "name": "Let Go Log",
+          "description": "Identify energy drains in your weekly tasks"
+        },
+        {
+          "name": "Physical Letting-Go Rituals",
+          "examples": ["Write and burn", "Delete contacts", "Donate items"]
+        },
+        {
+          "name": "Reverse To-Do Lists",
+          "description": "Items you commit to NOT doing"
+        },
+        {
+          "name": "Later Box",
+          "description": "Write projects on cards, hold each asking 'Is this essential right now?', place non-essentials in a box with a revisit date"
+        }
+      ]
+    },
+    "smart_recovery": {
+      "name": "SMART Recovery Tools",
+      "approach": "Cognitive-behavioral approaches for behavioral change and emotional management",
+      "tools": {
+        "abc_method": {
+          "name": "ABC Method",
+          "A": "Activating Event - The situation triggering stress/procrastination",
+          "B": "Beliefs - Your thoughts about the event (often irrational)",
+          "C": "Consequences - Emotional/behavioral results of those beliefs"
+        },
+        "dibs_analysis": {
+          "name": "DIBs Analysis",
+          "D": "Demands - 'I must...' rigid thinking",
+          "I": "Irrational Beliefs - Catastrophizing, all-or-nothing",
+          "B": "Behaviors - Actions resulting from these beliefs"
+        }
+      },
+      "productivity_applications": [
+        "Create task-related ABC worksheets to identify beliefs sabotaging focus",
+        "Practice disputing irrational beliefs about perfectionism or failure",
+        "Develop new rational beliefs that support balanced productivity"
+      ],
+      "example": "When procrastinating on a presentation: A) Presentation due Friday, B) 'I must create something perfect or I'll look incompetent,' C) Anxiety and avoidance. Dispute: 'I can produce good work without it being perfect. Progress beats perfection.'"
+    },
+    "aa_12_steps_adapted": {
+      "name": "AA 12 Steps (Adapted for Productivity)",
+      "description": "Powerful structures for acknowledging limitations and creating systematic change",
+      "adaptations": [
+        "Admit powerlessness over trying to do everything",
+        "Take inventory of commitments and behaviors",
+        "Make amends to those affected by overwork and broken promises",
+        "Practice regular reflection to maintain balance"
+      ],
+      "daily_practices": [
+        "Daily personal inventory of what worked/didn't work",
+        "Productivity amends - realistic renegotiation of commitments",
+        "Surrender practice for tasks beyond your capacity"
+      ],
+      "example": "At day's end, write three things you did well and three things you would improve. When overcommitted, explicitly communicate: 'I need to adjust my commitment to X. Here's what I can realistically deliver by when.'"
+    },
+    "bell_hooks": {
+      "name": "bell hooks - Love and Community Ethics",
+      "core_message": "Productivity exists within community contexts and should honor loving relationships",
+      "principles": [
+        "Love as practice, not just feeling",
+        "Community care as essential to individual thriving",
+        "Honest communication as foundation for sustainable work"
+      ],
+      "applications": [
+        "Evaluate projects by their impact on community wellbeing",
+        "Build 'care checkpoints' into project plans",
+        "Design productivity systems that include reciprocal support"
+      ],
+      "reflection_questions": [
+        "How does this serve my community?",
+        "What support do I need to request/offer?",
+        "Am I scheduling explicit care exchanges with collaborators?"
+      ]
+    },
+    "audre_lorde": {
+      "name": "Audre Lorde - Self-Preservation and Liberation",
+      "core_message": "Self-care as political warfare and essential for marginalized people",
+      "insights": [
+        "Rest is resistance in a system that demands constant production",
+        "Joy is necessary for sustained creative work",
+        "Honoring your whole self enables authentic contribution"
+      ],
+      "applications": [
+        "Integrate 'joy practices' into daily workflows",
+        "Recognize rest as productive and necessary",
+        "Honor cyclical (not linear) productivity patterns"
+      ],
+      "example": "Schedule 30-minute 'joy intervals' throughout your workweek. Document energy patterns over a month to identify your natural productivity rhythms, then design your schedule accordingly."
+    },
+    "luisah_teish": {
+      "name": "Luisah Teish - Jambalaya and Spiritual Productivity",
+      "tradition": "Hoodoo spiritual approaches to task management and energy alignment",
+      "practices": [
+        "Ancestral wisdom as guidance for present choices",
+        "Ritual as framework for focusing intention",
+        "Natural cycles as productivity templates"
+      ],
+      "applications": [
+        "Create workspace altars with meaningful symbols of your purpose",
+        "Design rituals to begin and close work sessions",
+        "Align major projects with natural seasonal energies"
+      ],
+      "example": "Create a simple workspace altar with objects representing your goals. Begin work sessions by lighting a candle and stating your intention. Close by expressing gratitude for what was accomplished."
+    }
+  },
+  "coaching_workflows": {
+    "daily_focus": {
+      "name": "Daily Focus and Plan",
+      "duration": "5-10 minutes",
+      "steps": [
+        "Pull today's events and constraints",
+        "Re-scan tasks; choose a Daily One Thing tied to a goal; add 1-3 support tasks",
+        "Time-block deep work and admin batches; add a shutdown ritual",
+        "Set two guardrails: hard stop time; recovery activity"
+      ]
+    },
+    "triage_inbox": {
+      "name": "Triage Inbox",
+      "duration": "10-20 minutes",
+      "steps": [
+        "For each item: Do if ≤2 min; else Defer with a do-date, Delegate with owner, or Delete",
+        "If project-sized, create a project with desired outcome and next action"
+      ]
+    },
+    "weekly_review": {
+      "name": "Weekly Review",
+      "duration": "45-60 minutes",
+      "steps": [
+        "Clear all inboxes; perform a brain dump",
+        "Projects: update status; define at least one next action each",
+        "Calendar ±2 weeks: reconcile; add buffers",
+        "Goals: mark progress; choose next week's Big 3",
+        "Plan weekly rhythm blocks: Deep Work, Admin, Meetings, Personal, Recovery"
+      ]
+    },
+    "monthly_review": {
+      "name": "Monthly Review",
+      "duration": "60-90 minutes",
+      "steps": [
+        "Review metrics: habit streaks, completed projects, commitments",
+        "PARA tidy: archive stale projects; promote actionable resources to projects",
+        "Reset monthly goals; adjust capacity"
+      ]
+    },
+    "quarterly_review": {
+      "name": "Quarterly Review",
+      "duration": "90-120 minutes",
+      "steps": [
+        "Outcomes vs goals; mini premortem on what's stuck",
+        "Essentialist pruning: cut 2-3 non-essentials; pick 1-2 bets to pursue"
+      ]
+    }
+  },
+  "coaching_prompts": {
+    "quick_moves": {
+      "outcome": "What does good look like by [date]?",
+      "scope": "What's the smallest valuable version you can finish this week?",
+      "next_action": "What's the very next visible step?",
+      "priority": "Important or just loud?",
+      "time_protection": "Where is your 90-minute block?",
+      "energy": "What will you do to recover today?"
+    },
+    "reflection_questions": {
+      "fear_free": "What would you like to do, if you knew you couldn't fail?",
+      "failure_ok": "What would you like to do, even if you knew you'd fail at it?",
+      "role_models": "Who are the people you most admire, and why? What qualities do they possess that you wish to emulate?",
+      "future_self": "Imagine you've achieved everything you ever wanted: what are you like now as a person? What qualities and achievements define you?",
+      "ordinary_day": "What does your ideal, normal week-day look like? What are you doing, who are you with?"
+    }
+  },
+  "wellness_tracking": {
+    "energy_check": {
+      "scale": [1, 2, 3, 4, 5],
+      "labels": ["Depleted", "Low", "Neutral", "Good", "Thriving"]
+    },
+    "focus_quality": {
+      "scale": [1, 2, 3, 4, 5],
+      "labels": ["Scattered", "Distracted", "Moderate", "Focused", "Flow State"]
+    },
+    "recovery_activities": [
+      "Deep breathing",
+      "Short walk",
+      "Joy interval",
+      "Hydration break",
+      "Stretch/movement",
+      "Nature connection",
+      "Creative play",
+      "Rest/nap",
+      "Social connection",
+      "Ritual/spiritual practice"
+    ]
+  }
+}
