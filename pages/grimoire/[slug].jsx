@@ -22,6 +22,7 @@ export async function getStaticProps({ params }) {
 
 export default function GrimoirePost({ post }) {
   const [gateOpen, setGateOpen] = useState(false);
+  const [hasHydrated, setHasHydrated] = useState(false);
   const title = post.title || 'Post';
   const excerpt = post.excerpt || '';
   const body = post.richContent || post.content || '';
@@ -29,12 +30,13 @@ export default function GrimoirePost({ post }) {
   useEffect(() => {
     if (typeof window === 'undefined') return;
     setGateOpen(window.localStorage.getItem('mm_grimoire_unlocked') === '1');
+    setHasHydrated(true);
   }, []);
 
   return (
     <Layout title={title} description={excerpt}>
       <div className="container">
-        {!gateOpen ? (
+        {!hasHydrated ? null : !gateOpen ? (
           <section className="section">
             <div className="card" style={{ maxWidth: 760, margin: '0 auto' }}>
               <h2 style={{ marginBottom: 'var(--space-sm)' }}>Grimoire access required</h2>

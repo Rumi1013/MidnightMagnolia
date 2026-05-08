@@ -71,6 +71,7 @@ export default function Home() {
               Book a Session
             </a>
             <Link href="/shop" className="btn btn--outline">Visit the Shop</Link>
+            <a href={URLS.patreon} className="btn btn--ghost" target="_blank" rel="noopener noreferrer">Join Patreon</a>
           </div>
         </div>
       </section>
@@ -283,6 +284,7 @@ export default function Home() {
                 Book a Session
               </a>
               <a href={URLS.stanStore} className="btn btn--outline" target="_blank" rel="noopener noreferrer">Visit the Shop</a>
+              <a href={URLS.bmac} className="btn btn--ghost" target="_blank" rel="noopener noreferrer">Support on BMAC</a>
               <Link href="/sanctuary" className="btn btn--ghost">Read the Story</Link>
             </div>
           </div>

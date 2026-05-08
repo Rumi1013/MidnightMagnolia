@@ -1,0 +1,2173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Midnight Magnolia — Canonical Master Plan v3</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+<style>
+:root{
+  --indigo:#2B2F4A;--gold:#C9A84C;--gold-light:#E8C97A;
+  --magnolia:#F5F0E8;--magnolia-dark:#E8E0D0;
+  --ink:#1A1D2E;--mist:#6B7089;--border:rgba(43,47,74,.13);
+  --card:#FFFFFF;--page:#F5F0E8;
+  --fd:'Cormorant Garamond',Georgia,serif;
+  --fb:'DM Sans',system-ui,sans-serif;
+  --moss:#5A665C;--clay:#C7B09A;--rose:#C46A5A;--plum:#4A2D4E;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:var(--fb);background:var(--page);color:var(--ink);font-size:14.5px;line-height:1.75}
+
+.hdr{background:var(--indigo);color:var(--magnolia);padding:52px 44px 40px;position:relative;overflow:hidden}
+.hdr::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 80% 40%,rgba(201,168,76,.13) 0%,transparent 65%);pointer-events:none}
+.hdr-eye{font-size:10.5px;font-weight:500;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);margin-bottom:10px}
+.hdr-title{font-family:var(--fd);font-size:52px;font-weight:300;line-height:1.05;margin-bottom:8px}
+.hdr-sub{font-family:var(--fd);font-style:italic;font-size:17px;color:rgba(245,240,232,.65);margin-bottom:28px}
+.hdr-meta{font-size:11.5px;color:rgba(245,240,232,.45);letter-spacing:.06em}
+.vbadge{display:inline-block;background:rgba(201,168,76,.18);border:1px solid rgba(201,168,76,.4);color:var(--gold-light);font-size:10px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;padding:3px 10px;border-radius:20px;margin-left:10px}
+
+/* STATUS BAR */
+.stat-bar{background:var(--indigo);border-top:1px solid rgba(201,168,76,.18);padding:24px 44px;display:flex;justify-content:center;gap:48px;flex-wrap:wrap}
+.stat{text-align:center}
+.stat-n{font-family:var(--fd);font-size:2.2rem;font-weight:600;color:var(--gold);line-height:1}
+.stat-l{font-family:var(--fb);font-size:10px;color:var(--clay);text-transform:uppercase;letter-spacing:.12em;margin-top:4px}
+
+/* TABS */
+.tabs{background:var(--indigo);border-top:1px solid rgba(201,168,76,.12);display:flex;overflow-x:auto;padding:0 44px}
+.tabs::-webkit-scrollbar{display:none}
+.tab{font-size:11px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:rgba(245,240,232,.42);background:none;border:none;border-bottom:2px solid transparent;padding:13px 16px 11px;cursor:pointer;white-space:nowrap;transition:color .2s,border-color .2s}
+.tab:hover{color:rgba(245,240,232,.8)}
+.tab.on{color:var(--gold);border-bottom-color:var(--gold)}
+
+/* LAYOUT */
+.main{padding:44px;max-width:1080px}
+.panel{display:none}.panel.on{display:block}
+
+.slabel{font-size:10px;font-weight:500;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);margin-bottom:8px}
+.stitle{font-family:var(--fd);font-size:36px;font-weight:300;color:var(--indigo);margin-bottom:4px;line-height:1.15}
+.sdesc{font-family:var(--fd);font-style:italic;font-size:16px;color:var(--mist);margin-bottom:36px}
+
+.card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:22px 26px;margin-bottom:16px}
+.card-head{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:12px}
+.card-title{font-family:var(--fd);font-size:20px;font-weight:400;color:var(--indigo)}
+.card-meta{font-size:11.5px;color:var(--mist);letter-spacing:.04em;margin-top:2px}
+
+/* BADGES */
+.badge{display:inline-block;font-size:10px;font-weight:500;letter-spacing:.07em;text-transform:uppercase;padding:2px 9px;border-radius:20px;line-height:1.5;white-space:nowrap}
+.b-done{background:#D1FAE5;color:#065F46}
+.b-live{background:#D1FAE5;color:#065F46}
+.b-prog{background:rgba(201,168,76,.2);color:#7A5C12;border:1px solid rgba(201,168,76,.3)}
+.b-crit{background:#FEE2E2;color:#991B1B}
+.b-risk{background:#FEE2E2;color:#991B1B}
+.b-high{background:#FEF3C7;color:#92400E}
+.b-med{background:#E0F2FE;color:#0C4A6E}
+.b-not{background:rgba(199,176,154,.25);color:var(--moss)}
+.b-gold{background:rgba(201,168,76,.15);color:#7A5C12;border:1px solid rgba(201,168,76,.3)}
+.b-indigo{background:rgba(43,47,74,.08);color:var(--indigo)}
+.b-zap{background:#FFF3E0;color:#E65100}
+.b-make{background:#E8F5E9;color:#2E7D32}
+.b-patreon{background:#FFF0F5;color:#e85d92}
+
+/* TABLES */
+.tbl{width:100%;border-collapse:collapse;font-size:13px;margin-bottom:16px}
+.tbl th{text-align:left;padding:9px 13px;background:rgba(43,47,74,.04);border-bottom:1px solid var(--border);font-size:10px;font-weight:500;letter-spacing:.09em;text-transform:uppercase;color:var(--mist)}
+.tbl td{padding:9px 13px;border-bottom:1px solid rgba(43,47,74,.06);vertical-align:top;line-height:1.5}
+.tbl tr:last-child td{border-bottom:none}
+.tbl tr:hover td{background:rgba(43,47,74,.02)}
+.tbl td code{background:rgba(43,47,74,.07);padding:1px 5px;border-radius:4px;font-family:'SF Mono',monospace;font-size:11px;color:var(--indigo)}
+
+/* LISTS */
+.rlist{list-style:none;padding:0}
+.rlist li{padding:7px 0 7px 18px;position:relative;border-bottom:1px solid rgba(43,47,74,.06);font-size:13.5px}
+.rlist li:last-child{border-bottom:none}
+.rlist li::before{content:'—';position:absolute;left:0;color:var(--gold)}
+
+/* CODE */
+.code{background:var(--indigo);color:var(--magnolia);border-radius:8px;padding:16px 20px;font-family:'SF Mono','Fira Code',monospace;font-size:11.5px;line-height:1.8;margin-bottom:14px;overflow-x:auto;white-space:pre}
+.c-c{color:rgba(201,168,76,.55)}.c-k{color:var(--gold)}.c-v{color:#A8D8A8}.c-s{color:#F4B8B8}.c-o{color:#A0C8F8}
+
+hr.gd{border:none;border-top:1px solid rgba(201,168,76,.25);margin:28px 0}
+.h2{font-family:var(--fd);font-size:22px;font-weight:400;color:var(--indigo);margin:26px 0 12px;padding-bottom:8px;border-bottom:1px solid var(--border)}
+.h3{font-size:11px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:var(--mist);margin:20px 0 9px}
+p.note{font-size:13px;font-style:italic;color:var(--mist);padding:10px 14px;border-left:3px solid var(--gold);background:rgba(201,168,76,.06);border-radius:0 6px 6px 0;margin-bottom:14px}
+p.warn{font-size:13px;color:#7f1d1d;padding:10px 14px;border-left:3px solid var(--rose);background:rgba(196,106,90,.07);border-radius:0 6px 6px 0;margin-bottom:14px}
+
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:16px}
+.three-col{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;margin-bottom:16px}
+@media(max-width:700px){.two-col,.three-col{grid-template-columns:1fr}}
+
+.flow{display:flex;align-items:center;flex-wrap:wrap;gap:6px;margin:12px 0 18px}
+.fn{background:var(--indigo);color:var(--magnolia);padding:7px 13px;border-radius:6px;font-size:12px;font-weight:500;white-space:nowrap}
+.fn.gold{background:var(--gold);color:var(--ink)}
+.fn.lite{background:rgba(43,47,74,.08);color:var(--indigo)}
+.fa{color:var(--gold);font-size:15px}
+
+/* STATUS ITEM (roadmap style) */
+.item{border-radius:8px;padding:13px 16px;margin-bottom:10px;border-left:4px solid transparent;background:var(--magnolia)}
+.item.done{border-left-color:var(--moss);opacity:.8}
+.item.prog{border-left-color:var(--gold)}
+.item.risk{border-left-color:var(--rose)}
+.item.ns{border-left-color:var(--clay)}
+.item-name{font-family:var(--fb);font-weight:500;font-size:.85rem;color:var(--indigo);margin-bottom:3px}
+.item-desc{font-size:.75rem;color:var(--moss);line-height:1.5}
+.item-meta{display:flex;gap:6px;flex-wrap:wrap;margin-top:7px}
+
+.swatch-row{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:18px}
+.swatch{border-radius:8px;overflow:hidden;border:1px solid var(--border);min-width:130px}
+.sw-color{height:44px}
+.sw-info{padding:7px 11px;background:var(--card)}
+.sw-name{font-size:11.5px;font-weight:500;color:var(--ink)}
+.sw-hex{font-size:10.5px;color:var(--mist);font-family:'SF Mono',monospace}
+</style>
+</head>
+<body>
+
+<header class="hdr">
+  <div class="hdr-eye">Rumi-Nations LLC · Midnight Magnolia</div>
+  <h1 class="hdr-title">Canonical Master Plan</h1>
+  <p class="hdr-sub">Website · Notion · Airtable · Zapier / Make — one living record</p>
+  <div class="hdr-meta">Latisha Vincent-Waters · Ravenel, SC · midnightmagnolia.com <span class="vbadge">v3 · May 2026</span></div>
+</header>
+
+<div class="stat-bar">
+  <div class="stat"><div class="stat-n">6</div><div class="stat-l">Things Done</div></div>
+  <div class="stat"><div class="stat-n">10</div><div class="stat-l">Active Now</div></div>
+  <div class="stat"><div class="stat-n">10</div><div class="stat-l">Queued Next</div></div>
+  <div class="stat"><div class="stat-n">9</div><div class="stat-l">Later Vision</div></div>
+  <div class="stat"><div class="stat-n">$4K</div><div class="stat-l">Monthly Goal</div></div>
+  <div class="stat"><div class="stat-n">9</div><div class="stat-l">Automations</div></div>
+</div>
+
+<nav class="tabs">
+  <button class="tab on"  onclick="show('canon')">🜁 Canonical Rules</button>
+  <button class="tab"     onclick="show('status')">📍 Live Status</button>
+  <button class="tab"     onclick="show('products')">🌿 Products</button>
+  <button class="tab"     onclick="show('services')">✦ Services</button>
+  <button class="tab"     onclick="show('funnel')">📡 Funnel</button>
+  <button class="tab"     onclick="show('site')">🌐 Website</button>
+  <button class="tab"     onclick="show('notion')">📓 Notion</button>
+  <button class="tab"     onclick="show('airtable')">📊 Airtable</button>
+  <button class="tab"     onclick="show('zapier')">⚡ Zapier / Make</button>
+  <button class="tab"     onclick="show('affiliate')">🔗 Affiliate</button>
+  <button class="tab"     onclick="show('social')">📲 Social Links</button>
+</nav>
+
+<main class="main">
+
+<!-- ══════════════════════════════════════════════════════
+     PANEL: CANONICAL RULES
+══════════════════════════════════════════════════════ -->
+<section class="panel on" id="panel-canon">
+  <div class="slabel">Section 01</div>
+  <h2 class="stitle">Canonical Brand Rules</h2>
+  <p class="sdesc">The single source of truth. Paste into Cursor, Notion, and Airtable as the first context block of every session.</p>
+
+  <div class="h2">Brand Identity Tokens</div>
+  <div class="swatch-row">
+    <div class="swatch"><div class="sw-color" style="background:#2B2F4A"></div><div class="sw-info"><div class="sw-name">Midnight Indigo</div><div class="sw-hex">#2B2F4A — primary bg, headings</div></div></div>
+    <div class="swatch"><div class="sw-color" style="background:#C9A84C"></div><div class="sw-info"><div class="sw-name">Southern Amber / Gold</div><div class="sw-hex">#C9A84C — accent, CTA, dividers</div></div></div>
+    <div class="swatch"><div class="sw-color" style="background:#F5F0E8;border-bottom:1px solid #ddd"></div><div class="sw-info"><div class="sw-name">Magnolia White</div><div class="sw-hex">#F5F0E8 — page bg, PDF interior</div></div></div>
+    <div class="swatch"><div class="sw-color" style="background:#1A1D2E"></div><div class="sw-info"><div class="sw-name">Deep Ink</div><div class="sw-hex">#1A1D2E — body text</div></div></div>
+    <div class="swatch"><div class="sw-color" style="background:#C7B09A"></div><div class="sw-info"><div class="sw-name">Weathered Clay</div><div class="sw-hex">#C7B09A — secondary text</div></div></div>
+    <div class="swatch"><div class="sw-color" style="background:#E3B7A0"></div><div class="sw-info"><div class="sw-name">Magnolia Sunset</div><div class="sw-hex">#E3B7A0 — warm accent</div></div></div>
+    <div class="swatch"><div class="sw-color" style="background:#5A665C"></div><div class="sw-info"><div class="sw-name">Moss Shadow</div><div class="sw-hex">#5A665C — muted text, done states</div></div></div>
+    <div class="swatch"><div class="sw-color" style="background:#4A2D4E"></div><div class="sw-info"><div class="sw-name">Deep Plum</div><div class="sw-hex">#4A2D4E — rich dark accent</div></div></div>
+  </div>
+
+  <div class="h3">Two active palettes</div>
+  <div class="two-col">
+    <div class="card" style="padding:16px 20px">
+      <div class="card-title" style="font-size:16px">Soft Palette</div>
+      <div style="font-family:'SF Mono',monospace;font-size:11px;margin-top:8px;line-height:2;color:var(--mist)">
+        #E3B7A0 · #4B2E39 · #2B2F4A<br>#D4AF37 · #FAF3E0
+      </div>
+    </div>
+    <div class="card" style="padding:16px 20px">
+      <div class="card-title" style="font-size:16px">Midnight Palette</div>
+      <div style="font-family:'SF Mono',monospace;font-size:11px;margin-top:8px;line-height:2;color:var(--mist)">
+        #0A192F · #3A4F3F · #8C5A3C<br>#F6EFE6 · #D4B99F
+      </div>
+    </div>
+  </div>
+
+  <div class="h3">Typography Stack</div>
+  <table class="tbl">
+    <tr><th>Role</th><th>Font</th><th>Weights</th><th>Use</th></tr>
+    <tr><td>Display / Headings</td><td><code>Cormorant Garamond</code></td><td>300, 400, 600 + italics</td><td>Page titles, product names, journal prompts, cover art</td></tr>
+    <tr><td>Body</td><td><code>Merriweather</code> (alt: DM Sans)</td><td>300, 400, 700</td><td>Long-form text, PDF body copy</td></tr>
+    <tr><td>UI / Accent</td><td><code>Poppins</code> (alt: DM Sans)</td><td>300, 400, 500, 600</td><td>Nav, badges, buttons, metadata, captions</td></tr>
+    <tr><td>Code / Tokens</td><td><code>SF Mono, Fira Code</code></td><td>Regular</td><td>Dev references, hex values, field names</td></tr>
+  </table>
+
+  <div class="h3">mm-tokens.css — paste into every project</div>
+  <div class="code"><span class="c-c">/* mm-tokens.css — Midnight Magnolia v3 */</span>
+:root {
+  <span class="c-c">/* Core Palette */</span>
+  <span class="c-k">--mm-indigo</span>: <span class="c-v">#2B2F4A</span>;
+  <span class="c-k">--mm-gold</span>: <span class="c-v">#C9A84C</span>;
+  <span class="c-k">--mm-gold-alt</span>: <span class="c-v">#D4AF37</span>;
+  <span class="c-k">--mm-gold-light</span>: <span class="c-v">#E8C97A</span>;
+  <span class="c-k">--mm-magnolia</span>: <span class="c-v">#F5F0E8</span>;
+  <span class="c-k">--mm-parchment</span>: <span class="c-v">#FAF3E0</span>;
+  <span class="c-k">--mm-ink</span>: <span class="c-v">#1A1D2E</span>;
+  <span class="c-k">--mm-clay</span>: <span class="c-v">#C7B09A</span>;
+  <span class="c-k">--mm-sunset</span>: <span class="c-v">#E3B7A0</span>;
+  <span class="c-k">--mm-moss</span>: <span class="c-v">#5A665C</span>;
+  <span class="c-k">--mm-plum</span>: <span class="c-v">#4A2D4E</span>;
+  <span class="c-k">--mm-rose</span>: <span class="c-v">#C46A5A</span>;
+  <span class="c-c">/* Typography */</span>
+  <span class="c-k">--mm-font-display</span>: <span class="c-s">'Cormorant Garamond', Georgia, serif</span>;
+  <span class="c-k">--mm-font-body</span>: <span class="c-s">'Merriweather', Georgia, serif</span>;
+  <span class="c-k">--mm-font-ui</span>: <span class="c-s">'Poppins', 'DM Sans', system-ui, sans-serif</span>;
+  <span class="c-c">/* Spacing / Shape */</span>
+  <span class="c-k">--mm-radius</span>: <span class="c-v">12px</span>;
+  <span class="c-k">--mm-radius-sm</span>: <span class="c-v">6px</span>;
+  <span class="c-k">--mm-border</span>: <span class="c-v">rgba(43,47,74,.14)</span>;
+}</div>
+
+  <div class="h2">Voice Rules — Non-Negotiable</div>
+  <div class="card">
+    <ul class="rlist">
+      <li>Healing-centered, not performative. The voice holds space; it does not command.</li>
+      <li>Southern Gothic register: literary, place-rooted, unafraid of shadow and grief.</li>
+      <li>Anti-hustle always. Banned words: grind, crush it, kill it, scale fast, optimize, leverage, hustle.</li>
+      <li>Neurodivergent-affirming: gentle pacing, one visible next action, no walls of text.</li>
+      <li>Trauma-informed: no urgency language, no countdown timers, no manufactured scarcity.</li>
+      <li>Lowcountry-rooted: Latisha's voice, story, and Vincent family genealogy are the brand differentiator — no one else has this.</li>
+      <li>Recovery-aware: never shame or pathologize. The brand lives in reclamation, not diagnosis.</li>
+      <li>CTAs are invitations: "Begin when you're ready." not "Buy now!"</li>
+      <li>Never open with "I" — open with the reader's experience or a grounded observation.</li>
+      <li>Consistent softness creates sustainable income. Speed is never the goal.</li>
+    </ul>
+  </div>
+
+  <div class="h2">Agent Triad — Persona System</div>
+  <div class="three-col">
+    <div class="card" style="padding:18px 20px">
+      <div class="card-title" style="font-size:18px">🌿 ZORA</div>
+      <div class="card-meta">Essentialist Clarity Coach</div>
+      <div style="font-size:12.5px;margin-top:10px;color:#333;line-height:1.6">Calm, concise, warm. Asks 3–5 scoping questions first. Always ends: "Do this in the next 24 hours." One visible next action. Trigger: overwhelm, unclear, emotional.</div>
+    </div>
+    <div class="card" style="padding:18px 20px">
+      <div class="card-title" style="font-size:18px">🔧 SAIMON</div>
+      <div class="card-meta">Technical Build Engineer</div>
+      <div style="font-size:12.5px;margin-top:10px;color:#333;line-height:1.6">Direct, numbered steps, full code always. Java · Python · HTML/CSS/JS · shell · DB. Correctness first. Trigger: build, debug, configure, ship.</div>
+    </div>
+    <div class="card" style="padding:18px 20px">
+      <div class="card-title" style="font-size:18px">🌕 BUSINESS AGENT</div>
+      <div class="card-meta">Strategy + Monetization</div>
+      <div style="font-size:12.5px;margin-top:10px;color:#333;line-height:1.6">Confident, warm, elegant Southern Gothic. Brand · KDP · Etsy · Wix · Stan Store · Patreon · automation. Never hustle culture. Trigger: branding, products, strategy.</div>
+    </div>
+  </div>
+
+  <div class="h2">Canonical Tech Stack</div>
+  <table class="tbl">
+    <tr><th>Tool</th><th>Platform</th><th>Role</th><th>Status</th></tr>
+    <tr><td>midnight-magnolia.com</td><td>Wix Studio (Cursor for custom code)</td><td>Brand site, trust builder, email capture, storefront</td><td><span class="badge b-live">Live</span></td></tr>
+    <tr><td>Stan Store</td><td>stanstore.com</td><td>Primary digital product delivery + memberships</td><td><span class="badge b-live">Active</span></td></tr>
+    <tr><td>Patreon</td><td>patreon.com</td><td>Membership tiers: Candle Tender $5 · Circle Keeper $15 · Altar Keeper $35. <strong style="color:#991B1B">⚠ Temporarily inaccessible</strong> — email <code>latisha@midnight-magnolia.com</code> locked. Recover access once income starts; repurchase domain email first.</td><td><span class="badge b-risk">Locked</span></td></tr>
+    <tr><td>Buy Me a Coffee (BMAC)</td><td>buymeacoffee.com</td><td>One-time support; direct BMAC members to Patreon for content</td><td><span class="badge b-live">Live</span></td></tr>
+    <tr><td>Gumroad</td><td><a href="https://midnightmagnoliasc.gumroad.com" style="color:var(--gold)">midnightmagnoliasc.gumroad.com</a></td><td>First sales platform — live alongside Stan Store</td><td><span class="badge b-live">Live</span></td></tr>
+    <tr><td>KDP</td><td>kdp.amazon.com</td><td>Public domain publishing — Southern Gothic + Harlem Renaissance</td><td><span class="badge b-not">Planned</span></td></tr>
+    <tr><td>Notion</td><td>notion.so + Notion AI</td><td>Content planning, product tracker, knowledge base</td><td><span class="badge b-prog">In Progress</span></td></tr>
+    <tr><td>Airtable</td><td>airtable.com + Omni</td><td>CRM, affiliate pipeline, job tracker, sales log</td><td><span class="badge b-not">Planned</span></td></tr>
+    <tr><td>Canva Pro</td><td>canva.com</td><td>All PDF design, POD mockups, social content</td><td><span class="badge b-live">Active</span></td></tr>
+    <tr><td>Zapier / Make.com</td><td>zapier.com · make.com</td><td>Cross-platform automation glue</td><td><span class="badge b-prog">In Progress</span></td></tr>
+    <tr><td>Printify</td><td>printify.com</td><td>POD physical products — art print live; journal + candle Phase 1</td><td><span class="badge b-live">Partial</span></td></tr>
+    <tr><td>Career OS</td><td>Local HTML/JS + Anthropic API</td><td>Job search dashboard at ~/Development/Projects/Active/CareerSystem/</td><td><span class="badge b-prog">Active</span></td></tr>
+    <tr><td>Desktop System</td><td>macOS folder structure</td><td>MidnightMagnoliaSystem: 0-Admin · 1-Business · 2-School · 3-Research · 4-Creative · 5-Archive</td><td><span class="badge b-live">Done</span></td></tr>
+    <tr><td>Next.js codebase</td><td>Local dev</td><td>Reserved — migrate from Wix only if Wix becomes limiting</td><td><span class="badge b-not">Later</span></td></tr>
+  </table>
+
+  <div class="h2">Entity & Legal</div>
+  <table class="tbl">
+    <tr><th>Field</th><th>Value</th></tr>
+    <tr><td>Legal entity</td><td>Rumi-Nations LLC</td></tr>
+    <tr><td>Brand DBA</td><td>Midnight Magnolia</td></tr>
+    <tr><td>Founder</td><td>Latisha Vincent-Waters</td></tr>
+    <tr><td>Location</td><td>Ravenel, SC (Lowcountry South Carolina)</td></tr>
+    <tr><td>Sites</td><td>midnightmagnolia.com · midnight-magnolia.com</td></tr>
+    <tr><td>Instagram</td><td>@noirmagnoliasc</td></tr>
+    <tr><td>Revenue goal</td><td>$4,000/month · milestone: first $500 via digital products</td></tr>
+    <tr><td>Academic goal</td><td>NCCU (ALA-accredited HBCU) or USC Columbia MLIS + Public History dual</td></tr>
+  </table>
+</section>
+
+<!-- ══════════════════════════════════════════════════════
+     PANEL: LIVE STATUS
+══════════════════════════════════════════════════════ -->
+<section class="panel" id="panel-status">
+  <div class="slabel">Section 02</div>
+  <h2 class="stitle">Live Status — What's Real Right Now</h2>
+  <p class="sdesc">As of May 2026, reconciled from all documents. Use this as the ground truth before starting any session.</p>
+
+  <p class="warn">⚠ Patreon is <strong>temporarily inaccessible</strong> — email <code>latisha@midnight-magnolia.com</code> is locked. Recovery path: generate first income → repurchase <code>midnight-magnolia.com</code> domain email → restore Patreon access. In the meantime, route all new membership traffic to <strong>Stan Store Magnolia Circle</strong> and BMAC only.</p>
+
+  <div class="h2">Done — Shipped & Live</div>
+  <div class="item done"><div class="item-name">Homepage Redesign</div><div class="item-desc">Southern Gothic palette, contained layout, brand-aligned design applied. Last 10% polish remaining (spacing, mobile review, link testing).</div><div class="item-meta"><span class="badge b-done">Done</span></div></div>
+  <div class="item done"><div class="item-name">Services Page — 4 Services Live</div><div class="item-desc">Brand Voice Clarity ($197) · Notion Sanctuary Setup ($297) · Creative Direction ($127) · VIP Half-Day Intensive ($497). All live with inquiry flow.</div><div class="item-meta"><span class="badge b-done">Done</span></div></div>
+  <div class="item done"><div class="item-name">Art Print (POD) — Live on Site</div><div class="item-desc">First physical product listed and selling via Wix shop. Southern Gothic artwork on Printify.</div><div class="item-meta"><span class="badge b-done">Done</span></div></div>
+  <div class="item risk"><div class="item-name">Patreon — Temporarily Inaccessible</div><div class="item-desc">Patreon account exists with 3 live tiers but access is locked — the registered email <code>latisha@midnight-magnolia.com</code> is currently unavailable (domain email lapsed). Recovery plan: first income → repurchase <code>midnight-magnolia.com</code> email hosting → restore Patreon login. Until then: route all new membership traffic to Stan Store Magnolia Circle and BMAC.</div><div class="item-meta"><span class="badge b-risk">Locked</span><span class="badge b-crit">Action needed</span></div></div>
+  <div class="item done"><div class="item-name">BMAC (Buy Me a Coffee) — Live</div><div class="item-desc">Active and accessible. Use as the primary one-time support link while Patreon is locked.</div><div class="item-meta"><span class="badge b-done">Live</span></div></div>
+  <div class="item done"><div class="item-name">Desktop File System (MidnightMagnoliaSystem)</div><div class="item-desc">Organized: 0-Admin · 1-Business · 2-School · 3-Research · 4-Creative · 5-Archive. Symlinks active. README documented.</div><div class="item-meta"><span class="badge b-done">Done</span></div></div>
+  <div class="item done"><div class="item-name">Dusk Letters Blog — Posts Live</div><div class="item-desc">5+ posts published (Mar 18 batch). Topics: ND creators, journaling, moon phases, digital planners.</div><div class="item-meta"><span class="badge b-done">Done</span></div></div>
+
+  <div class="h2">Active Now — In Progress or Urgent</div>
+  <div class="item prog"><div class="item-name">Notion Workspace Restructure</div><div class="item-desc">6-database structure with full guides and ADHD-friendly setup checklist. 5 phases defined: DB setup → views → dashboard → data migration → workflow. Execute the checklist — the plan is done.</div><div class="item-meta"><span class="badge b-prog">In Progress</span><span class="badge b-high">High Focus</span></div></div>
+  <div class="item risk"><div class="item-name">First Member Content Batch — URGENT</div><div class="item-desc">Patreon is live but members need content. Create: Candle Tender monthly note (500 words), Circle Keeper audio ritual (10–15 min), Altar Keeper quarterly session outline. Do this before any other new product work.</div><div class="item-meta"><span class="badge b-risk">At Risk</span><span class="badge b-crit">Urgent</span></div></div>
+  <div class="item ns"><div class="item-name">Wix Emergency Fixes (30 min total)</div><div class="item-desc">Delete Wix social footer row · Fix Shop nav → Stan Store · Fix About/Contact/Grimoire nav links · Rename Blog → Dusk Letters</div><div class="item-meta"><span class="badge b-crit">Critical</span><span class="badge b-not">Not Started</span></div></div>
+  <div class="item ns"><div class="item-name">Stan Store Launch Minimum</div><div class="item-desc">Profile config · Free Starter Kit · Magnolia Circle membership · Shadow Work Starter Kit ($9) · Welcome email sequence (3 emails)</div><div class="item-meta"><span class="badge b-crit">Critical</span><span class="badge b-not">Not Started</span></div></div>
+  <div class="item ns"><div class="item-name">Email Platform — Choose & Set Up</div><div class="item-desc">Select ConvertKit, Mailchimp, or Stan Store native. This BLOCKS: Starter Kit lead magnet, Dusk Letters list, affiliate traffic. Choose before investing deeply in content creation.</div><div class="item-meta"><span class="badge b-crit">Blocking</span><span class="badge b-not">Not Started</span></div></div>
+
+  <div class="h2">Key Risks & Gaps</div>
+  <div class="card" style="border-left:4px solid var(--rose)">
+    <div class="card-title" style="font-size:17px">Content Fulfillment Bottleneck — Highest Risk</div>
+    <div style="font-size:13px;color:#555;margin-top:8px;line-height:1.7">Patreon has 3 tiers each requiring distinct monthly content. Plus social, plus product creation, plus school, plus job search. Mitigation: batch content during high-energy phases. Repurpose private spiritual journal entries as member content. A written reflection counts when you can't record audio.</div>
+  </div>
+  <div class="card" style="border-left:4px solid var(--gold)">
+    <div class="card-title" style="font-size:17px">Two Membership Platforms (Patreon vs Stan Store)</div>
+    <div style="font-size:13px;color:#555;margin-top:8px;line-height:1.7">Patreon is live and has members. Stan Store Magnolia Circle is planned. Recommendation: keep Patreon as primary for existing members. Launch Stan Store Magnolia Circle as the new layer. Direct BMAC supporters to Patreon for content. Altar Keeper (max 10) needs manual tracking.</div>
+  </div>
+  <div class="card" style="border-left:4px solid var(--plum)">
+    <div class="card-title" style="font-size:17px">No Digital Product Delivery Platform Confirmed</div>
+    <div style="font-size:13px;color:#555;margin-top:8px;line-height:1.7">Gumroad, Stan Store, and Wix Digital Downloads are all referenced. Decision needed before affiliate traffic arrives. Recommendation: Stan Store for everything new. Gumroad as fallback for simple one-offs.</div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════
+     PANEL: PRODUCTS
+══════════════════════════════════════════════════════ -->
+<section class="panel" id="panel-products">
+  <div class="slabel">Section 03</div>
+  <h2 class="stitle">Product Catalog</h2>
+  <p class="sdesc">Digital products, physical POD, and KDP publishing. Build order: P1 → P4 → P2 → P3 → P5 → P6.</p>
+
+  <p class="note">P1 + P4 + P2 = the minimum viable revenue loop. Do not send affiliate traffic until these three are live.</p>
+
+  <div class="h2">Digital Products — Full Ladder</div>
+  <table class="tbl">
+    <tr><th>#</th><th>Title</th><th>Price</th><th>Type</th><th>Platform</th><th>Priority</th></tr>
+    <tr><td><strong>P0</strong></td><td>Soft Reset Page</td><td>$5</td><td>1-page grounding PDF (affirmations + prompts)</td><td>Gumroad / Stan</td><td><span class="badge b-high">Quick win</span></td></tr>
+    <tr><td><strong>P1</strong></td><td>The Gentle Beginning (Free Starter Kit)</td><td>FREE</td><td>Lead Magnet PDF (8–10 pp, 5 prompts)</td><td>Stan Store</td><td><span class="badge b-crit">Build first</span></td></tr>
+    <tr><td><strong>P1b</strong></td><td>Altar Keeper's Affirmation Deck</td><td>$12</td><td>52 printable affirmation cards</td><td>Gumroad / Stan</td><td><span class="badge b-high">Fast — 1–2 days</span></td></tr>
+    <tr><td><strong>P2</strong></td><td>Mini Healing Journal / Shadow Work Starter Kit</td><td>$9</td><td>Digital PDF (30–50 pp, 30 prompts)</td><td>Stan Store</td><td><span class="badge b-crit">Build third</span></td></tr>
+    <tr><td><strong>P2b</strong></td><td>Dusk Reset Journal</td><td>$17</td><td>30-day evening reflection journal PDF</td><td>Stan Store</td><td><span class="badge b-high">Week 1</span></td></tr>
+    <tr><td><strong>P3</strong></td><td>30-Day Soft Steps / Ancestral Healing Journal</td><td>$17–$27</td><td>Digital PDF (50–60 pp)</td><td>Stan Store</td><td><span class="badge b-high">Week 1</span></td></tr>
+    <tr><td><strong>P4</strong></td><td>Magnolia Circle Membership</td><td>$9/mo</td><td>Stan Store membership (or Patreon Circle Keeper)</td><td>Stan Store / Patreon</td><td><span class="badge b-crit">Build second</span></td></tr>
+    <tr><td><strong>P5</strong></td><td>Brand Voice Workbook</td><td>$22</td><td>Self-guided PDF workbook — upsell to service</td><td>Stan Store</td><td><span class="badge b-med">Week 2</span></td></tr>
+    <tr><td><strong>P5b</strong></td><td>Sanctuary Operating System (Notion Template)</td><td>$37</td><td>ND-friendly Notion workspace template</td><td>Gumroad / Stan</td><td><span class="badge b-med">Week 2</span></td></tr>
+    <tr><td><strong>P6</strong></td><td>Deep Roots Shadow Work System</td><td>$49</td><td>3-PDF bundle + optional welcome video</td><td>Stan Store</td><td><span class="badge b-med">Week 2–3</span></td></tr>
+    <tr><td><strong>P7</strong></td><td>Soft Launch Guide</td><td>$27</td><td>25-page guide for quiet launchers</td><td>Stan Store</td><td><span class="badge b-not">Later</span></td></tr>
+  </table>
+
+  <div class="h2">Patreon Membership Tiers (Live)</div>
+  <table class="tbl">
+    <tr><th>Tier</th><th>Price</th><th>Monthly Content Required</th><th>Notes</th></tr>
+    <tr><td><strong>Candle Tender</strong></td><td>$5/mo</td><td>Monthly reflection note (500 words)</td><td>Highest volume tier</td></tr>
+    <tr><td><strong>Circle Keeper</strong></td><td>$15/mo</td><td>Candle Tender note + audio ritual (10–15 min)</td><td>Mid tier</td></tr>
+    <tr><td><strong>Altar Keeper</strong></td><td>$35/mo</td><td>Circle Keeper content + quarterly 1:1 session outline</td><td>Max 10 people — manual tracking required</td></tr>
+  </table>
+
+  <div class="h2">KDP Publishing Pipeline (Public Domain)</div>
+  <div class="two-col">
+    <div class="card">
+      <div class="card-title">Phase 1 — Southern Gothic Classics</div>
+      <div class="card-meta">Write introduction · design cover · format for KDP</div>
+      <table class="tbl" style="margin-top:12px">
+        <tr><th>Title</th><th>Price</th></tr>
+        <tr><td>The Awakening (Kate Chopin)</td><td>$12.99</td></tr>
+        <tr><td>Bayou Folk (Kate Chopin)</td><td>$14.99</td></tr>
+        <tr><td>Cane (Jean Toomer)</td><td>$13.99</td></tr>
+      </table>
+    </div>
+    <div class="card">
+      <div class="card-title">Phase 2 — Harlem Renaissance Voices</div>
+      <div class="card-meta">4 titles with original introductions</div>
+      <table class="tbl" style="margin-top:12px">
+        <tr><th>Title</th><th>Notes</th></tr>
+        <tr><td>Heart of a Woman (Georgia Douglas Johnson)</td><td>Poetry</td></tr>
+        <tr><td>The Weary Blues (Langston Hughes)</td><td>Poetry</td></tr>
+        <tr><td>Harlem Shadows (Claude McKay)</td><td>Poetry</td></tr>
+        <tr><td>Bronze — Legacy Anthology</td><td>Curated</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="h2">Physical Products (POD)</div>
+  <table class="tbl">
+    <tr><th>Phase</th><th>Product</th><th>Supplier</th><th>Est. Price</th><th>Est. Margin</th></tr>
+    <tr><td>Live</td><td>Art Print — Southern Gothic artwork</td><td>Printify</td><td>Listed</td><td>Active</td></tr>
+    <tr><td>1</td><td>Branded Shadow Work Journal (hardcover)</td><td>Printify</td><td>$24–$29</td><td>45–55%</td></tr>
+    <tr><td>1</td><td>Midnight Magnolia Soy Candle</td><td>Printify / Candle Builders</td><td>$18–$22</td><td>40–50%</td></tr>
+    <tr><td>2</td><td>Crystal Healing Set</td><td>Enchanted Soul / Azure Green</td><td>$28–$35</td><td>45–60%</td></tr>
+    <tr><td>2</td><td>Physical Affirmation Card Deck</td><td>Printify</td><td>$32</td><td>40–50%</td></tr>
+    <tr><td>2</td><td>Sanctuary Tote Bag</td><td>Printify</td><td>$28</td><td>40–48%</td></tr>
+    <tr><td>3</td><td>Gothic Healing Charm Pendant</td><td>Starlinks Gifts</td><td>$22–$38</td><td>55–70%</td></tr>
+  </table>
+
+  <div class="h2">Content → Income Funnel Logic</div>
+  <div class="flow">
+    <div class="fn">TikTok</div><div class="fa">→</div>
+    <div class="fn">Discovery</div><div class="fa">→</div>
+    <div class="fn">Facebook</div><div class="fa">→</div>
+    <div class="fn">Conversion</div><div class="fa">→</div>
+    <div class="fn">YouTube</div><div class="fa">→</div>
+    <div class="fn">Depth</div><div class="fa">→</div>
+    <div class="fn gold">Products</div><div class="fa">→</div>
+    <div class="fn gold">Income</div>
+  </div>
+  <div class="flow">
+    <div class="fn lite">Affirmations</div><div class="fa">+</div>
+    <div class="fn lite">Journal Prompts</div><div class="fa">+</div>
+    <div class="fn lite">Short Videos</div><div class="fa">+</div>
+    <div class="fn lite">Soft Product Posts</div><div class="fa">→</div>
+    <div class="fn">Email List</div><div class="fa">→</div>
+    <div class="fn gold">Magnolia Circle</div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════
+     PANEL: SERVICES
+══════════════════════════════════════════════════════ -->
+<section class="panel" id="panel-services">
+  <div class="slabel">Section 04</div>
+  <h2 class="stitle">Services (Live)</h2>
+  <p class="sdesc">Four services are live on the website with inquiry flow. High-ticket revenue stream running parallel to digital products.</p>
+
+  <div class="h2">Active Service Offerings</div>
+  <div class="two-col">
+    <div class="card">
+      <div class="card-head"><div><div class="card-title">Brand Voice Clarity Session</div><div class="card-meta">1:1 service · live on site</div></div><span class="badge b-live">$197</span></div>
+      <ul class="rlist" style="margin-top:10px">
+        <li>Clarify brand voice for neurodivergent/healing-centered entrepreneurs</li>
+        <li>Upsell destination: Brand Voice Workbook PDF ($22) → this session</li>
+        <li>Inquiry flow active via website</li>
+      </ul>
+    </div>
+    <div class="card">
+      <div class="card-head"><div><div class="card-title">Notion Sanctuary Setup</div><div class="card-meta">1:1 service · live on site</div></div><span class="badge b-live">$297</span></div>
+      <ul class="rlist" style="margin-top:10px">
+        <li>Done-for-you ND-friendly Notion workspace build</li>
+        <li>Upsell destination: Sanctuary OS Template ($37) → this service</li>
+        <li>Directly connected to Latisha's Notion expertise</li>
+      </ul>
+    </div>
+    <div class="card">
+      <div class="card-head"><div><div class="card-title">Creative Direction</div><div class="card-meta">1:1 service · live on site</div></div><span class="badge b-live">$127</span></div>
+      <ul class="rlist" style="margin-top:10px">
+        <li>Brand and creative strategy for healing-centered creators</li>
+        <li>Accessible entry point into the services tier</li>
+      </ul>
+    </div>
+    <div class="card">
+      <div class="card-head"><div><div class="card-title">VIP Half-Day Intensive</div><div class="card-meta">1:1 service · live on site</div></div><span class="badge b-live">$497</span></div>
+      <ul class="rlist" style="margin-top:10px">
+        <li>Deep-dive brand, systems, and strategy session</li>
+        <li>Highest-ticket service offering</li>
+        <li>Limit: very few per month to protect energy</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="h2">Planned Service Addition</div>
+  <div class="card">
+    <div class="card-head"><div><div class="card-title">1:1 Creative Strategy Session</div><div class="card-meta">Stan Store booking · Planned Week 3</div></div><span class="badge b-not">$97–$147</span></div>
+    <ul class="rlist" style="margin-top:10px">
+      <li>Lower entry point than current live services — fills the gap between $127 and free</li>
+      <li>Connects calendar integration in Stan Store</li>
+      <li>Intake form via Stan Store or Typeform</li>
+    </ul>
+  </div>
+
+  <div class="h2">Service → Product Upsell Map</div>
+  <table class="tbl">
+    <tr><th>Entry Point</th><th>→ Upsell To</th><th>Logic</th></tr>
+    <tr><td>Brand Voice Workbook ($22)</td><td>Brand Voice Clarity Session ($197)</td><td>Product builds desire for the 1:1</td></tr>
+    <tr><td>Sanctuary OS Template ($37)</td><td>Notion Sanctuary Setup ($297)</td><td>Template shows what's possible; service does it for them</td></tr>
+    <tr><td>Shadow Work Starter Kit ($9)</td><td>Deep Roots System ($49) → 1:1 Session</td><td>Journal work surfaces desire for guided support</td></tr>
+    <tr><td>Creative Strategy Session ($97)</td><td>VIP Half-Day Intensive ($497)</td><td>Strategy session reveals scope for deeper work</td></tr>
+    <tr><td>Magnolia Circle ($9/mo)</td><td>Any 1:1 service</td><td>Trust built over time converts to service clients</td></tr>
+  </table>
+</section>
+
+<!-- ══════════════════════════════════════════════════════
+     PANEL: FUNNEL
+══════════════════════════════════════════════════════ -->
+<section class="panel" id="panel-funnel">
+  <div class="slabel">Section 05</div>
+  <h2 class="stitle">Content Funnel &amp; Pillars</h2>
+  <p class="sdesc">TikTok → Discovery · Facebook → Conversion · YouTube → Depth · Products → Income</p>
+
+  <div class="h2">Platform Roles</div>
+  <table class="tbl">
+    <tr><th>Platform</th><th>Role</th><th>Content Type</th><th>Posting Cadence</th></tr>
+    <tr><td>TikTok</td><td>Discovery</td><td>Short affirmations · journal prompts · "behind the practice" clips · faceless aesthetic content</td><td>3–5x/week (batch)</td></tr>
+    <tr><td>Facebook</td><td>Conversion</td><td>Longer reflections · product soft-posts · community content · event announcements</td><td>3x/week</td></tr>
+    <tr><td>YouTube</td><td>Depth</td><td>Guided journals · moon rituals · genealogy storytelling · longer healing essays (faceless)</td><td>1–2x/week</td></tr>
+    <tr><td>Instagram</td><td>Brand presence</td><td>Visual brand · quotes · product mockups · @noirmagnoliasc</td><td>3x/week</td></tr>
+    <tr><td>Tumblr</td><td>Long-form / community</td><td>Essays · aesthetic · Southern Gothic narrative</td><td>As inspired</td></tr>
+    <tr><td>Patreon</td><td>Member depth</td><td>Tier-specific: monthly note · audio ritual · session</td><td>1st + 15th of month</td></tr>
+    <tr><td>Email (Dusk Letters)</td><td>Owned audience</td><td>1 prompt · 1 reflection · 1 soft offer. No more.</td><td>Monthly (weekly later)</td></tr>
+  </table>
+
+  <div class="h2">Content Pillars (4 Themes)</div>
+  <div class="two-col">
+    <div class="card" style="padding:16px 20px"><div class="card-title" style="font-size:17px">🌿 Healing & Shadow Work</div><div style="font-size:13px;margin-top:8px;color:#444">Journal prompts · shadow work education · nervous system content · rest as strategy</div></div>
+    <div class="card" style="padding:16px 20px"><div class="card-title" style="font-size:17px">🌙 Southern Gothic &amp; Roots</div><div style="font-size:13px;margin-top:8px;color:#444">Lowcountry storytelling · ancestral healing · genealogy finds · Vincent family research</div></div>
+    <div class="card" style="padding:16px 20px"><div class="card-title" style="font-size:17px">🧠 Neurodivergent Creator Life</div><div style="font-size:13px;margin-top:8px;color:#444">ND systems · ADHD-friendly structure · anti-hustle building · energy-aware work</div></div>
+    <div class="card" style="padding:16px 20px"><div class="card-title" style="font-size:17px">✨ Creative Process</div><div style="font-size:13px;margin-top:8px;color:#444">Behind the practice · product creation · memoir writing · sacred→commercial lineage</div></div>
+  </div>
+
+  <div class="h2">Weekly Content Template</div>
+  <table class="tbl">
+    <tr><th>Day</th><th>Platform</th><th>Type</th><th>Pillar</th><th>Energy</th></tr>
+    <tr><td>Monday</td><td>TikTok + Instagram</td><td>Affirmation video or journal prompt</td><td>Healing</td><td>Low spoon — batch during high-energy phase</td></tr>
+    <tr><td>Tuesday</td><td>Facebook</td><td>Reflection or story post</td><td>Southern Gothic / Roots</td><td>Medium</td></tr>
+    <tr><td>Wednesday</td><td>TikTok</td><td>ND creator tip or system share</td><td>ND Creator</td><td>Low spoon</td></tr>
+    <tr><td>Thursday</td><td>Facebook + Instagram</td><td>Soft product post or Patreon mention</td><td>Any</td><td>Low spoon</td></tr>
+    <tr><td>Friday</td><td>YouTube</td><td>Longer video — guided journal or ritual</td><td>Healing / Creative</td><td>High — record when rested</td></tr>
+    <tr><td>1st of month</td><td>Patreon + Email</td><td>Member content drop + Dusk Letters</td><td>All pillars</td><td>Schedule in advance</td></tr>
+  </table>
+</section>
+
+<!-- ══════════════════════════════════════════════════════
+     PANEL: WEBSITE
+══════════════════════════════════════════════════════ -->
+<section class="panel" id="panel-site">
+  <div class="slabel">Section 06</div>
+  <h2 class="stitle">Website Plan (Cursor)</h2>
+  <p class="sdesc">Wix Studio for storefront · Cursor for all custom code · mm-tokens.css in every component.</p>
+  <p class="warn">Do not send affiliate traffic until Stan Store is live AND Sanctuary + Library pages are rebuilt from placeholder content.</p>
+
+  <div class="h2">Emergency Fixes — 30 min total, Do First</div>
+  <table class="tbl">
+    <tr><th>Fix</th><th>Where</th><th>Time</th></tr>
+    <tr><td>Delete Wix-branded footer social row (showing Wix's own accounts)</td><td>Wix → Footer</td><td>5 min</td></tr>
+    <tr><td>Fix Shop nav → Stan Store URL</td><td>Wix → Nav</td><td>5 min</td></tr>
+    <tr><td>Fix About nav → redirect to Sanctuary temporarily</td><td>Wix → Nav</td><td>5 min</td></tr>
+    <tr><td>Fix Contact nav → Sanctuary contact form</td><td>Wix → Nav</td><td>5 min</td></tr>
+    <tr><td>Fix Grimoire submenu (all → homepage)</td><td>Wix → Nav</td><td>10 min</td></tr>
+    <tr><td>Rename "Blog" → "Dusk Letters" in nav</td><td>Wix → Nav</td><td>2 min</td></tr>
+    <tr><td>Add Patreon + BMAC links to nav, footer, and membership section</td><td>Wix → Nav + Footer</td><td>10 min</td></tr>
+  </table>
+
+  <div class="h2">Page Build Plan</div>
+  <table class="tbl">
+    <tr><th>Page</th><th>Status</th><th>Action Required</th><th>Priority</th></tr>
+    <tr><td>Homepage</td><td><span class="badge b-done">~Done</span></td><td>Add email capture above fold · verify all 3 card CTAs · mobile review · link Patreon/BMAC</td><td><span class="badge b-high">High</span></td></tr>
+    <tr><td>Services Page</td><td><span class="badge b-live">Live</span></td><td>Add upsell pathway language linking to products below each service</td><td><span class="badge b-med">Medium</span></td></tr>
+    <tr><td>The Sanctuary</td><td><span class="badge b-crit">Rebuild</span></td><td>Remove ALL Wix medical template content (fake doctors, stock photos). Hero → Free Resources (3 cards) → Magnolia Circle CTA → About Latisha → Contact form</td><td><span class="badge b-crit">Critical</span></td></tr>
+    <tr><td>The Library</td><td><span class="badge b-crit">Rebuild</span></td><td>Replace stock art portfolio (Silent Whispers etc.) with MM digital product cards → Stan Store</td><td><span class="badge b-crit">Critical</span></td></tr>
+    <tr><td>Membership Page</td><td><span class="badge b-not">Build</span></td><td>Explain Patreon vs BMAC, tier benefits (Candle Tender · Circle Keeper · Altar Keeper), what members receive. Add prominent Patreon links.</td><td><span class="badge b-high">High</span></td></tr>
+    <tr><td>About Page</td><td><span class="badge b-not">Build</span></td><td>Hero image (Latisha, Lowcountry) · voice-first opening · Brand Values · Roots paragraph · CTA → Sanctuary</td><td><span class="badge b-high">High</span></td></tr>
+    <tr><td>The Grimoire</td><td><span class="badge b-not">Build</span></td><td>Gate with email optin → categories: Shadow Work · Moon Phase · Ancestral Healing · ND Creator Guides · Dusk Letters Archive</td><td><span class="badge b-high">High</span></td></tr>
+    <tr><td>Dusk Letters Blog</td><td><span class="badge b-live">Live</span></td><td>Already has 5+ posts. Add related product CTA to bottom of each post.</td><td><span class="badge b-med">Medium</span></td></tr>
+    <tr><td>Portfolio / Gallery</td><td><span class="badge b-not">Later</span></td><td>Southern Gothic sacred artwork gallery</td><td><span class="badge b-not">Later</span></td></tr>
+    <tr><td>Legal Pages (5)</td><td><span class="badge b-high">Verify</span></td><td>Audit Terms, Privacy, Refund, Cookie, Accessibility — confirm none are Wix placeholder text</td><td><span class="badge b-high">High</span></td></tr>
+  </table>
+
+  <div class="h2">Wix → Platform Link Map</div>
+  <table class="tbl">
+    <tr><th>Wix Element</th><th>Destination</th><th>Purpose</th></tr>
+    <tr><td>Homepage hero CTA</td><td>Stan Store — Free Starter Kit</td><td>Email capture / top of funnel</td></tr>
+    <tr><td>Homepage — Journals card</td><td>Stan Store — Shadow Work Starter Kit ($9)</td><td>Product discovery</td></tr>
+    <tr><td>Homepage — Creative Tools card</td><td>Stan Store — Creative Foundations / P5</td><td>Product discovery</td></tr>
+    <tr><td>Homepage — Membership section</td><td>Patreon page</td><td>Tier conversion</td></tr>
+    <tr><td>Nav: Shop</td><td>Stan Store main page</td><td>Direct product access</td></tr>
+    <tr><td>Nav: Membership</td><td>New Membership Page → Patreon</td><td>Tier explanation + join</td></tr>
+    <tr><td>Sanctuary — Magnolia Circle CTA</td><td>Stan Store or Patreon</td><td>Membership conversion</td></tr>
+    <tr><td>Every Dusk Letters post — bottom CTA</td><td>Relevant product or freebie</td><td>Content-to-product bridge</td></tr>
+    <tr><td>Footer</td><td>Patreon + BMAC + Instagram + YouTube</td><td>Always-visible support links</td></tr>
+  </table>
+</section>
+
+<!-- ══════════════════════════════════════════════════════
+     PANEL: NOTION
+══════════════════════════════════════════════════════ -->
+<section class="panel" id="panel-notion">
+  <div class="slabel">Section 07</div>
+  <h2 class="stitle">Notion Workspace</h2>
+  <p class="sdesc">For Notion AI. The restructure is In Progress — 6-database structure, 5 phases. Apply schemas exactly.</p>
+
+  <div class="h2">Workspace Structure</div>
+  <div class="code"><span class="c-c">## Midnight Magnolia Notion — Workspace Map</span>
+
+📁 <span class="c-k">HOME</span>
+├── 🌙 <span class="c-v">MM Dashboard</span>        <span class="c-c"># linked views of all databases</span>
+├── 📋 <span class="c-v">Weekly Review</span>        <span class="c-c"># ZORA template, energy-aware</span>
+└── 🜁 <span class="c-v">Canonical Rules</span>      <span class="c-c"># this doc, paste/sync here</span>
+
+📁 <span class="c-k">BRAND</span>
+├── 🌿 <span class="c-v">Voice + Style Guide</span>
+├── 🎨 <span class="c-v">Design Tokens (mm-tokens.css)</span>
+├── 📸 <span class="c-v">Asset Library</span>
+└── ✦  <span class="c-v">Services Overview</span>   <span class="c-c"># 4 live services + pricing + upsell map</span>
+
+📁 <span class="c-k">PRODUCTS</span>
+├── 📦 <span class="c-v">Product Pipeline DB</span>  <span class="c-c"># database — all 11 products + KDP</span>
+├── 📅 <span class="c-v">Content Calendar DB</span>  <span class="c-c"># database</span>
+├── 📝 <span class="c-v">Prompt Bank</span>          <span class="c-c"># raw prompts for all products</span>
+├── 🎨 <span class="c-v">Canva Design Tracker</span>
+└── 📚 <span class="c-v">KDP Publishing Tracker</span>
+
+📁 <span class="c-k">AUDIENCE</span>
+├── 🤝 <span class="c-v">Affiliate DB</span>         <span class="c-c"># database</span>
+├── 💌 <span class="c-v">Email Sequence Bank</span>
+├── 👥 <span class="c-v">Patreon Member Notes</span> <span class="c-c"># tier, themes, fulfillment status</span>
+└── 📊 <span class="c-v">Member Content Tracker</span> <span class="c-c"># 7th DB: tier deliverables, due dates</span>
+
+📁 <span class="c-k">CAREER</span>
+├── 💼 <span class="c-v">Job Search DB</span>        <span class="c-c"># database</span>
+├── 📄 <span class="c-v">Resume Vault</span>         <span class="c-c"># Track A–E + IAAM custom</span>
+└── 🎓 <span class="c-v">MLIS Research</span>        <span class="c-c"># NCCU · USC Columbia</span>
+
+📁 <span class="c-k">GENEALOGY</span>
+├── 🌳 <span class="c-v">Vincent / Vinson Lines</span>
+├── 📜 <span class="c-v">Source Log</span>
+└── 🗺  <span class="c-v">Geographic Index</span>     <span class="c-c"># Caswell Co NC · SC Lowcountry · S Virginia</span></div>
+
+  <div class="h2">Database Schemas</div>
+  <div class="card">
+    <div class="card-title">Product Pipeline DB (expand to v3 — includes all products)</div>
+    <div style="margin-top:12px">
+      <table class="tbl">
+        <tr><th>Field</th><th>Type</th><th>Values / Notes</th></tr>
+        <tr><td><code>Product Name</code></td><td>Title</td><td>P0–P7, S1–S4, KDP-1 through KDP-7</td></tr>
+        <tr><td><code>Category</code></td><td>Select</td><td>Digital Download · Lead Magnet · Membership · Bundle · Service · KDP · POD · Template</td></tr>
+        <tr><td><code>Price</code></td><td>Number (currency)</td><td></td></tr>
+        <tr><td><code>Build Stage</code></td><td>Select</td><td>Not Started · Drafting · Designing · Stan Store Live · Patreon Live · Complete</td></tr>
+        <tr><td><code>Platform</code></td><td>Multi-select</td><td>Stan Store · Gumroad · Patreon · KDP · Printify · Wix</td></tr>
+        <tr><td><code>Content Done</code></td><td>Checkbox</td><td></td></tr>
+        <tr><td><code>Design Done</code></td><td>Checkbox</td><td></td></tr>
+        <tr><td><code>Live</code></td><td>Checkbox</td><td></td></tr>
+        <tr><td><code>Upsells To</code></td><td>Relation → same DB</td><td>Maps product ladder</td></tr>
+        <tr><td><code>Canva URL</code></td><td>URL</td><td></td></tr>
+        <tr><td><code>Stan Store URL</code></td><td>URL</td><td></td></tr>
+        <tr><td><code>Notes / Next Action</code></td><td>Text</td><td></td></tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Member Content Tracker DB (7th database — new)</div>
+    <div class="card-meta">Catches missed Patreon content before members notice</div>
+    <div style="margin-top:12px">
+      <table class="tbl">
+        <tr><th>Field</th><th>Type</th><th>Values</th></tr>
+        <tr><td><code>Deliverable</code></td><td>Title</td><td>e.g. "Nov Candle Tender Note"</td></tr>
+        <tr><td><code>Tier</code></td><td>Select</td><td>Candle Tender · Circle Keeper · Altar Keeper</td></tr>
+        <tr><td><code>Platform</code></td><td>Select</td><td>Patreon · BMAC · Email</td></tr>
+        <tr><td><code>Due Date</code></td><td>Date</td><td>1st or 15th of month</td></tr>
+        <tr><td><code>Status</code></td><td>Select</td><td>Not Started · Drafting · Scheduled · Published · Late</td></tr>
+        <tr><td><code>Content Type</code></td><td>Select</td><td>Written Note · Audio Ritual · Session Outline · Bonus Resource</td></tr>
+        <tr><td><code>Repurposed From</code></td><td>Text</td><td>Link to spiritual practice entry if repurposed</td></tr>
+        <tr><td><code>Linked Month Theme</code></td><td>Text</td><td>e.g. "Grief as a Practice"</td></tr>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════
+     PANEL: AIRTABLE
+══════════════════════════════════════════════════════ -->
+<section class="panel" id="panel-airtable">
+  <div class="slabel">Section 08</div>
+  <h2 class="stitle">Airtable Bases (Omni)</h2>
+  <p class="sdesc">Two bases. Apply field names exactly — they match the Zapier/Make automation schemas.</p>
+
+  <div class="h2">Base 1 — Midnight Magnolia Operations</div>
+  <div class="card">
+    <div class="card-title">Table: Contacts</div>
+    <div style="margin-top:12px"><table class="tbl">
+      <tr><th>Field</th><th>Type</th><th>Notes</th></tr>
+      <tr><td><code>Email</code></td><td>Email (Primary)</td><td>Match key for deduplication</td></tr>
+      <tr><td><code>First Name</code></td><td>Single line</td><td></td></tr>
+      <tr><td><code>Subscribed Via</code></td><td>Single select</td><td>Gentle Beginning · Dusk Letters · Patreon · BMAC · Grimoire · Direct</td></tr>
+      <tr><td><code>Subscribed Date</code></td><td>Date</td><td></td></tr>
+      <tr><td><code>Tags</code></td><td>Multi-select</td><td>freebie · magnolia-circle · patreon · candle-tender · circle-keeper · altar-keeper</td></tr>
+      <tr><td><code>Status</code></td><td>Single select</td><td>Active · Unsubscribed · Paused</td></tr>
+      <tr><td><code>Platform Source</code></td><td>Single select</td><td>TikTok · Facebook · Instagram · YouTube · Organic · Affiliate · Direct</td></tr>
+    </table></div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Table: Sales Log</div>
+    <div style="margin-top:12px"><table class="tbl">
+      <tr><th>Field</th><th>Type</th><th>Notes</th></tr>
+      <tr><td><code>Sale ID</code></td><td>Autonumber (Primary)</td><td></td></tr>
+      <tr><td><code>Product</code></td><td>Link → Products</td><td></td></tr>
+      <tr><td><code>Sale Date</code></td><td>Date</td><td></td></tr>
+      <tr><td><code>Amount</code></td><td>Currency</td><td></td></tr>
+      <tr><td><code>Platform</code></td><td>Single select</td><td>Stan Store · Gumroad · Patreon · KDP · Printify · Wix</td></tr>
+      <tr><td><code>Source</code></td><td>Single select</td><td>Organic · Email · TikTok · Facebook · Affiliate · Direct</td></tr>
+      <tr><td><code>Affiliate Partner</code></td><td>Link → Affiliates</td><td>If applicable</td></tr>
+    </table></div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Table: Affiliate Pipeline</div>
+    <div style="margin-top:12px"><table class="tbl">
+      <tr><th>Field</th><th>Type</th><th>Values</th></tr>
+      <tr><td><code>Partner Name</code></td><td>Single line (Primary)</td><td></td></tr>
+      <tr><td><code>Category</code></td><td>Single select</td><td>ND Creator · WOC Wellness · Recovery · Genealogy · ADHD · Dropship · Sober-Curious</td></tr>
+      <tr><td><code>Tier</code></td><td>Single select</td><td>Tier 1 (9–10) · Tier 2 (7–8) · Tier 3 (5–6)</td></tr>
+      <tr><td><code>Outreach Status</code></td><td>Single select</td><td>Not Started · Email Drafted · Sent · Replied · Partner · Declined</td></tr>
+      <tr><td><code>Contact Email</code></td><td>Email</td><td></td></tr>
+      <tr><td><code>Commission Rate</code></td><td>Percent</td><td></td></tr>
+      <tr><td><code>Commission Owed</code></td><td>Currency</td><td>Updated by M-03 automation</td></tr>
+      <tr><td><code>Revenue Generated</code></td><td>Currency</td><td>Updated by M-03 automation</td></tr>
+      <tr><td><code>Outreach Date</code></td><td>Date</td><td></td></tr>
+      <tr><td><code>Follow-up Date</code></td><td>Date</td><td></td></tr>
+    </table></div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Table: Patreon Members (manual — Altar Keeper tracking)</div>
+    <div style="margin-top:12px"><table class="tbl">
+      <tr><th>Field</th><th>Type</th><th>Notes</th></tr>
+      <tr><td><code>Member Name</code></td><td>Single line (Primary)</td><td></td></tr>
+      <tr><td><code>Patreon Email</code></td><td>Email</td><td></td></tr>
+      <tr><td><code>Tier</code></td><td>Single select</td><td>Candle Tender · Circle Keeper · Altar Keeper</td></tr>
+      <tr><td><code>Join Date</code></td><td>Date</td><td></td></tr>
+      <tr><td><code>Status</code></td><td>Single select</td><td>Active · Churned · Paused</td></tr>
+      <tr><td><code>Months Active</code></td><td>Formula or Number</td><td>Track tenure</td></tr>
+      <tr><td><code>Altar Keeper Slot</code></td><td>Number</td><td>1–10 only. Manual — never exceed 10.</td></tr>
+      <tr><td><code>Last Session Date</code></td><td>Date</td><td>For Altar Keepers — quarterly session tracking</td></tr>
+      <tr><td><code>Notes</code></td><td>Long text</td><td>Session notes, preferences, feedback</td></tr>
+    </table></div>
+  </div>
+
+  <div class="h2">Airtable Views to Build First</div>
+  <table class="tbl">
+    <tr><th>Table</th><th>View</th><th>Type</th><th>Purpose</th></tr>
+    <tr><td>Patreon Members</td><td>Altar Keeper Roster</td><td>Grid</td><td>Filter: Tier = Altar Keeper. Shows all 10 slots. Red if slot &gt; 10.</td></tr>
+    <tr><td>Patreon Members</td><td>Content Due This Month</td><td>Grid</td><td>Filter by Status = Active, shows who needs what content</td></tr>
+    <tr><td>Sales Log</td><td>Monthly Revenue</td><td>Summary</td><td>Group by month, sum Amount</td></tr>
+    <tr><td>Affiliate Pipeline</td><td>Priority Outreach</td><td>Grid</td><td>Filter: Tier = Tier 1, Status ≠ Partner</td></tr>
+    <tr><td>Job Applications</td><td>Active Pipeline</td><td>Kanban</td><td>Grouped by Status</td></tr>
+  </table>
+</section>
+
+<!-- ══════════════════════════════════════════════════════
+     PANEL: ZAPIER / MAKE
+══════════════════════════════════════════════════════ -->
+<section class="panel" id="panel-zapier">
+  <div class="slabel">Section 09</div>
+  <h2 class="stitle">Automation Schemas</h2>
+  <p class="sdesc">Zapier for simple single-step flows · Make.com for multi-step conditional logic. Field names match Airtable schemas exactly.</p>
+
+  <p class="note">Build Z-01, Z-02, Z-03 on launch day before running any traffic. Build M-01 and P-01 (Patreon) in Week 1.</p>
+
+  <div class="h2">Automation Index</div>
+  <table class="tbl">
+    <tr><th>#</th><th>Name</th><th>Tool</th><th>Trigger</th><th>Priority</th></tr>
+    <tr><td>Z-01</td><td>New Stan Store purchase → Airtable Sales Log</td><td><span class="badge b-zap">Zapier</span></td><td>New purchase in Stan Store</td><td><span class="badge b-crit">Launch</span></td></tr>
+    <tr><td>Z-02</td><td>New email subscriber → Airtable Contacts</td><td><span class="badge b-zap">Zapier</span></td><td>New subscriber (Stan / email platform)</td><td><span class="badge b-crit">Launch</span></td></tr>
+    <tr><td>Z-03</td><td>New Magnolia Circle member → Notion log</td><td><span class="badge b-zap">Zapier</span></td><td>New Stan Store subscription</td><td><span class="badge b-crit">Launch</span></td></tr>
+    <tr><td>Z-04</td><td>New job application → auto follow-up date (+7 days)</td><td><span class="badge b-zap">Zapier</span></td><td>Airtable: new row in Job Applications</td><td><span class="badge b-med">Ongoing</span></td></tr>
+    <tr><td>P-01</td><td>New Patreon member → Airtable Patreon Members</td><td><span class="badge b-patreon">Patreon+Zap</span></td><td>Patreon: new pledge</td><td><span class="badge b-crit">Week 1</span></td></tr>
+    <tr><td>P-02</td><td>Patreon churn → update Airtable + notify</td><td><span class="badge b-patreon">Patreon+Zap</span></td><td>Patreon: deleted pledge</td><td><span class="badge b-high">Week 1</span></td></tr>
+    <tr><td>P-03</td><td>Monthly member content reminder → self</td><td><span class="badge b-make">Make</span></td><td>Schedule: 25th of each month</td><td><span class="badge b-high">Week 1</span></td></tr>
+    <tr><td>M-01</td><td>Affiliate partner onboarding flow</td><td><span class="badge b-make">Make</span></td><td>Airtable: Outreach Status → "Partner"</td><td><span class="badge b-high">Week 1</span></td></tr>
+    <tr><td>M-02</td><td>Content published → cross-post reminder</td><td><span class="badge b-make">Make</span></td><td>Airtable: Content Status → "Published"</td><td><span class="badge b-high">Week 2</span></td></tr>
+    <tr><td>M-03</td><td>Affiliate sale → commission tracker update</td><td><span class="badge b-make">Make</span></td><td>Airtable: new Sale with Affiliate Partner</td><td><span class="badge b-high">Week 2</span></td></tr>
+    <tr><td>M-04</td><td>Monthly revenue rollup → Notion dashboard</td><td><span class="badge b-make">Make</span></td><td>Schedule: 1st of month at 8am ET</td><td><span class="badge b-med">Month 1</span></td></tr>
+    <tr><td>M-05</td><td>Genealogy find → Notion + Airtable log</td><td><span class="badge b-make">Make</span></td><td>Google Form submission</td><td><span class="badge b-med">Ongoing</span></td></tr>
+  </table>
+
+  <hr class="gd"/>
+  <div class="h2">Patreon Automation Schemas (New)</div>
+
+  <div class="card">
+    <div class="card-head"><div><div class="card-title">P-01 — New Patreon Pledge → Airtable Members Table</div><div class="card-meta">Patreon + Zapier · Launch week · Critical for Altar Keeper tracking</div></div><span class="badge b-crit">Critical</span></div>
+    <div class="code" style="margin-top:12px"><span class="c-c">## P-01: New Patreon Pledge → Airtable Patreon Members</span>
+<span class="c-c"># Zapier app: Patreon (requires Patreon Business account)</span>
+
+<span class="c-k">TRIGGER</span>: Patreon — <span class="c-v">New Member</span> (or New Pledge)
+
+<span class="c-k">ACTION 1</span>: Zapier Formatter — <span class="c-v">Utilities → Lookup Table</span>
+  Input: <span class="c-s">{{tier_name}}</span>
+  Lookup:
+    "Candle Tender" → <span class="c-s">"candle-tender"</span>
+    "Circle Keeper" → <span class="c-s">"circle-keeper"</span>
+    "Altar Keeper"  → <span class="c-s">"altar-keeper"</span>
+
+<span class="c-k">ACTION 2</span>: Airtable — <span class="c-v">Create Record</span>
+  Base: Midnight Magnolia Operations
+  Table: Patreon Members
+  Field Mapping:
+    Member Name    → <span class="c-s">{{full_name}}</span>
+    Patreon Email  → <span class="c-s">{{email}}</span>
+    Tier           → <span class="c-s">{{tier_name}}</span>        <span class="c-c"># lookup output</span>
+    Join Date      → <span class="c-s">{{pledge_date}}</span>
+    Status         → <span class="c-s">"Active"</span>             <span class="c-c"># static</span>
+    Months Active  → <span class="c-s">1</span>                   <span class="c-c"># starts at 1</span>
+
+<span class="c-k">ACTION 3</span>: Zapier Filter — <span class="c-v">Only continue if tier = "Altar Keeper"</span>
+
+<span class="c-k">ACTION 4</span>: Gmail — <span class="c-v">Send Email</span> (to self)
+  Subject: <span class="c-s">"⚠ New Altar Keeper: {{full_name}} — verify slot count"</span>
+  Body: <span class="c-s">"Check Airtable Altar Keeper Roster. Max 10 slots.
+         New member: {{full_name}} · {{email}}
+         Current roster: [check Airtable]"</span>
+
+<span class="c-k">ACTION 5</span>: Airtable — <span class="c-v">Create Record</span>
+  Table: Contacts (sync subscriber to main list)
+  Email → <span class="c-s">{{email}}</span>
+  Tags  → <span class="c-s">"patreon, {{tier_slug}}"</span>
+  Subscribed Via → <span class="c-s">"Patreon"</span></div>
+  </div>
+
+  <div class="card">
+    <div class="card-head"><div><div class="card-title">P-02 — Patreon Pledge Deleted (Churn) → Update Airtable</div><div class="card-meta">Patreon + Zapier · Keeps member roster accurate</div></div><span class="badge b-high">High</span></div>
+    <div class="code" style="margin-top:12px"><span class="c-c">## P-02: Patreon Churn → Airtable Status Update + Notify</span>
+
+<span class="c-k">TRIGGER</span>: Patreon — <span class="c-v">Deleted Pledge</span>
+
+<span class="c-k">ACTION 1</span>: Airtable — <span class="c-v">Search Records</span>
+  Table: Patreon Members
+  Filter: Patreon Email = <span class="c-s">{{email}}</span>
+
+<span class="c-k">ACTION 2</span>: Airtable — <span class="c-v">Update Record</span>
+  Record ID: <span class="c-s">{{found_record_id}}</span>
+  Status → <span class="c-s">"Churned"</span>
+  <span class="c-c"># Altar Keeper slot freed automatically via view filter</span>
+
+<span class="c-k">ACTION 3</span>: Gmail — <span class="c-v">Send Email</span> (to self)
+  Subject: <span class="c-s">"Patreon member left: {{full_name}} ({{tier_name}})"</span>
+  Body: <span class="c-s">"{{full_name}} · {{email}} has ended their {{tier_name}} pledge.
+         Tenure: {{months_active}} months.
+         {{#if altar_keeper}}
+         Altar Keeper slot #{{slot_number}} is now available.
+         {{/if}}"</span></div>
+  </div>
+
+  <div class="card">
+    <div class="card-head"><div><div class="card-title">P-03 — Monthly Member Content Reminder (25th of Month)</div><div class="card-meta">Make.com · Scheduled · Protects against content fulfillment gaps</div></div><span class="badge b-high">High</span></div>
+    <div class="code" style="margin-top:12px"><span class="c-c">## P-03: Monthly Content Reminder — 25th of Month</span>
+<span class="c-c"># Fires 5 days before 1st-of-month delivery deadline</span>
+
+<span class="c-k">MODULE 1 — TRIGGER</span>: Make — <span class="c-v">Scheduled</span>
+  Schedule: 25th of each month · 9:00 AM ET
+
+<span class="c-k">MODULE 2 — SEARCH</span>: Airtable — <span class="c-v">Search Records</span>
+  Table: Member Content Tracker (in Notion / Airtable)
+  Filter: Due Date = next month's 1st AND Status = "Not Started"
+
+<span class="c-k">MODULE 3 — AGGREGATOR</span>: Count unstarted deliverables
+
+<span class="c-k">MODULE 4 — ACTION</span>: Gmail — <span class="c-v">Send Email</span> (to self)
+  Subject: <span class="c-s">"🕯 Member content due in 6 days: {{count}} items unstarted"</span>
+  Body:
+    <span class="c-s">"Your Patreon members need content by the 1st.
+
+     Unstarted deliverables ({{count}}):
+     {{#each unstarted_items}}
+     - {{tier}}: {{deliverable_name}} ({{content_type}})
+     {{/each}}
+
+     Candle Tender minimum: 500-word reflection note.
+     Circle Keeper minimum: above + 10-min audio.
+     Altar Keeper: above + quarterly session outline.
+
+     A written reflection always counts when you can't record.
+     Move gently."</span>
+
+<span class="c-k">MODULE 5 — ACTION</span>: Notion — <span class="c-v">Create Page</span>
+  Parent: Audience / Patreon Member Notes
+  Title: <span class="c-s">"Content Batch — {{month}} {{year}}"</span>
+  Body: Pre-formatted template with tier sections
+  <span class="c-c"># Creates the drafting space in Notion automatically</span></div>
+  </div>
+
+  <hr class="gd"/>
+  <div class="h2">Zapier Schemas (Core)</div>
+
+  <div class="card">
+    <div class="card-head"><div><div class="card-title">Z-01 — New Purchase → Airtable Sales Log</div><div class="card-meta">Stan Store → Airtable · Launch day</div></div><span class="badge b-crit">Critical</span></div>
+    <div class="code" style="margin-top:12px"><span class="c-c">## Z-01: Stan Store Purchase → Airtable Sales Log</span>
+
+<span class="c-k">TRIGGER</span>: Stan Store — <span class="c-v">New Sale</span>
+  <span class="c-c"># Alternative: webhook if Stan Store Zapier not available</span>
+
+<span class="c-k">ACTION</span>: Airtable — <span class="c-v">Create Record</span>
+  Base: Midnight Magnolia Operations · Table: Sales Log
+  Product        → <span class="c-s">{{product_name}}</span>
+  Sale Date      → <span class="c-s">{{purchase_date}}</span>
+  Amount         → <span class="c-s">{{amount_paid}}</span>
+  Platform       → <span class="c-s">"Stan Store"</span>
+  Source         → <span class="c-s">{{utm_source}}</span>  <span class="c-c"># "Organic" if blank</span>
+  Affiliate      → <span class="c-s">{{affiliate_id}}</span>
+
+<span class="c-k">FILTER</span>: Only run if Amount > 0</div>
+  </div>
+
+  <div class="card">
+    <div class="card-head"><div><div class="card-title">Z-02 — New Subscriber → Airtable Contacts</div><div class="card-meta">Email platform → Airtable · Match on email (no duplicates)</div></div><span class="badge b-crit">Critical</span></div>
+    <div class="code" style="margin-top:12px"><span class="c-c">## Z-02: New Email Subscriber → Airtable Contacts</span>
+
+<span class="c-k">TRIGGER</span>: ConvertKit / Mailchimp / Stan Store — <span class="c-v">New Subscriber</span>
+
+<span class="c-k">ACTION</span>: Airtable — <span class="c-v">Create or Update Record</span>
+  Table: Contacts · <span class="c-k">Match On</span>: Email
+  Email          → <span class="c-s">{{subscriber_email}}</span>
+  First Name     → <span class="c-s">{{first_name}}</span>
+  Subscribed Via → <span class="c-s">{{form_name}}</span>
+  Subscribed Date→ <span class="c-s">{{created_date}}</span>
+  Tags           → <span class="c-s">{{tags}}</span>
+  Status         → <span class="c-s">"Active"</span></div>
+  </div>
+
+  <div class="card">
+    <div class="card-head"><div><div class="card-title">Z-03 — New Magnolia Circle Member → Notion Log</div><div class="card-meta">Stan Store → Notion</div></div><span class="badge b-crit">Critical</span></div>
+    <div class="code" style="margin-top:12px"><span class="c-c">## Z-03: New Magnolia Circle Member → Notion</span>
+
+<span class="c-k">TRIGGER</span>: Stan Store — <span class="c-v">New Subscription</span>
+  Filter: Product = "Magnolia Circle"
+
+<span class="c-k">ACTION</span>: Notion — <span class="c-v">Create Database Item</span>
+  DB: Audience / Patreon Member Notes (or MC Members DB)
+  Name           → <span class="c-s">{{customer_name}}</span>
+  Email          → <span class="c-s">{{customer_email}}</span>
+  Join Date      → <span class="c-s">{{subscription_date}}</span>
+  Platform       → <span class="c-s">"Stan Store"</span>
+  Status         → <span class="c-s">"Active"</span>
+  Current Month  → <span class="c-s">1</span></div>
+  </div>
+
+  <hr class="gd"/>
+  <div class="h2">Make.com Schemas</div>
+
+  <div class="card">
+    <div class="card-head"><div><div class="card-title">M-01 — Affiliate Onboarded → Welcome Email + Notion Log</div><div class="card-meta">Airtable watch → Route by category → Email + Notion</div></div><span class="badge b-high">High</span></div>
+    <div class="code" style="margin-top:12px"><span class="c-c">## M-01: Affiliate Status → "Partner" → Welcome Flow</span>
+
+<span class="c-k">MODULE 1</span>: Airtable — <span class="c-v">Watch Records</span>
+  Table: Affiliate Pipeline
+  Trigger: <span class="c-v">Outreach Status</span> changed to <span class="c-s">"Partner"</span>
+
+<span class="c-k">MODULE 2</span>: Router — by Category
+  Route A → ND/Wellness template
+  Route B → Genealogy template
+  Route C → Recovery template
+
+<span class="c-k">MODULE 3</span>: Gmail — <span class="c-v">Send Email</span>
+  To: <span class="c-s">{{contact_email}}</span>
+  Subject: <span class="c-s">"Welcome to the Midnight Magnolia affiliate family, {{first_name}}"</span>
+  Attachment: MM Affiliate One-Pager PDF
+
+<span class="c-k">MODULE 4</span>: Notion — <span class="c-v">Create Page</span>
+  Parent: Audience / Affiliate DB
+  Name → <span class="c-s">{{partner_name}}</span>
+  Category, Commission, Partner Since, Airtable ID
+
+<span class="c-k">MODULE 5</span>: Airtable — <span class="c-v">Update Record</span>
+  Outreach Date = today</div>
+  </div>
+
+  <div class="card">
+    <div class="card-head"><div><div class="card-title">M-03 — Affiliate Sale → Commission Tracker</div><div class="card-meta">Airtable watch → Calculate → Update affiliate record</div></div><span class="badge b-high">High</span></div>
+    <div class="code" style="margin-top:12px"><span class="c-c">## M-03: Affiliate Sale → Update Commission Owed</span>
+
+<span class="c-k">MODULE 1</span>: Airtable — <span class="c-v">Watch Records</span> · Sales Log
+  Trigger: New record AND Affiliate Partner is not empty
+
+<span class="c-k">MODULE 2</span>: Airtable — <span class="c-v">Get Record</span>
+  Table: Affiliate Pipeline · Record: <span class="c-s">{{affiliate_id}}</span>
+  Fetch: Commission Rate, Revenue Generated, Commission Owed
+
+<span class="c-k">MODULE 3</span>: Make Tools — <span class="c-v">Set Variables</span>
+  commission_amount  = <span class="c-s">{{amount}} × {{commission_rate / 100}}</span>
+  new_revenue        = <span class="c-s">{{revenue_generated}} + {{amount}}</span>
+  new_owed           = <span class="c-s">{{commission_owed}} + {{commission_amount}}</span>
+
+<span class="c-k">MODULE 4</span>: Airtable — <span class="c-v">Update Record</span>
+  Revenue Generated → <span class="c-s">{{new_revenue}}</span>
+  Commission Owed   → <span class="c-s">{{new_owed}}</span>
+  Last Sale Date    → <span class="c-s">{{today}}</span>
+
+<span class="c-k">MODULE 5</span>: Gmail (if commission > $25)
+  Subject: <span class="c-s">"Commission milestone: {{partner}} → ${{commission_amount}}"</span></div>
+  </div>
+
+  <div class="card">
+    <div class="card-head"><div><div class="card-title">M-04 — Monthly Revenue Rollup → Notion Dashboard</div><div class="card-meta">Scheduled · 1st of month</div></div><span class="badge b-med">Medium</span></div>
+    <div class="code" style="margin-top:12px"><span class="c-c">## M-04: Monthly Revenue Report → Notion</span>
+<span class="c-c"># Covers Stan Store + Patreon + KDP + Gumroad combined</span>
+
+<span class="c-k">MODULE 1</span>: Make — <span class="c-v">Scheduled</span> · 1st of month · 8AM ET
+
+<span class="c-k">MODULE 2</span>: Airtable — <span class="c-v">Search Records</span>
+  Sales Log · Filter: Sale Date in previous month
+  Aggregator: SUM(Amount) → total_revenue, COUNT → total_sales
+
+<span class="c-k">MODULE 3</span>: Patreon API (optional) — <span class="c-v">Get Patron Count</span>
+  OR: Manual field in Airtable for Patreon monthly total
+
+<span class="c-k">MODULE 4</span>: Notion — <span class="c-v">Create Database Item</span>
+  DB: Products / Monthly Revenue Log
+  Month, Total Revenue (Stan), Patreon Total, KDP Royalties,
+  New Subscribers, Active MC Members, Notes (manual)
+
+<span class="c-k">MODULE 5</span>: Gmail
+  Subject: <span class="c-s">"🌙 MM Monthly: ${{total}} total · {{sales}} sales · {{members}} Patreon"</span></div>
+  </div>
+
+  <hr class="gd"/>
+  <div class="h2">Full Automation System Map</div>
+  <div class="flow"><div class="fn">New Patreon pledge</div><div class="fa">→</div><div class="fn gold">P-01</div><div class="fa">→</div><div class="fn lite">Airtable member row</div><div class="fa">+</div><div class="fn lite">Altar Keeper alert if tier</div></div>
+  <div class="flow"><div class="fn">Patreon churn</div><div class="fa">→</div><div class="fn gold">P-02</div><div class="fa">→</div><div class="fn lite">Status = Churned · slot freed</div><div class="fa">+</div><div class="fn lite">Email notify</div></div>
+  <div class="flow"><div class="fn">25th of month</div><div class="fa">→</div><div class="fn gold">P-03</div><div class="fa">→</div><div class="fn lite">Content reminder email</div><div class="fa">+</div><div class="fn lite">Notion batch draft created</div></div>
+  <div class="flow"><div class="fn">Stan Store purchase</div><div class="fa">→</div><div class="fn gold">Z-01</div><div class="fa">→</div><div class="fn lite">Sales Log</div><div class="fa">→</div><div class="fn gold">M-03 (if affiliate)</div><div class="fa">→</div><div class="fn lite">Commission updated</div></div>
+  <div class="flow"><div class="fn">New subscriber</div><div class="fa">→</div><div class="fn gold">Z-02</div><div class="fa">→</div><div class="fn lite">Contacts table</div></div>
+  <div class="flow"><div class="fn">Affiliate → Partner</div><div class="fa">→</div><div class="fn gold">M-01</div><div class="fa">→</div><div class="fn lite">Welcome email + Notion</div></div>
+  <div class="flow"><div class="fn">Content published</div><div class="fa">→</div><div class="fn gold">M-02</div><div class="fa">→</div><div class="fn lite">Cross-post reminder</div></div>
+  <div class="flow"><div class="fn">1st of month</div><div class="fa">→</div><div class="fn gold">M-04</div><div class="fa">→</div><div class="fn lite">Revenue log + email summary</div></div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════
+     PANEL: AFFILIATE
+══════════════════════════════════════════════════════ -->
+<section class="panel" id="panel-affiliate">
+  <div class="slabel">Section 10</div>
+  <h2 class="stitle">Affiliate Strategy</h2>
+  <p class="sdesc">28 vetted partners + genealogy, recovery, and dropship addendum. Apply outreach in tier order.</p>
+
+  <div class="h2">Tier 1 — Contact First (Scores 9–10)</div>
+  <table class="tbl">
+    <tr><th>Partner</th><th>Score</th><th>Category</th><th>Commission</th><th>Contact</th></tr>
+    <tr><td><strong>Neurodivergent Rebel</strong></td><td>10/10</td><td>ND Creator</td><td>20–40% negotiated</td><td>neurodivergentrebel.com/contact</td></tr>
+    <tr><td><strong>Neurodivergent Insights (Dr. Neff)</strong></td><td>9/10</td><td>ND Creator</td><td>20–30%</td><td>neurodivergentinsights.com/contact</td></tr>
+    <tr><td><strong>Balanced Black Girl</strong></td><td>9/10</td><td>WOC Wellness</td><td>20–40%</td><td>info@balancedblackgirl.com</td></tr>
+    <tr><td><strong>Useful Planner</strong></td><td>9/10</td><td>ADHD Planners</td><td>Standard Gumroad</td><td>plannerlover.gumroad.com/affiliates — instant apply</td></tr>
+    <tr><td><strong>Learning for a Purpose</strong></td><td>9/10</td><td>ND Family</td><td>40%</td><td>learningforapurpose.com — instant apply</td></tr>
+    <tr><td><strong>Sober Black Girls Club</strong></td><td>9/10</td><td>Recovery / WOC</td><td>Sponsorship-based</td><td>info@soberblackgirlsclub.com</td></tr>
+  </table>
+
+  <div class="h2">Genealogy Partners — Priority Week 1</div>
+  <table class="tbl">
+    <tr><th>Partner</th><th>Commission</th><th>Apply</th></tr>
+    <tr><td><strong>Ancestry.com</strong></td><td>10% DNA · 20% subscriptions · 30-day cookie</td><td>ancestry.com/c/affiliates via Partnerize — no traffic minimum</td></tr>
+    <tr><td><strong>MyHeritage</strong></td><td>$3–$10 free trial · 10% DNA</td><td>myheritage.com/affiliates via Impact/Awin</td></tr>
+    <tr><td>GenealogyBank</td><td>Up to 40% at $1,200+ sales</td><td>genealogybank.com/affiliate</td></tr>
+    <tr><td>FamilyTreeDNA</td><td>Commission on kits — best African haplogroup data</td><td>familytreedna.com affiliate</td></tr>
+  </table>
+
+  <div class="h2">Own Affiliate Program — Commission Structure</div>
+  <table class="tbl">
+    <tr><th>Tier</th><th>Rate</th><th>Who Gets This</th></tr>
+    <tr><td>Standard</td><td>20%</td><td>All Tier 2 + Tier 3 partners</td></tr>
+    <tr><td>Priority</td><td>30–40%</td><td>Neurodivergent Rebel, Balanced Black Girl, Sober Black Girls Club</td></tr>
+    <tr><td>Bundle</td><td>25%</td><td>Bundle promotions (Deep Roots System)</td></tr>
+    <tr><td>Magnolia Circle recurring</td><td>$2–$3/month</td><td>Per active subscription they referred</td></tr>
+  </table>
+
+  <div class="h2">Dropship Phase 1 — Do This Month</div>
+  <table class="tbl">
+    <tr><th>Supplier</th><th>Products</th><th>First Action</th></tr>
+    <tr><td><strong>Printify</strong></td><td>Branded journal + soy candle + tote bag</td><td>Sign up free · design 3 Phase 1 products</td></tr>
+    <tr><td><strong>Enchanted Soul</strong></td><td>Crystal sets · ritual candles · spell kits</td><td>Apply at enchantedsoul.store/pages/metaphysical-supplies-dropshipping</td></tr>
+    <tr><td>Printful</td><td>Premium apparel + wall art</td><td>Magnolia Circle member gift option</td></tr>
+    <tr><td>Starlinks Gifts</td><td>Gothic jewelry · tarot bags · charms</td><td>Southern Gothic alignment — apply for wholesale account</td></tr>
+  </table>
+</section>
+
+
+<!-- ══════════════════════════════════════════════════════
+     PANEL: SOCIAL LINKS
+══════════════════════════════════════════════════════ -->
+<section class="panel" id="panel-social">
+  <div class="slabel">Section 11</div>
+  <h2 class="stitle">Social Links Registry</h2>
+  <p class="sdesc">Every platform, handle, URL, and bio — the single source of truth for all profiles. Update here first, then sync everywhere.</p>
+
+  <p class="note">Handles marked <span style="font-style:normal;background:#FEF3C7;color:#92400E;padding:1px 7px;border-radius:4px;font-size:11px;font-weight:500">FILL IN</span> are unconfirmed — add your actual username and update this doc.</p>
+
+  <!-- ── MASTER REGISTRY ── -->
+  <div class="h2">Master Platform Registry</div>
+  <table class="tbl">
+    <tr><th>Platform</th><th>Handle / URL</th><th>Role in Funnel</th><th>Status</th><th>Priority</th></tr>
+
+    <tr>
+      <td><strong>🌐 Website</strong></td>
+      <td><code>midnightmagnolia.com</code><br><code>midnight-magnolia.com</code></td>
+      <td>Hub — all roads lead here. Email capture, product delivery, brand trust.</td>
+      <td><span class="badge b-live">Live</span></td>
+      <td><span class="badge b-crit">Core</span></td>
+    </tr>
+
+    <tr>
+      <td><strong>📸 Instagram</strong></td>
+      <td><code>@noirmagnoliasc</code><br><a href="https://instagram.com/noirmagnoliasc" style="font-size:11px;color:var(--gold)">instagram.com/noirmagnoliasc</a></td>
+      <td>Brand presence — visual, quotes, product mockups, Reels</td>
+      <td><span class="badge b-live">Live</span></td>
+      <td><span class="badge b-crit">Core</span></td>
+    </tr>
+
+    <tr>
+      <td><strong>🎵 TikTok</strong></td>
+      <td><span style="background:#FEF3C7;color:#92400E;padding:2px 8px;border-radius:4px;font-size:11px;font-weight:500">@latishaimara6 · 304 followers · 389 likes</code><br><a href="https://www.tiktok.com/@latishaimara6" style="font-size:11px;color:var(--gold)">tiktok.com/@latishaimara6</a></code></td>
+      <td>Discovery — short affirmations, journal prompts, faceless aesthetic content</td>
+      <td><span class="badge b-not">Confirm</span></td>
+      <td><span class="badge b-crit">Core</span></td>
+    </tr>
+
+    <tr>
+      <td><strong>📘 Facebook</strong></td>
+      <td><code>@midnightmagnoliasc</code><br><a href="https://www.facebook.com/midnightmagnoliasc/" style="font-size:11px;color:var(--gold)">facebook.com/midnightmagnoliasc</a><br><span style="font-size:10.5px;color:var(--mist)">Personal: facebook.com/latisha.imara843</span></td>
+      <td>Conversion — community content, longer reflections, product soft-posts</td>
+      <td><span class="badge b-not">Confirm</span></td>
+      <td><span class="badge b-crit">Core</span></td>
+    </tr>
+
+    <tr>
+      <td><strong>▶ YouTube</strong></td>
+      <td><code>@poetrygirl1013</code><br><a href="https://youtube.com/@poetrygirl1013" style="font-size:11px;color:var(--gold)">youtube.com/@poetrygirl1013</a></td>
+      <td>Depth — guided journals, moon rituals, genealogy storytelling, faceless content</td>
+      <td><span class="badge b-not">Confirm</span></td>
+      <td><span class="badge b-crit">Core</span></td>
+    </tr>
+
+    <tr>
+      <td><strong>🟠 Patreon</strong></td>
+      <td><span style="background:#FEE2E2;color:#991B1B;padding:2px 8px;border-radius:4px;font-size:11px;font-weight:500">⚠ LOCKED</span><br><code>patreon.com/MidnightMagnoliaSC</code><br><span style="font-size:11px;color:var(--rose)">Email <code>latisha@midnight-magnolia.com</code> inaccessible.<br>Restore: buy back domain email → recover account.</span></td>
+      <td>Membership — Candle Tender $5 · Circle Keeper $15 · Altar Keeper $35. Route new signups to Stan Store until recovered.</td>
+      <td><span class="badge b-risk">Locked</span></td>
+      <td><span class="badge b-crit">Recover first</span></td>
+    </tr>
+
+    <tr>
+      <td><strong>☕ Buy Me a Coffee</strong></td>
+      <td><span style="background:#FEF3C7;color:#92400E;padding:2px 8px;border-radius:4px;font-size:11px;font-weight:500">FILL IN BMAC URL</span><br><code>buymeacoffee.com/[confirm]</code></td>
+      <td>One-time support. Direct BMAC supporters to Patreon for recurring content.</td>
+      <td><span class="badge b-live">Live</span></td>
+      <td><span class="badge b-high">High</span></td>
+    </tr>
+
+    <tr>
+      <td><strong>📝 Substack</strong></td>
+      <td><code>midnightmagnoliasc.substack.com</code><br><a href="https://midnightmagnoliasc.substack.com" style="font-size:11px;color:var(--gold)">midnightmagnoliasc.substack.com</a></td>
+      <td>Dusk Letters — long-form essays, healing writing, Southern Gothic narrative. Owned audience backup to Stan Store email list.</td>
+      <td><span class="badge b-live">Live</span></td>
+      <td><span class="badge b-high">High</span></td>
+    </tr>
+
+    <tr>
+      <td><strong>🎙 Podcast / Spotify</strong></td>
+      <td><span style="background:#FEF3C7;color:#92400E;padding:2px 8px;border-radius:4px;font-size:11px;font-weight:500">FILL IN if applicable</span></td>
+      <td>Audio rituals and guided journals — repurpose Patreon Circle Keeper audio here</td>
+      <td><span class="badge b-not">Later</span></td>
+      <td><span class="badge b-med">Medium</span></td>
+    </tr>
+
+    <tr>
+      <td><strong>🦋 Tumblr</strong></td>
+      <td><code>midnight-magnoliasc</code><br><a href="https://www.tumblr.com/blog/midnight-magnoliasc" style="font-size:11px;color:var(--gold)">tumblr.com/blog/midnight-magnoliasc</a></td>
+      <td>Long-form aesthetic, Southern Gothic narrative, essays, community niche content</td>
+      <td><span class="badge b-live">Active</span></td>
+      <td><span class="badge b-med">Medium</span></td>
+    </tr>
+
+    <tr>
+      <td><strong>📌 Pinterest</strong></td>
+      <td><span style="background:#FEF3C7;color:#92400E;padding:2px 8px;border-radius:4px;font-size:11px;font-weight:500">FILL IN</span><br><code>pinterest.com/[name]</code></td>
+      <td>SEO-driven discovery — journal aesthetics, Southern Gothic mood boards, product pins</td>
+      <td><span class="badge b-not">Evaluate</span></td>
+      <td><span class="badge b-med">Medium</span></td>
+    </tr>
+
+    <tr>
+      <td><strong>💼 LinkedIn</strong></td>
+      <td><code>latishavwaters</code><br><a href="https://www.linkedin.com/in/latishavwaters/" style="font-size:11px;color:var(--gold)">linkedin.com/in/latishavwaters</a></td>
+      <td>Professional presence — PM/AI Enablement job search, IAAM archivist, Senior PM roles. Keep separate from MM brand voice.</td>
+      <td><span class="badge b-not">Confirm</span></td>
+      <td><span class="badge b-high">High (career)</span></td>
+    </tr>
+
+    <tr>
+      <td><strong>🐙 GitHub</strong></td>
+      <td><code>Rumi1013</code><br><a href="https://github.com/Rumi1013" style="font-size:11px;color:var(--gold)">github.com/Rumi1013</a></td>
+      <td>Career OS, CareerSystem project, technical portfolio for AI Enablement / PM-dev roles</td>
+      <td><span class="badge b-not">Confirm</span></td>
+      <td><span class="badge b-high">High (career)</span></td>
+    </tr>
+
+    <tr>
+      <td><strong>🛒 Stan Store</strong></td>
+      <td><code>MidnightMagnoliaSC</code><br><a href="https://stan.store/MidnightMagnoliaSC" style="font-size:11px;color:var(--gold)">stan.store/MidnightMagnoliaSC</a></td>
+      <td>Product delivery hub — all digital products, membership, bookings</td>
+      <td><span class="badge b-high">Setup</span></td>
+      <td><span class="badge b-crit">Core</span></td>
+    </tr>
+
+    <tr>
+      <td><strong>🍋 Gumroad</strong></td>
+      <td><code>midnightmagnoliasc</code><br><a href="https://midnightmagnoliasc.gumroad.com" style="font-size:11px;color:var(--gold)">midnightmagnoliasc.gumroad.com</a></td>
+      <td>First sales platform — simple one-off digital products, affiliate-ready</td>
+      <td><span class="badge b-not">Confirm</span></td>
+      <td><span class="badge b-high">High</span></td>
+    </tr>
+
+    <tr>
+      <td><strong>📚 KDP / Amazon Author</strong></td>
+      <td><span style="background:#FEF3C7;color:#92400E;padding:2px 8px;border-radius:4px;font-size:11px;font-weight:500">FILL IN once live</span><br><code>amazon.com/author/[name]</code></td>
+      <td>Public domain publishing — Southern Gothic + Harlem Renaissance series</td>
+      <td><span class="badge b-not">Planned</span></td>
+      <td><span class="badge b-med">Medium</span></td>
+    </tr>
+
+    <tr>
+      <td><strong>🖨 Etsy</strong></td>
+      <td><span style="background:#FEF3C7;color:#92400E;padding:2px 8px;border-radius:4px;font-size:11px;font-weight:500">FILL IN when ready</span><br><code>etsy.com/shop/[name]</code></td>
+      <td>Digital product discovery channel — journals, affirmation decks, printables</td>
+      <td><span class="badge b-not">Later</span></td>
+      <td><span class="badge b-med">Medium</span></td>
+    </tr>
+
+    <tr>
+      <td><strong>🐦 X / Twitter</strong></td>
+      <td><code>@bgconscious</code> · 83 followers<br><a href="https://x.com/bgconscious" style="font-size:11px;color:var(--gold)">x.com/bgconscious</a></td>
+      <td>Low-priority presence. Share healing content and Dusk Letters links. Same handle as primary email — brand-adjacent, not brand-primary.</td>
+      <td><span class="badge b-live">Live</span></td>
+      <td><span class="badge b-med">Low priority</span></td>
+    </tr>
+
+    <tr>
+      <td><strong>📸 Instagram (personal)</strong></td>
+      <td><code>@latishaimara</code> · <strong>401 followers</strong><br><a href="https://www.instagram.com/latishaimara" style="font-size:11px;color:var(--gold)">instagram.com/latishaimara</a></td>
+      <td>Personal account with largest Instagram audience. Consider cross-promoting MM content here; 401 followers already aware of you.</td>
+      <td><span class="badge b-live">Live</span></td>
+      <td><span class="badge b-high">Leverage</span></td>
+    </tr>
+
+    <tr>
+      <td><strong>🏛 Soros Justice Fellow</strong></td>
+      <td><a href="https://www.opensocietyfoundations.org/fellows/latisha-vincent" style="font-size:11px;color:var(--gold)">opensocietyfoundations.org/fellows/latisha-vincent</a></td>
+      <td>Credibility anchor. Link from LinkedIn About section and IAAM application materials. Do not remove — this is a career differentiator.</td>
+      <td><span class="badge b-live">Live</span></td>
+      <td><span class="badge b-high">Career</span></td>
+    </tr>
+
+    <tr>
+      <td><strong>📊 Google Analytics</strong></td>
+      <td><code>G-FM54MRRNYR</code></td>
+      <td>Connected to midnightmagnolia.com. Verify it's firing on all pages in Wix Analytics settings. Use for content-to-sale attribution once Stan Store is live.</td>
+      <td><span class="badge b-live">Active</span></td>
+      <td><span class="badge b-high">Track</span></td>
+    </tr>
+
+    <tr>
+      <td><strong>📧 Owner Email (Primary)</strong></td>
+      <td><code>bgconscious@gmail.com</code></td>
+      <td>Primary contact email. Use for all platform recovery, affiliate outreach, and business correspondence until <code>latisha@midnight-magnolia.com</code> is restored.</td>
+      <td><span class="badge b-live">Active</span></td>
+      <td><span class="badge b-crit">Primary</span></td>
+    </tr>
+
+    <tr>
+      <td><strong>📧 Owner Email (School)</strong></td>
+      <td><code>latishavincentwaters@my.tridenttech.edu</code></td>
+      <td>Trident Technical College email. Use for academic correspondence, MLIS applications, IAAM archivist application. Expires upon graduation 2026.</td>
+      <td><span class="badge b-live">Active</span></td>
+      <td><span class="badge b-med">Academic</span></td>
+    </tr>
+
+      <td><code>printify.com</code> (merchant backend)</td>
+      <td>Physical product fulfillment — art print live, journal + candle Phase 1</td>
+      <td><span class="badge b-live">Partial</span></td>
+      <td><span class="badge b-med">Medium</span></td>
+    </tr>
+  </table>
+
+  <!-- ── HANDLE CONSISTENCY CHECKER ── -->
+  <div class="h2">Username Consistency Goal</div>
+  <p class="note">Consistent handles across platforms = easier for people to find you everywhere. Aim for one primary username used across all platforms.</p>
+  <div class="card">
+    <div class="card-title">Recommended Handle Options</div>
+    <div style="margin-top:12px">
+      <table class="tbl">
+        <tr><th>Option</th><th>Brand Fit</th><th>Availability Check</th></tr>
+        <tr><td><code>@noirmagnoliasc</code></td><td>Current Instagram handle — Southern Gothic, place-rooted, distinctive</td><td><span class="badge b-live">Confirmed on Instagram</span></td></tr>
+        <tr><td><code>@midnightmagnolia</code></td><td>Clean brand name — easier for new audience to remember</td><td><span style="background:#FEF3C7;color:#92400E;padding:2px 8px;border-radius:4px;font-size:11px">CHECK availability</span></td></tr>
+        <tr><td><code>@latishavincentwaters</code></td><td>Personal brand for LinkedIn, GitHub, professional platforms</td><td><span style="background:#FEF3C7;color:#92400E;padding:2px 8px;border-radius:4px;font-size:11px">CHECK availability</span></td></tr>
+      </table>
+    </div>
+  </div>
+
+  <!-- ── BIO COPY VAULT ── -->
+  <div class="h2">Bio Copy — Platform by Platform</div>
+  <p class="note">Use these as the base. Each is within character limits for its platform. Update the bracketed fields once handles are confirmed.</p>
+
+  <div class="card">
+    <div class="card-head"><div><div class="card-title">Instagram Bio</div><div class="card-meta">150 characters max · @noirmagnoliasc</div></div><span class="badge b-live">Use Now</span></div>
+    <div class="code" style="margin-top:12px;font-size:12px">🌙 Midnight Magnolia
+Healing journals + shadow work for ND women
+Lowcountry SC roots · Southern Gothic soul
+↓ Free starter kit + Magnolia Circle
+[Stan Store link]</div>
+  </div>
+
+  <div class="card">
+    <div class="card-head"><div><div class="card-title">TikTok Bio</div><div class="card-meta">80 characters max</div></div><span class="badge b-not">Fill in handle</span></div>
+    <div class="code" style="margin-top:12px;font-size:12px">🌙 healing journals for ND women · SC Lowcountry roots
+shadow work · rest · Southern Gothic
+↓ free journal prompts</div>
+  </div>
+
+  <div class="card">
+    <div class="card-head"><div><div class="card-title">Facebook Page Description</div><div class="card-meta">255 characters</div></div><span class="badge b-not">Fill in page URL</span></div>
+    <div class="code" style="margin-top:12px;font-size:12px">Midnight Magnolia is a healing-centered brand for
+neurodivergent women doing the quiet, sacred work of
+becoming themselves. Shadow work journals, the Magnolia
+Circle membership, and Southern Gothic digital tools.
+Rooted in Lowcountry South Carolina.</div>
+  </div>
+
+  <div class="card">
+    <div class="card-head"><div><div class="card-title">YouTube Channel Description</div><div class="card-meta">1000 characters · appears in search</div></div><span class="badge b-not">Fill in channel URL</span></div>
+    <div class="code" style="margin-top:12px;font-size:12px">Midnight Magnolia is a healing-centered digital brand
+rooted in the Lowcountry of South Carolina.
+
+This channel is for neurodivergent women, quiet builders,
+and healing-centered creators who are doing the deep,
+honest work of becoming themselves — slowly, on their
+own terms, in their own time.
+
+Here you'll find:
+🌙 Guided shadow work journals
+🌿 Moon phase rituals and grounding practices
+🌳 Ancestral healing and Lowcountry genealogy storytelling
+✦ Behind the practice — building a healing brand softly
+
+New videos every week. Begin when you're ready.
+
+→ Free Shadow Work Starter Kit: [Stan Store link]
+→ Magnolia Circle Membership: [Patreon / Stan Store link]
+→ midnightmagnolia.com</div>
+  </div>
+
+  <div class="card">
+    <div class="card-head"><div><div class="card-title">LinkedIn Headline + About</div><div class="card-meta">Professional · career-facing · separate from MM brand voice</div></div><span class="badge b-not">Fill in profile URL</span></div>
+    <div class="code" style="margin-top:12px;font-size:12px"><span class="c-c">## HEADLINE (220 chars max)</span>
+Senior Program Manager · AI Enablement &amp; Digital Transformation
+$1.5M+ Secured · 610+ Participants · Soros Justice Fellow
+Founder, Midnight Magnolia · MLIS Candidate
+
+<span class="c-c">## ABOUT (first 3 lines visible before "see more")</span>
+I'm a Senior Program Manager with 15+ years of cross-functional
+leadership, $1.5M+ in secured funding, and a track record of
+building programs that actually serve people.
+
+Currently: AI Enablement PM roles + digital archival science
+(pursuing MLIS, ALA-accredited program).
+
+Founder of Midnight Magnolia — a healing-centered digital brand
+and the Black Liberation Fund (first bail fund created for a
+historically marginalized community since Reconstruction).
+
+Skills: Program Management · AI Enablement · Digital Transformation
+· Database Administration · Cultural Heritage Preservation</div>
+  </div>
+
+  <div class="card">
+    <div class="card-head"><div><div class="card-title">GitHub Profile README</div><div class="card-meta">Pinned bio for developer-facing presence</div></div><span class="badge b-not">Fill in username</span></div>
+    <div class="code" style="margin-top:12px;font-size:12px"><span class="c-c">## latisha-vincent-waters (or your GitHub username)</span>
+
+Senior PM · AI Enablement · Database Administration
+AAS Information Technology · Trident Technical College (2026)
+Soros Justice Fellow · Founder, @midnight-magnolia
+
+<span class="c-c">### Current Projects</span>
+- CareerSystem — local-first HTML/CSS/JS dashboard + Anthropic API
+- mm-tokens.css — Midnight Magnolia design token system
+- DB Admin coursework (CPT 262, CPT 187, CPT 180)
+
+<span class="c-c">### Stack</span>
+HTML · CSS · JavaScript · Python · Java · SQL
+Anthropic API · Notion · Airtable · Wix Studio</div>
+  </div>
+
+  <div class="card">
+    <div class="card-head"><div><div class="card-title">Substack / Newsletter Header</div><div class="card-meta">Dusk Letters — email-first, Southern Gothic literary voice</div></div><span class="badge b-not">Evaluate platform</span></div>
+    <div class="code" style="margin-top:12px;font-size:12px"><span class="c-c">## Publication Name</span>
+Dusk Letters
+
+<span class="c-c">## Tagline</span>
+A letter from the Lowcountry. For women who do their
+healing after dark.
+
+<span class="c-c">## Description</span>
+Dusk Letters is the newsletter of Midnight Magnolia —
+dispatches on shadow work, ancestral healing, Southern
+Gothic creativity, and building a life that fits the
+brain you actually have.
+
+Written by Latisha Vincent-Waters from Ravenel,
+South Carolina. Published when the work is ready.
+
+One prompt. One reflection. One soft offer.
+No more than that.</div>
+  </div>
+
+  <div class="card">
+    <div class="card-head"><div><div class="card-title">Patreon Page Description</div><div class="card-meta">Membership tiers: Candle Tender · Circle Keeper · Altar Keeper</div></div><span class="badge b-live">Live — verify copy matches</span></div>
+    <div class="code" style="margin-top:12px;font-size:12px"><span class="c-c">## Page Title</span>
+Midnight Magnolia — The Magnolia Circle
+
+<span class="c-c">## Creator Description</span>
+I'm Latisha — a Lowcountry South Carolina native, writer,
+and builder of Midnight Magnolia, a healing-centered brand
+for neurodivergent women doing the quiet work of becoming
+themselves.
+
+The Magnolia Circle is for people who want to go deeper
+than the public content: monthly letters, audio rituals,
+and — for a small circle — direct time together.
+
+<span class="c-c">## Tier Names + Descriptions</span>
+🕯 Candle Tender ($5/mo)
+  Monthly reflection note from Latisha (~500 words).
+  The quiet dispatch. The thing I write when I need to say it.
+
+🌙 Circle Keeper ($15/mo)
+  Everything in Candle Tender, plus a monthly audio ritual
+  (10–15 min). Grounding practices, moon-phase work,
+  and slow healing.
+
+🌹 Altar Keeper ($35/mo) — 10 spots only
+  Everything above, plus a quarterly 1:1 session outline
+  built specifically for your healing work.
+  Ten people. Real depth.</div>
+  </div>
+
+  <!-- ── LINK IN BIO STACK ── -->
+  <div class="h2">Link-in-Bio Stack</div>
+  <p class="note">Use Stan Store's built-in link page, or a simple custom page on midnightmagnolia.com/links. Order matters — put the free thing first.</p>
+
+  <div class="card">
+    <div class="card-title">Recommended Link Order (all platforms)</div>
+    <div style="margin-top:14px">
+      <table class="tbl">
+        <tr><th>#</th><th>Link Label</th><th>Destination</th><th>Why This Order</th></tr>
+        <tr><td>1</td><td>🎁 Free Shadow Work Starter Kit</td><td>Stan Store — free freebie page</td><td>Zero friction. Gets them on the list.</td></tr>
+        <tr><td>2</td><td>🌙 Join the Magnolia Circle ($9/mo)</td><td>Patreon or Stan Store membership</td><td>Recurring revenue first.</td></tr>
+        <tr><td>3</td><td>📓 Shadow Work Starter Kit ($9)</td><td>Stan Store — P2</td><td>First paid product, lowest barrier.</td></tr>
+        <tr><td>4</td><td>🌳 Ancestral Healing Journal ($19)</td><td>Stan Store — P3</td><td>Second product, differentiated.</td></tr>
+        <tr><td>5</td><td>✦ Work with Me</td><td>Services page on site</td><td>High-ticket visibility.</td></tr>
+        <tr><td>6</td><td>📖 Dusk Letters (newsletter)</td><td>Stan Store email optin or Substack</td><td>Owned list building.</td></tr>
+        <tr><td>7</td><td>☕ Support on BMAC</td><td>Buy Me a Coffee page</td><td>One-time tip jar, lowest commitment.</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <!-- ── CROSS-PLATFORM PROFILE SYNC CHECKLIST ── -->
+  <div class="h2">Profile Sync Checklist — Update All at Once</div>
+  <p class="note">Every time you change your bio, photo, or primary link — update all platforms in one session. Use this as your checklist.</p>
+
+  <table class="tbl">
+    <tr><th>Platform</th><th>Profile Photo</th><th>Bio / Description</th><th>Link / URL</th><th>Handle Confirmed</th></tr>
+    <tr><td>Website</td><td>☐</td><td>☐ About page copy</td><td>☐ All CTAs verified</td><td>✓ midnightmagnolia.com</td></tr>
+    <tr><td>Instagram</td><td>☐</td><td>☐ Bio updated</td><td>☐ Link in bio → Stan Store</td><td>✓ @noirmagnoliasc</td></tr>
+    <tr><td>TikTok</td><td>☐</td><td>☐ Bio updated</td><td>☐ Link in bio</td><td>✓ @latishaimara6</td></tr>
+    <tr><td>Facebook</td><td>☐</td><td>☐ Page description</td><td>☐ Website link</td><td>✓ /midnightmagnoliasc</td></tr>
+    <tr><td>YouTube</td><td>☐</td><td>☐ Channel description</td><td>☐ All links in About</td><td>✓ @poetrygirl1013</td></tr>
+    <tr><td>Patreon</td><td>☐</td><td>⚠ Locked — restore via email</td><td>☐ Verify once restored</td><td>✓ /MidnightMagnoliaSC</td></tr>
+    <tr><td>BMAC</td><td>☐</td><td>☐ Short description</td><td>☐ Website link</td><td>☐ Confirm URL</td></tr>
+    <tr><td>Substack</td><td>✓ MM circular logo (magnolia + moon)</td><td>✓ Bio written and live</td><td>✓ midnightmagnoliasc.substack.com</td><td>✓ @midnightmagnoliasc</td></tr>
+    <tr><td>Tumblr</td><td>☐</td><td>☐ Blog description</td><td>☐ Website link</td><td>✓ /midnight-magnoliasc</td></tr>
+    <tr><td>Pinterest</td><td>☐</td><td>☐ Profile description</td><td>☐ Website link</td><td>☐ FILL IN</td></tr>
+    <tr><td>LinkedIn</td><td>☐</td><td>☐ Headline + About</td><td>☐ Website + Stan Store</td><td>✓ /in/latishavwaters</td></tr>
+    <tr><td>GitHub</td><td>☐</td><td>☐ Profile README</td><td>☐ Website link</td><td>✓ Rumi1013</td></tr>
+    <tr><td>Stan Store</td><td>☐</td><td>☐ Profile bio</td><td>☐ All product pages live</td><td>✓ MidnightMagnoliaSC</td></tr>
+    <tr><td>Gumroad</td><td>☐</td><td>☐ Creator bio</td><td>☐ Website link</td><td>✓ midnightmagnoliasc</td></tr>
+    <tr><td>KDP Author Page</td><td>☐</td><td>☐ Author bio</td><td>☐ Website link</td><td>☐ FILL IN</td></tr>
+    <tr><td>Etsy Shop</td><td>☐</td><td>☐ Shop description</td><td>☐ Website link</td><td>☐ FILL IN</td></tr>
+  </table>
+
+
+  <!-- ── DESIGN SPECS PER PLATFORM ── -->
+  <div class="h2">Design Specs — Every Platform</div>
+  <p class="note">All dimensions are in pixels at 72dpi screen resolution. Always design at 2× and export at 1× for retina quality. Canva template categories listed for each platform.</p>
+
+  <style>
+  .plat-card{background:var(--card);border:1px solid var(--border);border-radius:12px;margin-bottom:18px;overflow:hidden}
+  .plat-header{display:flex;align-items:center;gap:14px;padding:16px 22px;border-bottom:1px solid var(--border)}
+  .plat-icon{width:40px;height:40px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0}
+  .plat-name{font-family:var(--fd);font-size:20px;font-weight:400;color:var(--indigo)}
+  .plat-handle{font-size:11.5px;color:var(--mist);margin-top:1px;font-family:'SF Mono',monospace}
+  .plat-body{display:grid;grid-template-columns:1fr 1fr;gap:0}
+  .plat-col{padding:16px 22px}
+  .plat-col+.plat-col{border-left:1px solid var(--border)}
+  .plat-col-title{font-size:10px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);margin-bottom:10px}
+  .dim-row{display:flex;justify-content:space-between;align-items:baseline;padding:4px 0;border-bottom:1px solid rgba(43,47,74,.05);font-size:12.5px}
+  .dim-row:last-child{border-bottom:none}
+  .dim-label{color:var(--mist)}
+  .dim-value{font-family:'SF Mono',monospace;font-size:11.5px;color:var(--indigo);font-weight:500}
+  .color-swatch-mini{display:inline-block;width:12px;height:12px;border-radius:3px;vertical-align:middle;margin-right:4px;border:1px solid rgba(0,0,0,.1)}
+  .do-list{list-style:none;padding:0;margin-top:4px}
+  .do-list li{font-size:12.5px;padding:3px 0 3px 16px;position:relative;color:#333;line-height:1.4}
+  .do-list li::before{position:absolute;left:0;font-size:11px}
+  .do-list li.do::before{content:'✓';color:var(--moss)}
+  .do-list li.dont::before{content:'✗';color:var(--rose)}
+  @media(max-width:680px){.plat-body{grid-template-columns:1fr}.plat-col+.plat-col{border-left:none;border-top:1px solid var(--border)}}
+  </style>
+
+  <!-- ─── INSTAGRAM ─── -->
+  <div class="plat-card">
+    <div class="plat-header" style="background:linear-gradient(135deg,#2B2F4A 0%,#3d2a4e 100%)">
+      <div class="plat-icon" style="background:linear-gradient(135deg,#E1306C,#F77737,#FCAF45)">📸</div>
+      <div><div class="plat-name" style="color:var(--magnolia)">Instagram</div><div class="plat-handle" style="color:rgba(245,240,232,.6)">@noirmagnoliasc · confirmed</div></div>
+    </div>
+    <div class="plat-body">
+      <div class="plat-col">
+        <div class="plat-col-title">Dimensions</div>
+        <div class="dim-row"><span class="dim-label">Profile photo (upload)</span><span class="dim-value">320 × 320px</span></div>
+        <div class="dim-row"><span class="dim-label">Feed — square</span><span class="dim-value">1080 × 1080px</span></div>
+        <div class="dim-row"><span class="dim-label">Feed — portrait ★ recommended</span><span class="dim-value">1080 × 1350px (4:5)</span></div>
+        <div class="dim-row"><span class="dim-label">Feed — landscape</span><span class="dim-value">1080 × 566px</span></div>
+        <div class="dim-row"><span class="dim-label">Stories / Reels</span><span class="dim-value">1080 × 1920px (9:16)</span></div>
+        <div class="dim-row"><span class="dim-label">Story safe zone (no UI overlap)</span><span class="dim-value">center 1080 × 1420px</span></div>
+        <div class="dim-row"><span class="dim-label">Highlight cover</span><span class="dim-value">1080 × 1920px, circle crop</span></div>
+        <div class="dim-row"><span class="dim-label">Canva template</span><span class="dim-value">Instagram Post (Square / Portrait)</span></div>
+      </div>
+      <div class="plat-col">
+        <div class="plat-col-title">MM Color Application</div>
+        <div style="font-size:12.5px;margin-bottom:10px;line-height:1.6">
+          <div><span class="color-swatch-mini" style="background:#2B2F4A"></span><strong>Feed posts:</strong> Midnight Indigo (#2B2F4A) bg for product/prompt posts</div>
+          <div><span class="color-swatch-mini" style="background:#C9A84C"></span><strong>Text accents:</strong> Southern Gold (#C9A84C) for prompt numbers, dividers</div>
+          <div><span class="color-swatch-mini" style="background:#F5F0E8"></span><strong>Light posts:</strong> Magnolia White (#F5F0E8) bg for journal aesthetic shots</div>
+          <div><span class="color-swatch-mini" style="background:#E3B7A0"></span><strong>Warm posts:</strong> Magnolia Sunset (#E3B7A0) for softer affirmation content</div>
+          <div style="margin-top:8px"><strong>Typography on posts:</strong> Cormorant Garamond for prompts (16–24pt) · Poppins for captions/labels (10–12pt)</div>
+          <div style="margin-top:6px"><strong>Highlight covers:</strong> All Midnight Indigo circle, Gold icon or initial — consistent branding row</div>
+        </div>
+        <div class="plat-col-title" style="margin-top:6px">Do / Don't</div>
+        <ul class="do-list">
+          <li class="do">Use portrait (4:5) — takes 33% more feed space than square</li>
+          <li class="do">Consistent background colors per content type (prompt = dark, affirmation = warm)</li>
+          <li class="do">Magnolia motif as recurring visual anchor</li>
+          <li class="dont">Don't use more than 2 fonts per post</li>
+          <li class="dont">Don't crowd the bottom 250px — Instagram UI overlaps</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- ─── TIKTOK ─── -->
+  <div class="plat-card">
+    <div class="plat-header" style="background:#1a1a1a">
+      <div class="plat-icon" style="background:#010101;border:1px solid #333">🎵</div>
+      <div><div class="plat-name" style="color:#F5F0E8">TikTok</div><div class="plat-handle" style="color:rgba(245,240,232,.7)">@latishaimara6 · 304 followers · tiktok.com/@latishaimara6</div></div>
+    </div>
+    <div class="plat-body">
+      <div class="plat-col">
+        <div class="plat-col-title">Dimensions</div>
+        <div class="dim-row"><span class="dim-label">Profile photo</span><span class="dim-value">200 × 200px min</span></div>
+        <div class="dim-row"><span class="dim-label">Video (vertical) ★ primary</span><span class="dim-value">1080 × 1920px (9:16)</span></div>
+        <div class="dim-row"><span class="dim-label">Video (square)</span><span class="dim-value">1080 × 1080px</span></div>
+        <div class="dim-row"><span class="dim-label">Video safe zone (UI-free)</span><span class="dim-value">avoid bottom 300px + top 130px</span></div>
+        <div class="dim-row"><span class="dim-label">Cover / thumbnail</span><span class="dim-value">1080 × 1920px</span></div>
+        <div class="dim-row"><span class="dim-label">Max video length</span><span class="dim-value">10 minutes (keep under 60s)</span></div>
+        <div class="dim-row"><span class="dim-label">Canva template</span><span class="dim-value">TikTok Video (1080 × 1920)</span></div>
+      </div>
+      <div class="plat-col">
+        <div class="plat-col-title">MM Color Application</div>
+        <div style="font-size:12.5px;margin-bottom:10px;line-height:1.6">
+          <div><span class="color-swatch-mini" style="background:#F5F0E8"></span><strong>Text overlays:</strong> Magnolia White (#F5F0E8) — TikTok's dark UI requires light text for contrast</div>
+          <div><span class="color-swatch-mini" style="background:#C9A84C"></span><strong>Highlight / hook text:</strong> Southern Gold (#C9A84C) for the first-line hook word</div>
+          <div><span class="color-swatch-mini" style="background:#2B2F4A"></span><strong>Solid-color videos:</strong> Midnight Indigo bg with Gold text — clean, branded, no face required</div>
+          <div style="margin-top:8px"><strong>Typography on screen:</strong> Poppins Bold (600) for hook text — must be readable at thumb size · Cormorant Garamond for prompt reveals</div>
+          <div style="margin-top:6px"><strong>Minimum font size on video:</strong> 36px at 1080px wide</div>
+        </div>
+        <div class="plat-col-title" style="margin-top:6px">Do / Don't</div>
+        <ul class="do-list">
+          <li class="do">First 1–2 seconds = the hook. Text on screen immediately.</li>
+          <li class="do">Faceless is fine — text animation over dark bg performs well</li>
+          <li class="do">Captions ON always (auto-captions in TikTok editor)</li>
+          <li class="dont">Don't use Midnight Indigo text on dark video — invisible</li>
+          <li class="dont">Don't put key content near bottom 300px (TikTok action buttons)</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- ─── FACEBOOK ─── -->
+  <div class="plat-card">
+    <div class="plat-header" style="background:#1877F2">
+      <div class="plat-icon" style="background:rgba(255,255,255,.15)">📘</div>
+      <div><div class="plat-name" style="color:#fff">Facebook</div><div class="plat-handle" style="color:rgba(255,255,255,.85)">facebook.com/midnightmagnoliasc · Personal: facebook.com/latisha.imara843</div></div>
+    </div>
+    <div class="plat-body">
+      <div class="plat-col">
+        <div class="plat-col-title">Dimensions</div>
+        <div class="dim-row"><span class="dim-label">Page profile photo</span><span class="dim-value">180 × 180px</span></div>
+        <div class="dim-row"><span class="dim-label">Page cover ★ key branding space</span><span class="dim-value">851 × 315px (desktop)</span></div>
+        <div class="dim-row"><span class="dim-label">Cover — mobile safe area</span><span class="dim-value">center 640 × 360px</span></div>
+        <div class="dim-row"><span class="dim-label">Post image (square)</span><span class="dim-value">1200 × 1200px</span></div>
+        <div class="dim-row"><span class="dim-label">Post image (link share)</span><span class="dim-value">1200 × 630px</span></div>
+        <div class="dim-row"><span class="dim-label">Event cover</span><span class="dim-value">1920 × 1005px</span></div>
+        <div class="dim-row"><span class="dim-label">Canva template</span><span class="dim-value">Facebook Post / Facebook Cover</span></div>
+      </div>
+      <div class="plat-col">
+        <div class="plat-col-title">MM Color Application</div>
+        <div style="font-size:12.5px;margin-bottom:10px;line-height:1.6">
+          <div><span class="color-swatch-mini" style="background:#2B2F4A"></span><strong>Page cover:</strong> Full-width Midnight Indigo with Magnolia White brand name — this is your first impression</div>
+          <div><span class="color-swatch-mini" style="background:#F5F0E8"></span><strong>Post backgrounds:</strong> Magnolia White (#F5F0E8) for conversational/text posts — Facebook's light UI makes dark posts feel heavy</div>
+          <div><span class="color-swatch-mini" style="background:#C9A84C"></span><strong>Accent / CTA:</strong> Gold for any button-style element, divider line, or product link frame</div>
+          <div style="margin-top:8px"><strong>Typography:</strong> Cormorant Garamond for reflective/essay headers · Poppins for informational posts and event titles</div>
+        </div>
+        <div class="plat-col-title" style="margin-top:6px">Do / Don't</div>
+        <ul class="do-list">
+          <li class="do">Page cover: place brand name in the center-right safe zone (visible on both desktop and mobile)</li>
+          <li class="do">Link post images: 1200×630 with the post title readable at small size</li>
+          <li class="do">Use warm Magnolia Sunset (#E3B7A0) for community/softer posts</li>
+          <li class="dont">Don't rely on text-heavy cover art — Facebook compresses covers aggressively</li>
+          <li class="dont">Don't use the same graphic as Instagram — Facebook crops and recompresses differently</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- ─── YOUTUBE ─── -->
+  <div class="plat-card">
+    <div class="plat-header" style="background:#FF0000">
+      <div class="plat-icon" style="background:rgba(255,255,255,.15)">▶</div>
+      <div><div class="plat-name" style="color:#fff">YouTube</div><div class="plat-handle" style="color:rgba(255,255,255,.85)">@poetrygirl1013 · youtube.com/@poetrygirl1013</div></div>
+    </div>
+    <div class="plat-body">
+      <div class="plat-col">
+        <div class="plat-col-title">Dimensions</div>
+        <div class="dim-row"><span class="dim-label">Channel banner (upload)</span><span class="dim-value">2560 × 1440px</span></div>
+        <div class="dim-row"><span class="dim-label">Banner — TV safe area</span><span class="dim-value">2560 × 1440px (full)</span></div>
+        <div class="dim-row"><span class="dim-label">Banner — desktop safe area</span><span class="dim-value">1546 × 423px (center)</span></div>
+        <div class="dim-row"><span class="dim-label">Banner — mobile safe area ★</span><span class="dim-value">1546 × 423px (center strip)</span></div>
+        <div class="dim-row"><span class="dim-label">Profile / channel icon</span><span class="dim-value">800 × 800px (circular)</span></div>
+        <div class="dim-row"><span class="dim-label">Thumbnail ★ most important</span><span class="dim-value">1280 × 720px (16:9)</span></div>
+        <div class="dim-row"><span class="dim-label">Shorts</span><span class="dim-value">1080 × 1920px (9:16)</span></div>
+        <div class="dim-row"><span class="dim-label">Canva template</span><span class="dim-value">YouTube Thumbnail / YouTube Banner</span></div>
+      </div>
+      <div class="plat-col">
+        <div class="plat-col-title">MM Color Application</div>
+        <div style="font-size:12.5px;margin-bottom:10px;line-height:1.6">
+          <div><span class="color-swatch-mini" style="background:#2B2F4A"></span><strong>Channel banner:</strong> Midnight Indigo full bleed, brand name in Cormorant Garamond italic at center-safe zone, Gold tagline below</div>
+          <div><span class="color-swatch-mini" style="background:#C9A84C"></span><strong>Thumbnails — formula:</strong> Dark bg (Indigo or near-black) + Gold text title (Poppins Bold) + magnolia accent element + 1 high-contrast visual. No face required.</div>
+          <div><span class="color-swatch-mini" style="background:#F5F0E8"></span><strong>Thumbnail text color:</strong> Magnolia White (#F5F0E8) for body, Gold (#C9A84C) for the key word</div>
+          <div style="margin-top:8px"><strong>Thumbnail text size:</strong> Minimum 48px at 1280px wide — must be readable on a phone at 120px thumbnail size</div>
+          <div style="margin-top:6px"><strong>Playlist covers:</strong> Match thumbnail style — consistent dark + gold series look</div>
+        </div>
+        <div class="plat-col-title" style="margin-top:6px">Do / Don't</div>
+        <ul class="do-list">
+          <li class="do">Thumbnail is 90% of click-through — spend most design time here</li>
+          <li class="do">Consistent thumbnail template per series (guided journal series, genealogy series, etc.)</li>
+          <li class="do">Banner: only keep brand name + handle + tagline in the 1546×423 safe strip</li>
+          <li class="dont">Don't put subscribe buttons or important info outside the center safe zone — it's cropped on mobile</li>
+          <li class="dont">Don't use light thumbnails — dark + gold stands out in a sea of bright thumbnails</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- ─── PINTEREST ─── -->
+  <div class="plat-card">
+    <div class="plat-header" style="background:#E60023">
+      <div class="plat-icon" style="background:rgba(255,255,255,.15)">📌</div>
+      <div><div class="plat-name" style="color:#fff">Pinterest</div><div class="plat-handle" style="color:rgba(255,255,255,.6)">FILL IN URL — not yet confirmed</div></div>
+    </div>
+    <div class="plat-body">
+      <div class="plat-col">
+        <div class="plat-col-title">Dimensions</div>
+        <div class="dim-row"><span class="dim-label">Profile photo</span><span class="dim-value">165 × 165px</span></div>
+        <div class="dim-row"><span class="dim-label">Standard pin ★ recommended</span><span class="dim-value">1000 × 1500px (2:3)</span></div>
+        <div class="dim-row"><span class="dim-label">Long pin (max before crop)</span><span class="dim-value">1000 × 2100px</span></div>
+        <div class="dim-row"><span class="dim-label">Board cover</span><span class="dim-value">800 × 450px</span></div>
+        <div class="dim-row"><span class="dim-label">Video pin</span><span class="dim-value">1000 × 1500px or 1080 × 1920px</span></div>
+        <div class="dim-row"><span class="dim-label">Canva template</span><span class="dim-value">Pinterest Graphic (1000 × 1500)</span></div>
+      </div>
+      <div class="plat-col">
+        <div class="plat-col-title">MM Color Application</div>
+        <div style="font-size:12.5px;margin-bottom:10px;line-height:1.6">
+          <div><span class="color-swatch-mini" style="background:#F5F0E8"></span><strong>Pin backgrounds:</strong> Magnolia White (#F5F0E8) or Parchment (#FAF3E0) — Pinterest's audience responds to warm, editorial aesthetics. Light bg outperforms dark on this platform.</div>
+          <div><span class="color-swatch-mini" style="background:#2B2F4A"></span><strong>Text:</strong> Midnight Indigo (#2B2F4A) for headers — maximum contrast on warm backgrounds</div>
+          <div><span class="color-swatch-mini" style="background:#C9A84C"></span><strong>Accent:</strong> Gold for dividers, small ornamental elements, page numbers</div>
+          <div><span class="color-swatch-mini" style="background:#4A2D4E"></span><strong>Dark pins:</strong> Deep Plum (#4A2D4E) for Southern Gothic mood boards</div>
+          <div style="margin-top:8px"><strong>Typography:</strong> Cormorant Garamond for pin titles (large, elegant) · Merriweather for body text / descriptions</div>
+          <div style="margin-top:6px"><strong>Board covers:</strong> Consistent Midnight Indigo strip with Gold board title</div>
+        </div>
+        <div class="plat-col-title" style="margin-top:6px">Do / Don't</div>
+        <ul class="do-list">
+          <li class="do">Light backgrounds perform better on Pinterest than dark — flip the usual MM palette here</li>
+          <li class="do">Include URL or brand name in small text at pin bottom — pins get shared without context</li>
+          <li class="do">Blog post pins: include article headline in pin text, not just imagery</li>
+          <li class="dont">Don't use the same dark Indigo pins from Instagram — they underperform on Pinterest</li>
+          <li class="dont">Don't go wider than 1000px — Pinterest caps display width</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- ─── LINKEDIN ─── -->
+  <div class="plat-card">
+    <div class="plat-header" style="background:#0A66C2">
+      <div class="plat-icon" style="background:rgba(255,255,255,.15)">💼</div>
+      <div><div class="plat-name" style="color:#fff">LinkedIn</div><div class="plat-handle" style="color:rgba(255,255,255,.85)">linkedin.com/in/latishavwaters · career-facing</div></div>
+    </div>
+    <div class="plat-body">
+      <div class="plat-col">
+        <div class="plat-col-title">Dimensions</div>
+        <div class="dim-row"><span class="dim-label">Profile photo</span><span class="dim-value">400 × 400px (max 8MB)</span></div>
+        <div class="dim-row"><span class="dim-label">Background / banner ★</span><span class="dim-value">1584 × 396px</span></div>
+        <div class="dim-row"><span class="dim-label">Post image (landscape)</span><span class="dim-value">1200 × 627px</span></div>
+        <div class="dim-row"><span class="dim-label">Post image (square)</span><span class="dim-value">1080 × 1080px</span></div>
+        <div class="dim-row"><span class="dim-label">Document / carousel slide</span><span class="dim-value">1080 × 1080px per slide</span></div>
+        <div class="dim-row"><span class="dim-label">Article cover</span><span class="dim-value">1920 × 1080px</span></div>
+        <div class="dim-row"><span class="dim-label">Canva template</span><span class="dim-value">LinkedIn Post / LinkedIn Banner</span></div>
+      </div>
+      <div class="plat-col">
+        <div class="plat-col-title">MM Color Application — restrained for professional context</div>
+        <div style="font-size:12.5px;margin-bottom:10px;line-height:1.6">
+          <div><span class="color-swatch-mini" style="background:#2B2F4A"></span><strong>Banner:</strong> Midnight Indigo bg — professional and on-brand. Name + title in Magnolia White. Subtle Gold divider line only.</div>
+          <div><span class="color-swatch-mini" style="background:#1A1D2E"></span><strong>Post graphics:</strong> Deep Ink (#1A1D2E) or Midnight Indigo — professional Navy reads as authority on LinkedIn</div>
+          <div><span class="color-swatch-mini" style="background:#C9A84C"></span><strong>Accent use:</strong> Gold sparingly — one accent element per graphic. LinkedIn readers are skeptical of heavy branding.</div>
+          <div style="margin-top:8px"><strong>Typography:</strong> DM Sans or Poppins (not Cormorant Garamond) — LinkedIn is a professional context, not a healing space. Save the serif for MM-specific posts.</div>
+          <div style="margin-top:6px"><strong>Carousel / document posts:</strong> Great for PM case studies, impact metrics ($1.5M+ secured, 610+ participants), IAAM application narrative</div>
+        </div>
+        <div class="plat-col-title" style="margin-top:6px">Do / Don't</div>
+        <ul class="do-list">
+          <li class="do">Banner: include current title + company/brand + one-line value prop in safe center area</li>
+          <li class="do">Separate LinkedIn voice from MM voice — this is where Latisha the PM lives, not Midnight Magnolia</li>
+          <li class="do">Carousel posts (PDF upload) for impact metrics, project case studies</li>
+          <li class="dont">Don't use Southern Gothic aesthetic on LinkedIn — the audience needs professional authority</li>
+          <li class="dont">Don't link to MM healing products in job search posts — separate the lanes</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- ─── GITHUB ─── -->
+  <div class="plat-card">
+    <div class="plat-header" style="background:#24292e">
+      <div class="plat-icon" style="background:rgba(255,255,255,.08)">🐙</div>
+      <div><div class="plat-name" style="color:#f0f6fc">GitHub</div><div class="plat-handle" style="color:rgba(240,246,252,.75)">github.com/Rumi1013 · career/tech-facing</div></div>
+    </div>
+    <div class="plat-body">
+      <div class="plat-col">
+        <div class="plat-col-title">Dimensions</div>
+        <div class="dim-row"><span class="dim-label">Profile photo</span><span class="dim-value">500 × 500px min (circular)</span></div>
+        <div class="dim-row"><span class="dim-label">README display width</span><span class="dim-value">~800px (fluid, not fixed)</span></div>
+        <div class="dim-row"><span class="dim-label">Social preview (og:image)</span><span class="dim-value">1280 × 640px</span></div>
+        <div class="dim-row"><span class="dim-label">Repo banner (README hero)</span><span class="dim-value">1280 × 320px recommended</span></div>
+        <div class="dim-row"><span class="dim-label">Canva template</span><span class="dim-value">GitHub Profile Banner (custom size)</span></div>
+      </div>
+      <div class="plat-col">
+        <div class="plat-col-title">MM Color Application — adapts to GitHub light/dark</div>
+        <div style="font-size:12.5px;margin-bottom:10px;line-height:1.6">
+          <div><span class="color-swatch-mini" style="background:#2B2F4A"></span><strong>README hero banner:</strong> Midnight Indigo bg — renders well in both GitHub light and dark modes as a static image</div>
+          <div style="margin-top:6px"><strong>README text:</strong> Standard Markdown — GitHub renders its own theme. Use MM colors only in static image assets (banners, badges).</div>
+          <div style="margin-top:6px"><strong>Custom badges:</strong> Use shields.io with hex <code>#C9A84C</code> (gold) label color for tech stack badges</div>
+          <div style="margin-top:6px"><strong>Pinned repos to feature:</strong> CareerSystem · mm-tokens.css · any coursework projects (CPT 262 DB, CPT 187, CPT 180)</div>
+        </div>
+        <div class="plat-col-title" style="margin-top:6px">Do / Don't</div>
+        <ul class="do-list">
+          <li class="do">Profile README (special repo): your name + tech stack + current projects as a visual card</li>
+          <li class="do">Pin CareerSystem repo — demonstrates Anthropic API integration and local-first architecture</li>
+          <li class="do">Contribution graph is visible — maintain activity during job search period</li>
+          <li class="dont">Don't use Cormorant Garamond in code — GitHub's monospace rendering overrides web fonts in code blocks</li>
+          <li class="dont">Don't expose <code>.env</code> files or API keys in CareerSystem — keep private repo or use <code>.gitignore</code></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- ─── SUBSTACK ─── -->
+  <div class="plat-card">
+    <div class="plat-header" style="background:#FF6719">
+      <div class="plat-icon" style="background:rgba(255,255,255,.15)">📝</div>
+      <div><div class="plat-name" style="color:#fff">Substack — Dusk Letters</div><div class="plat-handle" style="color:rgba(255,255,255,.9)">midnightmagnoliasc.substack.com · <strong style="color:#fff">Live ✓</strong></div></div>
+    </div>
+    <div class="plat-body">
+      <div class="plat-col">
+        <div class="plat-col-title">Dimensions</div>
+        <div class="dim-row"><span class="dim-label">Publication logo (circular)</span><span class="dim-value">256 × 256px minimum</span></div>
+        <div class="dim-row"><span class="dim-label">Publication cover / hero</span><span class="dim-value">1456 × 816px (16:9)</span></div>
+        <div class="dim-row"><span class="dim-label">Post cover image</span><span class="dim-value">1456 × 816px (16:9)</span></div>
+        <div class="dim-row"><span class="dim-label">Email content width</span><span class="dim-value">600px (Substack renders at 600)</span></div>
+        <div class="dim-row"><span class="dim-label">In-post images</span><span class="dim-value">1456 × any (auto-scaled)</span></div>
+        <div class="dim-row"><span class="dim-label">Canva template</span><span class="dim-value">Email Newsletter or Blog Header (custom 1456×816)</span></div>
+      </div>
+      <div class="plat-col">
+        <div class="plat-col-title">MM Color Application</div>
+        <div style="font-size:12.5px;margin-bottom:10px;line-height:1.6">
+          <div><span class="color-swatch-mini" style="background:#2B2F4A"></span><strong>Publication cover:</strong> Midnight Indigo full bleed, "Dusk Letters" in Cormorant Garamond italic (large), Gold tagline</div>
+          <div><span class="color-swatch-mini" style="background:#F5F0E8"></span><strong>Post cover images:</strong> Magnolia White bg with Indigo title for readability — Substack displays post covers in email previews</div>
+          <div><span class="color-swatch-mini" style="background:#C9A84C"></span><strong>Section dividers in posts:</strong> Gold ornamental rule (—◆—) or thin Gold line between sections</div>
+          <div style="margin-top:8px"><strong>Publication accent color:</strong> Set in Substack settings to <code>#C9A84C</code> (Southern Gold) — this colors links and button</div>
+          <div style="margin-top:6px"><strong>Typography:</strong> Substack controls body font (Georgia default is perfect — closest to MM serif voice). Use their headline styles as-is.</div>
+        </div>
+        <div class="plat-col-title" style="margin-top:6px">Do / Don't</div>
+        <ul class="do-list">
+          <li class="do">Set Substack accent color to #C9A84C in publication settings — applies to all links</li>
+          <li class="do">Each post cover image = first impression in email inbox. Make them beautiful and consistent.</li>
+          <li class="do">Substack Notes (their Twitter-like feature) = free discovery within Substack network</li>
+          <li class="dont">Don't replicate the same post on both Substack and Wix Blog — choose one as primary, the other as archive</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- ─── TUMBLR ─── -->
+  <div class="plat-card">
+    <div class="plat-header" style="background:#35465c">
+      <div class="plat-icon" style="background:rgba(255,255,255,.1)">🦋</div>
+      <div><div class="plat-name" style="color:#fff">Tumblr</div><div class="plat-handle" style="color:rgba(255,255,255,.8)">tumblr.com/blog/midnight-magnoliasc · confirmed</div></div>
+    </div>
+    <div class="plat-body">
+      <div class="plat-col">
+        <div class="plat-col-title">Dimensions</div>
+        <div class="dim-row"><span class="dim-label">Profile photo</span><span class="dim-value">128 × 128px (displays at 64px)</span></div>
+        <div class="dim-row"><span class="dim-label">Header / banner</span><span class="dim-value">3000 × 1055px</span></div>
+        <div class="dim-row"><span class="dim-label">Photo post — standard width</span><span class="dim-value">540px wide</span></div>
+        <div class="dim-row"><span class="dim-label">Photo post — wide</span><span class="dim-value">1280px wide</span></div>
+        <div class="dim-row"><span class="dim-label">Photoset grid (2-col)</span><span class="dim-value">268 × 268px per image</span></div>
+        <div class="dim-row"><span class="dim-label">Canva template</span><span class="dim-value">Tumblr Graphic (540 × 810px is common)</span></div>
+      </div>
+      <div class="plat-col">
+        <div class="plat-col-title">MM Color Application</div>
+        <div style="font-size:12.5px;margin-bottom:10px;line-height:1.6">
+          <div><span class="color-swatch-mini" style="background:#2B2F4A"></span><strong>Blog theme:</strong> Midnight Indigo background — Tumblr's dark aesthetic audience expects and appreciates this. Set background color in theme customizer to <code>#2B2F4A</code>.</div>
+          <div><span class="color-swatch-mini" style="background:#F5F0E8"></span><strong>Text color:</strong> Magnolia White (#F5F0E8) for body — soft, not harsh white</div>
+          <div><span class="color-swatch-mini" style="background:#C9A84C"></span><strong>Link color:</strong> Southern Gold (#C9A84C) — set in theme customizer</div>
+          <div><span class="color-swatch-mini" style="background:#4A2D4E"></span><strong>Quote / poetry posts:</strong> Deep Plum (#4A2D4E) bg with Magnolia White text — moody, on-brand</div>
+          <div style="margin-top:8px"><strong>Typography:</strong> Use Tumblr's built-in serif option or set custom CSS font to Cormorant Garamond via Google Fonts embed</div>
+        </div>
+        <div class="plat-col-title" style="margin-top:6px">Do / Don't</div>
+        <ul class="do-list">
+          <li class="do">Text posts in Cormorant Garamond italic — poetry, journal prompts, and shadow work quotes are Tumblr's highest-reblog content type</li>
+          <li class="do">Tag strategy: healing, shadow work, journaling, southern gothic, neurodivergent, black girl healing — these are active Tumblr communities</li>
+          <li class="do">Reblog your own older posts periodically — Tumblr's algorithm surfaces reblogged content</li>
+          <li class="dont">Don't post Instagram-formatted graphics (they look cropped and wrong on Tumblr's wider layout)</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- ─── PATREON ─── -->
+  <div class="plat-card">
+    <div class="plat-header" style="background:#8B1A1A">
+      <div class="plat-icon" style="background:rgba(255,255,255,.1)">🟠</div>
+      <div>
+        <div class="plat-name" style="color:#F5F0E8">Patreon</div>
+        <div class="plat-handle" style="color:rgba(245,240,232,.5)">⚠ Temporarily locked — email <code style="font-size:10.5px">latisha@midnight-magnolia.com</code> inaccessible</div>
+        <div style="font-size:11px;color:#FCA5A5;margin-top:3px">Recovery path: income → repurchase domain email → restore Patreon login → route members back from Stan Store</div>
+      </div>
+    </div>
+    <div class="plat-body">
+      <div class="plat-col">
+        <div class="plat-col-title">Dimensions (for when you regain access)</div>
+        <div class="dim-row"><span class="dim-label">Profile photo</span><span class="dim-value">256 × 256px</span></div>
+        <div class="dim-row"><span class="dim-label">Cover image</span><span class="dim-value">1600 × 400px</span></div>
+        <div class="dim-row"><span class="dim-label">Post banner / feature image</span><span class="dim-value">1600 × 900px (16:9)</span></div>
+        <div class="dim-row"><span class="dim-label">Tier image</span><span class="dim-value">400 × 300px</span></div>
+        <div class="dim-row"><span class="dim-label">Canva template</span><span class="dim-value">Custom size 1600 × 400 for cover</span></div>
+      </div>
+      <div class="plat-col">
+        <div class="plat-col-title">MM Color Application</div>
+        <div style="font-size:12.5px;margin-bottom:10px;line-height:1.6">
+          <div><span class="color-swatch-mini" style="background:#2B2F4A"></span><strong>Cover:</strong> Midnight Indigo full bleed, brand name centered in Cormorant Garamond, Gold divider, tagline below</div>
+          <div><span class="color-swatch-mini" style="background:#C9A84C"></span><strong>Tier images:</strong> Each tier gets its own Gold-accented card: Candle Tender = single candle glyph, Circle Keeper = moon, Altar Keeper = magnolia bloom</div>
+          <div><span class="color-swatch-mini" style="background:#5A665C"></span><strong>Post banners:</strong> Moss Shadow (#5A665C) or Deep Plum (#4A2D4E) for variety — avoids all posts looking identical</div>
+          <div style="margin-top:8px"><strong>Patreon accent color:</strong> Set to <code>#C9A84C</code> in creator settings for CTA buttons</div>
+        </div>
+        <div class="plat-col-title" style="margin-top:6px">Recovery Action Plan</div>
+        <ul class="do-list">
+          <li class="do">Step 1: Generate first income via Stan Store / BMAC / Gumroad</li>
+          <li class="do">Step 2: Repurchase <code>midnight-magnolia.com</code> domain email hosting</li>
+          <li class="do">Step 3: Contact Patreon support with proof of ownership + original registration info</li>
+          <li class="do">Step 4: Once restored, update all linked automation schemas (P-01, P-02, P-03)</li>
+          <li class="dont">Don't promise Patreon tier content to new members until access is restored</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- ─── STAN STORE ─── -->
+  <div class="plat-card">
+    <div class="plat-header" style="background:#1a1a2e">
+      <div class="plat-icon" style="background:rgba(201,168,76,.2)">🛒</div>
+      <div><div class="plat-name" style="color:var(--magnolia)">Stan Store</div><div class="plat-handle" style="color:rgba(245,240,232,.8)">stan.store/MidnightMagnoliaSC · <strong style="color:var(--gold-light)">Live ✓</strong></div></div>
+    </div>
+    <div class="plat-body">
+      <div class="plat-col">
+        <div class="plat-col-title">Dimensions</div>
+        <div class="dim-row"><span class="dim-label">Profile photo</span><span class="dim-value">1:1 square, 400 × 400px min</span></div>
+        <div class="dim-row"><span class="dim-label">Product image ★ key asset</span><span class="dim-value">1:1 square, 1000 × 1000px</span></div>
+        <div class="dim-row"><span class="dim-label">Product image (portrait)</span><span class="dim-value">4:5, 1000 × 1250px</span></div>
+        <div class="dim-row"><span class="dim-label">Canva template</span><span class="dim-value">Product Mockup (use Canva Mockup Generator)</span></div>
+      </div>
+      <div class="plat-col">
+        <div class="plat-col-title">MM Color Application</div>
+        <div style="font-size:12.5px;margin-bottom:10px;line-height:1.6">
+          <div><span class="color-swatch-mini" style="background:#2B2F4A"></span><strong>Profile bg:</strong> Set Stan Store brand color to Midnight Indigo</div>
+          <div><span class="color-swatch-mini" style="background:#C9A84C"></span><strong>CTA buttons:</strong> Set accent color to Southern Gold (#C9A84C) in Stan Store settings</div>
+          <div><span class="color-swatch-mini" style="background:#F5F0E8"></span><strong>Product mockups:</strong> Flat lay on dark wood surface, candle + botanicals. Canva's free mockup generator in the Mockup section.</div>
+          <div style="margin-top:8px"><strong>Product images must have:</strong> a real mockup (not just a PDF screenshot), readable title at small size, and a price-free visual (price shows in the listing)</div>
+        </div>
+        <div class="plat-col-title" style="margin-top:6px">Do / Don't</div>
+        <ul class="do-list">
+          <li class="do">Every product needs a mockup image — not a screenshot of the PDF interior</li>
+          <li class="do">Consistent dark-wood flat-lay style across all products = professional catalog look</li>
+          <li class="dont">Don't leave Stan Store on default colors — brand it fully before sending traffic</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- ─── GUMROAD ─── -->
+  <div class="plat-card">
+    <div class="plat-header" style="background:#F76154">
+      <div class="plat-icon" style="background:rgba(255,255,255,.15)">🍋</div>
+      <div><div class="plat-name" style="color:#fff">Gumroad</div><div class="plat-handle" style="color:rgba(255,255,255,.9)">midnightmagnoliasc.gumroad.com · <strong style="color:#fff">Live ✓</strong></div></div>
+    </div>
+    <div class="plat-body">
+      <div class="plat-col">
+        <div class="plat-col-title">Dimensions</div>
+        <div class="dim-row"><span class="dim-label">Profile photo</span><span class="dim-value">1:1, 200 × 200px min</span></div>
+        <div class="dim-row"><span class="dim-label">Product cover ★</span><span class="dim-value">1:1, 1500 × 1500px</span></div>
+        <div class="dim-row"><span class="dim-label">Product thumbnail</span><span class="dim-value">1:1, 600 × 600px min</span></div>
+        <div class="dim-row"><span class="dim-label">Canva template</span><span class="dim-value">Gumroad Product Cover (1500 × 1500)</span></div>
+      </div>
+      <div class="plat-col">
+        <div class="plat-col-title">MM Color Application</div>
+        <div style="font-size:12.5px;margin-bottom:10px;line-height:1.6">
+          <div><span class="color-swatch-mini" style="background:#2B2F4A"></span><strong>Product covers:</strong> Midnight Indigo bg — stands out strongly against Gumroad's default white/light marketplace grid</div>
+          <div><span class="color-swatch-mini" style="background:#C9A84C"></span><strong>Product title on cover:</strong> Southern Gold (#C9A84C) for the product name in Cormorant Garamond</div>
+          <div style="margin-top:8px"><strong>Profile accent:</strong> Gumroad lets you set a profile color — use <code>#2B2F4A</code></div>
+        </div>
+        <div class="plat-col-title" style="margin-top:6px">Do / Don't</div>
+        <ul class="do-list">
+          <li class="do">Gumroad product covers show in search — dark MM aesthetic differentiates from typical pastel journal covers</li>
+          <li class="do">Use the same product descriptions from Stan Store (repurpose, don't rewrite)</li>
+          <li class="dont">Don't maintain two completely separate product inventories — Stan Store is primary, Gumroad is the parallel path</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- ─── DESIGN DIMENSIONS QUICK REF ─── -->
+  <div class="h2">Quick Reference — All Dimensions at a Glance</div>
+  <table class="tbl">
+    <tr><th>Platform</th><th>Profile Photo</th><th>Hero / Banner</th><th>Post / Pin</th><th>Story / Vertical</th></tr>
+    <tr><td>Instagram</td><td>320 × 320</td><td>—</td><td>1080 × 1080 · 1080 × 1350 ★</td><td>1080 × 1920</td></tr>
+    <tr><td>TikTok</td><td>200 × 200</td><td>—</td><td>—</td><td>1080 × 1920 ★</td></tr>
+    <tr><td>Facebook</td><td>180 × 180</td><td>851 × 315</td><td>1200 × 1200 · 1200 × 630</td><td>1080 × 1920</td></tr>
+    <tr><td>YouTube</td><td>800 × 800</td><td>2560 × 1440 (safe: 1546 × 423)</td><td>1280 × 720 (thumbnail) ★</td><td>1080 × 1920 (Shorts)</td></tr>
+    <tr><td>Pinterest</td><td>165 × 165</td><td>—</td><td>1000 × 1500 ★</td><td>—</td></tr>
+    <tr><td>LinkedIn</td><td>400 × 400</td><td>1584 × 396</td><td>1200 × 627 · 1080 × 1080</td><td>—</td></tr>
+    <tr><td>GitHub</td><td>500 × 500</td><td>1280 × 640 (og:image)</td><td>800px README width</td><td>—</td></tr>
+    <tr><td>Substack</td><td>256 × 256</td><td>1456 × 816</td><td>1456 × 816 (post cover)</td><td>—</td></tr>
+    <tr><td>Tumblr</td><td>128 × 128</td><td>3000 × 1055</td><td>540px standard · 1280px wide</td><td>—</td></tr>
+    <tr><td>Patreon</td><td>256 × 256</td><td>1600 × 400</td><td>1600 × 900</td><td>—</td></tr>
+    <tr><td>Stan Store</td><td>400 × 400</td><td>—</td><td>1000 × 1000 · 1000 × 1250</td><td>—</td></tr>
+    <tr><td>Gumroad</td><td>200 × 200</td><td>—</td><td>1500 × 1500 ★</td><td>—</td></tr>
+  </table>
+
+  <div class="h2">Canva Template Folder System</div>
+  <p class="note">Create one Canva folder per platform. Keep master templates locked — duplicate before editing each post.</p>
+  <table class="tbl">
+    <tr><th>Folder</th><th>Templates to Create</th><th>Brand Colors Saved As</th></tr>
+    <tr><td>📁 Instagram</td><td>Square (1080×1080) · Portrait (1080×1350) · Story (1080×1920) · Highlight Cover</td><td>MM Brand palette saved in Canva Brand Kit</td></tr>
+    <tr><td>📁 TikTok</td><td>Video cover (1080×1920) · Text-on-dark template</td><td>Same Brand Kit</td></tr>
+    <tr><td>📁 Facebook</td><td>Page cover (851×315) · Post square · Link post (1200×630)</td><td>Same Brand Kit</td></tr>
+    <tr><td>📁 YouTube</td><td>Thumbnail (1280×720) — 3 variants by series · Channel banner (2560×1440)</td><td>Same Brand Kit</td></tr>
+    <tr><td>📁 Pinterest</td><td>Standard pin (1000×1500) · Long-form pin (1000×2100)</td><td>Warm palette version</td></tr>
+    <tr><td>📁 Products</td><td>Product covers (1000×1000) · Flat-lay mockups · PDF interior page template</td><td>Same Brand Kit</td></tr>
+    <tr><td>📁 Email / Substack</td><td>Post cover (1456×816) · Newsletter header (600px wide)</td><td>Same Brand Kit</td></tr>
+    <tr><td>📁 LinkedIn</td><td>Banner (1584×396) · Post landscape (1200×627) · Carousel slide (1080×1080)</td><td>Professional variant — restrained Gold use</td></tr>
+  </table>
+
+  <div class="h2">Substack — Fill In These Fields Now</div>
+  <p class="note">You're on the "Set up paid subscriptions" screen. Here is exactly what to enter. Substack paid sits alongside Magnolia Circle as a writing-first subscription — different value prop, different price, they coexist cleanly.</p>
+
+  <div class="card" style="border-left:4px solid var(--gold)">
+    <div class="card-title">Subscription Settings — Exact Values</div>
+    <div style="margin-top:14px">
+      <table class="tbl">
+        <tr><th>Field</th><th>Enter This</th><th>Why</th></tr>
+        <tr><td><strong>Monthly plan price</strong></td><td><code>$8.00/mo</code> <span class="badge b-gold">keep</span></td><td>Sits $1 under Magnolia Circle ($9). Writing-first value prop keeps tiers distinct.</td></tr>
+        <tr><td><strong>Annual plan price</strong></td><td><code>$80.00/yr</code> <span class="badge b-gold">keep</span></td><td>2 months free vs monthly. Substack's UI promotes annual automatically.</td></tr>
+        <tr><td><strong>Founding plan price</strong></td><td><code>$150.00/yr</code> <span class="badge b-crit">change from $240</span></td><td>$240 feels like a service rate for a newsletter. $150 (~$12.50/mo) honors founding members without pricing them out. Keep flexible pricing ON.</td></tr>
+        <tr><td><strong>Founding plan name</strong></td><td><code>Letter Keeper</code> <span class="badge b-crit">change from "Founding Member"</span></td><td>Stays in MM naming language. "Founding Member" is generic — "Letter Keeper" is yours.</td></tr>
+        <tr><td><strong>Free subscriber benefits</strong></td><td><code>Monthly Dusk Letters dispatch · Shadow work prompts · Occasional essays</code> <span class="badge b-crit">replace</span></td><td>Specific and inviting. "Occasional public posts" sounds like an afterthought.</td></tr>
+        <tr><td><strong>Paid benefit 1</strong></td><td><code>Full Dusk Letters archive — every letter, every prompt</code> <span class="badge b-crit">replace</span></td><td>Brand voice. "Full archive" is dry; this version creates desire.</td></tr>
+        <tr><td><strong>Paid benefit 2</strong></td><td><code>Subscriber threads — reflect, respond, and be in community</code> <span class="badge b-crit">replace</span></td><td>Frames comments as a healing practice, not a forum feature.</td></tr>
+        <tr><td><strong>Paid benefit 3</strong></td><td><code>Early access to new journals and shadow work tools</code> <span class="badge b-done">add</span></td><td>Bridges Substack subscribers directly to product launches — your warmest buyers.</td></tr>
+        <tr><td><strong>Founding member benefits</strong></td><td><code>Everything above · Your name in the Dusk Letters acknowledgments · Direct email access to Latisha</code> <span class="badge b-done">add</span></td><td>Personal. Finite. Worth the extra $70/yr over annual.</td></tr>
+      </table>
+    </div>
+    <p class="warn" style="margin-top:14px">Click <strong>Enable payments later</strong> — not Enable payments yet. Get 3 free posts published and 25+ free subscribers first. Substack rewards publications that already have engagement when they launch paid tiers.</p>
+  </div>
+
+  <div class="h2">Printify Hardcover Journal — First Product Assessment</div>
+  <div class="card" style="border-left:4px solid var(--moss)">
+    <div class="card-head"><div><div class="card-title">✓ Yes — ship this as your first physical product</div><div class="card-meta">Lowcountry Southern Gothic cover · Printify Hardcover Journal</div></div><span class="badge b-done">Strong</span></div>
+    <div style="margin-top:14px">
+      <table class="tbl">
+        <tr><th>Element</th><th>Assessment</th><th>Action</th></tr>
+        <tr><td><strong>Cover artwork</strong></td><td><span class="badge b-done">Excellent</span> Lowcountry plantation at dusk, woman in gown, golden sky, magnolia bloom, crescent moon. This IS the brand — emotionally resonant, Southern Gothic, distinctive. No one else has this image on a journal.</td><td>Keep as-is. Do not genericize it.</td></tr>
+        <tr><td><strong>Brand alignment</strong></td><td><span class="badge b-done">Perfect</span> Midnight palette (deep navy sky), golden amber sunset, magnolia motif, Lowcountry water + Spanish moss. Every brand token is present.</td><td>None needed.</td></tr>
+        <tr><td><strong>QR code on cover</strong></td><td><span class="badge b-risk">Remove</span> There is a QR code in the lower-left corner. On a finished product this looks like a proof watermark or content warning, not intentional design.</td><td>Remove before Save product. If it's Printify mockup watermark only, verify it will not appear on the printed cover.</td></tr>
+        <tr><td><strong>Product type</strong></td><td><span class="badge b-done">Right choice</span> Hardcover journal commands $24–$32 at 45–55% margin. Pairs directly with every digital shadow work product as the physical companion.</td><td>Price at <strong>$28.00</strong> — premium but accessible.</td></tr>
+        <tr><td><strong>Cover title</strong></td><td>No product title visible on the cover. At thumbnail size in a store listing the art alone won't communicate what it is.</td><td>Decide: add "Shadow Work Journal" in Cormorant Garamond italic in the sky area, or leave as a pure art-object (both work — just be intentional).</td></tr>
+        <tr><td><strong>Mockup views</strong></td><td>You have Front, Back, Opened, Inside, Cover, Context available in Printify. The Opened and Context shots are critical for store listings.</td><td>Download all 6 mockup views. Use Context (journal in setting) for Stan Store hero. Use Opened for inside-page reveal.</td></tr>
+      </table>
+    </div>
+    <div class="h3" style="margin-top:14px">Listing Copy — Use This</div>
+    <div class="code" style="font-size:11.5px"><span class="c-c">## Product Title</span>
+<span class="c-v">Midnight Magnolia Shadow Work Journal — Hardcover</span>
+
+<span class="c-c">## Short Description (150 chars)</span>
+<span class="c-s">A Lowcountry-rooted journal for the quiet, honest work of becoming
+yourself. Hardcover. Original Southern Gothic art cover.</span>
+
+<span class="c-c">## Full Description</span>
+<span class="c-s">Some healing doesn't happen in the bright of day.
+
+This hardcover shadow work journal was made for the in-between hours —
+when the light is going and you finally have a moment to be honest
+with yourself.
+
+Rooted in the Lowcountry of South Carolina, designed for neurodivergent
+women doing the slow, sacred work of becoming who they were before
+the world told them to be something else.
+
+Durable hardcover · Original Southern Gothic artwork · [X] lined pages
+Prompts on the inside cover to begin your practice
+Made to order · printed and shipped with care
+
+Begin when you're ready.</span>
+
+<span class="c-c">## Price: $28.00  |  Tags:</span>
+<span class="c-s">shadow work · healing journal · southern gothic · neurodivergent ·
+black women wellness · hardcover journal · lowcountry · ancestral healing</span></div>
+    <div class="h3">Before You Hit Save Product</div>
+    <ul class="rlist">
+      <li>Remove or verify the QR code — confirm it's mockup watermark only and won't print</li>
+      <li>Download all 6 mockup views (Front, Back, Opened, Inside, Cover, Context)</li>
+      <li>Decide on cover title text — add it in Canva and re-upload the cover file if adding</li>
+      <li>Set price to $28.00 in Printify product settings</li>
+      <li>Add as P-Physical-01 in Airtable Products and Notion Product Pipeline DB</li>
+    </ul>
+  </div>
+
+  <div class="h2">Social Automation Schemas</div>
+  <p class="note">Add these to the Zapier / Make tab. They keep social profiles consistent and reduce manual cross-posting overhead.</p>
+
+  <div class="card">
+    <div class="card-head">
+      <div><div class="card-title">S-01 — New Blog Post → Social Teaser Drafts</div><div class="card-meta">Wix Blog → Make.com → Gmail drafts for each platform</div></div>
+      <span class="badge b-make">Make</span>
+
+    </div>
+    <div class="code" style="margin-top:12px"><span class="c-c">## S-01: New Dusk Letters Post → Social Teasers</span>
+
+<span class="c-k">MODULE 1 — TRIGGER</span>: Wix — <span class="c-v">New Blog Post Published</span>
+  (or RSS feed watch: midnightmagnolia.com/blog/feed)
+
+<span class="c-k">MODULE 2 — HTTP</span>: Anthropic API — <span class="c-v">Generate social copy</span>
+  Model: claude-sonnet-4-6
+  Prompt:
+    <span class="c-s">"Write 3 social teasers for this Midnight Magnolia blog post.
+     Tone: healing-centered, Southern Gothic, warm, literary.
+     Never: hustle language, urgency, exclamation spam.
+
+     Post title: {{title}}
+     Post excerpt: {{first_200_chars}}
+
+     Output JSON:
+     {
+       'instagram': '(max 150 chars, 1-2 line breaks, no hashtags here)',
+       'tiktok': '(max 80 chars, hook-first)',
+       'facebook': '(max 280 chars, conversational, can include reflection)',
+       'hashtags': ['array', 'of', '8-10', 'relevant', 'hashtags']
+     }"</span>
+
+<span class="c-k">MODULE 3 — PARSE</span>: JSON → individual variables
+
+<span class="c-k">MODULE 4 — ACTION</span>: Gmail — <span class="c-v">Create Draft</span>
+  Subject: <span class="c-s">"Social drafts: {{post_title}}"</span>
+  Body: formatted with each platform's copy + hashtags
+  <span class="c-c"># Review and post manually — never auto-post without reading</span>
+
+<span class="c-k">MODULE 5 — ACTION</span>: Airtable — <span class="c-v">Create Record</span>
+  Table: Content Calendar
+  Title → <span class="c-s">"[Cross-post] {{post_title}}"</span>
+  Content Type → <span class="c-s">"Blog"</span>
+  Status → <span class="c-s">"Ready"</span>
+  Copy URL → <span class="c-s">{{post_url}}</span></div>
+  </div>
+
+  <div class="card">
+    <div class="card-head">
+      <div><div class="card-title">S-02 — Weekly Social Reminder (Sunday 7pm)</div><div class="card-meta">Scheduled → Airtable check → Email summary of what's due</div></div>
+      <span class="badge b-make">Make</span>
+    </div>
+    <div class="code" style="margin-top:12px"><span class="c-c">## S-02: Weekly Content Due Summary</span>
+
+<span class="c-k">MODULE 1</span>: Make — <span class="c-v">Scheduled</span>
+  Every Sunday · 7:00 PM ET
+
+<span class="c-k">MODULE 2</span>: Airtable — <span class="c-v">Search Records</span>
+  Table: Content Calendar
+  Filter: Publish Date within next 7 days AND Status != "Published"
+
+<span class="c-k">MODULE 3</span>: Gmail — <span class="c-v">Send Email</span>
+  Subject: <span class="c-s">"🌙 This week's content ({{count}} items)"</span>
+  Body:
+    <span class="c-s">"Upcoming this week:
+     {{#each items}}
+     · {{publish_date}} · {{platform}} · {{title}} · [{{status}}]
+     {{/each}}
+
+     Move gently. Batch what you can.
+     Repurpose first, create second."</span></div>
+  </div>
+
+  <div class="card">
+    <div class="card-head">
+      <div><div class="card-title">S-03 — New Instagram Follower Milestone → Log</div><div class="card-meta">Optional · tracks growth without obsessing over numbers</div></div>
+      <span class="badge b-zap">Zapier</span>
+    </div>
+    <div class="code" style="margin-top:12px"><span class="c-c">## S-03: Follower Milestone → Airtable Growth Log</span>
+<span class="c-c"># Zapier: Instagram Business + Airtable</span>
+<span class="c-c"># Log milestone counts (every 100 followers) without daily tracking</span>
+
+<span class="c-k">TRIGGER</span>: Zapier Schedule — <span class="c-v">Every Monday 9 AM</span>
+
+<span class="c-k">ACTION 1</span>: Instagram — <span class="c-v">Get User Info</span>
+  Fields: followers_count, following_count, media_count
+
+<span class="c-k">ACTION 2</span>: Airtable — <span class="c-v">Create Record</span>
+  Table: Social Growth Log (add this table)
+  Date           → <span class="c-s">{{today}}</span>
+  Platform       → <span class="c-s">"Instagram"</span>
+  Followers      → <span class="c-s">{{followers_count}}</span>
+  Posts          → <span class="c-s">{{media_count}}</span>
+  <span class="c-c"># Review monthly, not daily. Growth is slow and that's fine.</span></div>
+  </div>
+</section>
+
+</main>
+
+<footer style="background:var(--indigo);padding:36px 44px;text-align:center">
+  <p style="font-family:var(--fd);font-size:1.2rem;font-style:italic;color:var(--clay)">Move gently. Update only when rested.</p>
+  <p style="font-family:var(--fb);font-size:11px;color:rgba(199,176,154,.5);margin-top:10px">Midnight Magnolia · Canonical Master Plan v3 · May 2026 · Rumi-Nations LLC</p>
+</footer>
+
+<script>
+function show(id){
+  document.querySelectorAll('.panel').forEach(p=>p.classList.remove('on'));
+  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('on'));
+  document.getElementById('panel-'+id).classList.add('on');
+  event.currentTarget.classList.add('on');
+}
+</script>
+</body>
+</html>
