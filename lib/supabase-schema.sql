@@ -96,3 +96,117 @@ insert into affiliate_partners (name, tier, score, action, contact, sort_order) 
 ('Brown Girl Self-Care',    2, '8/10',  'Open with sisterhood. DM on Instagram first',          '@browngirls_selfcare',              9),
 ('The Sober Curator',       2, '8/10',  'Submit guest essay first, then pitch partnership',     'thesobercurator.com/contact',      10)
 on conflict do nothing;
+
+-- ═══════════════════════════════════════════════════════════════
+-- ── Genealogy Research Tables ──────────────────────────────────
+-- Black ancestral research: people, relationships, source records
+-- Run after the dashboard tables above
+-- ═══════════════════════════════════════════════════════════════
+
+-- ── People ────────────────────────────────────────────────────
+create table if not exists genealogy_people (
+  id              uuid        primary key default gen_random_uuid(),
+
+  -- Name
+  first_name      text        not null,
+  last_name       text        not null,
+  maiden_name     text,                         -- pre-marriage surname
+  other_names     text[],                       -- nicknames, aliases, enslaved name variants
+
+  -- Vitals
+  birth_date      text,                         -- text to accommodate approx. dates ('c.1840', 'Abt 1852')
+  birth_location  text,                         -- county, state
+  death_date      text,
+  death_location  text,
+  gender          text,                         -- 'female' | 'male' | 'unknown'
+
+  -- Archival context
+  status          text        not null default 'research',
+                                                -- 'confirmed' | 'research' | 'speculative'
+  source_records  jsonb       not null default '[]'::jsonb,
+                                                -- [{type:'Freedmen Bureau',citation:'...',url:'...'}]
+  photo_url       text,
+  notes           text,
+
+  -- Timestamps
+  created_at      timestamptz not null default now(),
+  updated_at      timestamptz not null default now()
+);
+
+-- ── Relationships ─────────────────────────────────────────────
+-- Directed edge: person_a → person_b with a named role.
+-- To express "Alice is parent of Bob": person_a=Alice, person_b=Bob, type='parent'
+create table if not exists genealogy_relationships (
+  id              uuid        primary key default gen_random_uuid(),
+  person_a_id     uuid        not null references genealogy_people(id) on delete cascade,
+  person_b_id     uuid        not null references genealogy_people(id) on delete cascade,
+  relationship    text        not null,          -- 'parent' | 'spouse' | 'sibling' | 'enslaver' | 'witness'
+  start_date      text,                          -- marriage date, etc.
+  end_date        text,
+  notes           text,
+  created_at      timestamptz not null default now(),
+  updated_at      timestamptz not null default now(),
+
+  -- Prevent exact duplicate edges
+  unique (person_a_id, person_b_id, relationship)
+);
+
+-- ── Indexes ───────────────────────────────────────────────────
+create index if not exists genealogy_people_last_name_idx
+  on genealogy_people (last_name);
+
+create index if not exists genealogy_people_status_idx
+  on genealogy_people (status);
+
+create index if not exists genealogy_relationships_a_idx
+  on genealogy_relationships (person_a_id);
+
+create index if not exists genealogy_relationships_b_idx
+  on genealogy_relationships (person_b_id);
+
+-- ── updated_at automation ─────────────────────────────────────
+-- Reuses set_updated_at() defined above for dashboard_tasks
+
+create trigger genealogy_people_updated_at
+  before update on genealogy_people
+  for each row execute procedure set_updated_at();
+
+create trigger genealogy_relationships_updated_at
+  before update on genealogy_relationships
+  for each row execute procedure set_updated_at();
+
+-- ── Row-level security ────────────────────────────────────────
+alter table genealogy_people        enable row level security;
+alter table genealogy_relationships enable row level security;
+
+create policy "auth users full access" on genealogy_people
+  for all using (auth.role() = 'authenticated');
+
+create policy "auth users full access" on genealogy_relationships
+  for all using (auth.role() = 'authenticated');
+
+-- ── Helper function: full family subgraph for one person ──────
+-- Returns all people connected within 3 hops (for family tree views)
+create or replace function get_family_subgraph(root_id uuid, max_hops int default 3)
+returns table (
+  person_id uuid,
+  hop       int
+) language sql stable as $$
+  with recursive family(person_id, hop) as (
+    select root_id, 0
+    union
+    select
+      case
+        when r.person_a_id = f.person_id then r.person_b_id
+        else r.person_a_id
+      end,
+      f.hop + 1
+    from family f
+    join genealogy_relationships r
+      on r.person_a_id = f.person_id or r.person_b_id = f.person_id
+    where f.hop < max_hops
+  )
+  select distinct person_id, min(hop) as hop
+  from family
+  group by person_id
+$$;

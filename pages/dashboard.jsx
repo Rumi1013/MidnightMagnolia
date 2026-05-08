@@ -1,5 +1,5 @@
 // pages/dashboard.jsx
-// Unified dashboard: Supabase (tasks) + Notion (content/products) + Airtable (pipeline/affiliates)
+// Unified dashboard: Supabase (tasks + genealogy) + Notion (content) + Airtable (all 3 bases)
 // Each integration degrades gracefully — shows "Connect" state until env vars are added.
 
 import { useState, useEffect, useCallback } from 'react';
@@ -224,16 +224,157 @@ function AirtableAffiliates({ partners, onStatusChange, saving }) {
   );
 }
 
+// ── Revenue panel ─────────────────────────────────────────────
+function RevenueLog({ months }) {
+  if (!months?.length) return <NotConnected name="Monthly Revenue Log" hint="Add AIRTABLE_BASE_ID + create 'Monthly Revenue Log' table in Airtable." />;
+  const latest = months[0];
+  const goal   = 4000;
+  const pct    = Math.min(100, Math.round(((latest.totalRevenue ?? 0) / goal) * 100));
+  return (
+    <div>
+      <div className="grid-3" style={{ marginBottom: 'var(--space-md)' }}>
+        {[
+          { label: 'Total MTD',    value: `$${(latest.totalRevenue ?? 0).toLocaleString()}` },
+          { label: 'Goal ($4k)',   value: `${pct}%` },
+          { label: 'Gap to Goal', value: `$${(latest.goalGap ?? 0).toLocaleString()}` },
+        ].map(m => (
+          <div className="card" key={m.label} style={{ textAlign: 'center', padding: 'var(--space-md)' }}>
+            <span style={{ fontFamily: 'var(--font-display)', fontSize: '1.5rem', color: 'var(--color-amber)' }}>{m.value}</span>
+            <p className="muted" style={{ fontSize: '0.75rem', marginTop: 4 }}>{m.label}</p>
+          </div>
+        ))}
+      </div>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
+        {[
+          { label: 'Stan Store',  value: latest.stanRevenue },
+          { label: 'Patreon',     value: latest.patreonRevenue },
+          { label: 'Gumroad',     value: latest.gumroadRevenue },
+          { label: 'KDP',         value: latest.kdpRoyalties },
+          { label: 'Other',       value: latest.otherRevenue },
+        ].map(s => (
+          <div key={s.label} style={{ display: 'grid', gridTemplateColumns: '100px 1fr auto', gap: 8, alignItems: 'center', fontSize: '0.82rem' }}>
+            <span className="muted">{s.label}</span>
+            <div style={{ height: 4, background: 'rgba(201,168,76,0.1)', borderRadius: 2 }}>
+              <div style={{ height: '100%', width: `${Math.min(100, ((s.value ?? 0) / goal) * 100)}%`, background: 'var(--color-amber)', borderRadius: 2 }} />
+            </div>
+            <span style={{ color: 'var(--color-amber)', minWidth: 40, textAlign: 'right' }}>${(s.value ?? 0).toLocaleString()}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+// ── Career Command panel ──────────────────────────────────────
+function CareerPanel({ jobs, resumes, mlis }) {
+  const activeJobs = jobs?.filter(j => !['Rejected', 'Withdrawn'].includes(j.status)) ?? [];
+  return (
+    <div>
+      {/* MLIS programs */}
+      {mlis?.length > 0 && (
+        <div style={{ marginBottom: 'var(--space-md)' }}>
+          <p style={{ fontSize: '0.75rem', fontWeight: 700, letterSpacing: '0.07em', textTransform: 'uppercase', color: 'var(--color-muted)', marginBottom: 6 }}>MLIS Programs</p>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 5 }}>
+            {mlis.map(p => (
+              <div key={p.id} style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '0.6rem 1rem', background: 'rgba(255,255,255,0.03)', borderRadius: 8, borderLeft: `3px solid ${p.priority === 'Top Choice' ? 'var(--color-amber)' : 'rgba(255,255,255,0.1)'}` }}>
+                <div style={{ flex: 1 }}>
+                  <span style={{ fontSize: '0.85rem', fontWeight: 500 }}>{p.programName}</span>
+                  <span className="muted" style={{ fontSize: '0.72rem', marginLeft: 8 }}>· {p.institution}</span>
+                  <div style={{ display: 'flex', gap: 5, marginTop: 2, flexWrap: 'wrap' }}>
+                    {p.alaAccredited && <span style={{ fontSize: '0.65rem', color: '#3ecf8e' }}>ALA ✓</span>}
+                    {p.hbcu          && <span style={{ fontSize: '0.65rem', color: '#f7ae3f' }}>HBCU ✓</span>}
+                    {p.inStateTuition && <span style={{ fontSize: '0.65rem', color: '#3ecf8e' }}>In-State ✓</span>}
+                    <span className="muted" style={{ fontSize: '0.65rem' }}>{p.format}</span>
+                  </div>
+                </div>
+                <StatusPill status={p.priority} />
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {/* Active job applications */}
+      {activeJobs.length > 0 && (
+        <div style={{ marginBottom: 'var(--space-md)' }}>
+          <p style={{ fontSize: '0.75rem', fontWeight: 700, letterSpacing: '0.07em', textTransform: 'uppercase', color: 'var(--color-muted)', marginBottom: 6 }}>Active Applications ({activeJobs.length})</p>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 5 }}>
+            {activeJobs.slice(0, 8).map(j => (
+              <div key={j.id} style={{ display: 'grid', gridTemplateColumns: '1fr auto auto', gap: 8, alignItems: 'center', padding: '0.6rem 1rem', background: 'rgba(255,255,255,0.03)', borderRadius: 8 }}>
+                <div>
+                  <span style={{ fontSize: '0.85rem' }}>{j.roleTitle}</span>
+                  <span className="muted" style={{ fontSize: '0.72rem', marginLeft: 6 }}>· {j.company}</span>
+                  <div className="muted" style={{ fontSize: '0.68rem' }}>{j.track} · {j.remote ? 'Remote' : j.location}</div>
+                </div>
+                {j.salaryMin > 0 && <span style={{ fontSize: '0.72rem', color: 'var(--color-amber)', whiteSpace: 'nowrap' }}>${j.salaryMin.toLocaleString()}–${j.salaryMax.toLocaleString()}</span>}
+                <StatusPill status={j.status} />
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {/* Resume tracks */}
+      {resumes?.length > 0 && (
+        <div>
+          <p style={{ fontSize: '0.75rem', fontWeight: 700, letterSpacing: '0.07em', textTransform: 'uppercase', color: 'var(--color-muted)', marginBottom: 6 }}>Resume Vault ({resumes.length} active)</p>
+          <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap' }}>
+            {resumes.map(r => (
+              <a key={r.id} href={r.fileUrl || '#'} target="_blank" rel="noopener" style={{ textDecoration: 'none', fontSize: '0.75rem', fontWeight: 600, color: 'var(--color-amber)', background: 'rgba(201,168,76,0.1)', borderRadius: 99, padding: '3px 10px', border: '1px solid rgba(201,168,76,0.25)' }}>
+                {r.versionName}
+              </a>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {!mlis?.length && !activeJobs.length && !resumes?.length && (
+        <NotConnected name="Career Command" hint="Add AIRTABLE_CAREER_BASE_ID to .env.local and create the Career Command base." />
+      )}
+    </div>
+  );
+}
+
+// ── Genealogy stats panel ─────────────────────────────────────
+function GenealogyPanel({ stats }) {
+  if (!stats) return <NotConnected name="Genealogy Database" hint="Run: node scripts/seed-genealogy.mjs after adding SUPABASE_SERVICE_ROLE_KEY to .env.local." />;
+  return (
+    <div>
+      <div className="grid-3" style={{ marginBottom: 'var(--space-md)' }}>
+        {[
+          { label: 'Total Individuals', value: stats.total },
+          { label: 'Vincent Line',      value: stats.vincentLine },
+          { label: 'Caswell County',    value: stats.caswellCounty },
+        ].map(s => (
+          <div className="card" key={s.label} style={{ textAlign: 'center', padding: 'var(--space-md)' }}>
+            <span style={{ fontFamily: 'var(--font-display)', fontSize: '2rem', color: 'var(--color-amber)' }}>{s.value}</span>
+            <p className="muted" style={{ fontSize: '0.72rem', marginTop: 4 }}>{s.label}</p>
+          </div>
+        ))}
+      </div>
+      <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
+        <a href="/api/genealogy?type=people" target="_blank" className="btn btn--outline" style={{ fontSize: '0.8rem' }}>Browse Individuals API</a>
+        <a href="/api/genealogy?type=search&q=Vincent" target="_blank" className="btn btn--outline" style={{ fontSize: '0.8rem' }}>Search Vincents</a>
+      </div>
+    </div>
+  );
+}
+
 // ── Page ──────────────────────────────────────────────────────
 export default function Dashboard() {
   // Supabase state
   const [tasks,    setTasks]    = useState([]);
+  const [genealogyStats, setGenealogyStats] = useState(null);
   // Notion state
   const [calendar, setCalendar] = useState(null);
   const [duskLetters, setDuskLetters] = useState(null);
-  // Airtable state
-  const [pipeline,   setPipeline]   = useState(null);
+  // Airtable — MM Operations
+  const [pipeline,     setPipeline]     = useState(null);
   const [atAffiliates, setAtAffiliates] = useState(null);
+  const [revenue,      setRevenue]      = useState(null);
+  // Airtable — Writing / Creative base
+  const [jobs,    setJobs]    = useState(null);
+  const [resumes, setResumes] = useState(null);
   // UI state
   const [loading,  setLoading]  = useState(true);
   const [saving,   setSaving]   = useState(false);
@@ -245,12 +386,17 @@ export default function Dashboard() {
       const errs = {};
 
       // All fetches run in parallel — failures are isolated
-      const [taskRes, notionRes, pipelineRes, atAffRes] = await Promise.allSettled([
-        fetch('/api/tasks').then(r => r.json()),
-        fetch('/api/notion/content').then(r => r.json()),
-        fetch('/api/airtable/pipeline').then(r => r.json()),
-        fetch('/api/airtable/affiliates').then(r => r.json()),
-      ]);
+      const [taskRes, geoRes, notionRes, pipelineRes, atAffRes, revenueRes, jobsRes, resumesRes] =
+        await Promise.allSettled([
+          fetch('/api/tasks').then(r => r.json()),
+          fetch('/api/genealogy?type=people').then(r => r.json()),
+          fetch('/api/notion/content').then(r => r.json()),
+          fetch('/api/airtable/operations?table=content').then(r => r.json()),
+          fetch('/api/airtable/operations?table=affiliatePipeline').then(r => r.json()),
+          fetch('/api/airtable/career?table=income&limit=1').then(r => r.json()),
+          fetch('/api/airtable/career?table=opportunities').then(r => r.json()),
+          fetch('/api/airtable/career?table=resumes').then(r => r.json()),
+        ]);
 
       if (taskRes.status === 'fulfilled' && !taskRes.value.error) {
         setTasks(taskRes.value);
@@ -258,19 +404,34 @@ export default function Dashboard() {
         errs.tasks = taskRes.value?.error ?? taskRes.reason?.message;
       }
 
+      if (geoRes.status === 'fulfilled' && Array.isArray(geoRes.value)) {
+        const people = geoRes.value;
+        setGenealogyStats({
+          total:        people.length,
+          vincentLine:  people.filter(p => p.is_vincent_line).length,
+          caswellCounty: people.filter(p => p.is_caswell_county).length,
+        });
+      }
+
       if (notionRes.status === 'fulfilled' && !notionRes.value.error) {
         setCalendar(notionRes.value.calendar ?? []);
         setDuskLetters(notionRes.value.duskLetters ?? []);
       }
-      // Notion errors are silently shown as "not connected" panels
 
       if (pipelineRes.status === 'fulfilled' && !pipelineRes.value.error) {
-        setPipeline(pipelineRes.value);
+        setPipeline(Array.isArray(pipelineRes.value) ? pipelineRes.value : null);
       }
 
       if (atAffRes.status === 'fulfilled' && !atAffRes.value.error) {
-        setAtAffiliates(atAffRes.value);
+        setAtAffiliates(Array.isArray(atAffRes.value) ? atAffRes.value : null);
       }
+
+      if (revenueRes.status === 'fulfilled' && Array.isArray(revenueRes.value)) {
+        setRevenue(revenueRes.value);
+      }
+
+      if (jobsRes.status === 'fulfilled' && Array.isArray(jobsRes.value))     setJobs(jobsRes.value);
+      if (resumesRes.status === 'fulfilled' && Array.isArray(resumesRes.value)) setResumes(resumesRes.value);
 
       setErrors(errs);
       setLoading(false);
@@ -328,15 +489,17 @@ export default function Dashboard() {
             {saving && <span className="muted" style={{ fontSize: '0.8rem' }}>Saving…</span>}
           </div>
           <p className="muted" style={{ maxWidth: '52ch', marginBottom: 'var(--space-xl)' }}>
-            Supabase · Notion · Airtable — one view. Tasks toggle on click. Statuses update in place.
+            Supabase · Notion · Airtable (3 bases) — one view. Tasks toggle on click. Statuses update in place.
           </p>
 
           {/* ── Integration status pills ────────────────────── */}
           <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap', marginBottom: 'var(--space-xl)' }}>
             {[
-              { name: 'Supabase',  connected: tasks.length > 0,       color: '#3ecf8e' },
-              { name: 'Notion',    connected: calendar !== null,       color: '#c0a0f0' },
-              { name: 'Airtable',  connected: pipeline !== null,       color: '#f7ae3f' },
+              { name: 'Supabase',         connected: tasks.length > 0,      color: '#3ecf8e' },
+              { name: 'Genealogy DB',      connected: !!genealogyStats,      color: '#3ecf8e' },
+              { name: 'Notion',           connected: calendar !== null,      color: '#c0a0f0' },
+              { name: 'MM Operations',  connected: pipeline !== null, color: '#f7ae3f' },
+              { name: 'Writing Base',   connected: jobs !== null,     color: '#f7ae3f' },
             ].map(s => (
               <span key={s.name} style={{ fontSize: '0.75rem', fontWeight: 600, color: s.connected ? s.color : '#7f8c8d', background: s.connected ? `${s.color}22` : 'rgba(127,140,141,0.12)', borderRadius: 99, padding: '4px 12px', border: `1px solid ${s.connected ? `${s.color}44` : 'rgba(127,140,141,0.2)'}` }}>
                 {s.connected ? '● ' : '○ '}{s.name}
@@ -391,10 +554,37 @@ export default function Dashboard() {
               {divider}
               <SectionHeader
                 title="Affiliate Outreach"
-                sub={atAffiliates?.length ? `${atAffiliates.filter(a => a.status === 'Live').length} live · ${atAffiliates.filter(a => a.status === 'In Discussion').length} in discussion` : ''}
+                sub={atAffiliates?.length ? `${atAffiliates.filter(a => a.status === 'Partner').length} live · ${atAffiliates.filter(a => a.status === 'Replied').length} replied` : ''}
                 source="Airtable"
               />
               <AirtableAffiliates partners={atAffiliates} onStatusChange={updateAffiliateStatus} saving={saving} />
+
+              {/* ── AIRTABLE: Monthly Revenue ────────────────── */}
+              {divider}
+              <SectionHeader
+                title={`Revenue — ${revenue?.[0]?.month ?? 'Current Month'}`}
+                sub="vs $4,000/mo goal"
+                source="Airtable"
+              />
+              <RevenueLog months={revenue} />
+
+              {/* ── CAREER COMMAND ───────────────────────────── */}
+              {divider}
+              <SectionHeader
+                title="Career Command"
+                sub={jobs?.length ? `${jobs.filter(j => !['Rejected','Withdrawn'].includes(j.status)).length} active applications` : ''}
+                source="Airtable"
+              />
+              <CareerPanel jobs={jobs} resumes={resumes} mlis={null} />
+
+              {/* ── SUPABASE: Genealogy ──────────────────────── */}
+              {divider}
+              <SectionHeader
+                title="Vincent Family Tree"
+                sub={genealogyStats ? `${genealogyStats.total} individuals · ${genealogyStats.vincentLine} Vincent line` : ''}
+                source="Supabase"
+              />
+              <GenealogyPanel stats={genealogyStats} />
 
               {/* ── Dropship roadmap (static) ────────────────── */}
               {divider}
@@ -428,11 +618,12 @@ export default function Dashboard() {
               {divider}
               <SectionHeader title="Quick Links" />
               <div style={{ display: 'flex', gap: 'var(--space-md)', flexWrap: 'wrap' }}>
-                <a href="https://stan.store/MidnightMagnoliaSC" className="btn btn--outline" target="_blank" rel="noopener">Stan Store</a>
-                <a href="https://www.midnight-magnolia.com"      className="btn btn--outline" target="_blank" rel="noopener">Wix Site</a>
-                <a href="https://app.supabase.com"               className="btn btn--outline" target="_blank" rel="noopener">Supabase</a>
-                <a href="https://notion.so"                      className="btn btn--outline" target="_blank" rel="noopener">Notion</a>
-                <a href="https://airtable.com"                   className="btn btn--outline" target="_blank" rel="noopener">Airtable</a>
+                <a href="https://stan.store/MidnightMagnoliaSC"                                    className="btn btn--outline" target="_blank" rel="noopener">Stan Store</a>
+                <a href="https://www.midnight-magnolia.com"                                         className="btn btn--outline" target="_blank" rel="noopener">Wix Site</a>
+                <a href={`https://supabase.com/dashboard/project/ucgdtqkzjibsevgmnlqj`}            className="btn btn--outline" target="_blank" rel="noopener">Supabase</a>
+                <a href="https://notion.so"                                                         className="btn btn--outline" target="_blank" rel="noopener">Notion</a>
+                <a href="https://airtable.com"                                                      className="btn btn--outline" target="_blank" rel="noopener">Airtable</a>
+                <a href="https://ancestry.com"                                                      className="btn btn--outline" target="_blank" rel="noopener">Ancestry.com</a>
                 <Link href="/shop"      className="btn btn--outline">Shop Page</Link>
                 <Link href="/sanctuary" className="btn btn--outline">The Sanctuary</Link>
                 <Link href="/grimoire"  className="btn btn--outline">The Grimoire</Link>
