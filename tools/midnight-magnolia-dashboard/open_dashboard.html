@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Open Midnight Magnolia Dashboard</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #2d1f3d 50%, #4a3728 100%);
+            color: #faf7f2;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            margin: 0;
+            padding: 20px;
+        }
+        h1 {
+            font-size: 2.5em;
+            margin-bottom: 20px;
+        }
+        .btn {
+            display: inline-block;
+            padding: 20px 40px;
+            margin: 10px;
+            background: linear-gradient(135deg, #d4a574 0%, #e8a89c 100%);
+            color: #4a3728;
+            text-decoration: none;
+            border-radius: 12px;
+            font-size: 1.2em;
+            font-weight: bold;
+            transition: transform 0.3s;
+        }
+        .btn:hover {
+            transform: translateY(-3px);
+        }
+        .note {
+            margin-top: 30px;
+            color: #c9a8a8;
+            font-size: 0.9em;
+        }
+    </style>
+</head>
+<body>
+    <h1>🌸 Midnight Magnolia</h1>
+    <p>Click a button to open your dashboard:</p>
+    
+    <a href="http://127.0.0.1:8888" class="btn">Open Dashboard (127.0.0.1:8888)</a>
+    <a href="http://localhost:8888" class="btn">Open Dashboard (localhost:8888)</a>
+    
+    <p class="note">
+        If neither works, the server may not be running.<br>
+        Run: <code>python3 &lt;repo&gt;/tools/midnight-magnolia-dashboard/dashboard_app.py</code>
+    </p>
+</body>
+</html>

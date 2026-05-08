@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import Layout from '../components/Layout';
 import PageIllustration from '../components/PageIllustration';
 import { PAGE_ILLUSTRATIONS } from '../lib/brandAssets';
@@ -12,11 +12,15 @@ export default function Sanctuary() {
     message: '',
   });
 
-  const mailtoHref = `mailto:bgconscious@gmail.com?subject=${encodeURIComponent(
-    `Sanctuary contact from ${form.name || 'Website visitor'}`
-  )}&body=${encodeURIComponent(
-    `Name: ${form.name}\nEmail: ${form.email}\n\nMessage:\n${form.message}`
-  )}`;
+  const mailtoHref = useMemo(
+    () =>
+      `mailto:bgconscious@gmail.com?subject=${encodeURIComponent(
+        `Sanctuary contact from ${form.name || 'Website visitor'}`
+      )}&body=${encodeURIComponent(
+        `Name: ${form.name}\nEmail: ${form.email}\n\nMessage:\n${form.message}`
+      )}`,
+    [form.name, form.email, form.message]
+  );
 
   return (
     <Layout
