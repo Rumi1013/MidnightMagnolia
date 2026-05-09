@@ -1,70 +1,44 @@
-import {
-  getAirtableConfig,
-  listRecords,
-  updateRecord,
-  pipelineTable,
-} from '../../../lib/airtable';
+// GET  /api/airtable/pipeline          → content pipeline (unpublished)
+// PATCH /api/airtable/pipeline         → update a content item's status
+//   body: { id: 'recXXX', status: 'Ready' }
 
-function normalizePlatform(platform) {
-  if (platform == null) return [];
-  if (Array.isArray(platform)) return platform.map(String).filter(Boolean);
-  return String(platform)
-    .split(/\s*[;,]\s*/)
-    .filter(Boolean);
-}
+import { getContentPipeline, updateContentItem } from '../../../lib/airtable';
 
 export default async function handler(req, res) {
-  const cfg = getAirtableConfig();
-
-  const mapRecords = (records) =>
-    records.map((rec) => {
-      const fields = rec.fields ?? {};
-      return {
-        id: rec.id,
-        title: fields['Title'] ?? '',
-        type:
-          typeof fields['Type'] === 'string'
-            ? fields['Type']
-            : fields['Type']?.name ?? '',
-        platform: normalizePlatform(fields['Platform']),
-        isAffiliate: !!fields['Affiliate'],
-        publishDate: fields['Publish Date'] ?? null,
-        status: fields['Status'] ?? 'Idea',
-      };
-    });
-
   if (req.method === 'GET') {
-    if (!cfg.ok) {
-      return res.status(200).json({ connected: false, data: null });
-    }
     try {
-      const records = await listRecords(cfg, pipelineTable());
-      return res.status(200).json({ connected: true, data: mapRecords(records) });
-    } catch (e) {
-      return res.status(200).json({
-        connected: false,
-        data: null,
-        error: e?.message ?? 'Airtable request failed',
+      const pipeline = await getContentPipeline();
+      res.setHeader('Cache-Control', 's-maxage=120, stale-while-revalidate');
+      return res.status(200).json(pipeline);
+    } catch (err) {
+      console.error('[airtable/pipeline]', err.message);
+      const isConfig = err.message.includes('Missing');
+      return res.status(isConfig ? 503 : 500).json({
+        error: err.message,
+        hint: isConfig ? 'Add AIRTABLE_API_KEY and AIRTABLE_BASE_ID to .env.local.' : 'Airtable API error.',
       });
     }
   }
 
   if (req.method === 'PATCH') {
-    if (!cfg.ok) {
-      return res.status(400).json({ error: 'Airtable not configured' });
-    }
-    const { id, status } = req.body ?? {};
-    if (!id || status == null) {
-      return res.status(400).json({ error: 'id and status are required' });
-    }
+    const { id, ...fields } = req.body;
+    if (!id) return res.status(400).json({ error: 'Record id is required' });
+
+    // Map dashboard-friendly field names to Airtable field names
+    const airtableFields = {};
+    if (fields.status)      airtableFields['Status']       = fields.status;
+    if (fields.publishDate) airtableFields['Publish Date'] = fields.publishDate;
+    if (fields.notes)       airtableFields['Notes']        = fields.notes;
+
     try {
-      await updateRecord(cfg, pipelineTable(), id, { Status: status });
-      return res.status(200).json({ ok: true });
-    } catch (e) {
-      return res.status(500).json({ error: e?.message ?? 'Update failed' });
+      const updated = await updateContentItem(id, airtableFields);
+      return res.status(200).json({ id: updated.id, fields: updated.fields });
+    } catch (err) {
+      console.error('[airtable/pipeline PATCH]', err.message);
+      return res.status(500).json({ error: err.message });
     }
   }
 
   res.setHeader('Allow', ['GET', 'PATCH']);
-  return res.status(405).json({ error: `Method ${req.method} not allowed` });
+  res.status(405).json({ error: `Method ${req.method} not allowed` });
 }
