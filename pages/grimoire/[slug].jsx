@@ -1,6 +1,8 @@
 import Layout from '../../components/Layout';
 import Link from 'next/link';
 import { getGrimoirePosts, getPostBySlug, formatPostDate } from '../../lib/wix';
+import { useEffect, useState } from 'react';
+import { URLS } from '../../lib/constants';
 
 export async function getStaticPaths() {
   const posts = await getGrimoirePosts(50);
@@ -19,13 +21,39 @@ export async function getStaticProps({ params }) {
 }
 
 export default function GrimoirePost({ post }) {
+  const [gateOpen, setGateOpen] = useState(false);
+  const [hasHydrated, setHasHydrated] = useState(false);
   const title = post.title || 'Post';
   const excerpt = post.excerpt || '';
   const body = post.richContent || post.content || '';
 
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+    setGateOpen(window.localStorage.getItem('mm_grimoire_unlocked') === '1');
+    setHasHydrated(true);
+  }, []);
+
   return (
     <Layout title={title} description={excerpt}>
       <div className="container">
+        {!hasHydrated ? null : !gateOpen ? (
+          <section className="section">
+            <div className="card" style={{ maxWidth: 760, margin: '0 auto' }}>
+              <h2 style={{ marginBottom: 'var(--space-sm)' }}>Grimoire access required</h2>
+              <div className="divider" />
+              <p className="muted" style={{ marginBottom: 'var(--space-lg)' }}>
+                Unlock the Grimoire from the main page to read this entry.
+              </p>
+              <div style={{ display: 'flex', gap: 'var(--space-md)', flexWrap: 'wrap' }}>
+                <Link href="/grimoire" className="btn btn--primary">Go to Grimoire gate</Link>
+                <a href={URLS.stanStore} className="btn btn--outline" target="_blank" rel="noopener noreferrer">
+                  Get the Gentle Beginning
+                </a>
+              </div>
+            </div>
+          </section>
+        ) : (
+        <>
         <div className="page-hero">
           <p className="page-hero__eyebrow">
             <Link href="/grimoire" style={{ color: 'inherit' }}>
@@ -59,6 +87,8 @@ export default function GrimoirePost({ post }) {
           />
         ) : (
           <p className="muted">No body content returned for this post yet.</p>
+        )}
+        </>
         )}
       </div>
     </Layout>

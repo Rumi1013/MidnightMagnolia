@@ -51,6 +51,7 @@ function StatusPill({ status }) {
   const color = STATUS_COLOR[status] ?? '#7f8c8d';
   return (
     <span style={{ fontSize: '0.7rem', fontWeight: 600, color, background: `${color}22`, borderRadius: 99, padding: '2px 10px', whiteSpace: 'nowrap' }}>
+      {status || '—'}
       {status}
     </span>
   );
@@ -180,6 +181,8 @@ function ContentPipeline({ items, onStatusChange, saving }) {
           <select
             value={item.status}
             disabled={saving}
+            aria-label={`Status for ${item.title}`}
+            onChange={(e) => onStatusChange(item.id, e.target.value)}
             onChange={e => onStatusChange(item.id, e.target.value)}
             style={{ all: 'unset', fontSize: '0.7rem', fontWeight: 600, color: STATUS_COLOR[item.status] ?? '#aaa', background: `${STATUS_COLOR[item.status] ?? '#aaa'}22`, borderRadius: 99, padding: '2px 10px', cursor: 'pointer' }}
           >
@@ -191,6 +194,12 @@ function ContentPipeline({ items, onStatusChange, saving }) {
   );
 }
 
+function AirtableAffiliates({ partners, onStatusChange, saving }) {
+  if (partners === null) {
+    return <NotConnected name="Airtable Affiliate Partners" hint="Create the Affiliate Partners table in MM Command and invite the token’s workspace (see lib/airtable.js)." />;
+  }
+  if (!partners.length) return <EmptyPanel text="No affiliate rows yet." />;
+  const STATUS_OPTIONS = ['Not Contacted', 'Reached Out', 'In Discussion', 'Live'];
 // ── Airtable affiliate tracker ────────────────────────────────
 function AirtableAffiliates({ partners, onStatusChange, saving }) {
   if (!partners?.length) return <NotConnected name="Airtable Affiliate Tracker" hint="Add AIRTABLE_API_KEY + AIRTABLE_BASE_ID to .env.local and create an 'Affiliate Partners' table." />;
@@ -213,6 +222,8 @@ function AirtableAffiliates({ partners, onStatusChange, saving }) {
           <select
             value={a.status}
             disabled={saving}
+            aria-label={`Status for ${a.name}`}
+            onChange={(e) => onStatusChange(a.id, e.target.value)}
             onChange={e => onStatusChange(a.id, e.target.value)}
             style={{ all: 'unset', fontSize: '0.7rem', fontWeight: 600, color: STATUS_COLOR[a.status] ?? '#aaa', background: `${STATUS_COLOR[a.status] ?? '#aaa'}22`, borderRadius: 99, padding: '2px 10px', cursor: 'pointer' }}
           >
@@ -224,6 +235,23 @@ function AirtableAffiliates({ partners, onStatusChange, saving }) {
   );
 }
 
+function AirtableProducts({ items }) {
+  if (items === null) {
+    return <NotConnected name="Airtable Products" hint="Create the Products table in MM Command (see lib/airtable.js)." />;
+  }
+  if (!items.length) return <EmptyPanel text="No rows in Products yet." />;
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
+      {items.slice(0, 12).map(row => (
+        <div key={row.id} style={{ display: 'grid', gridTemplateColumns: '1fr auto auto', gap: 'var(--space-md)', alignItems: 'center', padding: '0.7rem 1rem', background: 'rgba(255,255,255,0.03)', borderRadius: 8, borderLeft: '3px solid rgba(247,174,63,0.35)' }}>
+          <div>
+            <span style={{ fontSize: '0.87rem' }}>{row.name}</span>
+            <div className="muted" style={{ fontSize: '0.72rem', marginTop: 2 }}>{row.sku || '— SKU'}</div>
+          </div>
+          <span className="muted" style={{ fontSize: '0.72rem' }}>Whole {row.wholesale ?? '—'} · Retail {row.retail ?? '—'}</span>
+          <StatusPill status={row.status} />
+        </div>
+      ))}
 // ── Revenue panel ─────────────────────────────────────────────
 function RevenueLog({ months }) {
   if (!months?.length) return <NotConnected name="Monthly Revenue Log" hint="Add AIRTABLE_BASE_ID + create 'Monthly Revenue Log' table in Airtable." />;

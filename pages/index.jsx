@@ -1,8 +1,52 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import Layout from '../components/Layout';
-import { BRAND_ASSETS } from '../lib/brandAssets';
+import {
+  BRAND_ASSETS,
+  HOME_SPOTLIGHT,
+  HOME_DOOR_ART,
+  HOME_CTA_ART,
+} from '../lib/brandAssets';
 import { URLS, PRODUCTS } from '../lib/constants';
+
+const HOME_DOORS = [
+  {
+    title: 'Work With Me',
+    desc: (
+      <>
+        Gentle, structured support for your workflows, career materials, and digital systems.
+        <br /><br />
+        We focus on clarity, not pressure—so you can move forward without burning out.
+      </>
+    ),
+    href: '/work-with-me',
+    cta: 'See Services',
+  },
+  {
+    title: 'The Shop',
+    desc: (
+      <>
+        Journals, planners, and digital tools designed for real life—low energy days included.
+        <br /><br />
+        Start small. Take what you need. Come back when you&apos;re ready.
+      </>
+    ),
+    href: '/shop',
+    cta: 'Browse Products',
+  },
+  {
+    title: 'The Grimoire',
+    desc: (
+      <>
+        Writing, archives, and healing-centered resources for the long haul.
+        <br /><br />
+        This is where story meets survival—and turns into something sacred.
+      </>
+    ),
+    href: '/grimoire',
+    cta: 'Read the Grimoire',
+  },
+];
 
 export default function Home() {
   // Show 3 featured products: the free starter, the $9 journal, and the flagship $49 bundle
@@ -15,8 +59,7 @@ export default function Home() {
         <div className="container">
           <p className="hero__eyebrow">Midnight Magnolia · Lowcountry, SC</p>
           <h1 className="hero__title">
-            A sanctuary for<br />
-            <em style={{ color: 'var(--color-amber)', fontStyle: 'italic' }}>quiet builders.</em>
+            A sanctuary for <em style={{ color: 'var(--color-amber)', fontStyle: 'italic' }}>quiet builders.</em>
           </h1>
           <p className="hero__subtitle">
             Shadow work journals, a healing membership, and slow-build consulting — made for neurodivergent
@@ -31,8 +74,8 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ── Artwork · organized library ───────────────────────── */}
-      <section className="section section--linen">
+      {/* ── Catalog (living archive) ─────────────────────────── */}
+      <section id="catalog" className="section section--linen">
         <div className="container">
           <h2>From the illustration library.</h2>
           <div className="divider" />
@@ -57,11 +100,16 @@ export default function Home() {
               </figure>
             ))}
           </div>
+          <p className="muted" style={{ marginTop: 'var(--space-lg)', fontSize: '0.875rem', maxWidth: '48ch' }}>
+            <a href={URLS.booking} target="_blank" rel="noopener noreferrer">Book a session</a>
+            {' · '}
+            <Link href="/work-with-me">See how we work together</Link>
+          </p>
         </div>
       </section>
 
-      {/* ── Stats ────────────────────────────────────────────── */}
-      <section className="section section--dark">
+      {/* ── About / positioning ───────────────────────────────── */}
+      <section className="section section--dusk home-about" aria-labelledby="about-heading">
         <div className="container">
           <h2 style={{ textAlign: 'center', marginBottom: 'var(--space-lg)' }}>The work, in numbers.</h2>
           <div className="stat-grid">
@@ -80,10 +128,10 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ── Three Doors ──────────────────────────────────────── */}
-      <section className="section">
+      {/* ── Three pathways ───────────────────────────────────── */}
+      <section className="section" aria-labelledby="doors-heading">
         <div className="container">
-          <h2>Three ways in.</h2>
+          <h2 id="doors-heading">Three ways in.</h2>
           <div className="divider" />
           <div className="grid-3" style={{ marginTop: 'var(--space-lg)' }}>
             {[
@@ -113,19 +161,22 @@ export default function Home() {
                 <Link href={door.href} className="btn btn--ghost" style={{ marginTop: 'var(--space-lg)', display: 'inline-block' }}>
                   {door.cta}
                 </Link>
-              </div>
-            ))}
+              );
+            })}
           </div>
         </div>
       </section>
 
-      {/* ── Featured Products ─────────────────────────────────── */}
+      {/* ── Shop feature ──────────────────────────────────────── */}
       <section className="section section--dusk">
         <div className="container">
           <div className="flex-between" style={{ marginBottom: 'var(--space-lg)' }}>
             <div>
-              <h2>From the shop.</h2>
+              <h2>Start where it feels light.</h2>
               <div className="divider" />
+              <p className="muted" style={{ maxWidth: '46ch', marginTop: 'var(--space-sm)', fontSize: '0.9rem' }}>
+                You don&apos;t need everything. Just one tool that meets you where you are.
+              </p>
             </div>
             <Link href="/shop" className="btn btn--outline">All Products</Link>
           </div>
@@ -147,8 +198,8 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ── CTA Banner ───────────────────────────────────────── */}
-      <section className="section section--dark" style={{ textAlign: 'center' }}>
+      {/* ── Philosophy / quote ─────────────────────────────────── */}
+      <section className="section section--dark home-quote" aria-labelledby="philosophy-heading">
         <div className="container">
           <h2 style={{ maxWidth: '20ch', margin: '0 auto' }}>
             "The work is not to do more.<br />

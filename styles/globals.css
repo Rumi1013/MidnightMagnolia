@@ -95,28 +95,29 @@ h4 { font-size: 1rem; letter-spacing: 0.07em; text-transform: uppercase; font-fa
 
 p { max-width: 65ch; line-height: 1.8; }
 
-/* Links on dark backgrounds (default site chrome) */
-a:not(.btn):not(.nav__cta) {
+/* Links on dark backgrounds (default site chrome).
+   Exclude .card / .card-link: those use a.card-link rules (0,1,1) and would lose to this (0,2,1) if matched. */
+a:not(.btn):not(.nav__cta):not(.card):not(.card-link) {
   color: var(--color-link-on-dark);
   text-decoration: underline;
   text-decoration-color: rgba(250, 243, 224, 0.35);
   text-underline-offset: 0.18em;
   transition: color var(--transition), text-decoration-color var(--transition);
 }
-a:not(.btn):not(.nav__cta):hover {
+a:not(.btn):not(.nav__cta):not(.card):not(.card-link):hover {
   color: var(--color-link-on-dark-hover);
   text-decoration-color: rgba(198, 167, 94, 0.65);
 }
-a:not(.btn):not(.nav__cta):visited {
+a:not(.btn):not(.nav__cta):not(.card):not(.card-link):visited {
   color: #e2d8c8;
 }
 
-.section--linen a:not(.btn),
-.section--linen a:not(.btn):visited {
+.section--linen a:not(.btn):not(.card):not(.card-link),
+.section--linen a:not(.btn):not(.card):not(.card-link):visited {
   color: var(--color-link-on-light);
   text-decoration-color: rgba(74, 36, 52, 0.35);
 }
-.section--linen a:not(.btn):hover {
+.section--linen a:not(.btn):not(.card):not(.card-link):hover {
   color: var(--color-link-on-light-hover);
   text-decoration-color: rgba(107, 33, 48, 0.55);
 }
@@ -441,6 +442,219 @@ a.card-link:hover {
   letter-spacing: 0.04em;
   font-style: italic;
   color: rgba(45, 30, 47, 0.62);
+}
+
+/* ── Home: spotlight (art + CTAs) ─────────────────────────── */
+.section--spotlight {
+  overflow: hidden;
+}
+
+.home-spotlight {
+  display: grid;
+  gap: var(--space-xl);
+  align-items: center;
+}
+
+@media (min-width: 900px) {
+  .home-spotlight {
+    grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+    gap: var(--space-xl);
+  }
+}
+
+.home-spotlight__media {
+  position: relative;
+  width: 100%;
+  min-height: 260px;
+  aspect-ratio: 4 / 3;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  border: 1px solid rgba(var(--color-amber-rgb), 0.28);
+  box-shadow: 0 28px 56px rgba(0, 0, 0, 0.38);
+}
+
+@media (min-width: 900px) {
+  .home-spotlight__media {
+    min-height: 320px;
+    aspect-ratio: 5 / 4;
+  }
+}
+
+.home-spotlight__copy .divider {
+  margin-bottom: var(--space-md);
+}
+
+.home-spotlight__ctas {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-md);
+}
+
+/* ── Home: door cards (illustration + path) ──────────────── */
+.door-grid {
+  align-items: stretch;
+}
+
+.door-card {
+  display: flex;
+  flex-direction: column;
+  background: var(--color-dusk);
+  border-radius: var(--radius-lg);
+  border: 1px solid rgba(var(--color-amber-rgb), 0.14);
+  overflow: hidden;
+  transition: border-color var(--transition), transform var(--transition);
+}
+
+.door-card:hover {
+  border-color: rgba(var(--color-amber-rgb), 0.4);
+  transform: translateY(-3px);
+}
+
+.door-card__media {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  flex-shrink: 0;
+  background: var(--color-indigo-night);
+}
+
+.door-card__body {
+  padding: var(--space-lg);
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.door-card__body .muted {
+  flex: 1;
+}
+
+.door-card__btn {
+  margin-top: var(--space-md);
+  align-self: flex-start;
+  padding: 0.55rem 1.2rem;
+  font-size: 0.72rem;
+}
+
+/* ── Home: bottom split CTA (art + quote + actions) ─────── */
+.section--cta-split {
+  overflow: hidden;
+}
+
+.home-cta-split {
+  display: grid;
+  gap: var(--space-xl);
+  align-items: stretch;
+}
+
+@media (min-width: 900px) {
+  .home-cta-split {
+    grid-template-columns: minmax(0, 0.4fr) minmax(0, 1fr);
+    gap: var(--space-xl);
+  }
+}
+
+.home-cta-split__media {
+  position: relative;
+  width: 100%;
+  min-height: 280px;
+  aspect-ratio: 4 / 5;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  border: 1px solid rgba(var(--color-amber-rgb), 0.24);
+}
+
+@media (min-width: 900px) {
+  .home-cta-split__media {
+    min-height: 100%;
+    aspect-ratio: auto;
+    height: 100%;
+    min-height: 340px;
+  }
+}
+
+.home-cta-split__copy {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.home-cta-split__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-md);
+  margin-top: var(--space-lg);
+}
+
+/* ── Home: about + quote (copy-forward bands) ─────────────── */
+.home-about__body {
+  max-width: 52ch;
+  margin-top: var(--space-md);
+}
+
+.home-quote .container {
+  max-width: 46rem;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+}
+
+.home-quote__blockquote {
+  margin: 0;
+  padding: 0;
+  border: none;
+}
+
+.home-quote__lead {
+  font-family: var(--font-display);
+  font-size: clamp(1.65rem, 3.8vw, 2.45rem);
+  line-height: 1.35;
+  color: var(--color-magnolia);
+}
+
+.home-quote__support {
+  margin-top: var(--space-xl);
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 36ch;
+  text-align: center;
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* ── Resources: Amazon picks (affiliate list) ───────────── */
+.amazon-picks__block {
+  margin-bottom: var(--space-xl);
+}
+
+.amazon-picks__block:first-of-type .amazon-picks__title {
+  margin-top: 0;
+}
+
+.amazon-picks__title {
+  font-size: clamp(1.25rem, 2.5vw, 1.65rem);
+  margin-top: var(--space-lg);
+  margin-bottom: var(--space-sm);
+}
+
+.amazon-picks__intro {
+  font-size: 0.9rem;
+  max-width: 56ch;
+  margin-bottom: var(--space-md);
+}
+
+.amazon-picks__block .grid-3 {
+  margin-bottom: var(--space-sm);
 }
 
 /* ── Responsive ─────────────────────────────────────────── */
