@@ -1,24 +1,41 @@
 /**
- * Smoke-test Wix modules (matches Wix dashboard “Get code” snippets).
- * Run from repo root: node --env-file=.env.local scripts/wix-api-smoke.mjs
- * Requires: NEXT_PUBLIC_WIX_CLIENT_ID
+ * Smoke-test Wix modules (matches Wix dashboard "Get code" snippets).
+ * Run from repo root: npm run wix:smoke
+ *   (equivalent to: node --env-file=.env.local scripts/wix-api-smoke.mjs)
+ *
+ * Auth precedence mirrors lib/wix.js:
+ *   1. WIX_API_KEY + WIX_SITE_ID  → ApiKeyStrategy (authenticated server reads)
+ *   2. WIX_CLIENT_ID / NEXT_PUBLIC_WIX_CLIENT_ID → OAuthStrategy (public reads)
  */
-import { createClient, OAuthStrategy } from '@wix/sdk';
+import { createClient, OAuthStrategy, ApiKeyStrategy } from '@wix/sdk';
 import { posts } from '@wix/blog';
 import { products, collections } from '@wix/stores';
 import { services } from '@wix/bookings';
 import { wixEventsV2 } from '@wix/events';
 import { items } from '@wix/data';
 
-const clientId = process.env.NEXT_PUBLIC_WIX_CLIENT_ID;
-if (!clientId) {
-  console.error('Set NEXT_PUBLIC_WIX_CLIENT_ID in .env.local');
+const apiKey = process.env.WIX_API_KEY;
+const siteId = process.env.WIX_SITE_ID;
+const clientId = process.env.WIX_CLIENT_ID || process.env.NEXT_PUBLIC_WIX_CLIENT_ID;
+
+let auth;
+let mode;
+if (apiKey && siteId && apiKey !== 'your_wix_api_key_here' && siteId !== 'your_wix_site_id_here') {
+  auth = ApiKeyStrategy({ apiKey, siteId });
+  mode = 'API key (authenticated)';
+} else if (clientId && clientId !== 'your_wix_client_id_here') {
+  auth = OAuthStrategy({ clientId });
+  mode = 'OAuth client ID (public)';
+} else {
+  console.error('No Wix credentials found. Set WIX_API_KEY+WIX_SITE_ID or NEXT_PUBLIC_WIX_CLIENT_ID in .env.local');
   process.exit(1);
 }
 
+console.log(`Auth mode: ${mode}\n`);
+
 const myWixClient = createClient({
   modules: { posts, products, collections, services, wixEventsV2, items },
-  auth: OAuthStrategy({ clientId }),
+  auth,
 });
 
 const collection =
