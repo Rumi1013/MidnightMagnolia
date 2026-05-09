@@ -1,60 +1,42 @@
-import {
-  getAirtableConfig,
-  listRecords,
-  updateRecord,
-  affiliatesTable,
-} from '../../../lib/airtable';
+// GET  /api/airtable/affiliates        → partner list from Airtable
+// PATCH /api/airtable/affiliates       → update partner status/notes
+//   body: { id: 'recXXX', status: 'Reached Out', notes: '...' }
+
+import { getAffiliatePartners, updateAffiliate } from '../../../lib/airtable';
 
 export default async function handler(req, res) {
-  const cfg = getAirtableConfig();
-
-  const mapRecords = (records) =>
-    records.map((rec) => {
-      const fields = rec.fields ?? {};
-      return {
-        id: rec.id,
-        name: fields['Name'] ?? '',
-        tier: typeof fields['Tier'] === 'number' ? fields['Tier'] : 0,
-        score: typeof fields['Score'] === 'number' ? fields['Score'] : 0,
-        contact: fields['Contact'] ?? '',
-        action: fields['Action'] ?? '',
-        commission: fields['Commission'] ?? '',
-        status: fields['Status'] ?? 'Not Contacted',
-      };
-    });
-
   if (req.method === 'GET') {
-    if (!cfg.ok) {
-      return res.status(200).json({ connected: false, data: null });
-    }
     try {
-      const records = await listRecords(cfg, affiliatesTable());
-      return res.status(200).json({ connected: true, data: mapRecords(records) });
-    } catch (e) {
-      return res.status(200).json({
-        connected: false,
-        data: null,
-        error: e?.message ?? 'Airtable request failed',
+      const partners = await getAffiliatePartners();
+      res.setHeader('Cache-Control', 's-maxage=120, stale-while-revalidate');
+      return res.status(200).json(partners);
+    } catch (err) {
+      console.error('[airtable/affiliates]', err.message);
+      const isConfig = err.message.includes('Missing');
+      return res.status(isConfig ? 503 : 500).json({
+        error: err.message,
+        hint: isConfig ? 'Add AIRTABLE_API_KEY and AIRTABLE_BASE_ID to .env.local.' : 'Airtable API error.',
       });
     }
   }
 
   if (req.method === 'PATCH') {
-    if (!cfg.ok) {
-      return res.status(400).json({ error: 'Airtable not configured' });
-    }
-    const { id, status } = req.body ?? {};
-    if (!id || status == null) {
-      return res.status(400).json({ error: 'id and status are required' });
-    }
+    const { id, status, notes } = req.body;
+    if (!id) return res.status(400).json({ error: 'Record id is required' });
+
+    const fields = {};
+    if (status !== undefined) fields['Status'] = status;
+    if (notes  !== undefined) fields['Notes']  = notes;
+
     try {
-      await updateRecord(cfg, affiliatesTable(), id, { Status: status });
-      return res.status(200).json({ ok: true });
-    } catch (e) {
-      return res.status(500).json({ error: e?.message ?? 'Update failed' });
+      const updated = await updateAffiliate(id, fields);
+      return res.status(200).json({ id: updated.id, fields: updated.fields });
+    } catch (err) {
+      console.error('[airtable/affiliates PATCH]', err.message);
+      return res.status(500).json({ error: err.message });
     }
   }
 
   res.setHeader('Allow', ['GET', 'PATCH']);
-  return res.status(405).json({ error: `Method ${req.method} not allowed` });
+  res.status(405).json({ error: `Method ${req.method} not allowed` });
 }

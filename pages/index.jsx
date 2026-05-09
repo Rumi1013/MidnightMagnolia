@@ -49,7 +49,8 @@ const HOME_DOORS = [
 ];
 
 export default function Home() {
-  const featuredProducts = PRODUCTS.filter(p => p.tag !== 'Coming Soon').slice(0, 3);
+  // Show 3 featured products: the free starter, the $9 journal, and the flagship $49 bundle
+  const featuredProducts = PRODUCTS.filter(p => ['gentle-beginning', 'shadow-work-starter', 'deep-roots'].includes(p.id));
 
   return (
     <Layout>
@@ -61,52 +62,14 @@ export default function Home() {
             A sanctuary for <em style={{ color: 'var(--color-amber)', fontStyle: 'italic' }}>quiet builders.</em>
           </h1>
           <p className="hero__subtitle">
-            Southern Gothic tools, digital offerings, and gentle strategy for neurodivergent creators who are done forcing urgency.
-          </p>
-          <p className="muted" style={{ maxWidth: '52ch', marginBottom: 'var(--space-xl)', fontSize: '1.05rem' }}>
-            You don&apos;t have to move faster to build something meaningful. You just need something that holds.
+            Shadow work journals, a healing membership, and slow-build consulting — made for neurodivergent
+            creators who know their pace is not a problem.
           </p>
           <div className="hero__actions">
             <a href={URLS.booking} className="btn btn--primary" target="_blank" rel="noopener noreferrer">
               Book a Session
             </a>
-            <Link href="/shop" className="btn btn--outline">Visit the Shop</Link>
-            <a href={URLS.patreon} className="btn btn--ghost" target="_blank" rel="noopener noreferrer">Join Patreon</a>
-          </div>
-        </div>
-      </section>
-
-      {/* ── Visual language / art ─────────────────────────────── */}
-      <section className="section section--dark section--spotlight" aria-labelledby="spotlight-heading">
-        <div className="container home-spotlight">
-          <div className="home-spotlight__media">
-            <Image
-              src={HOME_SPOTLIGHT.src}
-              alt={HOME_SPOTLIGHT.alt}
-              fill
-              sizes="(max-width: 900px) 100vw, 50vw"
-              style={{ objectFit: 'cover', objectPosition: HOME_SPOTLIGHT.objectPosition }}
-            />
-          </div>
-          <div className="home-spotlight__copy">
-            <p className="page-hero__eyebrow" style={{ marginBottom: 'var(--space-sm)' }}>{HOME_SPOTLIGHT.eyebrow}</p>
-            <h2 id="spotlight-heading">{HOME_SPOTLIGHT.title}</h2>
-            <div className="divider" />
-            <p className="muted" style={{ marginBottom: 'var(--space-md)', maxWidth: '48ch' }}>
-              Every piece you see here is part of a living archive—magnolia blooms, lantern paths, quiet altars, and ancestral symbols that ground the work.
-            </p>
-            <p className="muted" style={{ marginBottom: 'var(--space-md)', maxWidth: '42ch' }}>
-              This isn&apos;t decoration.
-              <br />
-              It&apos;s structure.
-            </p>
-            <p className="muted" style={{ marginBottom: 'var(--space-lg)', maxWidth: '48ch' }}>
-              The same visual language flows through the shop, the sessions, and the systems we build together—so your brand doesn&apos;t just look good…{' '}
-              <em style={{ color: 'var(--color-amber)', fontStyle: 'italic' }}>it feels like home</em>.
-            </p>
-            <div className="home-spotlight__ctas">
-              <Link href="#catalog" className="btn btn--primary">View the Catalog</Link>
-            </div>
+            <Link href="/shop" className="btn btn--outline">Browse the Shop</Link>
           </div>
         </div>
       </section>
@@ -114,10 +77,10 @@ export default function Home() {
       {/* ── Catalog (living archive) ─────────────────────────── */}
       <section id="catalog" className="section section--linen">
         <div className="container">
-          <h2>The catalog</h2>
+          <h2>From the illustration library.</h2>
           <div className="divider" />
           <p className="muted" style={{ maxWidth: '52ch', marginTop: 'var(--space-md)' }}>
-            Magnolia priestess and riverwalk lantern path—pieces from the organized library that show up across the shop, sessions, and story.
+            Original pieces from the <strong>Magnolia Priestess</strong> and <strong>Riverwalk Lantern Path</strong> series — two collections in the Midnight Magnolia catalog.
           </p>
           <div className="art-strip">
             {BRAND_ASSETS.gallery.map((img) => (
@@ -148,21 +111,19 @@ export default function Home() {
       {/* ── About / positioning ───────────────────────────────── */}
       <section className="section section--dusk home-about" aria-labelledby="about-heading">
         <div className="container">
-          <h2 id="about-heading" className="visually-hidden">About this space</h2>
-          <p style={{ fontFamily: 'var(--font-display)', fontSize: 'clamp(1.25rem, 2.5vw, 1.65rem)', maxWidth: '40ch', lineHeight: 1.45, marginBottom: 'var(--space-lg)' }}>
-            This space was built for creators who think deeply, feel everything, and are tired of pretending that burnout is normal.
-          </p>
-          <div className="divider" />
-          <div className="home-about__body muted">
-            <p style={{ marginBottom: 'var(--space-md)' }}>Here, we move differently.</p>
-            <p style={{ marginBottom: 'var(--space-md)' }}>
-              We build businesses that respect our energy.
-              <br />
-              We create systems that don&apos;t punish inconsistency.
-              <br />
-              We design work that can hold grief, healing, joy, and ambition—all at once.
-            </p>
-            <p>You&apos;re allowed to build something soft… and still be powerful.</p>
+          <h2 style={{ textAlign: 'center', marginBottom: 'var(--space-lg)' }}>The work, in numbers.</h2>
+          <div className="stat-grid">
+            {[
+              { number: '$1.5M+', label: 'Funding Secured' },
+              { number: '610+',   label: 'Program Participants' },
+              { number: '15+',    label: 'Years of Leadership' },
+              { number: '$300K+', label: 'Annual Budget Managed' },
+            ].map(s => (
+              <div className="stat-block" key={s.label}>
+                <span className="stat-number">{s.number}</span>
+                <span className="stat-label">{s.label}</span>
+              </div>
+            ))}
           </div>
         </div>
       </section>
@@ -172,29 +133,33 @@ export default function Home() {
         <div className="container">
           <h2 id="doors-heading">Three ways in.</h2>
           <div className="divider" />
-          <p className="muted" style={{ maxWidth: '52ch', marginTop: 'var(--space-md)' }}>
-            Each path is rooted in the same intention: build something that supports your life—not the other way around.
-          </p>
-          <div className="grid-3 door-grid" style={{ marginTop: 'var(--space-lg)' }}>
-            {HOME_DOORS.map((door, i) => {
-              const art = HOME_DOOR_ART[i];
-              return (
-                <Link key={door.title} href={door.href} className="door-card card-link">
-                  <div className="door-card__media">
-                    <Image
-                      src={art.src}
-                      alt={art.alt}
-                      fill
-                      sizes="(max-width: 768px) 100vw, 33vw"
-                      style={{ objectFit: 'cover', objectPosition: art.objectPosition }}
-                    />
-                  </div>
-                  <div className="door-card__body">
-                    <h3>{door.title}</h3>
-                    <div className="divider" style={{ width: 32 }} />
-                    <div className="muted" style={{ fontSize: '0.9rem', lineHeight: 1.75 }}>{door.desc}</div>
-                    <span className="btn btn--ghost door-card__btn">{door.cta}</span>
-                  </div>
+          <div className="grid-3" style={{ marginTop: 'var(--space-lg)' }}>
+            {[
+              {
+                title: 'The Healing Shop',
+                desc:  'Six products built as one healing ecosystem — from the free starter kit to the Deep Roots Shadow Work System. Begin anywhere.',
+                href:  '/shop',
+                cta:   'Browse the Shop',
+              },
+              {
+                title: 'Magnolia Circle',
+                desc:  'A $9/month membership with monthly shadow work prompts, ritual practices, and the member edition of Dusk Letters.',
+                href:  '/shop',
+                cta:   'Join the Circle',
+              },
+              {
+                title: 'Work With Me',
+                desc:  'One-on-one consulting, AI literacy workshops, and done-for-you career docs — built for quiet builders ready to move.',
+                href:  '/work-with-me',
+                cta:   'See Services',
+              },
+            ].map(door => (
+              <div className="card" key={door.title}>
+                <h3>{door.title}</h3>
+                <div className="divider" style={{ width: 32 }} />
+                <p className="muted">{door.desc}</p>
+                <Link href={door.href} className="btn btn--ghost" style={{ marginTop: 'var(--space-lg)', display: 'inline-block' }}>
+                  {door.cta}
                 </Link>
               );
             })}
@@ -224,7 +189,7 @@ export default function Home() {
                 <div className="flex-between" style={{ marginTop: 'var(--space-lg)' }}>
                   <span style={{ fontFamily: 'var(--font-display)', fontSize: '1.5rem', color: 'var(--color-amber)' }}>{p.price}</span>
                   <a href={p.url} className="btn btn--primary" style={{ padding: '0.5rem 1.2rem' }} target="_blank" rel="noopener">
-                    Get It Now
+                    Get It
                   </a>
                 </div>
               </div>
@@ -236,57 +201,16 @@ export default function Home() {
       {/* ── Philosophy / quote ─────────────────────────────────── */}
       <section className="section section--dark home-quote" aria-labelledby="philosophy-heading">
         <div className="container">
-          <h2 id="philosophy-heading" className="visually-hidden">Philosophy</h2>
-          <blockquote className="home-quote__blockquote">
-            <p className="home-quote__lead">
-              &ldquo;The work is not to do more.
-              <br />
-              <em style={{ color: 'var(--color-amber)', fontStyle: 'italic' }}>It is to build something that holds.&rdquo;</em>
-            </p>
-          </blockquote>
-          <p className="muted home-quote__support">
-            You&apos;re not behind.
-            <br />
-            You&apos;re building differently.
-            <br /><br />
-            And that difference is the point.
+          <h2 style={{ maxWidth: '20ch', margin: '0 auto' }}>
+            "The work is not to do more.<br />
+            <em style={{ color: 'var(--color-amber)' }}>It is to build something that holds.</em>"
+          </h2>
+          <p className="muted" style={{ maxWidth: '44ch', margin: 'var(--space-md) auto 0' }}>
+            You don't have to hustle your way here. Start where you are.
           </p>
-        </div>
-      </section>
-
-      {/* ── Final CTA ─────────────────────────────────────────── */}
-      <section className="section section--dark section--cta-split" aria-labelledby="final-cta-heading">
-        <div className="container home-cta-split">
-          <div className="home-cta-split__media">
-            <Image
-              src={HOME_CTA_ART.src}
-              alt={HOME_CTA_ART.alt}
-              fill
-              sizes="(max-width: 900px) 100vw, 42vw"
-              style={{ objectFit: 'cover', objectPosition: HOME_CTA_ART.objectPosition }}
-            />
-          </div>
-          <div className="home-cta-split__copy">
-            <h2 id="final-cta-heading" style={{ maxWidth: '22ch', textAlign: 'left' }}>
-              Begin where you are.
-            </h2>
-            <div className="divider" />
-            <p className="muted" style={{ marginTop: 'var(--space-md)', maxWidth: '44ch' }}>
-              Whether you need structure, softness, or support—there&apos;s a path here for you.
-            </p>
-            <p className="muted" style={{ marginTop: 'var(--space-sm)', maxWidth: '40ch' }}>
-              Take a step.
-              <br />
-              We&apos;ll meet you there.
-            </p>
-            <div className="home-cta-split__actions">
-              <a href={URLS.booking} className="btn btn--primary" target="_blank" rel="noopener noreferrer">
-                Book a Session
-              </a>
-              <a href={URLS.stanStore} className="btn btn--outline" target="_blank" rel="noopener noreferrer">Visit the Shop</a>
-              <a href={URLS.bmac} className="btn btn--ghost" target="_blank" rel="noopener noreferrer">Support on BMAC</a>
-              <Link href="/sanctuary" className="btn btn--ghost">Read the Story</Link>
-            </div>
+          <div style={{ marginTop: 'var(--space-lg)', display: 'flex', gap: 'var(--space-md)', justifyContent: 'center', flexWrap: 'wrap' }}>
+            <Link href="/sanctuary" className="btn btn--outline">Read the Story</Link>
+            <Link href="/shop" className="btn btn--primary">Browse the Shop</Link>
           </div>
         </div>
       </section>
