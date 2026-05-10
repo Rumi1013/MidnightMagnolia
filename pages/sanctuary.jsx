@@ -4,8 +4,33 @@ import Layout from '../components/Layout';
 import PageIllustration from '../components/PageIllustration';
 import { PAGE_ILLUSTRATIONS } from '../lib/brandAssets';
 import { URLS } from '../lib/constants';
+import {
+  getBookingServices,
+  formatServicePrice,
+  formatServiceDuration,
+  getServiceBookingUrl,
+} from '../lib/wix';
 
-export default function Sanctuary() {
+export async function getStaticProps() {
+  const raw = await getBookingServices(20);
+  const previewServices = (raw || [])
+    .filter((s) => s?.hidden !== true)
+    .slice(0, 3)
+    .map((s) => ({
+      id: s._id,
+      name: s.name || 'Untitled service',
+      tagline: s.tagLine || '',
+      price: formatServicePrice(s),
+      duration: formatServiceDuration(s),
+      url: getServiceBookingUrl(s) || URLS.booking,
+    }));
+  return {
+    props: { previewServices },
+    revalidate: 300,
+  };
+}
+
+export default function Sanctuary({ previewServices = [] }) {
   const [form, setForm] = useState({
     name: '',
     email: '',
@@ -102,6 +127,73 @@ export default function Sanctuary() {
             </a>
           </div>
         </section>
+
+        {previewServices.length > 0 && (
+          <section className="section">
+            <h2>Work with me.</h2>
+            <div className="divider" />
+            <p className="muted" style={{ maxWidth: '56ch', marginBottom: 'var(--space-lg)' }}>
+              A few sessions to help you move with intention. Booking happens on the secure Wix
+              calendar — pick a time that fits your week.
+            </p>
+            <div className="grid-3">
+              {previewServices.map((s) => (
+                <article
+                  className="card"
+                  key={s.id}
+                  style={{ display: 'flex', flexDirection: 'column' }}
+                >
+                  <h3 style={{ fontSize: '1.15rem' }}>{s.name}</h3>
+                  {s.tagline && (
+                    <p className="muted" style={{ fontSize: '0.875rem', flex: 1, marginTop: '0.4rem' }}>
+                      {s.tagline}
+                    </p>
+                  )}
+                  <div
+                    style={{
+                      display: 'flex',
+                      gap: '0.5rem',
+                      flexWrap: 'wrap',
+                      marginTop: 'var(--space-md)',
+                    }}
+                  >
+                    {s.duration && (
+                      <span className="tag" style={{ fontSize: '0.7rem' }}>
+                        {s.duration}
+                      </span>
+                    )}
+                    {s.price && (
+                      <span
+                        className="tag"
+                        style={{
+                          fontSize: '0.7rem',
+                          background: 'var(--color-amber)',
+                          color: 'var(--color-ink)',
+                        }}
+                      >
+                        {s.price}
+                      </span>
+                    )}
+                  </div>
+                  <a
+                    href={s.url}
+                    className="btn btn--outline"
+                    style={{ marginTop: 'var(--space-md)', alignSelf: 'flex-start' }}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    Book this session
+                  </a>
+                </article>
+              ))}
+            </div>
+            <div style={{ marginTop: 'var(--space-lg)' }}>
+              <Link href="/services" className="btn btn--ghost">
+                View all sessions →
+              </Link>
+            </div>
+          </section>
+        )}
 
         <section className="section">
           <h2>About Latisha.</h2>

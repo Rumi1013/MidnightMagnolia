@@ -1,56 +1,162 @@
+import Image from 'next/image';
 import Layout from '../../components/Layout';
 import PageIllustration from '../../components/PageIllustration';
 import { PAGE_ILLUSTRATIONS } from '../../lib/brandAssets';
-import { PRODUCTS, URLS } from '../../lib/constants';
+import { URLS } from '../../lib/constants';
+import {
+  getShopProducts,
+  formatProductPrice,
+  getProductImageUrl,
+  getProductPageUrl,
+  stripHtml,
+} from '../../lib/wix';
 
-export default function Shop() {
-  const active  = PRODUCTS.filter(p => p.tag !== 'Coming Soon');
-  const coming  = PRODUCTS.find(p => p.tag === 'Coming Soon');
+export async function getStaticProps() {
+  const raw = await getShopProducts();
+  const products = (raw || [])
+    .filter((p) => p?.visible !== false)
+    .map((p) => ({
+      id: p._id,
+      name: p.name || 'Untitled',
+      slug: p.slug || '',
+      description: stripHtml(p.description, 240),
+      price: formatProductPrice(p),
+      image: getProductImageUrl(p),
+      url: getProductPageUrl(p) || URLS.stanStore,
+      ribbon: p.ribbon || null,
+      inStock: p.stock?.inStock !== false,
+    }));
+  return {
+    props: { products },
+    revalidate: 300,
+  };
+}
 
+export default function Shop({ products }) {
   return (
-    <Layout title="The Shop" description="Digital products for quiet builders — journals, planners, career tools, and the Soft Business Guide. From $9.">
+    <Layout
+      title="The Shop"
+      description="Digital and physical products from Midnight Magnolia — journals, planners, shadow work tools, and apparel for quiet builders."
+    >
       <div className="container">
         <div className="page-hero">
           <p className="page-hero__eyebrow">The Shop</p>
           <h1>Tools for quiet builders.</h1>
           <div className="divider" />
           <p className="hero__subtitle">
-            Digital products to help you move with intention — from career documents to shadow work journals.
-            No subscriptions required. Instant download.
+            Healing-centered journals, shadow work tools, and apparel rooted in Lowcountry care.
+            Checkout happens on the Wix storefront — secure and instant.
           </p>
         </div>
 
         <PageIllustration illustration={PAGE_ILLUSTRATIONS.shop} />
 
         <section className="section">
-          <div className="grid-3">
-            {active.map(p => (
-              <div className="card" key={p.id} style={{ display: 'flex', flexDirection: 'column' }}>
-                {p.tag && <span className="tag" style={{ marginBottom: 'var(--space-md)', display: 'inline-block' }}>{p.tag}</span>}
-                <h3 style={{ fontSize: '1.2rem' }}>{p.title}</h3>
-                <p style={{ fontSize: '0.8rem', color: 'var(--color-eyebrow-on-dark)', margin: '0.25rem 0 0.75rem', letterSpacing: '0.05em' }}>{p.subtitle}</p>
-                <p className="muted" style={{ fontSize: '0.875rem', flex: 1 }}>{p.description}</p>
-                <div className="flex-between" style={{ marginTop: 'var(--space-lg)' }}>
-                  <span style={{ fontFamily: 'var(--font-display)', fontSize: '1.75rem', color: 'var(--color-amber)' }}>{p.price}</span>
-                  <a href={p.url} className="btn btn--primary" style={{ padding: '0.5rem 1.2rem' }} target="_blank" rel="noopener">Get It Now</a>
-                </div>
-              </div>
-            ))}
-          </div>
+          {products.length === 0 ? (
+            <div className="card" style={{ textAlign: 'center', padding: 'var(--space-2xl)' }}>
+              <h3>The shop is being restocked.</h3>
+              <p className="muted" style={{ marginTop: 'var(--space-md)' }}>
+                Check back soon — products are syncing from the Wix store.
+              </p>
+              <a
+                href={URLS.stanStore}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn btn--outline"
+                style={{ marginTop: 'var(--space-md)' }}
+              >
+                Visit Stan Store
+              </a>
+            </div>
+          ) : (
+            <div className="grid-3">
+              {products.map((p) => (
+                <article
+                  className="card"
+                  key={p.id}
+                  style={{ display: 'flex', flexDirection: 'column' }}
+                >
+                  {p.image && (
+                    <div
+                      style={{
+                        width: '100%',
+                        aspectRatio: '4 / 3',
+                        background: 'var(--color-ink)',
+                        borderRadius: 'var(--radius)',
+                        marginBottom: 'var(--space-md)',
+                        overflow: 'hidden',
+                        position: 'relative',
+                      }}
+                    >
+                      <Image
+                        src={p.image}
+                        alt={p.name}
+                        fill
+                        sizes="(max-width: 700px) 100vw, 33vw"
+                        style={{ objectFit: 'cover' }}
+                      />
+                    </div>
+                  )}
+
+                  {p.ribbon && (
+                    <span
+                      className="tag"
+                      style={{ marginBottom: 'var(--space-sm)', display: 'inline-block', alignSelf: 'flex-start' }}
+                    >
+                      {p.ribbon}
+                    </span>
+                  )}
+
+                  <h3 style={{ fontSize: '1.2rem' }}>{p.name}</h3>
+
+                  {p.description && (
+                    <p
+                      className="muted"
+                      style={{ fontSize: '0.875rem', flex: 1, whiteSpace: 'pre-line' }}
+                    >
+                      {p.description}
+                    </p>
+                  )}
+
+                  <div className="flex-between" style={{ marginTop: 'var(--space-lg)' }}>
+                    {p.price && (
+                      <span
+                        style={{
+                          fontFamily: 'var(--font-display)',
+                          fontSize: '1.5rem',
+                          color: 'var(--color-amber)',
+                        }}
+                      >
+                        {p.price}
+                      </span>
+                    )}
+                    <a
+                      href={p.url}
+                      className="btn btn--primary"
+                      style={{ padding: '0.5rem 1.2rem' }}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      {p.inStock ? 'Get It Now' : 'View'}
+                    </a>
+                  </div>
+                </article>
+              ))}
+            </div>
+          )}
         </section>
 
-        {coming && (
-          <section className="section section--dark" style={{ borderRadius: 'var(--radius-lg)', padding: 'var(--space-xl)', marginBottom: 'var(--space-2xl)', textAlign: 'center' }}>
-            <span className="tag" style={{ marginBottom: 'var(--space-md)', display: 'inline-block' }}>Coming Soon</span>
-            <h2>{coming.title}</h2>
-            <p className="muted" style={{ margin: 'var(--space-md) auto var(--space-lg)', maxWidth: '48ch' }}>{coming.description}</p>
-            <p style={{ fontFamily: 'var(--font-display)', fontSize: '1.5rem', color: 'var(--color-amber)', marginBottom: 'var(--space-lg)' }}>{coming.price}</p>
-            <a href={URLS.email} className="btn btn--outline">Notify Me at Launch</a>
-          </section>
-        )}
-
-        <div className="section" style={{ paddingTop: 0, paddingBottom: 'var(--space-2xl)', fontSize: '0.8rem', color: 'var(--color-muted)' }}>
-          All sales are final. Digital products are delivered instantly via email. Questions? <a href={URLS.email}>bgconscious@gmail.com</a>
+        <div
+          className="section"
+          style={{
+            paddingTop: 0,
+            paddingBottom: 'var(--space-2xl)',
+            fontSize: '0.8rem',
+            color: 'var(--color-muted)',
+          }}
+        >
+          Checkout is hosted on the Wix storefront. Digital products deliver instantly via email.
+          Questions? <a href={URLS.email}>bgconscious@gmail.com</a>
         </div>
       </div>
     </Layout>

@@ -1,5 +1,10 @@
 import Layout from '../../components/Layout';
-import { getGrimoirePosts, formatPostDate } from '../../lib/wix';
+import {
+  getGrimoirePosts,
+  formatPostDate,
+  getDigitalGrimoireItems,
+  rewriteWixUrl,
+} from '../../lib/wix';
 import Link from 'next/link';
 import { useEffect, useMemo, useState } from 'react';
 import { URLS } from '../../lib/constants';
@@ -109,11 +114,41 @@ function inferCategory(post) {
 }
 
 export async function getStaticProps() {
-  const posts = await getGrimoirePosts(12);
-  return { props: { posts }, revalidate: 300 }; // ISR: refresh every 5 min
+  const [posts, rawCmsItems] = await Promise.all([
+    getGrimoirePosts(12),
+    getDigitalGrimoireItems(50),
+  ]);
+
+  const cmsItems = (rawCmsItems || [])
+    .map((row) => {
+      const data = row?.data || row || {};
+      const linkPath =
+        data['link-digital-grimoire-1-all'] ||
+        data['link-digital-grimoire-all'] ||
+        null;
+      const wixHome =
+        process.env.NEXT_PUBLIC_WIX_STOREFRONT_URL || 'https://www.midnight-magnolia.com';
+      const url = linkPath ? rewriteWixUrl(`${wixHome}${linkPath}`) : null;
+      return {
+        id: data._id || row?._id,
+        title: data.title || 'Untitled',
+        intro: data.briefIntro || '',
+        category: data.category || null,
+        difficulty: data.difficultyEnergy || null,
+        relatedTools: data.relatedTools || null,
+        coverImage: data.coverImage || null,
+        url,
+      };
+    })
+    .filter((it) => it.title && it.title !== 'Untitled');
+
+  return {
+    props: { posts, cmsItems },
+    revalidate: 300,
+  };
 }
 
-export default function Grimoire({ posts }) {
+export default function Grimoire({ posts, cmsItems = [] }) {
   const [gateOpen, setGateOpen] = useState(false);
   const [hasHydrated, setHasHydrated] = useState(false);
   const [email, setEmail] = useState('');
@@ -269,6 +304,99 @@ export default function Grimoire({ posts }) {
             </div>
           )}
         </section>
+        )}
+
+        {hasHydrated && gateOpen && cmsItems.length > 0 && (
+          <section className="section">
+            <h2>Rituals & Practices.</h2>
+            <div className="divider" />
+            <p
+              className="muted"
+              style={{ maxWidth: '56ch', marginBottom: 'var(--space-lg)' }}
+            >
+              From the Digital Grimoire CMS — short, low-spoon practices you can return to in any
+              season.
+            </p>
+            <div className="grid-2">
+              {cmsItems.map((item) => {
+                const inner = (
+                  <div className="card" style={{ height: '100%' }}>
+                    {item.coverImage && (
+                      <div
+                        style={{
+                          width: '100%',
+                          height: '160px',
+                          background: 'var(--color-ink)',
+                          borderRadius: 'var(--radius)',
+                          marginBottom: 'var(--space-md)',
+                          overflow: 'hidden',
+                        }}
+                      >
+                        <img
+                          src={item.coverImage}
+                          alt={item.title}
+                          style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                        />
+                      </div>
+                    )}
+                    <div
+                      style={{
+                        display: 'flex',
+                        gap: '0.5rem',
+                        flexWrap: 'wrap',
+                        marginBottom: '0.5rem',
+                      }}
+                    >
+                      {item.category && (
+                        <span className="tag" style={{ fontSize: '0.7rem' }}>
+                          {item.category}
+                        </span>
+                      )}
+                      {item.difficulty && (
+                        <span className="tag" style={{ fontSize: '0.7rem' }}>
+                          {item.difficulty}
+                        </span>
+                      )}
+                    </div>
+                    <h3 style={{ fontSize: '1.2rem' }}>{item.title}</h3>
+                    {item.intro && (
+                      <p
+                        className="muted"
+                        style={{ fontSize: '0.875rem', marginTop: '0.5rem' }}
+                      >
+                        {item.intro}
+                      </p>
+                    )}
+                    {item.relatedTools && (
+                      <p
+                        style={{
+                          fontSize: '0.75rem',
+                          color: 'var(--color-eyebrow-on-dark)',
+                          letterSpacing: '0.05em',
+                          marginTop: 'var(--space-md)',
+                        }}
+                      >
+                        Related: {item.relatedTools}
+                      </p>
+                    )}
+                  </div>
+                );
+                return item.url ? (
+                  <a
+                    key={item.id}
+                    href={item.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="card-link"
+                  >
+                    {inner}
+                  </a>
+                ) : (
+                  <div key={item.id}>{inner}</div>
+                );
+              })}
+            </div>
+          </section>
         )}
       </div>
     </Layout>
