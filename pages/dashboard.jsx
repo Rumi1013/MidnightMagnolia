@@ -76,6 +76,14 @@ function NotConnected({ name, hint }) {
   );
 }
 
+function EmptyPanel({ text }) {
+  return (
+    <div style={{ padding: '1rem 1.25rem', background: 'rgba(255,255,255,0.02)', borderRadius: 8, border: '1px dashed rgba(255,255,255,0.08)', color: 'var(--color-muted)', fontSize: '0.85rem' }}>
+      {text}
+    </div>
+  );
+}
+
 function ProgressBar({ done, total }) {
   const pct = total ? Math.round((done / total) * 100) : 0;
   return (
@@ -194,15 +202,12 @@ function ContentPipeline({ items, onStatusChange, saving }) {
   );
 }
 
-function AirtableAffiliates({ partners, onStatusChange, saving }) {
-  if (partners === null) {
-    return <NotConnected name="Airtable Affiliate Partners" hint="Create the Affiliate Partners table in MM Command and invite the token’s workspace (see lib/airtable.js)." />;
-  }
-  if (!partners.length) return <EmptyPanel text="No affiliate rows yet." />;
-  const STATUS_OPTIONS = ['Not Contacted', 'Reached Out', 'In Discussion', 'Live'];
 // ── Airtable affiliate tracker ────────────────────────────────
 function AirtableAffiliates({ partners, onStatusChange, saving }) {
-  if (!partners?.length) return <NotConnected name="Airtable Affiliate Tracker" hint="Add AIRTABLE_API_KEY + AIRTABLE_BASE_ID to .env.local and create an 'Affiliate Partners' table." />;
+  if (partners === null) {
+    return <NotConnected name="Airtable Affiliate Partners" hint="Add AIRTABLE_API_KEY + AIRTABLE_BASE_ID to .env.local and create an 'Affiliate Partners' table (see lib/airtable.js)." />;
+  }
+  if (!partners.length) return <EmptyPanel text="No affiliate rows yet." />;
 
   const STATUS_OPTIONS = ['Not Contacted', 'Reached Out', 'In Discussion', 'Live'];
 
@@ -224,7 +229,6 @@ function AirtableAffiliates({ partners, onStatusChange, saving }) {
             disabled={saving}
             aria-label={`Status for ${a.name}`}
             onChange={(e) => onStatusChange(a.id, e.target.value)}
-            onChange={e => onStatusChange(a.id, e.target.value)}
             style={{ all: 'unset', fontSize: '0.7rem', fontWeight: 600, color: STATUS_COLOR[a.status] ?? '#aaa', background: `${STATUS_COLOR[a.status] ?? '#aaa'}22`, borderRadius: 99, padding: '2px 10px', cursor: 'pointer' }}
           >
             {STATUS_OPTIONS.map(s => <option key={s} value={s} style={{ background: '#1a1d2e', color: '#fff' }}>{s}</option>)}
@@ -252,6 +256,10 @@ function AirtableProducts({ items }) {
           <StatusPill status={row.status} />
         </div>
       ))}
+    </div>
+  );
+}
+
 // ── Revenue panel ─────────────────────────────────────────────
 function RevenueLog({ months }) {
   if (!months?.length) return <NotConnected name="Monthly Revenue Log" hint="Add AIRTABLE_BASE_ID + create 'Monthly Revenue Log' table in Airtable." />;
