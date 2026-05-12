@@ -191,7 +191,6 @@ function ContentPipeline({ items, onStatusChange, saving }) {
             disabled={saving}
             aria-label={`Status for ${item.title}`}
             onChange={(e) => onStatusChange(item.id, e.target.value)}
-            onChange={e => onStatusChange(item.id, e.target.value)}
             style={{ all: 'unset', fontSize: '0.7rem', fontWeight: 600, color: STATUS_COLOR[item.status] ?? '#aaa', background: `${STATUS_COLOR[item.status] ?? '#aaa'}22`, borderRadius: 99, padding: '2px 10px', cursor: 'pointer' }}
           >
             {STATUS_OPTIONS.map(s => <option key={s} value={s} style={{ background: '#1a1d2e', color: '#fff' }}>{s}</option>)}
@@ -235,6 +234,41 @@ function AirtableAffiliates({ partners, onStatusChange, saving }) {
           </select>
         </div>
       ))}
+    </div>
+  );
+}
+
+// ── Airtable services tracker (Wix Bookings inventory) ───────
+function AirtableServices({ services }) {
+  if (services === null) {
+    return <NotConnected name="Airtable Services" hint="Import data/inventory-services.csv into the Midnight Operations base, then set AIRTABLE_TBL_SERVICES in .env.local." />;
+  }
+  if (!services.length) return <EmptyPanel text="No service rows in Airtable yet — import data/inventory-services.csv." />;
+
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
+      {services.map(s => {
+        const gaps = [];
+        if (!s.hasImage)       gaps.push('img');
+        if (!s.hasTagline)     gaps.push('tag');
+        if (!s.hasDescription) gaps.push('desc');
+        const allReady = gaps.length === 0;
+        return (
+          <div key={s.id} style={{ display: 'grid', gridTemplateColumns: '1fr auto auto auto', gap: 'var(--space-md)', alignItems: 'center', padding: '0.7rem 1rem', background: 'rgba(255,255,255,0.03)', borderRadius: 8, borderLeft: `3px solid ${allReady ? 'rgba(46,204,113,0.5)' : 'rgba(247,174,63,0.5)'}` }}>
+            <div>
+              <span style={{ fontSize: '0.87rem' }}>{s.name}</span>
+              <div className="muted" style={{ fontSize: '0.72rem', marginTop: 2 }}>{s.tagline || s.category || '—'}</div>
+            </div>
+            <span className="muted" style={{ fontSize: '0.72rem', whiteSpace: 'nowrap' }}>{s.price || '—'} · {s.durationMinutes ? `${s.durationMinutes}m` : '—'}</span>
+            <span style={{ fontSize: '0.68rem', fontWeight: 600, color: allReady ? '#27ae60' : '#e67e22' }}>
+              {allReady ? '✓ ready' : `gaps: ${gaps.join(', ')}`}
+            </span>
+            {s.bookingUrl ? (
+              <a href={s.bookingUrl} target="_blank" rel="noopener" className="muted" style={{ fontSize: '0.7rem', color: 'var(--color-amber)' }}>open ↗</a>
+            ) : <span style={{ width: 36 }} />}
+          </div>
+        );
+      })}
     </div>
   );
 }
@@ -407,6 +441,7 @@ export default function Dashboard() {
   // Airtable — MM Operations
   const [pipeline,     setPipeline]     = useState(null);
   const [atAffiliates, setAtAffiliates] = useState(null);
+  const [atServices,   setAtServices]   = useState(null);
   const [revenue,      setRevenue]      = useState(null);
   // Airtable — Writing / Creative base
   const [jobs,    setJobs]    = useState(null);
@@ -422,13 +457,14 @@ export default function Dashboard() {
       const errs = {};
 
       // All fetches run in parallel — failures are isolated
-      const [taskRes, geoRes, notionRes, pipelineRes, atAffRes, revenueRes, jobsRes, resumesRes] =
+      const [taskRes, geoRes, notionRes, pipelineRes, atAffRes, atSvcRes, revenueRes, jobsRes, resumesRes] =
         await Promise.allSettled([
           fetch('/api/tasks').then(r => r.json()),
           fetch('/api/genealogy?type=people').then(r => r.json()),
           fetch('/api/notion/content').then(r => r.json()),
           fetch('/api/airtable/operations?table=content').then(r => r.json()),
           fetch('/api/airtable/operations?table=affiliatePipeline').then(r => r.json()),
+          fetch('/api/airtable/operations?table=services').then(r => r.json()),
           fetch('/api/airtable/career?table=income&limit=1').then(r => r.json()),
           fetch('/api/airtable/career?table=opportunities').then(r => r.json()),
           fetch('/api/airtable/career?table=resumes').then(r => r.json()),
@@ -460,6 +496,12 @@ export default function Dashboard() {
 
       if (atAffRes.status === 'fulfilled' && !atAffRes.value.error) {
         setAtAffiliates(Array.isArray(atAffRes.value) ? atAffRes.value : null);
+      }
+
+      // services: null (uninitialised) when AIRTABLE_TBL_SERVICES env var is missing;
+      // array (possibly empty) when the table exists.
+      if (atSvcRes.status === 'fulfilled' && !atSvcRes.value?.error) {
+        setAtServices(Array.isArray(atSvcRes.value) ? atSvcRes.value : null);
       }
 
       if (revenueRes.status === 'fulfilled' && Array.isArray(revenueRes.value)) {
@@ -535,6 +577,7 @@ export default function Dashboard() {
               { name: 'Genealogy DB',      connected: !!genealogyStats,      color: '#3ecf8e' },
               { name: 'Notion',           connected: calendar !== null,      color: '#c0a0f0' },
               { name: 'MM Operations',  connected: pipeline !== null, color: '#f7ae3f' },
+              { name: 'Services Inv.',  connected: atServices !== null, color: '#f7ae3f' },
               { name: 'Writing Base',   connected: jobs !== null,     color: '#f7ae3f' },
             ].map(s => (
               <span key={s.name} style={{ fontSize: '0.75rem', fontWeight: 600, color: s.connected ? s.color : '#7f8c8d', background: s.connected ? `${s.color}22` : 'rgba(127,140,141,0.12)', borderRadius: 99, padding: '4px 12px', border: `1px solid ${s.connected ? `${s.color}44` : 'rgba(127,140,141,0.2)'}` }}>
@@ -594,6 +637,15 @@ export default function Dashboard() {
                 source="Airtable"
               />
               <AirtableAffiliates partners={atAffiliates} onStatusChange={updateAffiliateStatus} saving={saving} />
+
+              {/* ── AIRTABLE: Services Inventory (Wix Bookings) ─ */}
+              {divider}
+              <SectionHeader
+                title="Services Inventory"
+                sub={atServices?.length ? `${atServices.length} services · ${atServices.filter(s => s.hasImage && s.hasTagline && s.hasDescription).length} fully ready` : ''}
+                source="Airtable"
+              />
+              <AirtableServices services={atServices} />
 
               {/* ── AIRTABLE: Monthly Revenue ────────────────── */}
               {divider}

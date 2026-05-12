@@ -6,6 +6,7 @@
 
 import {
   getProducts,
+  getServices,
   getContentItems,
   getSalesLog,
   getContacts,
@@ -17,10 +18,12 @@ import {
   updateAffiliatePipe,
   updateContentItem,
   updateProduct,
+  updateService,
 } from '../../../lib/airtable';
 
 const FETCHERS = {
   products:         (q) => getProducts({ liveOnly: q.liveOnly === 'true' }),
+  services:         (q) => getServices({ liveOnly: q.liveOnly === 'true' }),
   content:          (q) => getContentItems({ excludePublished: q.all !== 'true' }),
   sales:            (q) => getSalesLog({ month: q.month }),
   contacts:         (q) => getContacts({ status: q.status }),
@@ -35,6 +38,7 @@ const UPDATERS = {
   affiliatePipeline: updateAffiliatePipe,
   content:           updateContentItem,
   products:          updateProduct,
+  services:          updateService,
 };
 
 export default async function handler(req, res) {

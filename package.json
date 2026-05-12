@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "wix:smoke": "node --env-file=.env.local scripts/wix-api-smoke.mjs"
+    "wix:smoke": "node --env-file=.env.local scripts/wix-api-smoke.mjs",
+    "wix:export": "node --env-file=.env.local scripts/wix-inventory-export.mjs"
   },
   "dependencies": {
     "@notionhq/client": "^5.20.0",
