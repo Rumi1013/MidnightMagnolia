@@ -1,0 +1,36 @@
+---
+description: Midnight Magnolia project overview — stack, conventions, and key entry points
+alwaysApply: true
+---
+
+# Midnight Magnolia — Project Conventions
+
+## Stack
+- **Next.js 14** (Pages Router) — `pages/*` use `getStaticProps` + `revalidate` for ISR
+- **Wix Headless** — product/service/blog/CMS source of truth (`lib/wix.js`)
+- **Airtable** — two bases: Operations (`appj7TCIoDQke9S7d`) + Writing (`appiZEJmrbIH4lVvE`) — see `lib/airtable.js`
+- **Supabase** — genealogy + tasks (free-plan; do NOT mirror Airtable here)
+- **Notion** — content/knowledge workspace (`lib/notion.js`)
+
+## Key paths
+- `lib/wix.js`, `lib/airtable.js`, `lib/notion.js`, `lib/supabase.js` — all integration clients
+- `lib/brandAssets.js` — single source of truth for imagery. **Always use `PRODUCT_HERO_ART` / `SERVICE_HERO_ART` / `PAGE_ILLUSTRATIONS` instead of hard-coding image paths.**
+- `pages/dashboard.jsx` — unified ops dashboard, one panel per system
+- `pages/api/wix/*`, `pages/api/airtable/*` — serverless API routes
+- `scripts/wix-inventory-export.mjs` — `npm run wix:export` regenerates `data/*.csv` + `data/wix-inventory-snapshot.json` + `data/INVENTORY-GAP-REPORT.md`
+- `data/SERVICE-TAGLINES.md` — canonical brand voice + service copy
+
+## Conventions
+- **ISR everywhere**: every public page uses `getStaticProps` with a `revalidate` window (60–600s). Never use `getServerSideProps` for catalog/booking pages.
+- **Graceful degradation**: if an env var is missing, return `null`/`[]` and let the UI render a "Not Connected" state. Never throw on missing config.
+- **Wix images** must pass through `getProductImageUrl()` / `getServiceImageUrl()` — Bookings returns `wix:image://` URIs that need `media.getImageUrl()`.
+- **External Wix links** (Buy/Book) flow through `getProductPageUrl()` / `getServiceBookingUrl()` so `NEXT_PUBLIC_WIX_STOREFRONT_URL` can rewrite them.
+
+## Commands
+- `npm run dev` — local dev server (terminal 6 if user has it open)
+- `npm run wix:smoke` — verify Wix auth + connectivity
+- `npm run wix:export` — refresh inventory snapshot + CSVs + gap report
+- `npm run build` — verify production build before merging
+
+## Three-agent ecosystem (user-level)
+The user works with Zora (clarity), Saimon (technical), and Business Agent (strategy). When unsure which voice to use, default to Zora. Do not switch agents unless the user explicitly says "Switch to ZORA/SAIMON/BUSINESS AGENT".

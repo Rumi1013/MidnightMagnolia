@@ -1,0 +1,50 @@
+---
+description: Wix Headless SDK conventions — auth, URLs, images, and fetchers
+globs: lib/wix.js, pages/api/wix/**, pages/shop/**, pages/services*, pages/grimoire/**, scripts/wix-*.mjs
+alwaysApply: false
+---
+
+# Wix Integration
+
+## Auth precedence (in `getWixAuth()`)
+1. **API Key** — `WIX_API_KEY` + `WIX_SITE_ID` → admin-level reads (preferred for server-side)
+2. **OAuth with tokens** — `WIX_CLIENT_ID` + `WIX_ACCESS_TOKEN` + `WIX_REFRESH_TOKEN`
+3. **OAuth public** — `WIX_CLIENT_ID` alone → anonymous read-only (catalog, CMS)
+
+The smoke script (`npm run wix:smoke`) verifies which mode is active. If `meta-site <id> not found`, the `WIX_SITE_ID` is wrong — get it from the Wix dashboard URL.
+
+## Always use the helpers, never raw SDK responses
+- `getProductImageUrl(product)` — handles `media.mainMedia.image.url` shape
+- `getServiceImageUrl(service)` — handles `wix:image://` URIs via `media.getImageUrl()`
+- `getProductPageUrl(product)` / `getServiceBookingUrl(service)` — rewrites through `NEXT_PUBLIC_WIX_STOREFRONT_URL`
+- `formatProductPrice` / `formatServicePrice` / `formatServiceDuration` — display helpers
+- `stripHtml(html, maxChars)` — for descriptions in card UI
+
+## Fetcher pattern
+All Wix fetchers in `lib/wix.js` follow this shape:
+```js
+export async function getX(limit = 12) {
+  try {
+    const client = getWixClient();
+    if (!client) return [];
+    const res = await client.modName.queryX().limit(limit).find();
+    return res.items || [];
+  } catch (err) {
+    console.error('Wix X fetch error:', err);
+    return [];
+  }
+}
+```
+**Never throw.** Always return `[]` so the UI degrades to an empty state.
+
+## Pages using Wix data
+- `/shop` → `getShopProducts()` — Wix Stores
+- `/services` → `getBookingServices()` — Wix Bookings
+- `/sanctuary` → first 3 from `getBookingServices()`
+- `/grimoire` → `getGrimoirePosts()` + `getDigitalGrimoireItems()` (CMS)
+
+## Adding a new Wix module
+1. Import in `lib/wix.js`: `import { newMod } from '@wix/<package>'`
+2. Add to `createClient({ modules: { ..., newMod } })`
+3. Write a `getX()` fetcher following the pattern above
+4. Add an API route under `pages/api/wix/` if it needs client access
