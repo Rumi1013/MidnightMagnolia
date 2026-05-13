@@ -7,7 +7,9 @@
     "build": "next build",
     "start": "next start",
     "wix:smoke": "node --env-file=.env.local scripts/wix-api-smoke.mjs",
-    "wix:export": "node --env-file=.env.local scripts/wix-inventory-export.mjs"
+    "wix:export": "node --env-file=.env.local scripts/wix-inventory-export.mjs",
+    "supabase:verify": "node scripts/supabase-db-verify.mjs",
+    "genealogy:seed": "node scripts/seed-genealogy.mjs"
   },
   "dependencies": {
     "@notionhq/client": "^5.20.0",

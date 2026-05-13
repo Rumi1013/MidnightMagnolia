@@ -1,5 +1,7 @@
 -- ── Midnight Magnolia · Dashboard Schema ─────────────────────
--- Run this entire file in: Supabase > SQL Editor > New Query
+-- Run in: Supabase → SQL Editor → New Query
+-- Safe to re-run: drops triggers/policies by name before recreating;
+-- dashboard_tasks + affiliate_partners seeds use ON CONFLICT DO NOTHING.
 
 -- ── Tasks table ───────────────────────────────────────────────
 create table if not exists dashboard_tasks (
@@ -23,6 +25,7 @@ begin
 end;
 $$;
 
+drop trigger if exists dashboard_tasks_updated_at on dashboard_tasks;
 create trigger dashboard_tasks_updated_at
   before update on dashboard_tasks
   for each row execute procedure set_updated_at();
@@ -41,14 +44,20 @@ create table if not exists affiliate_partners (
   created_at  timestamptz not null default now()
 );
 
+-- Canonical seed list is keyed by display name (one row per partner).
+create unique index if not exists affiliate_partners_name_uidx
+  on affiliate_partners (name);
+
 -- ── Row-level security (dashboard is private) ─────────────────
 alter table dashboard_tasks    enable row level security;
 alter table affiliate_partners enable row level security;
 
 -- Allow all operations for authenticated users only
+drop policy if exists "auth users full access" on dashboard_tasks;
 create policy "auth users full access" on dashboard_tasks
   for all using (auth.role() = 'authenticated');
 
+drop policy if exists "auth users full access" on affiliate_partners;
 create policy "auth users full access" on affiliate_partners
   for all using (auth.role() = 'authenticated');
 
@@ -95,7 +104,7 @@ insert into affiliate_partners (name, tier, score, action, contact, sort_order) 
 ('Sacred Bombshell',        2, '8/10',  'Email Abiola Abrams — Southern Gothic healing angle',   'abiola@sacredbombshell.com',        8),
 ('Brown Girl Self-Care',    2, '8/10',  'Open with sisterhood. DM on Instagram first',          '@browngirls_selfcare',              9),
 ('The Sober Curator',       2, '8/10',  'Submit guest essay first, then pitch partnership',     'thesobercurator.com/contact',      10)
-on conflict do nothing;
+on conflict (name) do nothing;
 
 -- ═══════════════════════════════════════════════════════════════
 -- ── Genealogy Research Tables ──────────────────────────────────
@@ -167,10 +176,12 @@ create index if not exists genealogy_relationships_b_idx
 -- ── updated_at automation ─────────────────────────────────────
 -- Reuses set_updated_at() defined above for dashboard_tasks
 
+drop trigger if exists genealogy_people_updated_at on genealogy_people;
 create trigger genealogy_people_updated_at
   before update on genealogy_people
   for each row execute procedure set_updated_at();
 
+drop trigger if exists genealogy_relationships_updated_at on genealogy_relationships;
 create trigger genealogy_relationships_updated_at
   before update on genealogy_relationships
   for each row execute procedure set_updated_at();
@@ -179,9 +190,11 @@ create trigger genealogy_relationships_updated_at
 alter table genealogy_people        enable row level security;
 alter table genealogy_relationships enable row level security;
 
+drop policy if exists "auth users full access" on genealogy_people;
 create policy "auth users full access" on genealogy_people
   for all using (auth.role() = 'authenticated');
 
+drop policy if exists "auth users full access" on genealogy_relationships;
 create policy "auth users full access" on genealogy_relationships
   for all using (auth.role() = 'authenticated');
 
@@ -210,3 +223,12 @@ returns table (
   from family
   group by person_id
 $$;
+
+-- ── Columns used by scripts/seed-genealogy.mjs (Airtable exports) ──
+-- Run once if you created genealogy tables before this block existed.
+alter table genealogy_people add column if not exists ancestry_id text;
+alter table genealogy_people add column if not exists is_vincent_line boolean not null default false;
+alter table genealogy_people add column if not exists is_caswell_county boolean not null default false;
+alter table genealogy_people add column if not exists child_of_family text;
+alter table genealogy_people add column if not exists spouse_families text;
+create unique index if not exists genealogy_people_ancestry_id_uidx on genealogy_people (ancestry_id);

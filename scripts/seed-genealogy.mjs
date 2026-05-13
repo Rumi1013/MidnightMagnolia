@@ -2,12 +2,22 @@
 // scripts/seed-genealogy.mjs
 // Seeds genealogy_people (939 rows) and genealogy_relationships from the CSV exports.
 //
-// Usage:
+// Usage (from repo root):
+//   npm run genealogy:seed
 //   node scripts/seed-genealogy.mjs
+// If zsh prints `cd: string not in pwd: .../Node`, a shell hook is wrapping `node`;
+// use `npm run genealogy:seed` or: /bin/bash -lc 'cd /path/to/MidnightMagnolia && command node scripts/seed-genealogy.mjs'
 //
-// Requires .env.local to export:
-//   NEXT_PUBLIC_SUPABASE_URL
-//   SUPABASE_SERVICE_ROLE_KEY   ← service role bypasses RLS for bulk inserts
+// Requires .env.local (repo root) with:
+//   NEXT_PUBLIC_SUPABASE_URL=https://<project-ref>.supabase.co   (no /rest/v1 path)
+//   SUPABASE_SERVICE_ROLE_KEY=<service_role from Dashboard → Settings → API>
+//
+// CSVs default to ./completeairtable/ (FT_Individuals.csv, FT_Families.csv).
+// Override directory (relative to repo root or absolute):
+//   GENEALOGY_CSV_DIR=completeairtable
+//
+// If genealogy_people lacks ancestry_id / flags columns, run the tail of lib/supabase-schema.sql
+// in Supabase SQL Editor once (see "Columns used by scripts/seed-genealogy.mjs").
 
 import fs   from 'fs';
 import path from 'path';
@@ -27,8 +37,32 @@ function loadEnv() {
 }
 loadEnv();
 
+const repoRoot = path.join(__dirname, '..');
+const csvDir = process.env.GENEALOGY_CSV_DIR
+  ? path.resolve(repoRoot, process.env.GENEALOGY_CSV_DIR)
+  : path.join(repoRoot, 'completeairtable');
+const individualsPath = path.join(csvDir, 'FT_Individuals.csv');
+const familiesPath = path.join(csvDir, 'FT_Families.csv');
+
+function requireCsv(p, label) {
+  if (!fs.existsSync(p)) {
+    throw new Error(
+      `Missing ${label}: ${p}\n` +
+        `  Put FT_Individuals.csv / FT_Families.csv in ${csvDir} or set GENEALOGY_CSV_DIR in .env.local.`,
+    );
+  }
+}
+
+/** Strip /rest/v1 and trailing slashes — those break the JS client base URL. */
+function normalizeSupabaseUrl(raw) {
+  if (!raw || typeof raw !== 'string') return raw;
+  let u = raw.trim().replace(/\/$/, '');
+  u = u.replace(/\/rest\/v1\/?$/i, '');
+  return u;
+}
+
 const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL,
+  normalizeSupabaseUrl(process.env.NEXT_PUBLIC_SUPABASE_URL),
   process.env.SUPABASE_SERVICE_ROLE_KEY ?? process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY,
 );
 
@@ -81,30 +115,33 @@ function mapStatus(status) {
 // ── Seed individuals ───────────────────────────────────────────
 async function seedPeople() {
   console.log('\n▸ Seeding genealogy_people…');
-  const rows = parseCSV(path.join(__dirname, '..', '..', '..', 'completeairtable', 'FT_Individuals.csv'));
+  requireCsv(individualsPath, 'FT_Individuals.csv');
+  const rows = parseCSV(individualsPath);
 
   const people = rows.map(r => ({
-    // No id — let Supabase generate UUID; use upsert on ancestry_id
-    ancestry_id:       r['Individual ID'] || null,
-    first_name:        r['Given Name']    || r['Full Name']?.split(' ')[0] || 'Unknown',
-    last_name:         r['Surname']       || r['Full Name']?.split(' ').slice(1).join(' ') || '—',
-    gender:            mapGender(r['Sex']),
-    birth_date:        r['Birth Date']    || null,
-    birth_location:    r['Birth Place']   || null,
-    death_date:        r['Death Date']    || null,
-    death_location:    r['Death Place']   || null,
-    status:            mapStatus(r['Status']),
-    is_vincent_line:   r['Is Vincent Line']   === 'Yes',
+    ancestry_id: r['Individual ID'] || null,
+    first_name: r['Given Name'] || r['Full Name']?.split(' ')[0] || 'Unknown',
+    last_name: r['Surname'] || r['Full Name']?.split(' ').slice(1).join(' ') || '—',
+    gender: mapGender(r['Sex']),
+    birth_date: r['Birth Date'] || null,
+    birth_location: r['Birth Place'] || null,
+    death_date: r['Death Date'] || null,
+    death_location: r['Death Place'] || null,
+    status: mapStatus(r['Status']),
+    is_vincent_line: r['Is Vincent Line'] === 'Yes',
     is_caswell_county: r['Is Caswell County'] === 'Yes',
-    child_of_family:   r['Child of Family']   || null,
-    spouse_families:   r['Spouse Families']   || null,
-    notes:             [
-      r['Residence Notes'] ? `Residence: ${r['Residence Notes']}` : '',
-      r['Research Notes']  ? `Research: ${r['Research Notes']}`   : '',
-    ].filter(Boolean).join('\n') || null,
-    source_records:    r['Ancestry URL']
-      ? JSON.stringify([{ type: 'Ancestry', url: r['Ancestry URL'], citation: r['Full Name'] }])
-      : '[]',
+    child_of_family: r['Child of Family'] || null,
+    spouse_families: r['Spouse Families'] || null,
+    notes:
+      [
+        r['Residence Notes'] ? `Residence: ${r['Residence Notes']}` : '',
+        r['Research Notes'] ? `Research: ${r['Research Notes']}` : '',
+      ]
+        .filter(Boolean)
+        .join('\n') || null,
+    source_records: r['Ancestry URL']
+      ? [{ type: 'Ancestry', url: r['Ancestry URL'], citation: r['Full Name'] || '' }]
+      : [],
   }));
 
   // Upsert on ancestry_id to allow re-runs
@@ -138,28 +175,32 @@ async function seedRelationships() {
 
   const idMap = Object.fromEntries(people.map(p => [p.ancestry_id, p.id]));
 
-  const families = parseCSV(path.join(__dirname, '..', '..', '..', 'completeairtable', 'FT_Families.csv'));
+  requireCsv(familiesPath, 'FT_Families.csv');
+  const families = parseCSV(familiesPath);
 
   const relationships = [];
 
   for (const fam of families) {
-    const famId      = fam['Family ID'];
-    const husbandId  = fam['Husband ID']  ? idMap[fam['Husband ID']]  : null;
-    const wifeId     = fam['Wife ID']     ? idMap[fam['Wife ID']]     : null;
-    const childIds   = fam['Children IDs']
-      ? fam['Children IDs'].split('|').map(s => s.trim()).filter(Boolean).map(id => idMap[id]).filter(Boolean)
+    const husbandId = fam['Husband ID'] ? idMap[fam['Husband ID']] : null;
+    const wifeId = fam['Wife ID'] ? idMap[fam['Wife ID']] : null;
+    const childIds = fam['Children IDs']
+      ? fam['Children IDs']
+          .split('|')
+          .map(s => s.trim())
+          .filter(Boolean)
+          .map(id => idMap[id])
+          .filter(Boolean)
       : [];
 
     // Spouse relationship
     if (husbandId && wifeId) {
       relationships.push({
-        person_a_id:      husbandId,
-        person_b_id:      wifeId,
-        relationship:     'spouse',
-        start_date:       fam['Marriage Date'] || null,
-        end_date:         fam['Divorce Date']  || null,
-        notes:            fam['Marriage Place'] ? `Married: ${fam['Marriage Place']}` : null,
-        source_family_id: famId,
+        person_a_id: husbandId,
+        person_b_id: wifeId,
+        relationship: 'spouse',
+        start_date: fam['Marriage Date'] || null,
+        end_date: fam['Divorce Date'] || null,
+        notes: fam['Marriage Place'] ? `Married: ${fam['Marriage Place']}` : null,
       });
     }
 
@@ -167,18 +208,16 @@ async function seedRelationships() {
     for (const childUuid of childIds) {
       if (husbandId) {
         relationships.push({
-          person_a_id:      husbandId,
-          person_b_id:      childUuid,
-          relationship:     'parent',
-          source_family_id: famId,
+          person_a_id: husbandId,
+          person_b_id: childUuid,
+          relationship: 'parent',
         });
       }
       if (wifeId) {
         relationships.push({
-          person_a_id:      wifeId,
-          person_b_id:      childUuid,
-          relationship:     'parent',
-          source_family_id: famId,
+          person_a_id: wifeId,
+          person_b_id: childUuid,
+          relationship: 'parent',
         });
       }
     }

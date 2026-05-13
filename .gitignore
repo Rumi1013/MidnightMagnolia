@@ -24,3 +24,12 @@ yarn-error.log*
 dist/
 build/
 coverage/
+
+# Personal / local exports (skills, archives, PDFs — do not commit)
+*.skill
+notions.zip
+# Edge-function / worker bundles (keep local only)
+**/hyper-worker.zip
+**/hyperworker.zip
+data/*.pdf
+files/Latisha_VincentWaters_ArchivalSystems_Preservation/
