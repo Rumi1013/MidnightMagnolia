@@ -10,6 +10,7 @@ import {
   formatServiceDuration,
   getServiceBookingUrl,
 } from '../lib/wix';
+import { resolveServiceTagline } from '../lib/serviceTaglines';
 
 export async function getStaticProps() {
   const raw = await getBookingServices(20);
@@ -19,7 +20,7 @@ export async function getStaticProps() {
     .map((s) => ({
       id: s._id,
       name: s.name || 'Untitled service',
-      tagline: s.tagLine || '',
+      tagline: resolveServiceTagline(s.name || '', s.tagLine),
       price: formatServicePrice(s),
       duration: formatServiceDuration(s),
       url: getServiceBookingUrl(s) || URLS.booking,
@@ -117,13 +118,16 @@ export default function Sanctuary({ previewServices = [] }) {
             A gentle monthly membership for reflection, prompts, and community practice.
             Begin with Candle Tender, then scale only when it still feels sustainable.
           </p>
-          <div style={{ display: 'flex', gap: 'var(--space-md)', flexWrap: 'wrap' }}>
-            <Link href="/membership" className="btn btn--primary">View membership tiers</Link>
-            <a href={URLS.patreon} className="btn btn--outline" target="_blank" rel="noopener noreferrer">
-              Join on Patreon
+          <div style={{ display: 'flex', gap: 'var(--space-md)', flexWrap: 'wrap', alignItems: 'center' }}>
+            <a href={URLS.stanStore} className="btn btn--primary" target="_blank" rel="noopener noreferrer">
+              Join on Stan
             </a>
+            <Link href="/membership" className="btn btn--outline">Membership details</Link>
             <a href={URLS.bmac} className="btn btn--ghost" target="_blank" rel="noopener noreferrer">
-              Support on BMAC
+              Tip on Buy Me a Coffee
+            </a>
+            <a href={URLS.patreon} className="muted" style={{ fontSize: '0.82rem' }} target="_blank" rel="noopener noreferrer">
+              Patreon (if active)
             </a>
           </div>
         </section>

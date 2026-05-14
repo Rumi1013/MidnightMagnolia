@@ -32,4 +32,7 @@ notions.zip
 **/hyper-worker.zip
 **/hyperworker.zip
 data/*.pdf
+# Wix blog draft export (local only; may contain unpublished copy)
+data/wix-blog-drafts.json
+data/wix-blog-drafts-md/
 files/Latisha_VincentWaters_ArchivalSystems_Preservation/

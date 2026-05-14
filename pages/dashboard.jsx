@@ -68,7 +68,6 @@ function StatusPill({ status }) {
   return (
     <span style={{ fontSize: '0.7rem', fontWeight: 600, color, background: `${color}22`, borderRadius: 99, padding: '2px 10px', whiteSpace: 'nowrap' }}>
       {status || '—'}
-      {status}
     </span>
   );
 }
@@ -333,6 +332,7 @@ function RevenueLog({ months }) {
       <div style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
         {[
           { label: 'Stan Store',  value: latest.stanRevenue },
+          { label: 'BMAC',        value: latest.bmacRevenue },
           { label: 'Patreon',     value: latest.patreonRevenue },
           { label: 'Gumroad',     value: latest.gumroadRevenue },
           { label: 'KDP',         value: latest.kdpRoyalties },
@@ -356,6 +356,10 @@ function CareerPanel({ jobs, resumes, mlis }) {
   const activeJobs = jobs?.filter(j => !['Rejected', 'Withdrawn'].includes(j.status)) ?? [];
   return (
     <div>
+      <p className="muted" style={{ fontSize: '0.78rem', maxWidth: '62ch', marginBottom: 'var(--space-md)', lineHeight: 1.5 }}>
+        Public portfolio: four Featured cards plus <strong>Archival</strong> (Track A) and <strong>Data</strong> (Track B) resume downloads — see{' '}
+        <Link href="/portfolio" style={{ color: 'var(--color-amber)' }}>/portfolio</Link>.
+      </p>
       {/* MLIS programs */}
       {mlis?.length > 0 && (
         <div style={{ marginBottom: 'var(--space-md)' }}>

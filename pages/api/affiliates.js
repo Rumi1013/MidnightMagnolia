@@ -3,9 +3,10 @@
 // PATCH /api/affiliates              → mark a partner as contacted
 //   body: { id: 3, contacted: true, notes: '...' }
 
-import { supabase } from '../../lib/supabase';
+import { createRouteHandlerClient } from '../../lib/supabaseServer';
 
 export default async function handler(req, res) {
+  const supabase = createRouteHandlerClient();
   if (req.method === 'GET') {
     const { data, error } = await supabase
       .from('affiliate_partners')

@@ -56,6 +56,29 @@ if (!url || !key) {
   process.exit(1);
 }
 
+let projectHost;
+try {
+  const parsed = new URL(url);
+  if (parsed.protocol !== 'http:' && parsed.protocol !== 'https:') {
+    throw new Error(`unsupported protocol: ${parsed.protocol}`);
+  }
+  projectHost = parsed.hostname;
+} catch (parseErr) {
+  console.log(
+    JSON.stringify(
+      {
+        ok: false,
+        reason: 'NEXT_PUBLIC_SUPABASE_URL is not a valid absolute URL',
+        hint: 'Expected https://<project-ref>.supabase.co (no trailing /rest/v1).',
+        parseError: parseErr instanceof Error ? parseErr.message : String(parseErr),
+      },
+      null,
+      2,
+    ),
+  );
+  process.exit(1);
+}
+
 /** PostgREST / GoTrue errors sometimes omit `message`; keep status + fields for debugging. */
 function describeError(err) {
   if (!err) return null;
@@ -71,7 +94,7 @@ function describeError(err) {
 
 const sb = createClient(url, key);
 const out = {
-  projectHost: new URL(url).hostname,
+  projectHost,
   anonKey: {
     length: key.length,
     looksLikeJwt: key.startsWith('eyJ'),

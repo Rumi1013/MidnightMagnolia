@@ -1,6 +1,6 @@
 # Inventory Gap Report
 
-_Generated: 2026-05-10T19:35:52.488Z_
+_Generated: 2026-05-14T04:06:06.983Z_
 _Auth: API key (authenticated)_
 
 ## Counts
@@ -15,9 +15,9 @@ _Auth: API key (authenticated)_
 
 | Page | Items in API | Rendered on page | Missing |
 |---|---|---|---|
-| /shop | 9 | 9 | — |
-| /services | 9 | 9 | — |
-| /grimoire | 5 | 5 | — (note: gated behind email entry) |
+| /shop | 9 | n/a (page not reached) | Utility backpack, Utility crossbody bag, Round mouse pad, Spiral bound journal, The Gentle Beginning — Free Shadow Work Starter, Shadow Work Starter Kit, Ancestral Healing Journal, Creative Foundations Workbook, Deep Roots Shadow Work System |
+| /services | 9 | n/a | Creative Direction Session, WhollyInspired Publishing Package, Free 15-Minute Publishing Consultation, Manuscript Development, VIP Half-Day Intensive, Notion Sanctuary Setup, KDP Self-Publishing Setup, Book + Journal Bundle Package, Brand Voice Clarity Session |
+| /grimoire | 5 | n/a | Lunar Renewal Ritual, Sigil Crafting Template, Astral Travel System, Samhain Celebration Guide, Elemental Balancing Ritual |
 
 ## Asset gaps
 

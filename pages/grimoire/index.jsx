@@ -4,6 +4,7 @@ import {
   formatPostDate,
   getDigitalGrimoireItems,
   rewriteWixUrl,
+  jsonForProps,
 } from '../../lib/wix';
 import Link from 'next/link';
 import { useEffect, useMemo, useState } from 'react';
@@ -143,7 +144,7 @@ export async function getStaticProps() {
     .filter((it) => it.title && it.title !== 'Untitled');
 
   return {
-    props: { posts, cmsItems },
+    props: jsonForProps({ posts, cmsItems }),
     revalidate: 300,
   };
 }
@@ -204,8 +205,12 @@ export default function Grimoire({ posts, cmsItems = [] }) {
               <h2 style={{ marginBottom: 'var(--space-sm)' }}>Enter the Grimoire</h2>
               <div className="divider" />
               <p className="muted" style={{ marginBottom: 'var(--space-lg)' }}>
-                Join Dusk Letters for access to Shadow Work, Moon Phase, Ancestral Healing,
-                ND Creator Guides, and archive entries.
+                Full archive access is gated here while email capture is wired to your chosen platform.
+                Start on{' '}
+                <a href={URLS.stanStore} target="_blank" rel="noopener noreferrer">Stan</a>
+                {' '}(Magnolia Circle, Gentle Beginning, kits) or leave a tip on{' '}
+                <a href={URLS.bmac} target="_blank" rel="noopener noreferrer">Buy Me a Coffee</a>
+                {' '}— then enter your email below to unlock reading on this device.
               </p>
               <form onSubmit={unlockGrimoire}>
                 <label style={{ display: 'flex', flexDirection: 'column', gap: 6, marginBottom: 'var(--space-md)' }}>
@@ -222,7 +227,10 @@ export default function Grimoire({ posts, cmsItems = [] }) {
                 <div style={{ display: 'flex', gap: 'var(--space-md)', flexWrap: 'wrap' }}>
                   <button type="submit" className="btn btn--primary">Unlock the Grimoire</button>
                   <a href={URLS.stanStore} className="btn btn--outline" target="_blank" rel="noopener noreferrer">
-                    Get the Gentle Beginning
+                    Open Stan Store
+                  </a>
+                  <a href={URLS.bmac} className="btn btn--ghost" target="_blank" rel="noopener noreferrer">
+                    Buy Me a Coffee
                   </a>
                 </div>
               </form>

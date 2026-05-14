@@ -21,12 +21,23 @@ npm run dev
 npx vercel
 # Add env vars in Vercel dashboard → Settings → Environment Variables
 
-## Portfolio Resume URLs
-After uploading PDFs to Wix Media Manager:
-RESUME_TRACK_A_URL=https://static.wixstatic.com/media/YOUR_FILE.pdf
-RESUME_TRACK_B_URL=https://static.wixstatic.com/media/YOUR_FILE.pdf
+## Portfolio resume URLs
+After uploading PDFs (or hosting elsewhere), set in `.env.local` (see `.env.local.example`):
+
+- **`RESUME_TRACK_A_URL`** — **Archival / preservation resume** (primary download on `/portfolio`).
+- **`RESUME_TRACK_B_URL`** — **Data / systems resume** (secondary).
+
+Optional Featured card links (hosted case studies / Notion public pages):
+
+- `NEXT_PUBLIC_PORTFOLIO_FEATURED_GENEALOGY_URL` (defaults to `NEXT_PUBLIC_SITE_URL`)
+- `NEXT_PUBLIC_PORTFOLIO_FEATURED_STATEWIDE_URL`
+- `NEXT_PUBLIC_PORTFOLIO_FEATURED_DIGITIZATION_URL`
 
 ## Updating content
 All URLs, product data, and copy → lib/constants.js
 Blog posts → Wix Dashboard (appear automatically via ISR)
 Shop products → Wix Dashboard Stores (appear automatically)
+
+## Ship roadmap (`docs/`)
+
+Implementation index: **`docs/implementation-sources.md`** (Wix merch checklist, checkout QA, Notion/Airtable ops, RLS, Stan minimum, Zapier parity, portfolio env contract).
