@@ -1,6 +1,6 @@
 import Layout from '../../components/Layout';
 import Link from 'next/link';
-import { getGrimoirePosts, getPostBySlug, formatPostDate } from '../../lib/wix';
+import { getGrimoirePosts, getPostBySlug, formatPostDate, jsonForProps } from '../../lib/wix';
 import { useEffect, useState } from 'react';
 import { URLS } from '../../lib/constants';
 
@@ -17,7 +17,7 @@ export async function getStaticProps({ params }) {
   if (!post) {
     return { notFound: true };
   }
-  return { props: { post }, revalidate: 300 };
+  return { props: jsonForProps({ post }), revalidate: 300 };
 }
 
 export default function GrimoirePost({ post }) {

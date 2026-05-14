@@ -1,30 +1,42 @@
+import Image from 'next/image';
 import Layout from '../components/Layout';
 import PageIllustration from '../components/PageIllustration';
-import { PAGE_ILLUSTRATIONS } from '../lib/brandAssets';
+import { PAGE_ILLUSTRATIONS, SERVICE_HERO_ART } from '../lib/brandAssets';
 import { URLS } from '../lib/constants';
+import { resolveServiceTagline } from '../lib/serviceTaglines';
 import {
   getBookingServices,
   formatServicePrice,
   formatServiceDuration,
   getServiceBookingUrl,
+  getServiceImageUrl,
 } from '../lib/wix';
 
 export async function getStaticProps() {
   const raw = await getBookingServices(50);
   const services = (raw || [])
     .filter((s) => s?.hidden !== true)
-    .map((s) => ({
-      id: s._id,
-      name: s.name || 'Untitled service',
-      tagline: s.tagLine || '',
-      description: s.description || '',
-      price: formatServicePrice(s),
-      duration: formatServiceDuration(s),
-      category: s.category?.name || null,
-      url: getServiceBookingUrl(s) || URLS.booking,
-      online: s.payment?.options?.online === true,
-      inPerson: s.payment?.options?.inPerson === true,
-    }));
+    .map((s) => {
+      const name = s.name || 'Untitled service';
+      const wixImg = getServiceImageUrl(s);
+      const hero = SERVICE_HERO_ART[name];
+      const image = wixImg || hero?.src || null;
+      const imageAlt = hero?.alt || name;
+      return {
+        id: s._id,
+        name,
+        tagline: resolveServiceTagline(name, s.tagLine),
+        description: s.description || '',
+        price: formatServicePrice(s),
+        duration: formatServiceDuration(s),
+        category: s.category?.name || null,
+        url: getServiceBookingUrl(s) || URLS.booking,
+        online: s.payment?.options?.online === true,
+        inPerson: s.payment?.options?.inPerson === true,
+        image,
+        imageAlt,
+      };
+    });
   return {
     props: { services },
     revalidate: 300,
@@ -85,6 +97,28 @@ export default function Services({ services }) {
                     >
                       {s.category}
                     </p>
+                  )}
+
+                  {s.image && (
+                    <div
+                      style={{
+                        width: '100%',
+                        aspectRatio: '4 / 3',
+                        background: 'var(--color-ink)',
+                        borderRadius: 'var(--radius)',
+                        marginBottom: 'var(--space-md)',
+                        overflow: 'hidden',
+                        position: 'relative',
+                      }}
+                    >
+                      <Image
+                        src={s.image}
+                        alt={s.imageAlt || s.name}
+                        fill
+                        sizes="(max-width: 700px) 100vw, 50vw"
+                        style={{ objectFit: 'cover', objectPosition: SERVICE_HERO_ART[s.name]?.objectPosition || 'center' }}
+                      />
+                    </div>
                   )}
 
                   <h3 style={{ fontSize: '1.3rem' }}>{s.name}</h3>
