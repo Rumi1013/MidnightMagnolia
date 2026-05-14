@@ -7,6 +7,22 @@ import Link from 'next/link';
 import Layout from '../components/Layout';
 
 // ── Static data (no DB needed) ────────────────────────────────
+/** Supabase dashboard deep-link from NEXT_PUBLIC_SUPABASE_URL (project ref = subdomain). */
+function supabaseDashboardHref() {
+  const raw = process.env.NEXT_PUBLIC_SUPABASE_URL;
+  if (!raw || typeof raw !== 'string') return 'https://supabase.com/dashboard';
+  try {
+    const host = new URL(raw.trim()).hostname;
+    const ref = host.split('.')[0];
+    if (ref && host.endsWith('.supabase.co')) {
+      return `https://supabase.com/dashboard/project/${ref}`;
+    }
+  } catch {
+    /* invalid URL */
+  }
+  return 'https://supabase.com/dashboard';
+}
+
 const DROPSHIP = [
   { name: 'Printify',        phase: 1, products: 'Branded journal, Magnolia soy candle, tote bag',    action: 'Sign up free — design Phase 1 products' },
   { name: 'Enchanted Soul',  phase: 1, products: 'Crystal sets, ritual candles, spell oils',          action: 'Apply at enchantedsoul.store/pages/dropshipping' },
@@ -52,7 +68,6 @@ function StatusPill({ status }) {
   return (
     <span style={{ fontSize: '0.7rem', fontWeight: 600, color, background: `${color}22`, borderRadius: 99, padding: '2px 10px', whiteSpace: 'nowrap' }}>
       {status || '—'}
-      {status}
     </span>
   );
 }
@@ -708,7 +723,7 @@ export default function Dashboard() {
               <div style={{ display: 'flex', gap: 'var(--space-md)', flexWrap: 'wrap' }}>
                 <a href="https://stan.store/MidnightMagnoliaSC"                                    className="btn btn--outline" target="_blank" rel="noopener">Stan Store</a>
                 <a href="https://www.midnight-magnolia.com"                                         className="btn btn--outline" target="_blank" rel="noopener">Wix Site</a>
-                <a href={`https://supabase.com/dashboard/project/ucgdtqkzjibsevgmnlqj`}            className="btn btn--outline" target="_blank" rel="noopener">Supabase</a>
+                <a href={supabaseDashboardHref()}                                                      className="btn btn--outline" target="_blank" rel="noopener">Supabase</a>
                 <a href="https://notion.so"                                                         className="btn btn--outline" target="_blank" rel="noopener">Notion</a>
                 <a href="https://airtable.com"                                                      className="btn btn--outline" target="_blank" rel="noopener">Airtable</a>
                 <a href="https://ancestry.com"                                                      className="btn btn--outline" target="_blank" rel="noopener">Ancestry.com</a>

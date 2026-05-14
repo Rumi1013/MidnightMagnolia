@@ -3,9 +3,10 @@
 // PATCH /api/tasks                   → toggle a task's done status
 //   body: { id: 'p1', done: true }
 
-import { supabase } from '../../lib/supabase';
+import { createRouteHandlerClient } from '../../lib/supabaseServer';
 
 export default async function handler(req, res) {
+  const supabase = createRouteHandlerClient();
   if (req.method === 'GET') {
     const { category } = req.query;
     let query = supabase

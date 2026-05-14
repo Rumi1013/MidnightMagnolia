@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import Layout from '../../components/Layout';
 import PageIllustration from '../../components/PageIllustration';
-import { PAGE_ILLUSTRATIONS } from '../../lib/brandAssets';
+import { PAGE_ILLUSTRATIONS, PRODUCT_HERO_ART } from '../../lib/brandAssets';
 import { URLS } from '../../lib/constants';
 import {
   getShopProducts,
@@ -15,17 +15,25 @@ export async function getStaticProps() {
   const raw = await getShopProducts();
   const products = (raw || [])
     .filter((p) => p?.visible !== false)
-    .map((p) => ({
-      id: p._id,
-      name: p.name || 'Untitled',
-      slug: p.slug || '',
-      description: stripHtml(p.description, 240),
-      price: formatProductPrice(p),
-      image: getProductImageUrl(p),
-      url: getProductPageUrl(p) || URLS.stanStore,
-      ribbon: p.ribbon || null,
-      inStock: p.stock?.inStock !== false,
-    }));
+    .map((p) => {
+      const name = p.name || 'Untitled';
+      const wixImg = getProductImageUrl(p);
+      const hero = PRODUCT_HERO_ART[name];
+      const image = wixImg || hero?.src || null;
+      return {
+        id: p._id,
+        name,
+        slug: p.slug || '',
+        description: stripHtml(p.description, 240),
+        price: formatProductPrice(p),
+        image,
+        imageAlt: hero?.alt || name,
+        imagePosition: hero?.objectPosition || 'center',
+        url: getProductPageUrl(p) || URLS.stanStore,
+        ribbon: p.ribbon || null,
+        inStock: p.stock?.inStock !== false,
+      };
+    });
   return {
     props: { products },
     revalidate: 300,
@@ -90,10 +98,10 @@ export default function Shop({ products }) {
                     >
                       <Image
                         src={p.image}
-                        alt={p.name}
+                        alt={p.imageAlt || p.name}
                         fill
                         sizes="(max-width: 700px) 100vw, 33vw"
-                        style={{ objectFit: 'cover' }}
+                        style={{ objectFit: 'cover', objectPosition: p.imagePosition || 'center' }}
                       />
                     </div>
                   )}

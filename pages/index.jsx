@@ -66,11 +66,20 @@ export default function Home() {
             creators who know their pace is not a problem.
           </p>
           <div className="hero__actions">
-            <a href={URLS.booking} className="btn btn--primary" target="_blank" rel="noopener noreferrer">
+            <a href={URLS.stanStore} className="btn btn--primary" target="_blank" rel="noopener noreferrer">
+              Shop Stan Store
+            </a>
+            <a href={URLS.booking} className="btn btn--outline" target="_blank" rel="noopener noreferrer">
               Book a Session
             </a>
-            <Link href="/shop" className="btn btn--outline">Browse the Shop</Link>
+            <Link href="/shop" className="btn btn--ghost">Wix Catalog</Link>
           </div>
+          <p className="muted" style={{ marginTop: 'var(--space-md)', fontSize: '0.85rem', maxWidth: '52ch' }}>
+            Membership and digital goods run through{' '}
+            <a href={URLS.stanStore} target="_blank" rel="noopener noreferrer">Stan</a>
+            {' '}first. Tips and light support:{' '}
+            <a href={URLS.bmac} target="_blank" rel="noopener noreferrer">Buy Me a Coffee</a>.
+          </p>
         </div>
       </section>
 
@@ -144,8 +153,9 @@ export default function Home() {
               {
                 title: 'Magnolia Circle',
                 desc:  'A $9/month membership with monthly shadow work prompts, ritual practices, and the member edition of Dusk Letters.',
-                href:  '/shop',
-                cta:   'Join the Circle',
+                href:  URLS.stanStore,
+                cta:   'Join on Stan',
+                external: true,
               },
               {
                 title: 'Work With Me',
@@ -158,9 +168,15 @@ export default function Home() {
                 <h3>{door.title}</h3>
                 <div className="divider" style={{ width: 32 }} />
                 <p className="muted">{door.desc}</p>
-                <Link href={door.href} className="btn btn--ghost" style={{ marginTop: 'var(--space-lg)', display: 'inline-block' }}>
-                  {door.cta}
-                </Link>
+                {door.external ? (
+                  <a href={door.href} className="btn btn--ghost" style={{ marginTop: 'var(--space-lg)', display: 'inline-block' }} target="_blank" rel="noopener noreferrer">
+                    {door.cta}
+                  </a>
+                ) : (
+                  <Link href={door.href} className="btn btn--ghost" style={{ marginTop: 'var(--space-lg)', display: 'inline-block' }}>
+                    {door.cta}
+                  </Link>
+                )}
               </div>
             ))}
           </div>

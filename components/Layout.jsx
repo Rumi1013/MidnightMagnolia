@@ -46,15 +46,32 @@ export default function Layout({ children, title, description }) {
             </span>
           </Link>
           <div className="nav__links">
-            {NAV.map(item => (
-              <Link
-                key={item.href}
-                href={item.href}
-                className={router.pathname === item.href ? 'active' : ''}
-              >
-                {item.label}
-              </Link>
-            ))}
+            {NAV.map(item => {
+              const active = !item.external && router.pathname === item.href;
+              const className = active ? 'active' : '';
+              if (item.external) {
+                return (
+                  <a
+                    key={item.label}
+                    href={item.href}
+                    className={className}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    {item.label}
+                  </a>
+                );
+              }
+              return (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  className={className}
+                >
+                  {item.label}
+                </Link>
+              );
+            })}
             <Link href={URLS.booking} className="nav__cta" target="_blank" rel="noopener noreferrer">
               Book a Session
             </Link>
@@ -87,13 +104,19 @@ export default function Layout({ children, title, description }) {
             <div className="footer__col">
               <h4>Navigate</h4>
               {NAV.map(item => (
-                <Link key={item.href} href={item.href}>{item.label}</Link>
+                item.external ? (
+                  <a key={item.label} href={item.href} target="_blank" rel="noopener noreferrer">{item.label}</a>
+                ) : (
+                  <Link key={item.href} href={item.href}>{item.label}</Link>
+                )
               ))}
             </div>
             <div className="footer__col">
               <h4>Connect</h4>
+              <a href={URLS.stanStore} target="_blank" rel="noopener noreferrer">Stan Store</a>
+              <a href={URLS.bmac} target="_blank" rel="noopener noreferrer">Buy Me a Coffee</a>
               <a href={URLS.booking} target="_blank" rel="noopener noreferrer">Book a Session</a>
-              <a href={URLS.stanStore} target="_blank" rel="noopener noreferrer">Shop Products</a>
+              <a href={URLS.patreon} target="_blank" rel="noopener noreferrer">Patreon (if active)</a>
               <a href={URLS.email}>Email Latisha</a>
             </div>
           </div>

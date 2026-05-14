@@ -1,42 +1,44 @@
-import Link from 'next/link';
 import Layout from '../components/Layout';
 import PageIllustration from '../components/PageIllustration';
 import { PAGE_ILLUSTRATIONS } from '../lib/brandAssets';
-import { URLS, CASE_STUDIES, SKILLS } from '../lib/constants';
+import { URLS, CASE_STUDIES, SKILLS, FEATURED_PORTFOLIO_CARDS } from '../lib/constants';
 
-// ── Resume track config ───────────────────────────────────────
-const RESUME_TRACKS = [
+const RESUME_TRACK_META = [
   {
     id: 'A',
-    title: 'Track A — AI Enablement / Senior PM',
-    desc:  'Optimized for AI literacy, digital transformation, and technology program management roles.',
-    url:   process.env.RESUME_TRACK_A_URL || '#',
+    title: 'Track A — Archival resume (primary)',
+    desc:
+      'Digital preservation, archivist practice, and recovery-oriented framing—how the work is stewarded, not rushed.',
   },
   {
     id: 'B',
-    title: 'Track B — Implementation PM',
-    desc:  'Optimized for implementation, operations, and cross-functional program management roles.',
-    url:   process.env.RESUME_TRACK_B_URL || '#',
+    title: 'Track B — Data / systems resume (secondary)',
+    desc:
+      'Implementation and documentation platforms, metadata and taxonomy, and cross-functional program delivery for data-heavy environments.',
   },
 ];
 
-export default function Portfolio() {
+export default function Portfolio({ links, resumeA, resumeB }) {
+  const featured = FEATURED_PORTFOLIO_CARDS.map((card) => {
+    const href = links[card.linkKey] || '';
+    return { ...card, href };
+  });
+
   return (
     <Layout
       title="Portfolio"
-      description="Latisha Vincent-Waters · Senior Program Manager, Digital Entrepreneur · 15+ years, $1.5M+ secured, 610+ served. Available for remote $100K+ roles."
+      description="Latisha Vincent-Waters — digital preservation, archivist practice, and recovery-aware program leadership. Portfolio cards mirror LinkedIn Featured; resume tracks: Archival (A) and Data (B)."
     >
       <div className="container">
 
-        {/* ── Page Hero ──────────────────────────────────────── */}
         <div className="page-hero">
           <p className="page-hero__eyebrow">Portfolio</p>
           <h1>The work speaks.</h1>
           <div className="divider" />
           <p className="hero__subtitle">
-            15+ years building programs, securing funding, and leading digital operations
-            in nonprofit and technology environments. Available for remote roles targeting $100K+
-            in AI enablement, digital transformation, and archival/cultural heritage work.
+            Fifteen-plus years building programs, securing funding, and leading digital operations in nonprofit and
+            technology settings. Direction today: digital preservation, archivist practice, and recovery-oriented pacing
+            in how work is scoped and carried.
           </p>
           <div style={{ display: 'flex', gap: 'var(--space-md)', flexWrap: 'wrap', marginTop: 'var(--space-lg)' }}>
             <a href={URLS.linkedin} className="btn btn--primary" target="_blank" rel="noopener">LinkedIn Profile</a>
@@ -47,7 +49,40 @@ export default function Portfolio() {
 
         <PageIllustration illustration={PAGE_ILLUSTRATIONS.portfolio} />
 
-        {/* ── Impact Stats ───────────────────────────────────── */}
+        <section className="section">
+          <h2>Featured work.</h2>
+          <div className="divider" />
+          <p className="muted" style={{ marginBottom: 'var(--space-lg)', maxWidth: '62ch' }}>
+            Same four blocks as LinkedIn Featured: proof of lineage archive, statewide documentation IA, COVID-era
+            digitization and taxonomy, and Midnight Magnolia as a live knowledge system.
+          </p>
+          <div className="grid-2" style={{ gap: 'var(--space-lg)' }}>
+            {featured.map((card) => (
+              <div className="card" key={card.id} style={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
+                <h3 style={{ fontSize: '1.1rem', marginBottom: 'var(--space-md)', lineHeight: 1.35 }}>{card.title}</h3>
+                <p style={{ fontSize: '0.9rem', marginBottom: 'var(--space-md)', flex: 1 }}>{card.summary}</p>
+                <p className="muted" style={{ fontSize: '0.78rem', marginBottom: 'var(--space-md)', lineHeight: 1.5 }}>
+                  {card.skills}
+                </p>
+                {card.href ? (
+                  <a href={card.href} className="btn btn--outline" style={{ alignSelf: 'flex-start' }} target="_blank" rel="noopener noreferrer">
+                    {card.cta}
+                  </a>
+                ) : (
+                  <p className="muted" style={{ fontSize: '0.8rem', margin: 0 }}>
+                    {card.linkKey === 'statewide' && (
+                      <>Set <code style={{ fontSize: '0.75rem' }}>NEXT_PUBLIC_PORTFOLIO_FEATURED_STATEWIDE_URL</code> in <code style={{ fontSize: '0.75rem' }}>.env.local</code> when the hosted case study is ready.</>
+                    )}
+                    {card.linkKey === 'digitization' && (
+                      <>Set <code style={{ fontSize: '0.75rem' }}>NEXT_PUBLIC_PORTFOLIO_FEATURED_DIGITIZATION_URL</code> in <code style={{ fontSize: '0.75rem' }}>.env.local</code> when the hosted case study is ready.</>
+                    )}
+                  </p>
+                )}
+              </div>
+            ))}
+          </div>
+        </section>
+
         <section className="section">
           <h2>Impact at a glance.</h2>
           <div className="divider" />
@@ -61,45 +96,52 @@ export default function Portfolio() {
           </div>
         </section>
 
-        {/* ── Resume Downloads ───────────────────────────────── */}
         <section className="section section--dark" style={{ borderRadius: 'var(--radius-lg)', padding: 'var(--space-xl)', marginBottom: 'var(--space-xl)' }}>
           <h2>Resume tracks.</h2>
           <div className="divider" />
           <p className="muted" style={{ marginBottom: 'var(--space-lg)', maxWidth: '58ch' }}>
-            Two ATS-optimized tracks built for $100K+ remote roles. Both current as of 2026.
+            Two ATS-friendly PDFs hosted outside this repo. <strong>Track A</strong> is the primary download (archival /
+            preservation). <strong>Track B</strong> is the secondary track (data and systems). Point the env URLs at your
+            live files when you ship.
           </p>
           <div className="grid-2">
-            {RESUME_TRACKS.map(track => (
-              <div className="card" key={track.id} style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
-                <div>
-                  <span className="tag" style={{ marginBottom: 'var(--space-md)', display: 'inline-block' }}>Track {track.id}</span>
-                  <h3 style={{ fontSize: '1.15rem', marginBottom: '0.75rem' }}>{track.title}</h3>
-                  <p className="muted" style={{ fontSize: '0.875rem' }}>{track.desc}</p>
+            {RESUME_TRACK_META.map((track, index) => {
+              const url = index === 0 ? resumeA : resumeB;
+              const missing = !url || url === '#';
+              return (
+                <div className="card" key={track.id} style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
+                  <div>
+                    <span className="tag" style={{ marginBottom: 'var(--space-md)', display: 'inline-block' }}>Track {track.id}</span>
+                    <h3 style={{ fontSize: '1.15rem', marginBottom: '0.75rem' }}>{track.title}</h3>
+                    <p className="muted" style={{ fontSize: '0.875rem' }}>{track.desc}</p>
+                  </div>
+                  {missing ? (
+                    <p className="muted" style={{ fontSize: '0.8rem', marginTop: 'var(--space-lg)' }}>
+                      Set <code style={{ fontSize: '0.75rem' }}>RESUME_TRACK_{track.id}_URL</code> in <code style={{ fontSize: '0.75rem' }}>.env.local</code>.
+                    </p>
+                  ) : (
+                    <a
+                      href={url}
+                      className="btn btn--outline"
+                      style={{ marginTop: 'var(--space-lg)', alignSelf: 'flex-start' }}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      download
+                    >
+                      Download PDF
+                    </a>
+                  )}
                 </div>
-                <a
-                  href={track.url}
-                  className="btn btn--outline"
-                  style={{ marginTop: 'var(--space-lg)', alignSelf: 'flex-start' }}
-                  target="_blank"
-                  rel="noopener"
-                  download
-                >
-                  Download PDF
-                </a>
-              </div>
-            ))}
+              );
+            })}
           </div>
-          <p className="muted" style={{ fontSize: '0.8rem', marginTop: 'var(--space-md)' }}>
-            Additional tracks available (Digital Learning, Operations/Compliance, CRM/Tech) — contact for specific versions.
-          </p>
         </section>
 
-        {/* ── Case Studies ───────────────────────────────────── */}
         <section className="section">
           <h2>Selected work.</h2>
           <div className="divider" />
           <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-lg)', marginTop: 'var(--space-lg)' }}>
-            {CASE_STUDIES.map((study, i) => (
+            {CASE_STUDIES.map(study => (
               <div className="card" key={study.id} style={{ display: 'grid', gridTemplateColumns: 'auto 1fr', gap: 'var(--space-xl)', alignItems: 'start' }}>
                 <div style={{ textAlign: 'center', minWidth: '100px' }}>
                   <span style={{ fontFamily: 'var(--font-display)', fontSize: '3rem', color: 'var(--color-amber)', display: 'block', lineHeight: 1 }}>{study.metric}</span>
@@ -116,7 +158,6 @@ export default function Portfolio() {
           </div>
         </section>
 
-        {/* ── Skills + Tools ─────────────────────────────────── */}
         <section className="section section--dusk" style={{ borderRadius: 'var(--radius-lg)', padding: 'var(--space-xl)', marginBottom: 'var(--space-xl)' }}>
           <h2>Skills + tools.</h2>
           <div className="divider" />
@@ -137,7 +178,6 @@ export default function Portfolio() {
           </div>
         </section>
 
-        {/* ── Education + Credentials ────────────────────────── */}
         <section className="section">
           <h2>Education + credentials.</h2>
           <div className="divider" />
@@ -173,12 +213,11 @@ export default function Portfolio() {
           </div>
         </section>
 
-        {/* ── Consulting CTA ─────────────────────────────────── */}
         <section className="section section--dark" style={{ borderRadius: 'var(--radius-lg)', padding: 'var(--space-xl)', marginBottom: 'var(--space-2xl)', textAlign: 'center' }}>
           <h2>Interested in working together?</h2>
           <p className="muted" style={{ margin: 'var(--space-md) auto var(--space-lg)', maxWidth: '50ch' }}>
-            Available for remote roles in AI enablement, digital transformation, and cultural heritage archiving.
-            Also available for consulting engagements.
+            Available for remote roles that honor preservation practice, clear documentation, and humane pacing. Consulting
+            for workflow, archives-adjacent systems, and AI literacy stays open through Midnight Magnolia.
           </p>
           <div style={{ display: 'flex', gap: 'var(--space-md)', justifyContent: 'center', flexWrap: 'wrap' }}>
             <a href={URLS.booking} className="btn btn--primary" target="_blank" rel="noopener">Book a Strategy Session</a>
@@ -189,4 +228,27 @@ export default function Portfolio() {
       </div>
     </Layout>
   );
+}
+
+export async function getStaticProps() {
+  const site = (process.env.NEXT_PUBLIC_SITE_URL || 'https://www.midnight-magnolia.com').replace(/\/$/, '');
+  const resumeA = process.env.RESUME_TRACK_A_URL?.trim() || '';
+  const resumeB = process.env.RESUME_TRACK_B_URL?.trim() || '';
+  const genealogy = process.env.NEXT_PUBLIC_PORTFOLIO_FEATURED_GENEALOGY_URL?.trim() || site;
+  const statewide = process.env.NEXT_PUBLIC_PORTFOLIO_FEATURED_STATEWIDE_URL?.trim() || '';
+  const digitization = process.env.NEXT_PUBLIC_PORTFOLIO_FEATURED_DIGITIZATION_URL?.trim() || '';
+
+  return {
+    props: {
+      resumeA: resumeA || null,
+      resumeB: resumeB || null,
+      links: {
+        genealogy,
+        statewide,
+        digitization,
+        mm: site,
+      },
+    },
+    revalidate: 300,
+  };
 }

@@ -10,6 +10,7 @@ import {
   formatServiceDuration,
   getServiceBookingUrl,
 } from '../lib/wix';
+import { resolveServiceTagline } from '../lib/serviceTaglines';
 
 export async function getStaticProps() {
   const raw = await getBookingServices(20);
@@ -19,7 +20,7 @@ export async function getStaticProps() {
     .map((s) => ({
       id: s._id,
       name: s.name || 'Untitled service',
-      tagline: s.tagLine || '',
+      tagline: resolveServiceTagline(s.name || '', s.tagLine),
       price: formatServicePrice(s),
       duration: formatServiceDuration(s),
       url: getServiceBookingUrl(s) || URLS.booking,
