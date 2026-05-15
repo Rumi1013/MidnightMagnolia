@@ -4,6 +4,10 @@ out
 .vercel
 .DS_Store
 .env*.local
+
+# Local agent MCP config (Supabase project_ref — copy from *.example, never commit)
+.codex/config.toml
+.mcp.json
 *.docx
 ~$*.docx
 __pycache__/
