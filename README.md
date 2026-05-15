@@ -8,6 +8,15 @@ cp .env.local.example .env.local
 # Fill in NEXT_PUBLIC_WIX_CLIENT_ID from:
 # Wix Dashboard → Settings → Headless Settings → Create OAuth App
 
+For the private dashboard and ops APIs, set a long random admin token:
+
+```bash
+MM_DASHBOARD_TOKEN=replace-with-a-long-random-value
+```
+
+When opening `/dashboard`, enter that token once per browser session. In production,
+private Supabase, Airtable, and Notion routes reject requests without it.
+
 ## 3. Wix Dashboard setup
 - Enable: Wix Blog, Wix Stores, Wix Bookings
 - Blog categories to create: Shadow Work · Southern Gothic · Soft Business School · Literary Archive · Healing Resources

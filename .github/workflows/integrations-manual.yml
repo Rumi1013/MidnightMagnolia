@@ -1,0 +1,87 @@
+# Optional: run Wix smoke and/or Supabase DB verify from GitHub after you add repository secrets.
+# Repo → Settings → Secrets and variables → Actions → New repository secret
+#
+# For Wix smoke (npm run wix:smoke):
+#   NEXT_PUBLIC_WIX_CLIENT_ID   (or WIX_CLIENT_ID)
+#   Optional for API-key mode: WIX_API_KEY, WIX_SITE_ID
+#
+# For Supabase verify (npm run supabase:verify — reads .env.local from disk):
+#   NEXT_PUBLIC_SUPABASE_URL, NEXT_PUBLIC_SUPABASE_ANON_KEY
+#   Optional: SUPABASE_SERVICE_ROLE_KEY (if your verify script needs it)
+#
+# Enable the checkboxes when dispatching; unchecked jobs are skipped.
+name: Integrations (manual)
+
+on:
+  workflow_dispatch:
+    inputs:
+      run_wix_smoke:
+        description: Run npm run wix:smoke
+        type: boolean
+        default: false
+      run_supabase_verify:
+        description: Run npm run supabase:verify
+        type: boolean
+        default: false
+
+permissions:
+  contents: read
+
+jobs:
+  wix-smoke:
+    if: ${{ github.event.inputs.run_wix_smoke == 'true' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4
+
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
+        with:
+          node-version: '20'
+          cache: npm
+
+      - name: Write .env.local for --env-file
+        run: |
+          : > .env.local
+          [ -n "${NEXT_PUBLIC_WIX_CLIENT_ID}" ] && echo "NEXT_PUBLIC_WIX_CLIENT_ID=${NEXT_PUBLIC_WIX_CLIENT_ID}" >> .env.local
+          [ -n "${WIX_CLIENT_ID}" ] && echo "WIX_CLIENT_ID=${WIX_CLIENT_ID}" >> .env.local
+          [ -n "${WIX_API_KEY}" ] && echo "WIX_API_KEY=${WIX_API_KEY}" >> .env.local
+          [ -n "${WIX_SITE_ID}" ] && echo "WIX_SITE_ID=${WIX_SITE_ID}" >> .env.local
+        env:
+          NEXT_PUBLIC_WIX_CLIENT_ID: ${{ secrets.NEXT_PUBLIC_WIX_CLIENT_ID }}
+          WIX_CLIENT_ID: ${{ secrets.WIX_CLIENT_ID }}
+          WIX_API_KEY: ${{ secrets.WIX_API_KEY }}
+          WIX_SITE_ID: ${{ secrets.WIX_SITE_ID }}
+
+      - run: npm ci
+
+      - name: Wix API smoke
+        run: npm run wix:smoke
+
+  supabase-verify:
+    if: ${{ github.event.inputs.run_supabase_verify == 'true' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4
+
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
+        with:
+          node-version: '20'
+          cache: npm
+
+      - name: Write .env.local for supabase-db-verify.mjs
+        run: |
+          : > .env.local
+          echo "NEXT_PUBLIC_SUPABASE_URL=${NEXT_PUBLIC_SUPABASE_URL}" >> .env.local
+          echo "NEXT_PUBLIC_SUPABASE_ANON_KEY=${NEXT_PUBLIC_SUPABASE_ANON_KEY}" >> .env.local
+          if [ -n "${SERVICE_ROLE}" ]; then echo "SUPABASE_SERVICE_ROLE_KEY=${SERVICE_ROLE}" >> .env.local; fi
+        env:
+          NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}
+          NEXT_PUBLIC_SUPABASE_ANON_KEY: ${{ secrets.NEXT_PUBLIC_SUPABASE_ANON_KEY }}
+          SERVICE_ROLE: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+
+      - run: npm ci
+
+      - name: Supabase schema verify
+        run: npm run supabase:verify

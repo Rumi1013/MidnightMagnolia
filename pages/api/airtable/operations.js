@@ -20,6 +20,7 @@ import {
   updateProduct,
   updateService,
 } from '../../../lib/airtable';
+import { requireAdmin } from '../../../lib/server/adminAuth';
 
 const FETCHERS = {
   products:         (q) => getProducts({ liveOnly: q.liveOnly === 'true' }),
@@ -43,6 +44,8 @@ const UPDATERS = {
 
 export default async function handler(req, res) {
   try {
+    if (!requireAdmin(req, res)) return;
+
     if (req.method === 'GET') {
       const { table, ...q } = req.query;
       const fetcher = FETCHERS[table];

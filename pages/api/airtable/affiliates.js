@@ -3,8 +3,11 @@
 //   body: { id: 'recXXX', status: 'Reached Out', notes: '...' }
 
 import { getAffiliatePartners, updateAffiliate } from '../../../lib/airtable';
+import { requireAdmin } from '../../../lib/server/adminAuth';
 
 export default async function handler(req, res) {
+  if (!requireAdmin(req, res)) return;
+
   if (req.method === 'GET') {
     try {
       const partners = await getAffiliatePartners();

@@ -8,7 +8,7 @@ export const config = {
   matcher: [
     // ... your existing matchers
     {
-      source: "/((?!_next/static|_next/image|favicon.ico|.well-known/workflow/).*)", 
+      source: "/((?!_next/static|_next/image|favicon.ico).*)", 
     },
   ],
 };

@@ -24,9 +24,12 @@ import {
   getFamilySubgraph,
   searchPeople,
 } from '../../lib/genealogy';
+import { requireAdmin } from '../../lib/server/adminAuth';
 
 export default async function handler(req, res) {
   try {
+    if (!requireAdmin(req, res)) return;
+
     const { method } = req;
 
     if (method === 'GET') {

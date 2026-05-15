@@ -6,6 +6,22 @@ import { useState, useEffect, useCallback } from 'react';
 import Link from 'next/link';
 import Layout from '../components/Layout';
 
+const ADMIN_TOKEN_STORAGE_KEY = 'mm_dashboard_admin_token';
+const ADMIN_TOKEN_HEADER = 'x-mm-admin-token';
+
+function storedAdminToken() {
+  if (typeof window === 'undefined') return '';
+  return window.sessionStorage.getItem(ADMIN_TOKEN_STORAGE_KEY) || '';
+}
+
+function adminFetch(url, token, options = {}) {
+  const headers = {
+    ...(options.headers || {}),
+    ...(token ? { [ADMIN_TOKEN_HEADER]: token } : {}),
+  };
+  return fetch(url, { ...options, headers });
+}
+
 // ── Static data (no DB needed) ────────────────────────────────
 /** Supabase dashboard deep-link from NEXT_PUBLIC_SUPABASE_URL (project ref = subdomain). */
 function supabaseDashboardHref() {
@@ -95,6 +111,33 @@ function EmptyPanel({ text }) {
   return (
     <div style={{ padding: '1rem 1.25rem', background: 'rgba(255,255,255,0.02)', borderRadius: 8, border: '1px dashed rgba(255,255,255,0.08)', color: 'var(--color-muted)', fontSize: '0.85rem' }}>
       {text}
+    </div>
+  );
+}
+
+function AdminTokenForm({ tokenInput, setTokenInput, onSubmit, message }) {
+  return (
+    <div className="card" style={{ maxWidth: 520, margin: '0 auto var(--space-xl)', padding: 'var(--space-xl)' }}>
+      <h3 style={{ marginBottom: 'var(--space-sm)' }}>Dashboard access</h3>
+      <p className="muted" style={{ marginBottom: 'var(--space-md)' }}>
+        Enter the admin token configured as <code>MM_DASHBOARD_TOKEN</code>.
+      </p>
+      {message && (
+        <div style={{ background: 'rgba(192,57,43,0.15)', border: '1px solid rgba(192,57,43,0.4)', borderRadius: 8, padding: '0.75rem', marginBottom: 'var(--space-md)', color: '#e74c3c', fontSize: '0.85rem' }}>
+          {message}
+        </div>
+      )}
+      <form onSubmit={onSubmit} style={{ display: 'flex', gap: 'var(--space-sm)', flexWrap: 'wrap' }}>
+        <input
+          type="password"
+          value={tokenInput}
+          onChange={(event) => setTokenInput(event.target.value)}
+          placeholder="Admin token"
+          autoComplete="current-password"
+          style={{ flex: '1 1 240px', padding: '0.7rem', borderRadius: 8, border: '1px solid rgba(255,255,255,0.15)', background: 'rgba(255,255,255,0.04)', color: 'inherit' }}
+        />
+        <button type="submit" className="btn btn--primary">Unlock</button>
+      </form>
     </div>
   );
 }
@@ -442,10 +485,9 @@ function GenealogyPanel({ stats }) {
           </div>
         ))}
       </div>
-      <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
-        <a href="/api/genealogy?type=people" target="_blank" className="btn btn--outline" style={{ fontSize: '0.8rem' }}>Browse Individuals API</a>
-        <a href="/api/genealogy?type=search&q=Vincent" target="_blank" className="btn btn--outline" style={{ fontSize: '0.8rem' }}>Search Vincents</a>
-      </div>
+      <p className="muted" style={{ fontSize: '0.82rem' }}>
+        Genealogy API reads are available to this dashboard session only.
+      </p>
     </div>
   );
 }
@@ -470,25 +512,54 @@ export default function Dashboard() {
   const [loading,  setLoading]  = useState(true);
   const [saving,   setSaving]   = useState(false);
   const [errors,   setErrors]   = useState({});
+  const [adminToken, setAdminToken] = useState(storedAdminToken);
+  const [tokenInput, setTokenInput] = useState(storedAdminToken);
+  const [authRequired, setAuthRequired] = useState(false);
+  const [authMessage, setAuthMessage] = useState('');
 
   useEffect(() => {
+    let cancelled = false;
     async function load() {
       setLoading(true);
+      setAuthMessage('');
       const errs = {};
+      const loadJson = async (url) => {
+        const response = await adminFetch(url, adminToken);
+        const json = await response.json();
+        if (response.status === 401 || response.status === 503) {
+          const error = new Error(json?.error || 'Admin authorization required');
+          error.status = response.status;
+          throw error;
+        }
+        return json;
+      };
 
       // All fetches run in parallel — failures are isolated
       const [taskRes, geoRes, notionRes, pipelineRes, atAffRes, atSvcRes, revenueRes, jobsRes, resumesRes] =
         await Promise.allSettled([
-          fetch('/api/tasks').then(r => r.json()),
-          fetch('/api/genealogy?type=people').then(r => r.json()),
-          fetch('/api/notion/content').then(r => r.json()),
-          fetch('/api/airtable/operations?table=content').then(r => r.json()),
-          fetch('/api/airtable/operations?table=affiliatePipeline').then(r => r.json()),
-          fetch('/api/airtable/operations?table=services').then(r => r.json()),
-          fetch('/api/airtable/career?table=income&limit=1').then(r => r.json()),
-          fetch('/api/airtable/career?table=opportunities').then(r => r.json()),
-          fetch('/api/airtable/career?table=resumes').then(r => r.json()),
+          loadJson('/api/tasks'),
+          loadJson('/api/genealogy?type=people'),
+          loadJson('/api/notion/content'),
+          loadJson('/api/airtable/operations?table=content'),
+          loadJson('/api/airtable/operations?table=affiliatePipeline'),
+          loadJson('/api/airtable/operations?table=services'),
+          loadJson('/api/airtable/career?table=income&limit=1'),
+          loadJson('/api/airtable/career?table=opportunities'),
+          loadJson('/api/airtable/career?table=resumes'),
         ]);
+
+      if (cancelled) return;
+
+      const authFailure = [taskRes, geoRes, notionRes, pipelineRes, atAffRes, atSvcRes, revenueRes, jobsRes, resumesRes]
+        .find((result) => result.status === 'rejected' && [401, 503].includes(result.reason?.status));
+      if (authFailure) {
+        setAuthRequired(true);
+        setAuthMessage(authFailure.reason.message);
+        setLoading(false);
+        return;
+      }
+
+      setAuthRequired(false);
 
       if (taskRes.status === 'fulfilled' && !taskRes.value.error) {
         setTasks(taskRes.value);
@@ -535,39 +606,52 @@ export default function Dashboard() {
       setLoading(false);
     }
     load();
-  }, []);
+    return () => {
+      cancelled = true;
+    };
+  }, [adminToken]);
+
+  const unlockDashboard = useCallback((event) => {
+    event.preventDefault();
+    const token = tokenInput.trim();
+    if (typeof window !== 'undefined') {
+      if (token) window.sessionStorage.setItem(ADMIN_TOKEN_STORAGE_KEY, token);
+      else window.sessionStorage.removeItem(ADMIN_TOKEN_STORAGE_KEY);
+    }
+    setAdminToken(token);
+  }, [tokenInput]);
 
   // Supabase task toggle
   const toggleTask = useCallback(async (id, done) => {
     setSaving(true);
     setTasks(prev => prev.map(t => t.id === id ? { ...t, done } : t));
     try {
-      const res = await fetch('/api/tasks', { method: 'PATCH', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ id, done }) });
+      const res = await adminFetch('/api/tasks', adminToken, { method: 'PATCH', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ id, done }) });
       if (!res.ok) throw new Error();
     } catch {
       setTasks(prev => prev.map(t => t.id === id ? { ...t, done: !done } : t));
     } finally { setSaving(false); }
-  }, []);
+  }, [adminToken]);
 
   // Airtable pipeline status update
   const updatePipelineStatus = useCallback(async (id, status) => {
     setSaving(true);
     setPipeline(prev => prev.map(i => i.id === id ? { ...i, status } : i));
     try {
-      await fetch('/api/airtable/pipeline', { method: 'PATCH', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ id, status }) });
+      await adminFetch('/api/airtable/pipeline', adminToken, { method: 'PATCH', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ id, status }) });
     } catch { /* silently revert isn't critical here */ }
     finally { setSaving(false); }
-  }, []);
+  }, [adminToken]);
 
   // Airtable affiliate status update
   const updateAffiliateStatus = useCallback(async (id, status) => {
     setSaving(true);
     setAtAffiliates(prev => prev.map(a => a.id === id ? { ...a, status } : a));
     try {
-      await fetch('/api/airtable/affiliates', { method: 'PATCH', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ id, status }) });
+      await adminFetch('/api/airtable/affiliates', adminToken, { method: 'PATCH', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ id, status }) });
     } catch { /* */ }
     finally { setSaving(false); }
-  }, []);
+  }, [adminToken]);
 
   // ── Derived ────────────────────────────────────────────────
   const byCategory   = cat => tasks.filter(t => t.category === cat);
@@ -589,6 +673,15 @@ export default function Dashboard() {
           <p className="muted" style={{ maxWidth: '52ch', marginBottom: 'var(--space-xl)' }}>
             Supabase · Notion · Airtable (3 bases) — one view. Tasks toggle on click. Statuses update in place.
           </p>
+
+          {authRequired && (
+            <AdminTokenForm
+              tokenInput={tokenInput}
+              setTokenInput={setTokenInput}
+              onSubmit={unlockDashboard}
+              message={authMessage}
+            />
+          )}
 
           {/* ── Integration status pills ────────────────────── */}
           <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap', marginBottom: 'var(--space-xl)' }}>
@@ -615,7 +708,7 @@ export default function Dashboard() {
 
           {loading ? (
             <div style={{ textAlign: 'center', padding: 'var(--space-xl)', color: 'var(--color-muted)' }}>Loading dashboard…</div>
-          ) : (
+          ) : authRequired ? null : (
             <>
               {/* ── Overall progress ─────────────────────────── */}
               <div className="card" style={{ marginBottom: 'var(--space-xl)', textAlign: 'center', padding: 'var(--space-xl)' }}>

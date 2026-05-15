@@ -4,8 +4,11 @@
 //   body: { id: 'p1', done: true }
 
 import { createRouteHandlerClient } from '../../lib/supabaseServer';
+import { requireAdmin } from '../../lib/server/adminAuth';
 
 export default async function handler(req, res) {
+  if (!requireAdmin(req, res)) return;
+
   const supabase = createRouteHandlerClient();
   if (req.method === 'GET') {
     const { category } = req.query;
