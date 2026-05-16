@@ -4,6 +4,10 @@ out
 .vercel
 .DS_Store
 .env*.local
+.env
+.env.*.local
+*.tsbuildinfo
+~$*
 
 # Local agent MCP config (Supabase project_ref — copy from *.example, never commit)
 .codex/config.toml
@@ -31,6 +35,7 @@ coverage/
 
 # Personal / local exports (skills, archives, PDFs — do not commit)
 *.skill
+*.zip
 notions.zip
 # Edge-function / worker bundles (keep local only)
 **/hyper-worker.zip
