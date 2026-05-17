@@ -13,7 +13,22 @@ out
 .codex/config.toml
 .mcp.json
 *.docx
+*.doc
+*.xlsx
+*.xls
+*.xlsm
+*.xlsb
+*.csv
+!data/inventory-*.csv
+*.pdf
+*.ppt
+*.pptx
+*.numbers
+*.pages
+*.key
+*.indd
 ~$*.docx
+~$*
 __pycache__/
 *.pyc
 *.pyo
@@ -37,6 +52,27 @@ coverage/
 *.skill
 *.zip
 notions.zip
+
+# Administrator-only workspaces and exports. Keep these local; use as context
+# only, never as committed application source.
+files/
+automations/
+completeairtable/
+CareerSystem/
+Midnight Magnolia Genealogy Archive/
+tools/midnight-magnolia-dashboard/
+my-app/
+Artwork/
+admin/
+private/
+
+# Local exported planning/docs artifacts.
+MM_Canonical_Master_Plan*.html
+MM_Integration*.html
+Midnight_Magnolia_*.docx
+Midnight_Magnolia_*.pdf
+Vincent_Family_Tree*.xlsx
+
 # Edge-function / worker bundles (keep local only)
 **/hyper-worker.zip
 **/hyperworker.zip

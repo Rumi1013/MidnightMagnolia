@@ -7,6 +7,7 @@
     "build": "next build",
     "lint": "eslint pages components lib next.config.mjs proxy.ts --ext .js,.jsx,.ts,.tsx",
     "typecheck": "tsc --noEmit",
+    "private-files:check": "node scripts/check-private-files.mjs",
     "start": "next start",
     "wix:smoke": "node --env-file=.env.local scripts/wix-api-smoke.mjs",
     "wix:export": "node --env-file=.env.local scripts/wix-inventory-export.mjs",
