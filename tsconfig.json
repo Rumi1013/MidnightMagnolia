@@ -41,6 +41,18 @@
   ],
   "exclude": [
     "node_modules",
-    "scripts"
+    "scripts",
+    "admin",
+    "automations",
+    "CareerSystem",
+    "completeairtable",
+    "dist",
+    "files",
+    "Midnight Magnolia Genealogy Archive",
+    "my-app",
+    "nextjs-project-bole-mirror",
+    ".sanity",
+    "private",
+    "tools/midnight-magnolia-dashboard"
   ]
 }

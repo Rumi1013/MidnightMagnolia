@@ -1,5 +1,6 @@
 node_modules
 .next
+.sanity
 out
 .vercel
 .DS_Store
@@ -62,6 +63,7 @@ CareerSystem/
 Midnight Magnolia Genealogy Archive/
 tools/midnight-magnolia-dashboard/
 my-app/
+nextjs-project-bole-mirror/
 Artwork/
 admin/
 private/

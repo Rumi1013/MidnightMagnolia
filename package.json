@@ -9,6 +9,8 @@
     "typecheck": "tsc --noEmit",
     "private-files:check": "node scripts/check-private-files.mjs",
     "start": "next start",
+    "sanity:dev": "sanity dev",
+    "sanity:build": "sanity build",
     "wix:smoke": "node --env-file=.env.local scripts/wix-api-smoke.mjs",
     "wix:export": "node --env-file=.env.local scripts/wix-inventory-export.mjs",
     "wix:blog-drafts": "node --env-file=.env.local scripts/wix-blog-drafts-export.mjs",
@@ -29,7 +31,9 @@
     "airtable": "^0.12.2",
     "next": "^15.5.16",
     "react": "^18.3.0",
-    "react-dom": "^18.3.0"
+    "react-dom": "^18.3.0",
+    "sanity": "^4.15.1",
+    "styled-components": "^6.4.1"
   },
   "devDependencies": {
     "@types/node": "20.17.6",
