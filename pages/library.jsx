@@ -38,7 +38,7 @@ export default function Library() {
               member writing and gated paths; start on the site, then follow through Stan when you are ready.
             </li>
             <li style={{ marginBottom: '0.75rem' }}>
-              <a href={URLS.stanStore} target="_blank" rel="noopener noreferrer">Stan Store</a>
+              <a href={URLS.gumroad} target="_blank" rel="noopener noreferrer">Gumroad</a>
               {' — '}
               journals, kits, and Magnolia Circle.
             </li>

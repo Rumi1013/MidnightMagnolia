@@ -6,19 +6,22 @@ import { URLS, CASE_STUDIES, SKILLS, FEATURED_PORTFOLIO_CARDS } from '../lib/con
 const RESUME_TRACK_META = [
   {
     id: 'A',
-    title: 'Track A — Archival resume (primary)',
-    desc:
-      'Digital preservation, archivist practice, and recovery-oriented framing—how the work is stewarded, not rushed.',
+    title: 'Track A — Archival Systems & Preservation',
+    desc: 'Optimized for Digital Archivist, Metadata Specialist, Repository Coordinator, and MLIS-track roles.',
   },
   {
     id: 'B',
-    title: 'Track B — Data / systems resume (secondary)',
-    desc:
-      'Implementation and documentation platforms, metadata and taxonomy, and cross-functional program delivery for data-heavy environments.',
+    title: 'Track B — Program Management & Operations',
+    desc: 'Optimized for Management Analyst, Program Coordinator, and operations-focused roles.',
   },
 ];
 
-export default function Portfolio({ links, resumeA, resumeB }) {
+const RESUME_REQUEST_LINKS = {
+  A: 'mailto:bgconscious@gmail.com?subject=Resume Request — Archival Track',
+  B: 'mailto:bgconscious@gmail.com?subject=Resume Request — PM Track',
+};
+
+export default function Portfolio({ links }) {
   const featured = FEATURED_PORTFOLIO_CARDS.map((card) => {
     const href = links[card.linkKey] || '';
     return { ...card, href };
@@ -27,7 +30,7 @@ export default function Portfolio({ links, resumeA, resumeB }) {
   return (
     <Layout
       title="Portfolio"
-      description="Latisha Vincent-Waters — digital preservation, archivist practice, and recovery-aware program leadership. Portfolio cards mirror LinkedIn Featured; resume tracks: Archival (A) and Data (B)."
+      description="Latisha Vincent-Waters · Archival Systems & Knowledge Management · 15+ years, $1.5M+ secured, 610+ served. Soros Justice Fellow. Open to archival, library, and documentation roles."
     >
       <div className="container">
 
@@ -36,9 +39,7 @@ export default function Portfolio({ links, resumeA, resumeB }) {
           <h1>The work speaks.</h1>
           <div className="divider" />
           <p className="hero__subtitle">
-            Fifteen-plus years building programs, securing funding, and leading digital operations in nonprofit and
-            technology settings. Direction today: digital preservation, archivist practice, and recovery-oriented pacing
-            in how work is scoped and carried.
+            15+ years building programs, securing funding, and managing knowledge systems in nonprofit and technology environments. Archival systems, digital preservation, and documentation — rooted in community, justice, and ancestral memory. Soros Justice Fellow. Open to archival, library, metadata, and documentation roles. Available to relocate.
           </p>
           <div style={{ display: 'flex', gap: 'var(--space-md)', flexWrap: 'wrap', marginTop: 'var(--space-lg)' }}>
             <a href={URLS.linkedin} className="btn btn--primary" target="_blank" rel="noopener">LinkedIn Profile</a>
@@ -100,14 +101,11 @@ export default function Portfolio({ links, resumeA, resumeB }) {
           <h2>Resume tracks.</h2>
           <div className="divider" />
           <p className="muted" style={{ marginBottom: 'var(--space-lg)', maxWidth: '58ch' }}>
-            Two ATS-friendly PDFs hosted outside this repo. <strong>Track A</strong> is the primary download (archival /
-            preservation). <strong>Track B</strong> is the secondary track (data and systems). Point the env URLs at your
-            live files when you ship.
+            Two resume tracks, both current as of 2026. Contact for additional versions.
           </p>
           <div className="grid-2">
-            {RESUME_TRACK_META.map((track, index) => {
-              const url = index === 0 ? resumeA : resumeB;
-              const missing = !url || url === '#';
+            {RESUME_TRACK_META.map((track) => {
+              const url = RESUME_REQUEST_LINKS[track.id];
               return (
                 <div className="card" key={track.id} style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
                   <div>
@@ -115,22 +113,13 @@ export default function Portfolio({ links, resumeA, resumeB }) {
                     <h3 style={{ fontSize: '1.15rem', marginBottom: '0.75rem' }}>{track.title}</h3>
                     <p className="muted" style={{ fontSize: '0.875rem' }}>{track.desc}</p>
                   </div>
-                  {missing ? (
-                    <p className="muted" style={{ fontSize: '0.8rem', marginTop: 'var(--space-lg)' }}>
-                      Set <code style={{ fontSize: '0.75rem' }}>RESUME_TRACK_{track.id}_URL</code> in <code style={{ fontSize: '0.75rem' }}>.env.local</code>.
-                    </p>
-                  ) : (
-                    <a
-                      href={url}
-                      className="btn btn--outline"
-                      style={{ marginTop: 'var(--space-lg)', alignSelf: 'flex-start' }}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      download
-                    >
-                      Download PDF
-                    </a>
-                  )}
+                  <a
+                    href={url}
+                    className="btn btn--outline"
+                    style={{ marginTop: 'var(--space-lg)', alignSelf: 'flex-start' }}
+                  >
+                    Request Resume
+                  </a>
                 </div>
               );
             })}
@@ -232,16 +221,12 @@ export default function Portfolio({ links, resumeA, resumeB }) {
 
 export async function getStaticProps() {
   const site = (process.env.NEXT_PUBLIC_SITE_URL || 'https://www.midnight-magnolia.com').replace(/\/$/, '');
-  const resumeA = process.env.RESUME_TRACK_A_URL?.trim() || '';
-  const resumeB = process.env.RESUME_TRACK_B_URL?.trim() || '';
   const genealogy = process.env.NEXT_PUBLIC_PORTFOLIO_FEATURED_GENEALOGY_URL?.trim() || site;
   const statewide = process.env.NEXT_PUBLIC_PORTFOLIO_FEATURED_STATEWIDE_URL?.trim() || '';
   const digitization = process.env.NEXT_PUBLIC_PORTFOLIO_FEATURED_DIGITIZATION_URL?.trim() || '';
 
   return {
     props: {
-      resumeA: resumeA || null,
-      resumeB: resumeB || null,
       links: {
         genealogy,
         statewide,

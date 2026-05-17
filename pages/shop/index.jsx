@@ -1,157 +1,193 @@
-import Image from 'next/image';
+import Link from 'next/link';
 import Layout from '../../components/Layout';
 import PageIllustration from '../../components/PageIllustration';
-import { PAGE_ILLUSTRATIONS, PRODUCT_HERO_ART } from '../../lib/brandAssets';
-import { URLS } from '../../lib/constants';
-import {
-  getShopProducts,
-  formatProductPrice,
-  getProductImageUrl,
-  getProductPageUrl,
-  stripHtml,
-} from '../../lib/wix';
+import { PAGE_ILLUSTRATIONS } from '../../lib/brandAssets';
+import { PRODUCTS, URLS } from '../../lib/constants';
 
-export async function getStaticProps() {
-  const raw = await getShopProducts();
-  const products = (raw || [])
-    .filter((p) => p?.visible !== false)
-    .map((p) => {
-      const name = p.name || 'Untitled';
-      const wixImg = getProductImageUrl(p);
-      const hero = PRODUCT_HERO_ART[name];
-      const image = wixImg || hero?.src || null;
-      return {
-        id: p._id,
-        name,
-        slug: p.slug || '',
-        description: stripHtml(p.description, 240),
-        price: formatProductPrice(p),
-        image,
-        imageAlt: hero?.alt || name,
-        imagePosition: hero?.objectPosition || 'center',
-        url: getProductPageUrl(p) || URLS.stanStore,
-        ribbon: p.ribbon || null,
-        inStock: p.stock?.inStock !== false,
-      };
-    });
-  return {
-    props: { products },
-    revalidate: 300,
-  };
-}
+const FEATURED_PRODUCT_IDS = [
+  'gentle-beginning',
+  'shadow-work-starter',
+  'ancestral-healing',
+  'creative-foundations',
+  'deep-roots',
+  'magnolia-circle',
+];
 
-export default function Shop({ products }) {
+const PRODUCT_DETAILS = {
+  'gentle-beginning': {
+    eyebrow: 'Start free',
+    summary:
+      'Five shadow work prompts, a welcome letter, gentle framing, and breathing cues for the part of you that is ready to look without being rushed.',
+    includes: ['5 guided prompts', 'Founder welcome letter', 'Breathing cues', 'Instant free download'],
+    cta: 'Get It Now',
+  },
+  'shadow-work-starter': {
+    eyebrow: '30-day journal',
+    summary:
+      'A guided journal for quiet, honest healing on your own terms. Built in three arcs: The Foundation, The Pattern, and The Return.',
+    includes: ['30 prompts', '3 themed sections', 'Non-linear use note', 'Closing reflection'],
+    cta: 'Notify Me When Live',
+  },
+  'ancestral-healing': {
+    eyebrow: 'Lineage work',
+    summary:
+      'A journal rooted in the African diaspora, the American South, oral storytelling, family memory, and the careful work of naming what was passed down.',
+    includes: ['40 lineage prompts', 'Lowcountry framing', 'Diaspora-centered reflection', 'Space to write and return'],
+    cta: 'Notify Me When Live',
+  },
+  'creative-foundations': {
+    eyebrow: 'Creator systems',
+    summary:
+      'A workbook for neurodivergent creators who need structure that works with their brain instead of asking them to perform productivity.',
+    includes: ['Creative energy mapping', 'Project planning tools', 'Weekly rhythm template', 'Values and boundaries prompts'],
+    cta: 'Notify Me When Live',
+  },
+  'deep-roots': {
+    eyebrow: 'Flagship system',
+    summary:
+      'The complete shadow work curriculum: excavation, inheritance, reckoning, reclamation, and return, paced for deep work without force.',
+    includes: ['5-module curriculum', '150 deep-dive prompts', 'Ritual transition guide', 'Neurodivergent-friendly pacing'],
+    cta: 'Notify Me When Live',
+  },
+  'magnolia-circle': {
+    eyebrow: 'Membership',
+    summary:
+      'A monthly home for prompts, ritual practice, the member edition of Dusk Letters, and community for quiet builders.',
+    includes: ['Monthly prompts', 'Ritual practice', 'Dusk Letters member edition', 'Quiet community rhythm'],
+    cta: 'Notify Me When Live',
+  },
+};
+
+const LAUNCH_STEPS = [
+  {
+    title: 'Begin gently',
+    text: 'Download The Gentle Beginning and test the tone of the work without pressure.',
+  },
+  {
+    title: 'Choose your next doorway',
+    text: 'Move into shadow work, ancestral healing, creative systems, or the membership depending on what is asking for care.',
+  },
+  {
+    title: 'Build a rhythm',
+    text: 'Use the tools slowly, return as needed, and pair them with consulting or career support when structure would help.',
+  },
+];
+
+export default function Shop() {
+  const products = FEATURED_PRODUCT_IDS.map((id) => {
+    const product = PRODUCTS.find((item) => item.id === id);
+    return product ? { ...product, ...PRODUCT_DETAILS[id] } : null;
+  }).filter(Boolean);
+
   return (
     <Layout
       title="The Shop"
-      description="Digital and physical products from Midnight Magnolia — journals, planners, shadow work tools, and apparel for quiet builders."
+      description="Digital tools for quiet builders — shadow work journals, healing resources, and ancestral practice guides. Products launching soon."
     >
       <div className="container">
         <div className="page-hero">
           <p className="page-hero__eyebrow">The Shop</p>
-          <h1>Tools for quiet builders.</h1>
+          <h1>Healing tools for quiet builders.</h1>
           <div className="divider" />
           <p className="hero__subtitle">
-            Healing-centered journals, shadow work tools, and apparel rooted in Lowcountry care.
-            Checkout happens on the Wix storefront — secure and instant.
+            Shadow work journals, ancestral practice guides, creative systems, and membership support are being gathered into one clear Wix launch home. Start with the free guide, then follow the storefront as each paid tool goes live.
           </p>
+          <div style={{ display: 'flex', gap: 'var(--space-md)', flexWrap: 'wrap', marginTop: 'var(--space-lg)' }}>
+            <a href={URLS.wixHome} className="btn btn--primary" target="_blank" rel="noopener noreferrer">
+              Open Wix Launch
+            </a>
+            <Link href="/work-with-me" className="btn btn--outline">
+              Pair With Support
+            </Link>
+          </div>
         </div>
 
         <PageIllustration illustration={PAGE_ILLUSTRATIONS.shop} />
 
+        <section className="section section--dusk" style={{ borderRadius: 'var(--radius-lg)', padding: 'var(--space-xl)', marginBottom: 'var(--space-xl)' }}>
+          <div className="flex-between" style={{ alignItems: 'end', marginBottom: 'var(--space-lg)' }}>
+            <div>
+              <p className="page-hero__eyebrow">Launch ecosystem</p>
+              <h2>Begin anywhere. Return often.</h2>
+              <div className="divider" />
+            </div>
+            <a href={URLS.wixHome} className="btn btn--outline" target="_blank" rel="noopener noreferrer">
+              Visit the Storefront
+            </a>
+          </div>
+          <div className="grid-3">
+            {LAUNCH_STEPS.map((step, index) => (
+              <div className="card" key={step.title}>
+                <span className="tag" style={{ marginBottom: 'var(--space-md)' }}>Step {index + 1}</span>
+                <h3>{step.title}</h3>
+                <p className="muted" style={{ fontSize: '0.9rem' }}>{step.text}</p>
+              </div>
+            ))}
+          </div>
+        </section>
+
         <section className="section">
-          {products.length === 0 ? (
-            <div className="card" style={{ textAlign: 'center', padding: 'var(--space-2xl)' }}>
-              <h3>The shop is being restocked.</h3>
-              <p className="muted" style={{ marginTop: 'var(--space-md)' }}>
-                Check back soon — products are syncing from the Wix store.
+          <div className="flex-between" style={{ marginBottom: 'var(--space-lg)' }}>
+            <div>
+              <p className="page-hero__eyebrow">Digital products</p>
+              <h2>The current catalog.</h2>
+              <div className="divider" />
+              <p className="muted" style={{ maxWidth: '56ch' }}>
+                The paid products are framed for the Wix launch. The free starter stays available as the first doorway while the rest of the catalog comes online.
               </p>
-              <a
-                href={URLS.stanStore}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="btn btn--outline"
-                style={{ marginTop: 'var(--space-md)' }}
-              >
-                Visit Stan Store
-              </a>
             </div>
-          ) : (
-            <div className="grid-3">
-              {products.map((p) => (
-                <article
-                  className="card"
-                  key={p.id}
-                  style={{ display: 'flex', flexDirection: 'column' }}
+          </div>
+
+          <div className="grid-3">
+            {products.map((product) => (
+              <article className="card" key={product.id} style={{ display: 'flex', flexDirection: 'column', minHeight: '100%' }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', gap: 'var(--space-md)', alignItems: 'start' }}>
+                  <span className="tag">{product.eyebrow}</span>
+                  <span style={{ fontFamily: 'var(--font-display)', fontSize: '1.45rem', color: 'var(--color-amber)', lineHeight: 1 }}>
+                    {product.price}
+                  </span>
+                </div>
+                <h3 style={{ fontSize: '1.25rem', marginTop: 'var(--space-md)' }}>{product.title}</h3>
+                <p className="muted" style={{ fontSize: '0.875rem', marginTop: '0.5rem', flex: 1 }}>
+                  {product.summary}
+                </p>
+                <ul style={{ display: 'grid', gap: '0.35rem', marginTop: 'var(--space-md)' }}>
+                  {product.includes.map((item) => (
+                    <li key={item} className="muted" style={{ fontSize: '0.8rem', display: 'flex', gap: '0.5rem' }}>
+                      <span style={{ color: 'var(--color-eyebrow-on-dark)' }} aria-hidden>◆</span>
+                      {item}
+                    </li>
+                  ))}
+                </ul>
+                <a
+                  href={URLS.wixHome}
+                  className={product.id === 'gentle-beginning' ? 'btn btn--primary' : 'btn btn--outline'}
+                  style={{ marginTop: 'var(--space-lg)', alignSelf: 'flex-start' }}
+                  target="_blank"
+                  rel="noopener noreferrer"
                 >
-                  {p.image && (
-                    <div
-                      style={{
-                        width: '100%',
-                        aspectRatio: '4 / 3',
-                        background: 'var(--color-ink)',
-                        borderRadius: 'var(--radius)',
-                        marginBottom: 'var(--space-md)',
-                        overflow: 'hidden',
-                        position: 'relative',
-                      }}
-                    >
-                      <Image
-                        src={p.image}
-                        alt={p.imageAlt || p.name}
-                        fill
-                        sizes="(max-width: 700px) 100vw, 33vw"
-                        style={{ objectFit: 'cover', objectPosition: p.imagePosition || 'center' }}
-                      />
-                    </div>
-                  )}
+                  {product.cta}
+                </a>
+              </article>
+            ))}
+          </div>
+        </section>
 
-                  {p.ribbon && (
-                    <span
-                      className="tag"
-                      style={{ marginBottom: 'var(--space-sm)', display: 'inline-block', alignSelf: 'flex-start' }}
-                    >
-                      {p.ribbon}
-                    </span>
-                  )}
-
-                  <h3 style={{ fontSize: '1.2rem' }}>{p.name}</h3>
-
-                  {p.description && (
-                    <p
-                      className="muted"
-                      style={{ fontSize: '0.875rem', flex: 1, whiteSpace: 'pre-line' }}
-                    >
-                      {p.description}
-                    </p>
-                  )}
-
-                  <div className="flex-between" style={{ marginTop: 'var(--space-lg)' }}>
-                    {p.price && (
-                      <span
-                        style={{
-                          fontFamily: 'var(--font-display)',
-                          fontSize: '1.5rem',
-                          color: 'var(--color-amber)',
-                        }}
-                      >
-                        {p.price}
-                      </span>
-                    )}
-                    <a
-                      href={p.url}
-                      className="btn btn--primary"
-                      style={{ padding: '0.5rem 1.2rem' }}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      {p.inStock ? 'Get It Now' : 'View'}
-                    </a>
-                  </div>
-                </article>
-              ))}
-            </div>
-          )}
+        <section className="section section--linen" style={{ borderRadius: 'var(--radius-lg)', padding: 'var(--space-xl)', marginBottom: 'var(--space-xl)' }}>
+          <p className="page-hero__eyebrow" style={{ color: 'var(--color-link-on-light)' }}>Need structure with the tools?</p>
+          <h2>Pair the catalog with systems support.</h2>
+          <div className="divider" />
+          <p className="muted" style={{ maxWidth: '58ch' }}>
+            The shop holds the self-paced tools. Work With Me is where the same approach becomes consulting, AI literacy workshops, career documents, and quiet systems for real life.
+          </p>
+          <div style={{ display: 'flex', gap: 'var(--space-md)', flexWrap: 'wrap', marginTop: 'var(--space-lg)' }}>
+            <Link href="/work-with-me" className="btn btn--outline">
+              See Services
+            </Link>
+            <a href={URLS.email} className="btn btn--primary">
+              Ask a Question
+            </a>
+          </div>
         </section>
 
         <div
@@ -163,7 +199,7 @@ export default function Shop({ products }) {
             color: 'var(--color-muted)',
           }}
         >
-          Checkout is hosted on the Wix storefront. Digital products deliver instantly via email.
+          Checkout, booking, and launch updates are hosted through the Wix launch.
           Questions? <a href={URLS.email}>bgconscious@gmail.com</a>
         </div>
       </div>

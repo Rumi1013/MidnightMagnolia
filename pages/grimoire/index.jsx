@@ -227,7 +227,7 @@ export default function Grimoire({ posts, cmsItems = [] }) {
                 <div style={{ display: 'flex', gap: 'var(--space-md)', flexWrap: 'wrap' }}>
                   <button type="submit" className="btn btn--primary">Unlock the Grimoire</button>
                   <a href={URLS.stanStore} className="btn btn--outline" target="_blank" rel="noopener noreferrer">
-                    Open Stan Store
+                    Open Gumroad
                   </a>
                   <a href={URLS.bmac} className="btn btn--ghost" target="_blank" rel="noopener noreferrer">
                     Buy Me a Coffee

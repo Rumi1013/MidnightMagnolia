@@ -67,16 +67,16 @@ export default function Home() {
           </p>
           <div className="hero__actions">
             <a href={URLS.stanStore} className="btn btn--primary" target="_blank" rel="noopener noreferrer">
-              Shop Stan Store
+              Open Wix Launch
             </a>
             <a href={URLS.booking} className="btn btn--outline" target="_blank" rel="noopener noreferrer">
               Book a Session
             </a>
-            <Link href="/shop" className="btn btn--ghost">Wix Catalog</Link>
+            <Link href="/shop" className="btn btn--ghost">Preview the Shop</Link>
           </div>
           <p className="muted" style={{ marginTop: 'var(--space-md)', fontSize: '0.85rem', maxWidth: '52ch' }}>
             Membership and digital goods run through{' '}
-            <a href={URLS.stanStore} target="_blank" rel="noopener noreferrer">Stan</a>
+            <a href={URLS.wixHome} target="_blank" rel="noopener noreferrer">Wix launch</a>
             {' '}first. Tips and light support:{' '}
             <a href={URLS.bmac} target="_blank" rel="noopener noreferrer">Buy Me a Coffee</a>.
           </p>
@@ -117,20 +117,32 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ── About / positioning ───────────────────────────────── */}
-      <section className="section section--dusk home-about" aria-labelledby="about-heading">
+      {/* ── Current season ────────────────────────────────────── */}
+      <section className="section section--dusk home-about" aria-labelledby="season-heading">
         <div className="container">
-          <h2 style={{ textAlign: 'center', marginBottom: 'var(--space-lg)' }}>The work, in numbers.</h2>
-          <div className="stat-grid">
+          <h2 id="season-heading" style={{ textAlign: 'center', marginBottom: 'var(--space-md)' }}>What this season is built around.</h2>
+          <p className="muted" style={{ margin: '0 auto var(--space-lg)', maxWidth: '58ch', textAlign: 'center' }}>
+            The archive work, healing tools, and systems support all point in the same direction: a slower way to remember, rebuild, and keep moving.
+          </p>
+          <div className="grid-3">
             {[
-              { number: '$1.5M+', label: 'Funding Secured' },
-              { number: '610+',   label: 'Program Participants' },
-              { number: '15+',    label: 'Years of Leadership' },
-              { number: '$300K+', label: 'Annual Budget Managed' },
-            ].map(s => (
-              <div className="stat-block" key={s.label}>
-                <span className="stat-number">{s.number}</span>
-                <span className="stat-label">{s.label}</span>
+              {
+                title: 'Shadow work tools',
+                text: 'Free and paid journals for gentle self-inquiry, neurodivergent pacing, and non-linear healing.',
+              },
+              {
+                title: 'Ancestral practice',
+                text: 'Lineage prompts, archival thinking, and Southern Black memory work held with care.',
+              },
+              {
+                title: 'Systems support',
+                text: 'Consulting, career documents, and AI literacy for people building structure without burnout.',
+              },
+            ].map(item => (
+              <div className="card" key={item.title}>
+                <h3>{item.title}</h3>
+                <div className="divider" style={{ width: 32 }} />
+                <p className="muted">{item.text}</p>
               </div>
             ))}
           </div>
@@ -154,7 +166,7 @@ export default function Home() {
                 title: 'Magnolia Circle',
                 desc:  'A $9/month membership with monthly shadow work prompts, ritual practices, and the member edition of Dusk Letters.',
                 href:  URLS.stanStore,
-                cta:   'Join on Stan',
+                cta:   'Join on Wix',
                 external: true,
               },
               {

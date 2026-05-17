@@ -20,7 +20,7 @@ export default function Resources() {
           <div className="divider" />
           <p className="hero__subtitle">
             No fluff. No paid recommendations without disclosure.
-            These are the tools that keep Midnight Magnolia running on 10 hours a week.
+            These are public signup, referral, and affiliate links only — no private workspaces, libraries, or asset folders.
           </p>
         </div>
 

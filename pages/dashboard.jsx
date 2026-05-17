@@ -5,6 +5,7 @@
 import { useState, useEffect, useCallback } from 'react';
 import Link from 'next/link';
 import Layout from '../components/Layout';
+import { URLS } from '../lib/constants';
 
 const ADMIN_TOKEN_STORAGE_KEY = 'mm_dashboard_admin_token';
 const ADMIN_TOKEN_HEADER = 'x-mm-admin-token';
@@ -42,7 +43,7 @@ function supabaseDashboardHref() {
 const DROPSHIP = [
   { name: 'Printify',        phase: 1, products: 'Branded journal, Magnolia soy candle, tote bag',    action: 'Sign up free — design Phase 1 products' },
   { name: 'Enchanted Soul',  phase: 1, products: 'Crystal sets, ritual candles, spell oils',          action: 'Apply at enchantedsoul.store/pages/dropshipping' },
-  { name: 'Printful',        phase: 2, products: 'Premium apparel, wall art (Magnolia Circle gifts)',  action: 'Connect to Wix/Stan Store — 20% sample discount' },
+  { name: 'Printful',        phase: 2, products: 'Premium apparel, wall art (Magnolia Circle gifts)',  action: 'Connect to Wix/Gumroad — 20% sample discount' },
   { name: 'Starlinks Gifts', phase: 3, products: 'Gothic healing charm pendants, tarot card bags',    action: 'Apply for wholesale account' },
 ];
 
@@ -374,7 +375,7 @@ function RevenueLog({ months }) {
       </div>
       <div style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
         {[
-          { label: 'Stan Store',  value: latest.stanRevenue },
+          { label: 'Gumroad',     value: latest.stanRevenue },
           { label: 'BMAC',        value: latest.bmacRevenue },
           { label: 'Patreon',     value: latest.patreonRevenue },
           { label: 'Gumroad',     value: latest.gumroadRevenue },
@@ -723,7 +724,7 @@ export default function Dashboard() {
               {divider}
               <TaskList tasks={byCategory('product')} title="Product Builds"       onToggle={toggleTask} saving={saving} />
               {divider}
-              <TaskList tasks={byCategory('stan')}    title="Stan Store Setup"     onToggle={toggleTask} saving={saving} />
+              <TaskList tasks={byCategory('stan')}    title="Gumroad Setup"        onToggle={toggleTask} saving={saving} />
               {divider}
               <TaskList tasks={byCategory('site')}    title="Site Tasks (Next.js)" onToggle={toggleTask} saving={saving} />
 
@@ -819,7 +820,7 @@ export default function Dashboard() {
               {divider}
               <SectionHeader title="Quick Links" />
               <div style={{ display: 'flex', gap: 'var(--space-md)', flexWrap: 'wrap' }}>
-                <a href="https://stan.store/MidnightMagnoliaSC"                                    className="btn btn--outline" target="_blank" rel="noopener">Stan Store</a>
+                <a href={URLS.gumroad}                                                            className="btn btn--outline" target="_blank" rel="noopener">Gumroad</a>
                 <a href="https://www.midnight-magnolia.com"                                         className="btn btn--outline" target="_blank" rel="noopener">Wix Site</a>
                 <a href={supabaseDashboardHref()}                                                      className="btn btn--outline" target="_blank" rel="noopener">Supabase</a>
                 <a href="https://notion.so"                                                         className="btn btn--outline" target="_blank" rel="noopener">Notion</a>

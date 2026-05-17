@@ -1,17 +1,23 @@
 import Head from 'next/head';
 import Image from 'next/image';
 import Link from 'next/link';
+import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import { NAV, URLS } from '../lib/constants';
 import { BRAND_ASSETS } from '../lib/brandAssets';
 
 export default function Layout({ children, title, description }) {
   const router = useRouter();
+  const [menuOpen, setMenuOpen] = useState(false);
   const pageTitle = title ? `${title} · Midnight Magnolia` : 'Midnight Magnolia · A Southern Gothic Digital Sanctuary';
   const pageDesc  = description || 'A Southern Gothic sanctuary for healing, creation, and quiet growth. Digital offerings, gentle strategy, and tools for neurodivergent creators.';
   const siteBase = process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, '');
   const pathOnly = router.asPath.split('?')[0];
   const canonicalHref = siteBase ? `${siteBase}${pathOnly === '/' ? '' : pathOnly}` : null;
+
+  useEffect(() => {
+    setMenuOpen(false);
+  }, [router.asPath]);
 
   return (
     <>
@@ -45,7 +51,50 @@ export default function Layout({ children, title, description }) {
               Midnight <span className="nav__accent">Magnolia</span>
             </span>
           </Link>
+          <button
+            type="button"
+            className="nav__toggle"
+            aria-label={menuOpen ? 'Close navigation' : 'Open navigation'}
+            aria-controls="site-navigation"
+            aria-expanded={menuOpen}
+            onClick={() => setMenuOpen((open) => !open)}
+          >
+            <span aria-hidden />
+            <span aria-hidden />
+            <span aria-hidden />
+          </button>
           <div className="nav__links">
+            {NAV.map(item => {
+              const active = !item.external && router.pathname === item.href;
+              const className = active ? 'active' : '';
+              if (item.external) {
+                return (
+                  <a
+                    key={item.label}
+                    href={item.href}
+                    className={className}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    {item.label}
+                  </a>
+                );
+              }
+              return (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  className={className}
+                >
+                  {item.label}
+                </Link>
+              );
+            })}
+            <Link href={URLS.booking} className="nav__cta" target="_blank" rel="noopener noreferrer">
+              Book a Session
+            </Link>
+          </div>
+          <div id="site-navigation" className={`nav__mobile ${menuOpen ? 'is-open' : ''}`}>
             {NAV.map(item => {
               const active = !item.external && router.pathname === item.href;
               const className = active ? 'active' : '';
@@ -113,7 +162,7 @@ export default function Layout({ children, title, description }) {
             </div>
             <div className="footer__col">
               <h4>Connect</h4>
-              <a href={URLS.stanStore} target="_blank" rel="noopener noreferrer">Stan Store</a>
+              <a href={URLS.wixHome} target="_blank" rel="noopener noreferrer">Wix Launch</a>
               <a href={URLS.bmac} target="_blank" rel="noopener noreferrer">Buy Me a Coffee</a>
               <Link href="/membership">Membership</Link>
               <a href={URLS.booking} target="_blank" rel="noopener noreferrer">Book a Session</a>

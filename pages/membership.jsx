@@ -22,7 +22,7 @@ const STAN_MEMBERSHIP = [
       'Shadow Work Starter Kit ($9)',
       'Journals, workbooks, and Deep Roots bundle',
     ],
-    cta: 'Open Stan Store',
+    cta: 'Open Gumroad',
     url: URLS.stanStore,
   },
 ];
@@ -51,7 +51,7 @@ export default function MembershipPage() {
             <div className="card">
               <h3>Stan</h3>
               <p className="muted">Membership (Magnolia Circle), free starter, journals, and bundles.</p>
-              <a href={URLS.stanStore} className="btn btn--primary" target="_blank" rel="noopener noreferrer">Open Stan Store</a>
+              <a href={URLS.gumroad} className="btn btn--primary" target="_blank" rel="noopener noreferrer">Open Gumroad</a>
             </div>
             <div className="card">
               <h3>Buy Me a Coffee</h3>

@@ -93,7 +93,7 @@ export default function GrimoirePost({ post }) {
               This page no longer embeds locked Grimoire body content in the static HTML. Wire a server-side member or email entitlement before publishing the full entry here.
             </p>
             <a href={URLS.stanStore} className="btn btn--primary" target="_blank" rel="noopener noreferrer">
-              Open Stan Store
+              Open Gumroad
             </a>
           </div>
         </section>

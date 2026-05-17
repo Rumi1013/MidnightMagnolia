@@ -5,7 +5,7 @@ import { SERVICES, URLS } from '../lib/constants';
 
 export default function WorkWithMe() {
   return (
-    <Layout title="Work With Me" description="Workflow consulting, AI literacy workshops, and career docs for program managers and nonprofit leaders.">
+    <Layout title="Work With Me" description="Systems consulting, AI literacy workshops, and career documents for program managers, nonprofits, and community organizations.">
       <div className="container">
         <div className="page-hero">
           <p className="page-hero__eyebrow">Services</p>
