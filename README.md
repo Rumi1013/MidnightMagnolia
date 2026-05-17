@@ -30,6 +30,19 @@ npm run dev
 npx vercel
 # Add env vars in Vercel dashboard → Settings → Environment Variables
 
+### Vercel target
+
+- Project name: `midnight-magnolia`
+- Project ID: `prj_D5GUge45XN0nGtVlWrEG4QLUQs2o`
+- Team ID: `team_HiqiZ1IiFxL9E08ZNXxOues7`
+- Production domains:
+  - `https://midnight-magnolia.com`
+  - `https://www.midnight-magnolia.com`
+- Vercel preview URL: `https://midnight-magnolia-plum.vercel.app`
+
+`.vercel/project.json` is local and ignored by git, so keep it aligned with the
+project above when deploying from a new machine or fresh clone.
+
 ## Portfolio resume URLs
 After uploading PDFs (or hosting elsewhere), set in `.env.local` (see `.env.local.example`):
 
