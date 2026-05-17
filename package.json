@@ -16,7 +16,8 @@
   },
   "dependencies": {
     "@notionhq/client": "^5.20.0",
-    "@supabase/supabase-js": "^2.105.1",
+    "@supabase/ssr": "^0.10.3",
+    "@supabase/supabase-js": "^2.105.4",
     "@vercel/analytics": "^2.0.1",
     "@wix/blog": "^1.0.600",
     "@wix/bookings": "^1.0.1376",
