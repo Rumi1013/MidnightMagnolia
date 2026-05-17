@@ -52,7 +52,7 @@ export default function GrimoirePost({ post }) {
               </p>
               <div style={{ display: 'flex', gap: 'var(--space-md)', flexWrap: 'wrap' }}>
                 <Link href="/grimoire" className="btn btn--primary">Go to Grimoire gate</Link>
-                <a href={URLS.stanStore} className="btn btn--outline" target="_blank" rel="noopener noreferrer">
+                <a href={URLS.gumroad} className="btn btn--outline" target="_blank" rel="noopener noreferrer">
                   Get the Gentle Beginning
                 </a>
               </div>
@@ -92,8 +92,8 @@ export default function GrimoirePost({ post }) {
             <p className="muted" style={{ marginBottom: 'var(--space-lg)' }}>
               This page no longer embeds locked Grimoire body content in the static HTML. Wire a server-side member or email entitlement before publishing the full entry here.
             </p>
-            <a href={URLS.stanStore} className="btn btn--primary" target="_blank" rel="noopener noreferrer">
-              Open Gumroad
+            <a href={URLS.substack} className="btn btn--primary" target="_blank" rel="noopener noreferrer">
+              Read Dusk Letters
             </a>
           </div>
         </section>

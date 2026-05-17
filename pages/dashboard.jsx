@@ -375,7 +375,7 @@ function RevenueLog({ months }) {
       </div>
       <div style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
         {[
-          { label: 'Gumroad',     value: latest.stanRevenue },
+          { label: 'Wix Launch',  value: latest.stanRevenue },
           { label: 'BMAC',        value: latest.bmacRevenue },
           { label: 'Patreon',     value: latest.patreonRevenue },
           { label: 'Gumroad',     value: latest.gumroadRevenue },
@@ -822,6 +822,8 @@ export default function Dashboard() {
               <div style={{ display: 'flex', gap: 'var(--space-md)', flexWrap: 'wrap' }}>
                 <a href={URLS.gumroad}                                                            className="btn btn--outline" target="_blank" rel="noopener">Gumroad</a>
                 <a href="https://www.midnight-magnolia.com"                                         className="btn btn--outline" target="_blank" rel="noopener">Wix Site</a>
+                <a href={URLS.substack}                                                           className="btn btn--outline" target="_blank" rel="noopener">Substack</a>
+                <a href={URLS.vercelPreview}                                                       className="btn btn--outline" target="_blank" rel="noopener">Vercel Preview</a>
                 <a href={supabaseDashboardHref()}                                                      className="btn btn--outline" target="_blank" rel="noopener">Supabase</a>
                 <a href="https://notion.so"                                                         className="btn btn--outline" target="_blank" rel="noopener">Notion</a>
                 <a href="https://airtable.com"                                                      className="btn btn--outline" target="_blank" rel="noopener">Airtable</a>

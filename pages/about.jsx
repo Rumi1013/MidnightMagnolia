@@ -1,6 +1,5 @@
 import Link from 'next/link';
 import Layout from '../components/Layout';
-import { URLS } from '../lib/constants';
 
 export default function AboutPage() {
   return (
@@ -61,7 +60,7 @@ export default function AboutPage() {
           <div style={{ display: 'flex', gap: 'var(--space-md)', flexWrap: 'wrap' }}>
             <Link href="/sanctuary" className="btn btn--primary">Enter the Sanctuary</Link>
             <Link href="/membership" className="btn btn--outline">View Membership</Link>
-            <a href={URLS.stanStore} className="btn btn--ghost" target="_blank" rel="noopener noreferrer">Visit the Shop</a>
+            <Link href="/shop" className="btn btn--ghost">Visit the Shop</Link>
           </div>
         </section>
       </div>

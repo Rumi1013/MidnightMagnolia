@@ -78,7 +78,7 @@ export default function Sanctuary({ previewServices = [] }) {
               {
                 title: 'Gentle Beginning',
                 desc: 'Start with grounding prompts and low-spoon structure.',
-                href: URLS.stanStore,
+                href: URLS.gumroad,
                 cta: 'Get the free starter',
               },
               {
@@ -119,8 +119,8 @@ export default function Sanctuary({ previewServices = [] }) {
             Begin with Candle Tender, then scale only when it still feels sustainable.
           </p>
           <div style={{ display: 'flex', gap: 'var(--space-md)', flexWrap: 'wrap', alignItems: 'center' }}>
-            <a href={URLS.stanStore} className="btn btn--primary" target="_blank" rel="noopener noreferrer">
-              Join on Stan
+            <a href={URLS.wixHome} className="btn btn--primary" target="_blank" rel="noopener noreferrer">
+              Join on Wix
             </a>
             <Link href="/membership" className="btn btn--outline">Membership details</Link>
             <a href={URLS.bmac} className="btn btn--ghost" target="_blank" rel="noopener noreferrer">

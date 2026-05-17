@@ -1,7 +1,7 @@
 import Layout from '../components/Layout';
 import { URLS } from '../lib/constants';
 
-const STAN_MEMBERSHIP = [
+const MEMBERSHIP_PATHS = [
   {
     name: 'Magnolia Circle',
     focus: 'Monthly membership',
@@ -11,19 +11,19 @@ const STAN_MEMBERSHIP = [
       'Member edition of Dusk Letters',
       'Community for quiet builders',
     ],
-    cta: 'Join on Stan',
-    url: URLS.stanStore,
+    cta: 'Join on Wix',
+    url: URLS.wixHome,
   },
   {
     name: 'Digital goods + kits',
-    focus: 'Stan storefront',
+    focus: 'Gumroad products',
     includes: [
       'The Gentle Beginning (free starter)',
       'Shadow Work Starter Kit ($9)',
       'Journals, workbooks, and Deep Roots bundle',
     ],
     cta: 'Open Gumroad',
-    url: URLS.stanStore,
+    url: URLS.gumroad,
   },
 ];
 
@@ -31,16 +31,15 @@ export default function MembershipPage() {
   return (
     <Layout
       title="Membership"
-      description="Stan-first membership and digital goods, with Buy Me a Coffee for tips. Patreon remains optional when the account is active."
+      description="Wix-first membership path, Gumroad product downloads, and Buy Me a Coffee for one-time support."
     >
       <div className="container">
         <div className="page-hero">
           <p className="page-hero__eyebrow">Membership</p>
-          <h1>Stan first. BMAC for tips. Patreon when it is live.</h1>
+          <h1>Wix launch first. Gumroad for products. BMAC for tips.</h1>
           <div className="divider" />
           <p className="hero__subtitle">
-            Magnolia Circle and digital products live on Stan. Buy Me a Coffee is for one-time support.
-            If your Patreon is restored, keep it linked from the footer as a secondary path.
+            Magnolia Circle routes through the Wix launch. Digital downloads can live on Gumroad, and Buy Me a Coffee stays available for one-time support.
           </p>
         </div>
 
@@ -49,9 +48,9 @@ export default function MembershipPage() {
           <div className="divider" />
           <div className="grid-2" style={{ marginTop: 'var(--space-lg)' }}>
             <div className="card">
-              <h3>Stan</h3>
-              <p className="muted">Membership (Magnolia Circle), free starter, journals, and bundles.</p>
-              <a href={URLS.gumroad} className="btn btn--primary" target="_blank" rel="noopener noreferrer">Open Gumroad</a>
+              <h3>Wix launch</h3>
+              <p className="muted">Membership, booking, public sanctuary pages, and the primary launch path.</p>
+              <a href={URLS.wixHome} className="btn btn--primary" target="_blank" rel="noopener noreferrer">Open Wix Launch</a>
             </div>
             <div className="card">
               <h3>Buy Me a Coffee</h3>
@@ -62,10 +61,10 @@ export default function MembershipPage() {
         </section>
 
         <section className="section">
-          <h2>Stan offerings</h2>
+          <h2>Membership paths</h2>
           <div className="divider" />
           <div className="grid-2" style={{ marginTop: 'var(--space-lg)' }}>
-            {STAN_MEMBERSHIP.map((tier) => (
+            {MEMBERSHIP_PATHS.map((tier) => (
               <div className="card" key={tier.name} style={{ display: 'flex', flexDirection: 'column' }}>
                 <span className="tag" style={{ marginBottom: 'var(--space-md)', display: 'inline-block' }}>{tier.focus}</span>
                 <h3>{tier.name}</h3>
@@ -87,7 +86,7 @@ export default function MembershipPage() {
         <section className="section section--dusk" style={{ borderRadius: 'var(--radius-lg)', padding: 'var(--space-xl)', marginBottom: 'var(--space-2xl)' }}>
           <h3>Patreon (optional)</h3>
           <p className="muted" style={{ maxWidth: '56ch', marginTop: 'var(--space-sm)' }}>
-            When the Patreon account is accessible again, you can mirror tier names there. This site treats Stan + BMAC as the primary membership and support surfaces.
+            When the Patreon account is accessible again, you can mirror tier names there. This site treats Wix, Gumroad, and BMAC as the primary membership and support surfaces.
           </p>
           <a href={URLS.patreon} className="btn btn--ghost" style={{ marginTop: 'var(--space-md)' }} target="_blank" rel="noopener noreferrer">
             Patreon (if active)

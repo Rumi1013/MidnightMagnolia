@@ -9,7 +9,7 @@ For each recipe:
 | **Live** | Running in Zapier or Make with healthy auth |
 | **Stub** | Zaps exist but need credentials or test data |
 | **Next API** | Logic intentionally lives in `pages/api/*` instead of Zapier |
-| **Replaced** | Deprecated (e.g. Patreon-first flows superseded by Stan + BMAC) |
+| **Replaced** | Deprecated (e.g. Patreon-first or Stan-first flows superseded by Wix + Gumroad + BMAC) |
 | **N/A** | Master Plan row does not apply to current stack |
 
 **Note:** Wix launch → Airtable / Notion / Contacts (**Z-01…Z-03**) takes priority over legacy Patreon (**P-01…P-03**) while Patreon access is limited.

@@ -13,8 +13,8 @@ export default function TermsConditions() {
         <div style={{ maxWidth: '65ch' }} className="muted">
           <p>
             Digital products, memberships, and many services are sold or scheduled through{' '}
-            <a href={URLS.stanStore} target="_blank" rel="noopener noreferrer">Stan</a>,{' '}
-            <a href={URLS.wixHome} target="_blank" rel="noopener noreferrer">Wix</a>, and linked tools. Each platform has its own checkout terms.
+            <a href={URLS.wixHome} target="_blank" rel="noopener noreferrer">Wix</a>,{' '}
+            <a href={URLS.gumroad} target="_blank" rel="noopener noreferrer">Gumroad</a>, and linked tools. Each platform has its own checkout terms.
           </p>
           <p>
             <strong>Wix storefront terms.</strong> For bookings and Wix-native purchases, use the legal links in the footer of the live Wix sanctuary:{' '}

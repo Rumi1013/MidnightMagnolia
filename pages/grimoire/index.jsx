@@ -206,9 +206,11 @@ export default function Grimoire({ posts, cmsItems = [] }) {
               <div className="divider" />
               <p className="muted" style={{ marginBottom: 'var(--space-lg)' }}>
                 Full archive access is gated here while email capture is wired to your chosen platform.
-                Start on{' '}
-                <a href={URLS.stanStore} target="_blank" rel="noopener noreferrer">Stan</a>
-                {' '}(Magnolia Circle, Gentle Beginning, kits) or leave a tip on{' '}
+                Read Dusk Letters on{' '}
+                <a href={URLS.substack} target="_blank" rel="noopener noreferrer">Substack</a>
+                {', '}browse digital tools on{' '}
+                <a href={URLS.gumroad} target="_blank" rel="noopener noreferrer">Gumroad</a>
+                {', '}or leave a tip on{' '}
                 <a href={URLS.bmac} target="_blank" rel="noopener noreferrer">Buy Me a Coffee</a>
                 {' '}— then enter your email below to unlock reading on this device.
               </p>
@@ -226,8 +228,11 @@ export default function Grimoire({ posts, cmsItems = [] }) {
                 </label>
                 <div style={{ display: 'flex', gap: 'var(--space-md)', flexWrap: 'wrap' }}>
                   <button type="submit" className="btn btn--primary">Unlock the Grimoire</button>
-                  <a href={URLS.stanStore} className="btn btn--outline" target="_blank" rel="noopener noreferrer">
-                    Open Gumroad
+                  <a href={URLS.substack} className="btn btn--outline" target="_blank" rel="noopener noreferrer">
+                    Read Dusk Letters
+                  </a>
+                  <a href={URLS.gumroad} className="btn btn--ghost" target="_blank" rel="noopener noreferrer">
+                    Gumroad Products
                   </a>
                   <a href={URLS.bmac} className="btn btn--ghost" target="_blank" rel="noopener noreferrer">
                     Buy Me a Coffee

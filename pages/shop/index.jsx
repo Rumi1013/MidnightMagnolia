@@ -96,6 +96,9 @@ export default function Shop() {
             <a href={URLS.wixHome} className="btn btn--primary" target="_blank" rel="noopener noreferrer">
               Open Wix Launch
             </a>
+            <a href={URLS.gumroad} className="btn btn--outline" target="_blank" rel="noopener noreferrer">
+              View Gumroad Products
+            </a>
             <Link href="/work-with-me" className="btn btn--outline">
               Pair With Support
             </Link>
@@ -133,7 +136,7 @@ export default function Shop() {
               <h2>The current catalog.</h2>
               <div className="divider" />
               <p className="muted" style={{ maxWidth: '56ch' }}>
-                The paid products are framed for the Wix launch. The free starter stays available as the first doorway while the rest of the catalog comes online.
+                The launch is anchored on Wix, with digital downloads and product notices mirrored through Gumroad. The free starter stays available as the first doorway while the rest of the catalog comes online.
               </p>
             </div>
           </div>
@@ -160,7 +163,7 @@ export default function Shop() {
                   ))}
                 </ul>
                 <a
-                  href={URLS.wixHome}
+                  href={product.id === 'magnolia-circle' ? URLS.wixHome : URLS.gumroad}
                   className={product.id === 'gentle-beginning' ? 'btn btn--primary' : 'btn btn--outline'}
                   style={{ marginTop: 'var(--space-lg)', alignSelf: 'flex-start' }}
                   target="_blank"

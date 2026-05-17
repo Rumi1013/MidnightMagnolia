@@ -66,7 +66,7 @@ export default function Home() {
             creators who know their pace is not a problem.
           </p>
           <div className="hero__actions">
-            <a href={URLS.stanStore} className="btn btn--primary" target="_blank" rel="noopener noreferrer">
+            <a href={URLS.wixLaunch} className="btn btn--primary" target="_blank" rel="noopener noreferrer">
               Open Wix Launch
             </a>
             <a href={URLS.booking} className="btn btn--outline" target="_blank" rel="noopener noreferrer">
@@ -165,7 +165,7 @@ export default function Home() {
               {
                 title: 'Magnolia Circle',
                 desc:  'A $9/month membership with monthly shadow work prompts, ritual practices, and the member edition of Dusk Letters.',
-                href:  URLS.stanStore,
+                href:  URLS.wixLaunch,
                 cta:   'Join on Wix',
                 external: true,
               },
