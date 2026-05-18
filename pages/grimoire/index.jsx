@@ -1,5 +1,6 @@
 import Layout from '../../components/Layout';
 import { getGrimoirePosts, formatPostDate } from '../../lib/wix';
+import { getSanityPosts } from '../../lib/sanity';
 import Link from 'next/link';
 import { useEffect, useMemo, useState } from 'react';
 import { URLS } from '../../lib/constants';
@@ -109,8 +110,24 @@ function inferCategory(post) {
 }
 
 export async function getStaticProps() {
+  const sanityPosts = await getSanityPosts(12);
+  if (sanityPosts.length > 0) {
+    const posts = sanityPosts.map((p) => ({
+      _id: p._id,
+      title: p.title,
+      slug: p.slug,
+      publishedDate: p.publishedAt,
+      coverMedia: p.coverImage ? { image: { url: p.coverImage } } : null,
+      excerpt: null,
+      hashtags: [],
+      tags: [],
+      categoryIds: [],
+      _source: 'sanity',
+    }));
+    return { props: { posts }, revalidate: 300 };
+  }
   const posts = await getGrimoirePosts(12);
-  return { props: { posts }, revalidate: 300 }; // ISR: refresh every 5 min
+  return { props: { posts }, revalidate: 300 };
 }
 
 export default function Grimoire({ posts }) {
