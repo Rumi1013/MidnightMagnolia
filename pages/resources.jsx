@@ -84,13 +84,27 @@ export default function Resources() {
           ))}
         </section>
 
+        <section className="section section--dark" style={{ borderRadius: 'var(--radius-lg)', padding: 'var(--space-xl)', marginBottom: 'var(--space-xl)', display: 'grid', gridTemplateColumns: '1fr auto', gap: 'var(--space-xl)', alignItems: 'center', flexWrap: 'wrap' }}>
+          <div>
+            <h2>Dusk Letters on Substack</h2>
+            <div className="divider" />
+            <p className="muted" style={{ marginBottom: 'var(--space-lg)', maxWidth: '48ch' }}>
+              Long-form letters on shadow work, ancestral healing, and soft business — for quiet builders who are done pretending the grind works.
+            </p>
+            <a href={URLS.substack} className="btn btn--primary" target="_blank" rel="noopener noreferrer">Read on Substack</a>
+          </div>
+        </section>
+
         <section className="section section--dark" style={{ borderRadius: 'var(--radius-lg)', padding: 'var(--space-xl)', marginBottom: 'var(--space-2xl)' }}>
           <h2>Amazon Storefront</h2>
           <div className="divider" />
           <p className="muted" style={{ marginBottom: 'var(--space-lg)' }}>
             Books I actually read. Tools I actually use. Journals, tech, and workspace essentials.
           </p>
-          <a href={URLS.amazon} className="btn btn--primary" target="_blank" rel="noopener noreferrer sponsored">Browse the Storefront</a>
+          <div style={{ display: 'flex', gap: 'var(--space-md)', flexWrap: 'wrap' }}>
+            <a href={URLS.amazon} className="btn btn--primary" target="_blank" rel="noopener noreferrer sponsored">Browse the Storefront</a>
+            <a href={URLS.gumroad} className="btn btn--outline" target="_blank" rel="noopener noreferrer">Gumroad Products</a>
+          </div>
         </section>
 
         <p className="muted" style={{ fontSize: '0.8rem', paddingBottom: 'var(--space-2xl)' }}>

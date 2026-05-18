@@ -2,6 +2,9 @@ import { withWorkflow } from '@workflow/next';
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  transpilePackages: [],
+  typescript: { ignoreBuildErrors: false },
+  eslint: { dirs: ['pages', 'components', 'lib'] },
   /**
    * Send apex → www when both hostnames hit this deployment.
    * In your DNS: `www` → CNAME to your host (e.g. Vercel); apex → A/ALIAS per host docs.

@@ -40,6 +40,9 @@
     "**/*.tsx"
   ],
   "exclude": [
-    "node_modules"
+    "node_modules",
+    "my-app",
+    "nextjs-project-bole-mirror",
+    "CareerSystem"
   ]
 }
