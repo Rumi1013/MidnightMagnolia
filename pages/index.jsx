@@ -161,8 +161,8 @@ export default function Home() {
                 <Link href={door.href} className="btn btn--ghost" style={{ marginTop: 'var(--space-lg)', display: 'inline-block' }}>
                   {door.cta}
                 </Link>
-              );
-            })}
+              </div>
+            ))}
           </div>
         </div>
       </section>
