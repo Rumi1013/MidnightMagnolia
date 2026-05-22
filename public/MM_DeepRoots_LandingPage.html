@@ -1,0 +1,1093 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Deep Roots Shadow Work System — Midnight Magnolia</title>
+<meta name="description" content="A 14-week guided shadow work system for Black women who have done the surface work and are ready for what was inherited, what was absorbed, and what is theirs to put down. $49.">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+<style>
+:root {
+  --indigo: #2B2F4A;
+  --indigo-deep: #1A1D2E;
+  --indigo-soft: rgba(43, 47, 74, 0.06);
+  --gold: #C9A84C;
+  --gold-light: #E8C97A;
+  --gold-soft: rgba(201, 168, 76, 0.12);
+  --magnolia: #F5F0E8;
+  --magnolia-dark: #E8E0D0;
+  --parchment: #FAF6EE;
+  --ink: #1A1D2E;
+  --mist: #6B7089;
+  --border: rgba(43, 47, 74, 0.13);
+  --moss: #5A665C;
+  --clay: #C7B09A;
+  --rose: #C46A5A;
+  --plum: #4A2D4E;
+  --fd: 'Cormorant Garamond', Georgia, serif;
+  --fb: 'DM Sans', system-ui, -apple-system, sans-serif;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: var(--fb);
+  background: var(--magnolia);
+  color: var(--ink);
+  font-size: 16px;
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ═══════════════════════════════════════════════
+   HERO
+   ═══════════════════════════════════════════════ */
+.hero {
+  background: var(--indigo);
+  color: var(--magnolia);
+  padding: 80px 5vw 100px;
+  position: relative;
+  overflow: hidden;
+  min-height: 90vh;
+  display: flex;
+  align-items: center;
+}
+.hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse at 78% 30%, rgba(201, 168, 76, 0.18) 0%, transparent 55%),
+    radial-gradient(ellipse at 12% 75%, rgba(196, 106, 90, 0.08) 0%, transparent 45%);
+  pointer-events: none;
+}
+.hero::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(201, 168, 76, 0.35), transparent);
+}
+.hero-inner {
+  max-width: 980px;
+  position: relative;
+  z-index: 2;
+}
+.eyebrow {
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 22px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+.eyebrow-rule {
+  flex: 0 0 40px;
+  height: 1px;
+  background: var(--gold);
+  opacity: 0.6;
+}
+.root-tag {
+  display: inline-block;
+  border: 1px solid rgba(201, 168, 76, 0.4);
+  background: rgba(201, 168, 76, 0.08);
+  padding: 4px 12px;
+  border-radius: 24px;
+  font-size: 10px;
+  letter-spacing: 0.18em;
+  color: var(--gold-light);
+  margin-left: 8px;
+}
+h1.hero-headline {
+  font-family: var(--fd);
+  font-weight: 300;
+  font-size: clamp(2.4rem, 6vw, 4.4rem);
+  line-height: 1.06;
+  letter-spacing: -0.01em;
+  margin-bottom: 28px;
+  max-width: 18ch;
+}
+h1.hero-headline em {
+  font-style: italic;
+  color: var(--gold-light);
+}
+.hero-sub {
+  font-family: var(--fd);
+  font-style: italic;
+  font-size: clamp(1.05rem, 2vw, 1.4rem);
+  font-weight: 300;
+  color: rgba(245, 240, 232, 0.78);
+  margin-bottom: 44px;
+  max-width: 38ch;
+  line-height: 1.5;
+}
+.hero-cta-block {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 28px;
+  margin-bottom: 18px;
+}
+.cta {
+  display: inline-block;
+  background: var(--gold);
+  color: var(--indigo-deep);
+  font-family: var(--fb);
+  font-size: 13.5px;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  padding: 18px 36px;
+  border-radius: 2px;
+  text-decoration: none;
+  border: none;
+  cursor: pointer;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+}
+.cta:hover {
+  background: var(--gold-light);
+  transform: translateY(-1px);
+  box-shadow: 0 8px 24px rgba(201, 168, 76, 0.25);
+}
+.cta-meta {
+  font-family: var(--fd);
+  font-style: italic;
+  font-size: 14px;
+  color: rgba(245, 240, 232, 0.6);
+}
+.cta-meta strong {
+  color: var(--gold-light);
+  font-weight: 500;
+  font-style: normal;
+  font-family: var(--fb);
+  letter-spacing: 0.04em;
+}
+.hero-fine {
+  font-size: 11.5px;
+  letter-spacing: 0.08em;
+  color: rgba(245, 240, 232, 0.42);
+  text-transform: uppercase;
+}
+
+/* ═══════════════════════════════════════════════
+   PROBLEM SECTION
+   ═══════════════════════════════════════════════ */
+.section {
+  padding: 100px 5vw;
+  position: relative;
+}
+.section-inner {
+  max-width: 920px;
+  margin: 0 auto;
+}
+.section-label {
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 14px;
+}
+.section-title {
+  font-family: var(--fd);
+  font-weight: 300;
+  font-size: clamp(1.9rem, 4vw, 3rem);
+  line-height: 1.12;
+  color: var(--indigo);
+  margin-bottom: 36px;
+  max-width: 22ch;
+}
+.section-title em {
+  font-style: italic;
+  color: var(--rose);
+}
+
+.problem {
+  background: var(--parchment);
+  position: relative;
+}
+.problem::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 5vw;
+  right: 5vw;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  opacity: 0.4;
+}
+.problem-prose {
+  font-family: var(--fd);
+  font-size: 1.3rem;
+  font-weight: 400;
+  line-height: 1.6;
+  color: var(--ink);
+  max-width: 36ch;
+}
+.problem-prose p {
+  margin-bottom: 22px;
+}
+.problem-prose p:last-child {
+  margin-bottom: 0;
+}
+.problem-prose em {
+  font-style: italic;
+  color: var(--mist);
+}
+
+/* ═══════════════════════════════════════════════
+   THE OFFERING (What This Is)
+   ═══════════════════════════════════════════════ */
+.offering {
+  background: var(--magnolia);
+}
+.offering-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+  align-items: start;
+}
+@media (max-width: 768px) {
+  .offering-grid { grid-template-columns: 1fr; gap: 40px; }
+}
+.offering-lead {
+  font-family: var(--fd);
+  font-weight: 400;
+  font-style: italic;
+  font-size: 1.4rem;
+  color: var(--indigo);
+  line-height: 1.5;
+}
+.offering-detail {
+  font-size: 15.5px;
+  color: var(--ink);
+  line-height: 1.75;
+}
+.offering-detail p { margin-bottom: 14px; }
+.offering-detail strong { color: var(--indigo); font-weight: 500; }
+
+.informed-by {
+  margin-top: 36px;
+  padding: 22px 26px;
+  background: var(--gold-soft);
+  border-left: 3px solid var(--gold);
+  border-radius: 0 6px 6px 0;
+}
+.informed-by-label {
+  font-size: 10.5px;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--mist);
+  margin-bottom: 8px;
+}
+.informed-by-list {
+  font-family: var(--fd);
+  font-size: 1.05rem;
+  font-style: italic;
+  color: var(--indigo);
+  line-height: 1.5;
+}
+
+/* ═══════════════════════════════════════════════
+   3 BENEFITS
+   ═══════════════════════════════════════════════ */
+.benefits {
+  background: var(--indigo);
+  color: var(--magnolia);
+  position: relative;
+}
+.benefits::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at 50% 0%, rgba(201, 168, 76, 0.1) 0%, transparent 50%);
+  pointer-events: none;
+}
+.benefits .section-title { color: var(--magnolia); max-width: none; }
+.benefits .section-label { color: var(--gold); }
+
+.benefit-list {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0;
+  margin-top: 60px;
+}
+.benefit {
+  display: grid;
+  grid-template-columns: 100px 1fr;
+  gap: 40px;
+  padding: 40px 0;
+  border-top: 1px solid rgba(201, 168, 76, 0.15);
+  align-items: start;
+}
+.benefit:last-child { border-bottom: 1px solid rgba(201, 168, 76, 0.15); }
+@media (max-width: 768px) {
+  .benefit { grid-template-columns: 1fr; gap: 12px; }
+}
+.benefit-num {
+  font-family: var(--fd);
+  font-size: 3.4rem;
+  font-weight: 300;
+  color: var(--gold);
+  line-height: 1;
+  opacity: 0.85;
+}
+.benefit-content h3 {
+  font-family: var(--fd);
+  font-weight: 400;
+  font-size: 1.7rem;
+  color: var(--magnolia);
+  line-height: 1.25;
+  margin-bottom: 14px;
+}
+.benefit-content h3 em {
+  font-style: italic;
+  color: var(--gold-light);
+}
+.benefit-content p {
+  font-size: 15.5px;
+  color: rgba(245, 240, 232, 0.78);
+  line-height: 1.7;
+  max-width: 52ch;
+}
+
+/* ═══════════════════════════════════════════════
+   WHAT'S INSIDE
+   ═══════════════════════════════════════════════ */
+.inside {
+  background: var(--parchment);
+}
+.phase-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1px;
+  background: var(--border);
+  margin-top: 50px;
+  border: 1px solid var(--border);
+}
+@media (max-width: 768px) {
+  .phase-grid { grid-template-columns: 1fr; }
+}
+.phase {
+  background: #FFFFFF;
+  padding: 30px 32px;
+}
+.phase-num {
+  font-family: var(--fd);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 6px;
+}
+.phase-name {
+  font-family: var(--fd);
+  font-size: 1.5rem;
+  font-weight: 400;
+  color: var(--indigo);
+  margin-bottom: 4px;
+}
+.phase-weeks {
+  font-size: 11.5px;
+  letter-spacing: 0.06em;
+  color: var(--mist);
+  margin-bottom: 16px;
+}
+.phase-list {
+  list-style: none;
+  padding: 0;
+}
+.phase-list li {
+  padding: 6px 0 6px 18px;
+  position: relative;
+  font-size: 14.5px;
+  color: var(--ink);
+  line-height: 1.55;
+}
+.phase-list li::before {
+  content: '—';
+  position: absolute;
+  left: 0;
+  color: var(--gold);
+}
+
+.deliverable-list {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 14px;
+  margin-top: 36px;
+}
+@media (max-width: 600px) { .deliverable-list { grid-template-columns: 1fr; } }
+.deliverable {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  padding: 14px 18px;
+  background: #FFFFFF;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+}
+.deliverable-dot {
+  flex: 0 0 8px;
+  height: 8px;
+  background: var(--gold);
+  border-radius: 50%;
+  margin-top: 8px;
+}
+.deliverable-text {
+  font-size: 14.5px;
+  color: var(--ink);
+  line-height: 1.5;
+}
+.deliverable-text strong {
+  display: block;
+  font-family: var(--fd);
+  font-size: 1.05rem;
+  font-weight: 500;
+  color: var(--indigo);
+  margin-bottom: 2px;
+}
+
+/* ═══════════════════════════════════════════════
+   FOUNDER / LINEAGE
+   ═══════════════════════════════════════════════ */
+.lineage {
+  background: var(--magnolia);
+  position: relative;
+}
+.lineage-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+  align-items: start;
+}
+@media (max-width: 768px) { .lineage-grid { grid-template-columns: 1fr; gap: 30px; } }
+
+.lineage-quote {
+  font-family: var(--fd);
+  font-weight: 300;
+  font-style: italic;
+  font-size: 1.55rem;
+  line-height: 1.5;
+  color: var(--indigo);
+  padding-left: 28px;
+  border-left: 3px solid var(--gold);
+}
+.lineage-quote em {
+  color: var(--rose);
+  font-style: italic;
+}
+.lineage-body {
+  font-size: 15.5px;
+  line-height: 1.75;
+  color: var(--ink);
+}
+.lineage-body p { margin-bottom: 16px; }
+.lineage-body strong { color: var(--indigo); font-weight: 500; }
+.lineage-body .name {
+  font-family: var(--fd);
+  font-weight: 500;
+  font-size: 1.08rem;
+  color: var(--indigo);
+}
+
+.lineage-stats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 36px;
+  margin-top: 36px;
+  padding-top: 28px;
+  border-top: 1px solid var(--border);
+}
+.lineage-stat-n {
+  font-family: var(--fd);
+  font-size: 2.2rem;
+  font-weight: 500;
+  color: var(--gold);
+  line-height: 1;
+}
+.lineage-stat-l {
+  font-size: 10.5px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--mist);
+  margin-top: 6px;
+}
+
+/* ═══════════════════════════════════════════════
+   FAQ
+   ═══════════════════════════════════════════════ */
+.faq {
+  background: var(--parchment);
+}
+.faq-list {
+  margin-top: 50px;
+}
+.faq-item {
+  border-bottom: 1px solid var(--border);
+}
+.faq-item:first-child { border-top: 1px solid var(--border); }
+.faq-q {
+  background: none;
+  border: none;
+  width: 100%;
+  text-align: left;
+  padding: 24px 0;
+  font-family: var(--fd);
+  font-size: 1.3rem;
+  font-weight: 400;
+  color: var(--indigo);
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 20px;
+  transition: color 0.2s;
+}
+.faq-q:hover { color: var(--gold); }
+.faq-toggle {
+  flex: 0 0 auto;
+  font-family: var(--fb);
+  font-size: 1.4rem;
+  font-weight: 300;
+  color: var(--gold);
+  transition: transform 0.3s ease;
+  margin-top: 4px;
+}
+.faq-item.open .faq-toggle { transform: rotate(45deg); }
+.faq-a {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.4s ease, padding 0.4s ease;
+  font-size: 15.5px;
+  color: var(--ink);
+  line-height: 1.75;
+}
+.faq-item.open .faq-a {
+  max-height: 600px;
+  padding: 0 40px 30px 0;
+}
+.faq-a p { margin-bottom: 12px; }
+.faq-a p:last-child { margin-bottom: 0; }
+
+/* ═══════════════════════════════════════════════
+   FINAL CTA
+   ═══════════════════════════════════════════════ */
+.final-cta {
+  background: var(--indigo);
+  color: var(--magnolia);
+  text-align: center;
+  padding: 110px 5vw;
+  position: relative;
+  overflow: hidden;
+}
+.final-cta::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at 50% 50%, rgba(201, 168, 76, 0.15) 0%, transparent 60%);
+}
+.final-cta-inner {
+  position: relative;
+  z-index: 2;
+  max-width: 720px;
+  margin: 0 auto;
+}
+.final-cta h2 {
+  font-family: var(--fd);
+  font-weight: 300;
+  font-size: clamp(2rem, 5vw, 3.4rem);
+  line-height: 1.15;
+  margin-bottom: 22px;
+  max-width: 22ch;
+  margin-left: auto;
+  margin-right: auto;
+}
+.final-cta h2 em {
+  font-style: italic;
+  color: var(--gold-light);
+}
+.final-cta p {
+  font-family: var(--fd);
+  font-style: italic;
+  font-size: 1.2rem;
+  color: rgba(245, 240, 232, 0.7);
+  margin-bottom: 40px;
+}
+.final-cta .cta {
+  font-size: 14.5px;
+  padding: 20px 44px;
+}
+.final-cta .cta-meta {
+  display: block;
+  margin-top: 22px;
+  color: rgba(245, 240, 232, 0.5);
+}
+
+/* ═══════════════════════════════════════════════
+   FOOTER
+   ═══════════════════════════════════════════════ */
+.footer {
+  background: var(--indigo-deep);
+  color: rgba(245, 240, 232, 0.55);
+  padding: 50px 5vw 40px;
+  font-size: 12.5px;
+  line-height: 1.7;
+}
+.footer-inner {
+  max-width: 920px;
+  margin: 0 auto;
+}
+.footer-boundary {
+  font-size: 12px;
+  color: rgba(245, 240, 232, 0.55);
+  line-height: 1.7;
+  margin-bottom: 28px;
+  padding-bottom: 28px;
+  border-bottom: 1px solid rgba(245, 240, 232, 0.08);
+  max-width: 70ch;
+}
+.footer-boundary strong { color: var(--gold-light); font-weight: 500; }
+.footer-bottom {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 16px;
+  font-size: 11px;
+  letter-spacing: 0.04em;
+}
+.footer-brand {
+  font-family: var(--fd);
+  font-style: italic;
+  color: var(--gold-light);
+  font-size: 14px;
+}
+
+/* ═══════════════════════════════════════════════
+   ENTRY ANIMATIONS
+   ═══════════════════════════════════════════════ */
+.fade-in {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+.fade-in.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+</style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════════════
+     HERO
+═══════════════════════════════════════════════ -->
+<section class="hero">
+  <div class="hero-inner">
+    <div class="eyebrow">
+      <span class="eyebrow-rule"></span>
+      Deep Roots Shadow Work System
+      <span class="root-tag">03 · Examine It</span>
+    </div>
+    <h1 class="hero-headline">
+      After the diagnosis, the leaving, the recovery, the rebuilding — there is <em>the examination</em>.
+    </h1>
+    <p class="hero-sub">
+      A 14-week guided system for Black women who have done the surface work and are ready for what was inherited, what was absorbed, and what is theirs to put down.
+    </p>
+    <div class="hero-cta-block">
+      <a href="#begin" class="cta">Begin the work · $49</a>
+      <div class="cta-meta">
+        <strong>$49 one-time.</strong><br>
+        Lifetime access. No subscription.
+      </div>
+    </div>
+    <p class="hero-fine">Midnight Magnolia · Ravenel, South Carolina</p>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════
+     THE PROBLEM
+═══════════════════════════════════════════════ -->
+<section class="section problem">
+  <div class="section-inner">
+    <div class="section-label">The work between sessions</div>
+    <h2 class="section-title">You have the language. You have the frameworks. You are still stuck in <em>the middle of yourself.</em></h2>
+    <div class="problem-prose">
+      <p>You have done the therapy. You have read the books. You can name a thought distortion before it finishes forming. You know the words attachment, regulation, somatic, lineage, generational.</p>
+
+      <p>And still — the deepest thing is not yet examined. The pattern you keep returning to is not yet understood. The piece that was passed down has not been separated from the piece that is yours. You are not at the beginning anymore. But you are not yet on the other side.</p>
+
+      <p>The wellness industry will sell you another twelve-week intensive. Your therapist's calendar is full until November. The journals at the bookstore are paced for someone in their first season of healing. <em>You are not in your first season.</em> You are in the season where the work becomes more honest, and there is almost nothing built for it.</p>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════
+     WHAT THIS IS
+═══════════════════════════════════════════════ -->
+<section class="section offering">
+  <div class="section-inner">
+    <div class="section-label">What this is</div>
+    <h2 class="section-title">A guided system for the woman already in the work.</h2>
+    <div class="offering-grid">
+      <div>
+        <p class="offering-lead">Fourteen weeks of structured examination, organized as a spiral rather than a staircase — returning more honestly each pass, never demanding you arrive somewhere.</p>
+      </div>
+      <div class="offering-detail">
+        <p>The Deep Roots Shadow Work System is not a starter journal. It assumes you have done the surface work and are ready to look at the layer underneath — the patterns you carry that were never only yours, the inheritances you have not yet named, the cost-benefit math of behaviors you have been calling problems when they were actually old protections.</p>
+        <p>It does not promise breakthroughs. It promises <strong>honest inventory</strong> — the slow work of looking at what you carry with enough love to look clearly, and enough rigor to set down what is finally ready to be set down.</p>
+
+        <div class="informed-by">
+          <div class="informed-by-label">Informed by</div>
+          <div class="informed-by-list">
+            CBT thought restructuring · The Four Agreements · SMART Recovery cost-benefit analysis · lineage examination work · spiritually grounded in Black Southern ancestral tradition.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════
+     3 BENEFITS
+═══════════════════════════════════════════════ -->
+<section class="section benefits">
+  <div class="section-inner">
+    <div class="section-label">What changes</div>
+    <h2 class="section-title">Three things this system does that nothing in your library currently does.</h2>
+
+    <div class="benefit-list">
+      <div class="benefit">
+        <div class="benefit-num">01</div>
+        <div class="benefit-content">
+          <h3>You are not starting from scratch. You are <em>going deeper.</em></h3>
+          <p>Every prompt in this system assumes you already have a working vocabulary for trauma, the nervous system, attachment, and recovery. There is no beginner explainer in front of the work. The first prompt does what most journals reach by week eight. You are not made to wait for the depth.</p>
+        </div>
+      </div>
+
+      <div class="benefit">
+        <div class="benefit-num">02</div>
+        <div class="benefit-content">
+          <h3>It examines what therapy alone cannot examine: <em>lineage.</em></h3>
+          <p>Most clinical frameworks stop at your own life. The Deep Roots System carries the inventory back — to the patterns you were handed before you had hands. The lineage layer is not bypass spirituality and it is not genealogy as decoration. It is a structured examination of what was passed down: what is gift, what is wound, what is yours to change.</p>
+        </div>
+      </div>
+
+      <div class="benefit">
+        <div class="benefit-num">03</div>
+        <div class="benefit-content">
+          <h3>It is paced for a body that <em>cannot do twelve-week intensives.</em></h3>
+          <p>Fourteen weeks of structured prompts, but no streaks, no missed-day shame, no checkmarks that decide whether you finished. The pacing guide accounts for chronic illness, flare weeks, neurodivergent rhythms, and the slow, nonlinear way honest inventory actually moves. If you do not pick it up for a month, the work waits. The door does not close.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════
+     WHAT'S INSIDE
+═══════════════════════════════════════════════ -->
+<section class="section inside">
+  <div class="section-inner">
+    <div class="section-label">Inside the system</div>
+    <h2 class="section-title">Four phases. Fourteen weeks. One spiral.</h2>
+
+    <div class="phase-grid">
+      <div class="phase">
+        <div class="phase-num">Phase 01</div>
+        <div class="phase-name">Honest Ground</div>
+        <div class="phase-weeks">Weeks 1 – 3</div>
+        <ul class="phase-list">
+          <li>The Four Agreements self-audit (no verdict)</li>
+          <li>Mapping where you actually stand right now</li>
+          <li>Naming the distortions you have already outgrown but still use</li>
+          <li>What was true at twenty that is not true now</li>
+        </ul>
+      </div>
+
+      <div class="phase">
+        <div class="phase-num">Phase 02</div>
+        <div class="phase-name">The Inherited Layer</div>
+        <div class="phase-weeks">Weeks 4 – 7</div>
+        <ul class="phase-list">
+          <li>The lineage inventory — patterns, gifts, wounds</li>
+          <li>What you were trained to call love</li>
+          <li>The labors your mothers held that you do not have to</li>
+          <li>What gets to be put down at this generation</li>
+        </ul>
+      </div>
+
+      <div class="phase">
+        <div class="phase-num">Phase 03</div>
+        <div class="phase-name">Cost & Benefit</div>
+        <div class="phase-weeks">Weeks 8 – 11</div>
+        <ul class="phase-list">
+          <li>SMART Recovery cost-benefit, applied to your own patterns</li>
+          <li>What this pattern has actually given you (not just cost you)</li>
+          <li>The protection underneath the behavior</li>
+          <li>What you would need to feel safe enough to stop</li>
+        </ul>
+      </div>
+
+      <div class="phase">
+        <div class="phase-num">Phase 04</div>
+        <div class="phase-name">Return & Rest</div>
+        <div class="phase-weeks">Weeks 12 – 14</div>
+        <ul class="phase-list">
+          <li>Integration: what you saw, what you set down, what stayed</li>
+          <li>The spiral check-in — naming where you'll return next pass</li>
+          <li>A closing ritual at the threshold</li>
+          <li>How to use this system again, in a different season</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="deliverable-list">
+      <div class="deliverable">
+        <div class="deliverable-dot"></div>
+        <div class="deliverable-text">
+          <strong>72 structured prompts</strong>
+          Paced for low-spoon weeks and nonlinear healing.
+        </div>
+      </div>
+      <div class="deliverable">
+        <div class="deliverable-dot"></div>
+        <div class="deliverable-text">
+          <strong>The Pacing Guide</strong>
+          A separate companion for chronic illness, neurodivergent, and recovery rhythms.
+        </div>
+      </div>
+      <div class="deliverable">
+        <div class="deliverable-dot"></div>
+        <div class="deliverable-text">
+          <strong>Four opening &amp; closing rituals</strong>
+          One for each phase. Trauma-aware. Not required to participate.
+        </div>
+      </div>
+      <div class="deliverable">
+        <div class="deliverable-dot"></div>
+        <div class="deliverable-text">
+          <strong>The Lineage Inventory worksheet</strong>
+          A separate downloadable for the genealogy-aware work.
+        </div>
+      </div>
+      <div class="deliverable">
+        <div class="deliverable-dot"></div>
+        <div class="deliverable-text">
+          <strong>The Spiral Return template</strong>
+          For your second, third, and fourth passes through.
+        </div>
+      </div>
+      <div class="deliverable">
+        <div class="deliverable-dot"></div>
+        <div class="deliverable-text">
+          <strong>Delivered as printable PDF + fillable digital</strong>
+          Use however your body works.
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════
+     FOUNDER / LINEAGE
+═══════════════════════════════════════════════ -->
+<section class="section lineage">
+  <div class="section-inner">
+    <div class="section-label">About the work</div>
+    <h2 class="section-title">The archive and the theory of change are <em>the same document.</em></h2>
+
+    <div class="lineage-grid">
+      <div>
+        <p class="lineage-quote">
+          I did not build this system from a curriculum. I built it from a lineage I have been documenting for years — and from the recovery frameworks, clinical tools, and ancestral practice that have held me in my own examination.
+        </p>
+      </div>
+      <div class="lineage-body">
+        <p>The Deep Roots Shadow Work System is anchored to a specific ancestor in my line: <span class="name">Clarence L. Vincent</span>, whose two families — Susie Smith Piles and Mamie Graves Wright — held the kind of complex inheritance that no clinical framework alone can examine.</p>
+
+        <p>What he passed down was both gift and wound. Naming which is which is the work this system asks you to do for your own line. <strong>That work is not abstract. It is paid back, one honest prompt at a time.</strong></p>
+
+        <p>Midnight Magnolia is spiritually grounded in Black Southern ancestral tradition — the Ancestral Ground beneath all five roots of the framework. The system you are buying is the public-facing part of that work. The deeper layer stays with the lineage. That is how it should be.</p>
+
+        <div class="lineage-stats">
+          <div>
+            <div class="lineage-stat-n">939</div>
+            <div class="lineage-stat-l">Family members archived</div>
+          </div>
+          <div>
+            <div class="lineage-stat-n">6</div>
+            <div class="lineage-stat-l">Documented generations</div>
+          </div>
+          <div>
+            <div class="lineage-stat-n">14</div>
+            <div class="lineage-stat-l">Weeks of structured work</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════
+     FAQ
+═══════════════════════════════════════════════ -->
+<section class="section faq">
+  <div class="section-inner">
+    <div class="section-label">Honest questions</div>
+    <h2 class="section-title">What you actually want to know before you buy.</h2>
+
+    <div class="faq-list">
+      <div class="faq-item">
+        <button class="faq-q">
+          <span>What makes this different from a regular shadow work journal?</span>
+          <span class="faq-toggle">+</span>
+        </button>
+        <div class="faq-a">
+          <p>Most shadow work journals are entry-level. They assume you are new to your own interior. This system assumes you have already been there — and that the work in front of you now is honest inventory of what you carry, including the layers that were not made by you. The lineage examination phase is the piece you will not find in any of the journals at the bookstore.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q">
+          <span>Do I need to be in therapy to do this?</span>
+          <span class="faq-toggle">+</span>
+        </button>
+        <div class="faq-a">
+          <p>No. But this is not a replacement for clinical care. If you are in active crisis, in early recovery, or in a window where examination might be destabilizing, please wait — or work this system alongside a therapist you trust. The system itself flags prompts that can land heavy, and gives you explicit permission to skip, pause, or come back.</p>
+          <p><em>I am not a therapist or clinician. My experience informs my knowledge base, and I share it from that place. Please check in with your own health professional for guidance specific to your situation.</em></p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q">
+          <span>I have ADHD / chronic illness / cannot do daily anything. Is this workable?</span>
+          <span class="faq-toggle">+</span>
+        </button>
+        <div class="faq-a">
+          <p>Yes — that is exactly what it is built for. The Pacing Guide is a separate document specifically for nonlinear capacity. There are no streaks. There is no missed-day shame. There is no algorithm waiting to scold you. If you do one prompt a week, you finish in fourteen weeks. If you do one prompt a month, you finish in fourteen months. The work is the same.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q">
+          <span>I have not done genealogy research. Can I still do the lineage parts?</span>
+          <span class="faq-toggle">+</span>
+        </button>
+        <div class="faq-a">
+          <p>Yes. The lineage inventory does not require documents. It begins with what you can name — the women in your family you remember, the patterns you can point to, the stories told and the stories withheld. The work is rigorous without requiring an Ancestry.com subscription. If you do have research, the system gives you ways to integrate it. If you do not, the first practice is the most honest one anyway: starting with what is in your bones.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q">
+          <span>Is this trauma-informed? What happens if a prompt lands heavy?</span>
+          <span class="faq-toggle">+</span>
+        </button>
+        <div class="faq-a">
+          <p>The system flags every prompt that may land heavy with a small mark in the corner. You can skip it, save it for another season, or return to it with support. There is a section in the Pacing Guide called <em>When to stop and what to do instead</em>, which lists grounding practices, resources, and the explicit boundary that this product is not a clinical service.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q">
+          <span>How is this delivered? Physical or digital?</span>
+          <span class="faq-toggle">+</span>
+        </button>
+        <div class="faq-a">
+          <p>Digital. You receive an immediate download link with the full printable PDF, a fillable digital version (for those of you who do not journal by hand), and all companion worksheets. There is no shipping wait, no physical book to chase. If you would like a printed bound copy as a future option, sign up to be notified when the print edition releases.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q">
+          <span>Can I get a refund?</span>
+          <span class="faq-toggle">+</span>
+        </button>
+        <div class="faq-a">
+          <p>Yes — within 14 days, no questions asked. Email me, and the refund processes the same week. Digital products are notoriously hard to refund in this industry, and I refuse to make that the standard for women who have already been burned by wellness purchases that did not serve them.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════
+     FINAL CTA
+═══════════════════════════════════════════════ -->
+<section class="final-cta" id="begin">
+  <div class="final-cta-inner">
+    <h2>The door is open. <em>There is no rush.</em></h2>
+    <p>If you are ready, you are ready. If you are not, this page will be here next month. The work was made to wait.</p>
+    <a href="https://midnight-magnolia.com/deep-roots" class="cta">Begin the work · $49</a>
+    <span class="cta-meta">One-time. Lifetime access. 14-day refund.</span>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════
+     FOOTER
+═══════════════════════════════════════════════ -->
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-boundary">
+      <strong>A note on what Midnight Magnolia is and is not.</strong><br>
+      Midnight Magnolia is a healing-centered brand built from lived experience. It is not a clinical service, a legal service, or a crisis intervention service. The Deep Roots Shadow Work System is a companion to professional support — not a replacement for it. If you are in crisis, please reach out to <strong>988</strong> (Suicide &amp; Crisis Lifeline, call or text), the <strong>National Domestic Violence Hotline</strong> at 1-800-799-7233 (text START to 88788), or the <strong>SAMHSA National Helpline</strong> at 1-800-662-4357. The door here stays open for the slower work.
+    </div>
+    <div class="footer-bottom">
+      <div>
+        <span class="footer-brand">Midnight Magnolia</span> · A Rumi-Nations LLC brand · Ravenel, South Carolina
+      </div>
+      <div>midnight-magnolia.com</div>
+    </div>
+  </div>
+</footer>
+
+
+<script>
+// FAQ accordion
+document.querySelectorAll('.faq-q').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const item = btn.parentElement;
+    const isOpen = item.classList.contains('open');
+    // Close all
+    document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+    // Open the clicked one if it wasn't already open
+    if (!isOpen) item.classList.add('open');
+  });
+});
+
+// Fade-in on scroll
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+    }
+  });
+}, { threshold: 0.1 });
+document.querySelectorAll('.section-title, .benefit, .phase, .lineage-quote').forEach(el => {
+  el.classList.add('fade-in');
+  observer.observe(el);
+});
+</script>
+
+</body>
+</html>
