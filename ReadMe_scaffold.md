@@ -388,7 +388,7 @@ export const SERVICES = [
 export const CASE_STUDIES = [
   {
     id: 'funding',
-    metric: '$1.5M+',
+    metric: 'Secured funding',
     label: 'in Funding Secured',
     description: 'Grant writing, compliance management, and funder relationship stewardship for a community justice nonprofit. Managed 12+ funder relationships simultaneously across a 3-year program cycle.',
     tags: ['Grant Management', 'Nonprofit', 'Compliance'],
@@ -652,7 +652,7 @@ export default function Home() {
         <div className="container">
           <div className="stat-grid">
             {[
-              { number: '$1.5M+', label: 'Funding Secured' },
+              { number: 'Secured funding', label: 'Funding Secured' },
               { number: '610+',   label: 'Program Participants' },
               { number: '15+',    label: 'Years of Leadership' },
               { number: '$300K+', label: 'Annual Budget Managed' },
@@ -876,7 +876,7 @@ export default function Portfolio() {
   return (
     <Layout
       title="Portfolio"
-      description="Latisha Vincent-Waters · Senior Program Manager, Digital Entrepreneur · 15+ years, $1.5M+ secured, 610+ served. Available for remote $100K+ roles."
+      description="Latisha Vincent-Waters · Senior Program Manager, Digital Entrepreneur · 15+ years, secured funding, 610+ served. Available for remote $100K+ roles."
     >
       <div className="container">
 

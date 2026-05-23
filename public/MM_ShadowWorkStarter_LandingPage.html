@@ -1,574 +1,1337 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-<meta charset="UTF-8"/>
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Shadow Work Starter Kit — Thirty days of turning inward · Midnight Magnolia</title>
-<meta name="description" content="A 30-prompt shadow work journal for the first honest pass at what you've been carrying. Structured in three arcs: Foundation · Pattern · Return. $9, instant PDF. Anchored to 02 Burn It."/>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+	<head>
+		<meta charset="UTF-8" />
+		<meta
+			name="viewport"
+			content="width=device-width, initial-scale=1.0" />
+		<title>
+			Shadow Work Starter Kit — Thirty days of turning inward · Midnight
+			Magnolia
+		</title>
+		<meta
+			name="description"
+			content="A 30-prompt shadow work journal for the first honest pass at what you've been carrying. Structured in three arcs: Foundation · Pattern · Return. $9, instant PDF. Anchored to 02 Burn It." />
+		<link
+			rel="preconnect"
+			href="https://fonts.googleapis.com" />
+		<link
+			rel="preconnect"
+			href="https://fonts.gstatic.com"
+			crossorigin />
+		<link
+			href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=DM+Sans:wght@300;400;500;600;700&display=swap"
+			rel="stylesheet" />
 
-<style>
-/* MIDNIGHT MAGNOLIA · Integration v4 — shared tokens */
-:root {
-  --mm-indigo:         #2B2F4A;
-  --mm-indigo-deep:    #1F2238;
-  --mm-gold:           #C9A84C;
-  --mm-gold-warm:      #B8923C;
-  --mm-magnolia:       #F5F0E8;
-  --mm-parchment:      #EBE3D5;
-  --mm-rose:           #B97A6A;
-  --mm-mist:           #C9C8C0;
-  --mm-ink:            #1A1C2A;
-  --mm-ink-muted:      #5A5D70;
-  --mm-cream-soft:     rgba(245, 240, 232, 0.88);
-  --font-display:      'Cormorant Garamond', Georgia, 'Times New Roman', serif;
-  --font-body:         'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
-  --measure:           62ch;
-  --radius-sm:         3px;
-  --radius-md:         6px;
-  --shadow-sm:         0 1px 3px rgba(43, 47, 74, 0.08);
-  --shadow-md:         0 6px 24px rgba(43, 47, 74, 0.12);
-  --shadow-lg:         0 12px 48px rgba(43, 47, 74, 0.16);
-  --section-y:         clamp(4rem, 8vw, 7rem);
-  --container:         min(1180px, 92vw);
-}
+		<style>
+			/* MIDNIGHT MAGNOLIA · Integration v4 — shared tokens */
+			:root {
+				--mm-indigo: #2b2f4a;
+				--mm-indigo-deep: #1f2238;
+				--mm-gold: #c9a84c;
+				--mm-gold-warm: #b8923c;
+				--mm-magnolia: #f5f0e8;
+				--mm-parchment: #ebe3d5;
+				--mm-rose: #b97a6a;
+				--mm-mist: #c9c8c0;
+				--mm-ink: #1a1c2a;
+				--mm-ink-muted: #5a5d70;
+				--mm-cream-soft: rgba(245, 240, 232, 0.88);
+				--font-display: "Cormorant Garamond", Georgia, "Times New Roman", serif;
+				--font-body: "DM Sans", -apple-system, BlinkMacSystemFont, sans-serif;
+				--measure: 62ch;
+				--radius-sm: 3px;
+				--radius-md: 6px;
+				--shadow-sm: 0 1px 3px rgba(43, 47, 74, 0.08);
+				--shadow-md: 0 6px 24px rgba(43, 47, 74, 0.12);
+				--shadow-lg: 0 12px 48px rgba(43, 47, 74, 0.16);
+				--section-y: clamp(4rem, 8vw, 7rem);
+				--container: min(1180px, 92vw);
+			}
 
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
-body { font-family: var(--font-body); font-size: 17px; line-height: 1.65; color: var(--mm-ink); background: var(--mm-magnolia); -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; }
-img, svg { max-width: 100%; display: block; }
-a { color: inherit; text-decoration: none; }
-button { font: inherit; cursor: pointer; border: none; background: none; color: inherit; }
+			*,
+			*::before,
+			*::after {
+				box-sizing: border-box;
+				margin: 0;
+				padding: 0;
+			}
+			html {
+				scroll-behavior: smooth;
+				-webkit-text-size-adjust: 100%;
+			}
+			body {
+				font-family: var(--font-body);
+				font-size: 17px;
+				line-height: 1.65;
+				color: var(--mm-ink);
+				background: var(--mm-magnolia);
+				-webkit-font-smoothing: antialiased;
+				text-rendering: optimizeLegibility;
+			}
+			img,
+			svg {
+				max-width: 100%;
+				display: block;
+			}
+			a {
+				color: inherit;
+				text-decoration: none;
+			}
+			button {
+				font: inherit;
+				cursor: pointer;
+				border: none;
+				background: none;
+				color: inherit;
+			}
 
-h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 500; letter-spacing: -0.01em; line-height: 1.15; color: var(--mm-indigo); }
-h1 { font-size: clamp(2.4rem, 5.5vw, 4.2rem); }
-h2 { font-size: clamp(1.9rem, 3.8vw, 2.9rem); }
-h3 { font-size: clamp(1.3rem, 2.2vw, 1.65rem); }
-h4 { font-size: 1.15rem; font-weight: 600; letter-spacing: 0; }
-p { max-width: var(--measure); }
-em { font-style: italic; }
+			h1,
+			h2,
+			h3,
+			h4 {
+				font-family: var(--font-display);
+				font-weight: 500;
+				letter-spacing: -0.01em;
+				line-height: 1.15;
+				color: var(--mm-indigo);
+			}
+			h1 {
+				font-size: clamp(2.4rem, 5.5vw, 4.2rem);
+			}
+			h2 {
+				font-size: clamp(1.9rem, 3.8vw, 2.9rem);
+			}
+			h3 {
+				font-size: clamp(1.3rem, 2.2vw, 1.65rem);
+			}
+			h4 {
+				font-size: 1.15rem;
+				font-weight: 600;
+				letter-spacing: 0;
+			}
+			p {
+				max-width: var(--measure);
+			}
+			em {
+				font-style: italic;
+			}
 
-.eyebrow { display: inline-flex; align-items: center; gap: 0.7rem; font-family: var(--font-body); font-size: 0.78rem; font-weight: 500; letter-spacing: 0.18em; text-transform: uppercase; color: var(--mm-gold); margin-bottom: 1.25rem; }
-.eyebrow::before { content: ''; width: 2.2rem; height: 1px; background: var(--mm-gold); }
-.eyebrow.eyebrow-light { color: var(--mm-gold); }
-.eyebrow.eyebrow-dark { color: var(--mm-rose); }
-.eyebrow.eyebrow-dark::before { background: var(--mm-rose); }
+			.eyebrow {
+				display: inline-flex;
+				align-items: center;
+				gap: 0.7rem;
+				font-family: var(--font-body);
+				font-size: 0.78rem;
+				font-weight: 500;
+				letter-spacing: 0.18em;
+				text-transform: uppercase;
+				color: var(--mm-gold);
+				margin-bottom: 1.25rem;
+			}
+			.eyebrow::before {
+				content: "";
+				width: 2.2rem;
+				height: 1px;
+				background: var(--mm-gold);
+			}
+			.eyebrow.eyebrow-light {
+				color: var(--mm-gold);
+			}
+			.eyebrow.eyebrow-dark {
+				color: var(--mm-rose);
+			}
+			.eyebrow.eyebrow-dark::before {
+				background: var(--mm-rose);
+			}
 
-.container { width: var(--container); margin: 0 auto; }
+			.container {
+				width: var(--container);
+				margin: 0 auto;
+			}
 
-/* NAV */
-.nav { position: sticky; top: 0; z-index: 50; background: var(--mm-cream-soft); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border-bottom: 1px solid rgba(43, 47, 74, 0.06); }
-.nav-inner { display: flex; align-items: center; justify-content: space-between; padding: 1.1rem 0; }
-.nav-brand { font-family: var(--font-display); font-size: 1.35rem; font-weight: 500; color: var(--mm-indigo); }
-.nav-brand em { color: var(--mm-gold); font-style: italic; font-weight: 400; }
-.nav-links { display: flex; align-items: center; gap: 2rem; font-size: 0.93rem; }
-.nav-links a { color: var(--mm-ink-muted); transition: color 200ms ease; }
-.nav-links a:hover { color: var(--mm-indigo); }
-.nav-cta { padding: 0.55rem 1.2rem; background: var(--mm-indigo); color: var(--mm-magnolia) !important; border-radius: var(--radius-sm); font-weight: 500; font-size: 0.88rem; transition: background 200ms ease; }
-.nav-cta:hover { background: var(--mm-gold); color: var(--mm-indigo) !important; }
-@media (max-width: 760px) { .nav-links a:not(.nav-cta) { display: none; } }
+			/* NAV */
+			.nav {
+				position: sticky;
+				top: 0;
+				z-index: 50;
+				background: var(--mm-cream-soft);
+				backdrop-filter: blur(12px);
+				-webkit-backdrop-filter: blur(12px);
+				border-bottom: 1px solid rgba(43, 47, 74, 0.06);
+			}
+			.nav-inner {
+				display: flex;
+				align-items: center;
+				justify-content: space-between;
+				padding: 1.1rem 0;
+			}
+			.nav-brand {
+				font-family: var(--font-display);
+				font-size: 1.35rem;
+				font-weight: 500;
+				color: var(--mm-indigo);
+			}
+			.nav-brand em {
+				color: var(--mm-gold);
+				font-style: italic;
+				font-weight: 400;
+			}
+			.nav-links {
+				display: flex;
+				align-items: center;
+				gap: 2rem;
+				font-size: 0.93rem;
+			}
+			.nav-links a {
+				color: var(--mm-ink-muted);
+				transition: color 200ms ease;
+			}
+			.nav-links a:hover {
+				color: var(--mm-indigo);
+			}
+			.nav-cta {
+				padding: 0.55rem 1.2rem;
+				background: var(--mm-indigo);
+				color: var(--mm-magnolia) !important;
+				border-radius: var(--radius-sm);
+				font-weight: 500;
+				font-size: 0.88rem;
+				transition: background 200ms ease;
+			}
+			.nav-cta:hover {
+				background: var(--mm-gold);
+				color: var(--mm-indigo) !important;
+			}
+			@media (max-width: 760px) {
+				.nav-links a:not(.nav-cta) {
+					display: none;
+				}
+			}
 
-/* HERO — same indigo, same atmosphere, different anchor */
-.hero { position: relative; background: var(--mm-indigo); color: var(--mm-magnolia); padding: clamp(5rem, 10vw, 8rem) 0 clamp(4rem, 8vw, 7rem); overflow: hidden; }
-.hero::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse 65% 50% at 78% 30%, rgba(201, 168, 76, 0.14), transparent 60%), radial-gradient(ellipse 70% 60% at 18% 75%, rgba(185, 122, 106, 0.16), transparent 60%); pointer-events: none; }
-.hero-inner { position: relative; display: grid; grid-template-columns: 1.4fr 1fr; gap: clamp(3rem, 6vw, 5rem); align-items: center; }
-@media (max-width: 880px) { .hero-inner { grid-template-columns: 1fr; } }
-.hero h1 { color: var(--mm-magnolia); margin-bottom: 1.6rem; }
-.hero h1 em { font-style: italic; color: var(--mm-gold); font-weight: 400; }
-.hero-lede { font-size: clamp(1.05rem, 1.5vw, 1.2rem); color: rgba(245, 240, 232, 0.85); margin-bottom: 2.2rem; max-width: 58ch; line-height: 1.6; }
-.hero-cta-row { display: flex; align-items: center; gap: 1.4rem; flex-wrap: wrap; margin-bottom: 2rem; }
-.btn { display: inline-flex; align-items: center; gap: 0.55rem; padding: 0.95rem 1.8rem; border-radius: var(--radius-sm); font-family: var(--font-body); font-weight: 500; font-size: 0.97rem; letter-spacing: 0.02em; transition: all 220ms ease; cursor: pointer; }
-.btn-primary { background: var(--mm-gold); color: var(--mm-indigo); }
-.btn-primary:hover { background: var(--mm-magnolia); transform: translateY(-1px); box-shadow: var(--shadow-md); }
-.btn-ghost { color: var(--mm-magnolia); border-bottom: 1px solid rgba(245, 240, 232, 0.4); padding: 0.2rem 0; border-radius: 0; }
-.btn-ghost:hover { border-bottom-color: var(--mm-gold); color: var(--mm-gold); }
-.btn-dark { background: var(--mm-indigo); color: var(--mm-magnolia); }
-.btn-dark:hover { background: var(--mm-gold); color: var(--mm-indigo); }
-.hero-price-note { font-size: 0.86rem; color: rgba(245, 240, 232, 0.6); font-style: italic; }
+			/* HERO — same indigo, same atmosphere, different anchor */
+			.hero {
+				position: relative;
+				background: var(--mm-indigo);
+				color: var(--mm-magnolia);
+				padding: clamp(5rem, 10vw, 8rem) 0 clamp(4rem, 8vw, 7rem);
+				overflow: hidden;
+			}
+			.hero::before {
+				content: "";
+				position: absolute;
+				inset: 0;
+				background:
+					radial-gradient(
+						ellipse 65% 50% at 78% 30%,
+						rgba(201, 168, 76, 0.14),
+						transparent 60%
+					),
+					radial-gradient(
+						ellipse 70% 60% at 18% 75%,
+						rgba(185, 122, 106, 0.16),
+						transparent 60%
+					);
+				pointer-events: none;
+			}
+			.hero-inner {
+				position: relative;
+				display: grid;
+				grid-template-columns: 1.4fr 1fr;
+				gap: clamp(3rem, 6vw, 5rem);
+				align-items: center;
+			}
+			@media (max-width: 880px) {
+				.hero-inner {
+					grid-template-columns: 1fr;
+				}
+			}
+			.hero h1 {
+				color: var(--mm-magnolia);
+				margin-bottom: 1.6rem;
+			}
+			.hero h1 em {
+				font-style: italic;
+				color: var(--mm-gold);
+				font-weight: 400;
+			}
+			.hero-lede {
+				font-size: clamp(1.05rem, 1.5vw, 1.2rem);
+				color: rgba(245, 240, 232, 0.85);
+				margin-bottom: 2.2rem;
+				max-width: 58ch;
+				line-height: 1.6;
+			}
+			.hero-cta-row {
+				display: flex;
+				align-items: center;
+				gap: 1.4rem;
+				flex-wrap: wrap;
+				margin-bottom: 2rem;
+			}
+			.btn {
+				display: inline-flex;
+				align-items: center;
+				gap: 0.55rem;
+				padding: 0.95rem 1.8rem;
+				border-radius: var(--radius-sm);
+				font-family: var(--font-body);
+				font-weight: 500;
+				font-size: 0.97rem;
+				letter-spacing: 0.02em;
+				transition: all 220ms ease;
+				cursor: pointer;
+			}
+			.btn-primary {
+				background: var(--mm-gold);
+				color: var(--mm-indigo);
+			}
+			.btn-primary:hover {
+				background: var(--mm-magnolia);
+				transform: translateY(-1px);
+				box-shadow: var(--shadow-md);
+			}
+			.btn-ghost {
+				color: var(--mm-magnolia);
+				border-bottom: 1px solid rgba(245, 240, 232, 0.4);
+				padding: 0.2rem 0;
+				border-radius: 0;
+			}
+			.btn-ghost:hover {
+				border-bottom-color: var(--mm-gold);
+				color: var(--mm-gold);
+			}
+			.btn-dark {
+				background: var(--mm-indigo);
+				color: var(--mm-magnolia);
+			}
+			.btn-dark:hover {
+				background: var(--mm-gold);
+				color: var(--mm-indigo);
+			}
+			.hero-price-note {
+				font-size: 0.86rem;
+				color: rgba(245, 240, 232, 0.6);
+				font-style: italic;
+			}
 
-.hero-card { background: rgba(245, 240, 232, 0.06); border: 1px solid rgba(201, 168, 76, 0.25); border-radius: var(--radius-md); padding: 2.2rem; backdrop-filter: blur(6px); }
-.hero-card-eyebrow { font-size: 0.75rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--mm-gold); margin-bottom: 0.8rem; }
-.hero-card-price { font-family: var(--font-display); font-size: 3.4rem; font-weight: 500; color: var(--mm-magnolia); line-height: 1; margin-bottom: 0.3rem; }
-.hero-card-price em { font-size: 1.2rem; font-style: normal; color: rgba(245, 240, 232, 0.6); font-weight: 400; }
-.hero-card-cancel { font-size: 0.85rem; color: rgba(245, 240, 232, 0.55); margin: 0.8rem 0 1.6rem; }
-.hero-card-list { list-style: none; display: flex; flex-direction: column; gap: 0.8rem; font-size: 0.95rem; color: rgba(245, 240, 232, 0.88); }
-.hero-card-list li { position: relative; padding-left: 1.4rem; }
-.hero-card-list li::before { content: '◆'; position: absolute; left: 0; top: 0.05rem; color: var(--mm-gold); font-size: 0.65rem; }
+			.hero-card {
+				background: rgba(245, 240, 232, 0.06);
+				border: 1px solid rgba(201, 168, 76, 0.25);
+				border-radius: var(--radius-md);
+				padding: 2.2rem;
+				backdrop-filter: blur(6px);
+			}
+			.hero-card-eyebrow {
+				font-size: 0.75rem;
+				letter-spacing: 0.2em;
+				text-transform: uppercase;
+				color: var(--mm-gold);
+				margin-bottom: 0.8rem;
+			}
+			.hero-card-price {
+				font-family: var(--font-display);
+				font-size: 3.4rem;
+				font-weight: 500;
+				color: var(--mm-magnolia);
+				line-height: 1;
+				margin-bottom: 0.3rem;
+			}
+			.hero-card-price em {
+				font-size: 1.2rem;
+				font-style: normal;
+				color: rgba(245, 240, 232, 0.6);
+				font-weight: 400;
+			}
+			.hero-card-cancel {
+				font-size: 0.85rem;
+				color: rgba(245, 240, 232, 0.55);
+				margin: 0.8rem 0 1.6rem;
+			}
+			.hero-card-list {
+				list-style: none;
+				display: flex;
+				flex-direction: column;
+				gap: 0.8rem;
+				font-size: 0.95rem;
+				color: rgba(245, 240, 232, 0.88);
+			}
+			.hero-card-list li {
+				position: relative;
+				padding-left: 1.4rem;
+			}
+			.hero-card-list li::before {
+				content: "◆";
+				position: absolute;
+				left: 0;
+				top: 0.05rem;
+				color: var(--mm-gold);
+				font-size: 0.65rem;
+			}
 
-/* SECTIONS */
-.section { padding: var(--section-y) 0; }
-.section-alt { background: var(--mm-parchment); }
-.section-dark { background: var(--mm-indigo); color: var(--mm-magnolia); position: relative; overflow: hidden; }
-.section-dark::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse 60% 50% at 50% 30%, rgba(201, 168, 76, 0.10), transparent 60%); pointer-events: none; }
-.section-dark h2, .section-dark h3 { color: var(--mm-magnolia); }
-.section-dark p { color: rgba(245, 240, 232, 0.82); }
+			/* SECTIONS */
+			.section {
+				padding: var(--section-y) 0;
+			}
+			.section-alt {
+				background: var(--mm-parchment);
+			}
+			.section-dark {
+				background: var(--mm-indigo);
+				color: var(--mm-magnolia);
+				position: relative;
+				overflow: hidden;
+			}
+			.section-dark::before {
+				content: "";
+				position: absolute;
+				inset: 0;
+				background: radial-gradient(
+					ellipse 60% 50% at 50% 30%,
+					rgba(201, 168, 76, 0.1),
+					transparent 60%
+				);
+				pointer-events: none;
+			}
+			.section-dark h2,
+			.section-dark h3 {
+				color: var(--mm-magnolia);
+			}
+			.section-dark p {
+				color: rgba(245, 240, 232, 0.82);
+			}
 
-.section-title { max-width: 30ch; margin-bottom: 1.5rem; }
-.section-lede { font-size: clamp(1.05rem, 1.5vw, 1.2rem); color: var(--mm-ink-muted); max-width: 60ch; line-height: 1.65; margin-bottom: 3rem; }
-.section-dark .section-lede { color: rgba(245, 240, 232, 0.78); }
+			.section-title {
+				max-width: 30ch;
+				margin-bottom: 1.5rem;
+			}
+			.section-lede {
+				font-size: clamp(1.05rem, 1.5vw, 1.2rem);
+				color: var(--mm-ink-muted);
+				max-width: 60ch;
+				line-height: 1.65;
+				margin-bottom: 3rem;
+			}
+			.section-dark .section-lede {
+				color: rgba(245, 240, 232, 0.78);
+			}
 
-/* PROBLEM GRID */
-.problem-grid { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(2rem, 4vw, 4rem); align-items: start; margin-top: 2rem; }
-@media (max-width: 760px) { .problem-grid { grid-template-columns: 1fr; } }
-.problem-col p { margin-bottom: 1.1rem; }
-.problem-col p:last-child { margin-bottom: 0; }
-.problem-col strong { color: var(--mm-indigo); font-weight: 600; }
+			/* PROBLEM GRID */
+			.problem-grid {
+				display: grid;
+				grid-template-columns: 1fr 1fr;
+				gap: clamp(2rem, 4vw, 4rem);
+				align-items: start;
+				margin-top: 2rem;
+			}
+			@media (max-width: 760px) {
+				.problem-grid {
+					grid-template-columns: 1fr;
+				}
+			}
+			.problem-col p {
+				margin-bottom: 1.1rem;
+			}
+			.problem-col p:last-child {
+				margin-bottom: 0;
+			}
+			.problem-col strong {
+				color: var(--mm-indigo);
+				font-weight: 600;
+			}
 
-/* THREE-ARC STRUCTURE */
-.arcs { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; margin-top: 2.5rem; }
-.arc {
-  background: var(--mm-magnolia);
-  border: 1px solid rgba(43, 47, 74, 0.08);
-  border-radius: var(--radius-md);
-  padding: 2.2rem 1.9rem;
-  position: relative;
-  overflow: hidden;
-}
-.section-alt .arc { background: #fff; }
-.arc-num {
-  font-family: var(--font-display);
-  font-style: italic;
-  font-size: 4.5rem;
-  color: rgba(201, 168, 76, 0.18);
-  position: absolute;
-  top: -0.4rem;
-  right: 1rem;
-  line-height: 1;
-  font-weight: 500;
-}
-.arc-eyebrow {
-  font-family: var(--font-body);
-  font-size: 0.74rem;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: var(--mm-gold);
-  margin-bottom: 0.7rem;
-  position: relative;
-}
-.arc h3 { margin-bottom: 0.9rem; position: relative; }
-.arc h3 em { color: var(--mm-rose); font-style: italic; }
-.arc-body { color: var(--mm-ink-muted); font-size: 0.97rem; line-height: 1.6; position: relative; }
-.arc-prompts {
-  margin-top: 1.2rem;
-  padding-top: 1.2rem;
-  border-top: 1px solid rgba(43, 47, 74, 0.08);
-  font-size: 0.88rem;
-  color: var(--mm-ink-muted);
-  font-style: italic;
-}
+			/* THREE-ARC STRUCTURE */
+			.arcs {
+				display: grid;
+				grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+				gap: 1.5rem;
+				margin-top: 2.5rem;
+			}
+			.arc {
+				background: var(--mm-magnolia);
+				border: 1px solid rgba(43, 47, 74, 0.08);
+				border-radius: var(--radius-md);
+				padding: 2.2rem 1.9rem;
+				position: relative;
+				overflow: hidden;
+			}
+			.section-alt .arc {
+				background: #fff;
+			}
+			.arc-num {
+				font-family: var(--font-display);
+				font-style: italic;
+				font-size: 4.5rem;
+				color: rgba(201, 168, 76, 0.18);
+				position: absolute;
+				top: -0.4rem;
+				right: 1rem;
+				line-height: 1;
+				font-weight: 500;
+			}
+			.arc-eyebrow {
+				font-family: var(--font-body);
+				font-size: 0.74rem;
+				letter-spacing: 0.2em;
+				text-transform: uppercase;
+				color: var(--mm-gold);
+				margin-bottom: 0.7rem;
+				position: relative;
+			}
+			.arc h3 {
+				margin-bottom: 0.9rem;
+				position: relative;
+			}
+			.arc h3 em {
+				color: var(--mm-rose);
+				font-style: italic;
+			}
+			.arc-body {
+				color: var(--mm-ink-muted);
+				font-size: 0.97rem;
+				line-height: 1.6;
+				position: relative;
+			}
+			.arc-prompts {
+				margin-top: 1.2rem;
+				padding-top: 1.2rem;
+				border-top: 1px solid rgba(43, 47, 74, 0.08);
+				font-size: 0.88rem;
+				color: var(--mm-ink-muted);
+				font-style: italic;
+			}
 
-/* LINEAGE BLOCK */
-.lineage { display: grid; grid-template-columns: 1fr 1.5fr; gap: clamp(2.5rem, 5vw, 5rem); align-items: center; padding: clamp(3rem, 6vw, 5rem); background: var(--mm-indigo); color: var(--mm-magnolia); border-radius: var(--radius-md); position: relative; overflow: hidden; margin-top: 3rem; }
-.lineage::before { content: ''; position: absolute; inset: 0; background: radial-gradient(circle at 80% 20%, rgba(185, 122, 106, 0.22), transparent 55%); pointer-events: none; }
-@media (max-width: 760px) { .lineage { grid-template-columns: 1fr; } }
-.lineage-eyebrow { font-size: 0.75rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--mm-rose); margin-bottom: 1rem; position: relative; }
-.lineage h2 { color: var(--mm-magnolia); font-size: clamp(1.7rem, 3vw, 2.4rem); position: relative; }
-.lineage p { color: rgba(245, 240, 232, 0.88); font-size: 1.02rem; line-height: 1.7; margin-bottom: 1.1rem; position: relative; }
-.lineage p:last-child { margin-bottom: 0; }
+			/* LINEAGE BLOCK */
+			.lineage {
+				display: grid;
+				grid-template-columns: 1fr 1.5fr;
+				gap: clamp(2.5rem, 5vw, 5rem);
+				align-items: center;
+				padding: clamp(3rem, 6vw, 5rem);
+				background: var(--mm-indigo);
+				color: var(--mm-magnolia);
+				border-radius: var(--radius-md);
+				position: relative;
+				overflow: hidden;
+				margin-top: 3rem;
+			}
+			.lineage::before {
+				content: "";
+				position: absolute;
+				inset: 0;
+				background: radial-gradient(
+					circle at 80% 20%,
+					rgba(185, 122, 106, 0.22),
+					transparent 55%
+				);
+				pointer-events: none;
+			}
+			@media (max-width: 760px) {
+				.lineage {
+					grid-template-columns: 1fr;
+				}
+			}
+			.lineage-eyebrow {
+				font-size: 0.75rem;
+				letter-spacing: 0.2em;
+				text-transform: uppercase;
+				color: var(--mm-rose);
+				margin-bottom: 1rem;
+				position: relative;
+			}
+			.lineage h2 {
+				color: var(--mm-magnolia);
+				font-size: clamp(1.7rem, 3vw, 2.4rem);
+				position: relative;
+			}
+			.lineage p {
+				color: rgba(245, 240, 232, 0.88);
+				font-size: 1.02rem;
+				line-height: 1.7;
+				margin-bottom: 1.1rem;
+				position: relative;
+			}
+			.lineage p:last-child {
+				margin-bottom: 0;
+			}
 
-/* SAMPLE PROMPT BLOCK */
-.sample-prompts {
-  margin-top: 3rem;
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 1.5rem;
-}
-.sample-prompt {
-  background: var(--mm-magnolia);
-  border-left: 2px solid var(--mm-rose);
-  padding: 1.6rem 1.6rem 1.5rem;
-  border-radius: 0 var(--radius-md) var(--radius-md) 0;
-}
-.section-alt .sample-prompt { background: #fff; }
-.sample-prompt-eyebrow {
-  font-size: 0.72rem;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  color: var(--mm-rose);
-  margin-bottom: 0.7rem;
-  font-weight: 600;
-}
-.sample-prompt-q {
-  font-family: var(--font-display);
-  font-style: italic;
-  font-size: 1.18rem;
-  line-height: 1.45;
-  color: var(--mm-indigo);
-}
+			/* SAMPLE PROMPT BLOCK */
+			.sample-prompts {
+				margin-top: 3rem;
+				display: grid;
+				grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+				gap: 1.5rem;
+			}
+			.sample-prompt {
+				background: var(--mm-magnolia);
+				border-left: 2px solid var(--mm-rose);
+				padding: 1.6rem 1.6rem 1.5rem;
+				border-radius: 0 var(--radius-md) var(--radius-md) 0;
+			}
+			.section-alt .sample-prompt {
+				background: #fff;
+			}
+			.sample-prompt-eyebrow {
+				font-size: 0.72rem;
+				letter-spacing: 0.16em;
+				text-transform: uppercase;
+				color: var(--mm-rose);
+				margin-bottom: 0.7rem;
+				font-weight: 600;
+			}
+			.sample-prompt-q {
+				font-family: var(--font-display);
+				font-style: italic;
+				font-size: 1.18rem;
+				line-height: 1.45;
+				color: var(--mm-indigo);
+			}
 
-/* UPGRADE PATH BLOCK */
-.upgrade-card {
-  margin-top: 3rem;
-  display: grid;
-  grid-template-columns: 1fr 1.2fr;
-  gap: clamp(2rem, 4vw, 4rem);
-  align-items: center;
-  background: var(--mm-magnolia);
-  padding: clamp(2.5rem, 4vw, 3.5rem);
-  border-radius: var(--radius-md);
-  border: 1px solid rgba(201, 168, 76, 0.3);
-  position: relative;
-  overflow: hidden;
-}
-.section-alt .upgrade-card { background: #fff; }
-.upgrade-card::after {
-  content: '$49';
-  position: absolute;
-  font-family: var(--font-display);
-  font-size: 12rem;
-  font-style: italic;
-  color: rgba(201, 168, 76, 0.06);
-  bottom: -2rem;
-  right: -1rem;
-  line-height: 1;
-  font-weight: 500;
-  pointer-events: none;
-}
-@media (max-width: 760px) { .upgrade-card { grid-template-columns: 1fr; } }
-.upgrade-card .eyebrow { color: var(--mm-rose); margin-bottom: 1rem; }
-.upgrade-card .eyebrow::before { background: var(--mm-rose); }
-.upgrade-card h3 { margin-bottom: 1rem; font-size: clamp(1.5rem, 2.5vw, 2rem); }
-.upgrade-card p { color: var(--mm-ink-muted); margin-bottom: 1.4rem; }
-.upgrade-cta { margin-top: 0.5rem; }
+			/* UPGRADE PATH BLOCK */
+			.upgrade-card {
+				margin-top: 3rem;
+				display: grid;
+				grid-template-columns: 1fr 1.2fr;
+				gap: clamp(2rem, 4vw, 4rem);
+				align-items: center;
+				background: var(--mm-magnolia);
+				padding: clamp(2.5rem, 4vw, 3.5rem);
+				border-radius: var(--radius-md);
+				border: 1px solid rgba(201, 168, 76, 0.3);
+				position: relative;
+				overflow: hidden;
+			}
+			.section-alt .upgrade-card {
+				background: #fff;
+			}
+			.upgrade-card::after {
+				content: "$49";
+				position: absolute;
+				font-family: var(--font-display);
+				font-size: 12rem;
+				font-style: italic;
+				color: rgba(201, 168, 76, 0.06);
+				bottom: -2rem;
+				right: -1rem;
+				line-height: 1;
+				font-weight: 500;
+				pointer-events: none;
+			}
+			@media (max-width: 760px) {
+				.upgrade-card {
+					grid-template-columns: 1fr;
+				}
+			}
+			.upgrade-card .eyebrow {
+				color: var(--mm-rose);
+				margin-bottom: 1rem;
+			}
+			.upgrade-card .eyebrow::before {
+				background: var(--mm-rose);
+			}
+			.upgrade-card h3 {
+				margin-bottom: 1rem;
+				font-size: clamp(1.5rem, 2.5vw, 2rem);
+			}
+			.upgrade-card p {
+				color: var(--mm-ink-muted);
+				margin-bottom: 1.4rem;
+			}
+			.upgrade-cta {
+				margin-top: 0.5rem;
+			}
 
-/* FAQ */
-.faq { max-width: 780px; margin: 2.5rem auto 0; }
-.faq-item { border-bottom: 1px solid rgba(43, 47, 74, 0.12); padding: 0.3rem 0; }
-.faq-q { width: 100%; display: flex; justify-content: space-between; align-items: center; text-align: left; padding: 1.4rem 0.3rem; font-family: var(--font-body); font-size: 1.02rem; font-weight: 500; color: var(--mm-indigo); }
-.faq-q-icon { font-family: var(--font-display); font-size: 1.4rem; color: var(--mm-gold); transition: transform 220ms ease; }
-.faq-item.open .faq-q-icon { transform: rotate(45deg); }
-.faq-a { max-height: 0; overflow: hidden; transition: max-height 320ms ease, padding 220ms ease; color: var(--mm-ink-muted); font-size: 0.97rem; line-height: 1.7; padding: 0 0.3rem; }
-.faq-item.open .faq-a { max-height: 460px; padding: 0 0.3rem 1.5rem; }
+			/* FAQ */
+			.faq {
+				max-width: 780px;
+				margin: 2.5rem auto 0;
+			}
+			.faq-item {
+				border-bottom: 1px solid rgba(43, 47, 74, 0.12);
+				padding: 0.3rem 0;
+			}
+			.faq-q {
+				width: 100%;
+				display: flex;
+				justify-content: space-between;
+				align-items: center;
+				text-align: left;
+				padding: 1.4rem 0.3rem;
+				font-family: var(--font-body);
+				font-size: 1.02rem;
+				font-weight: 500;
+				color: var(--mm-indigo);
+			}
+			.faq-q-icon {
+				font-family: var(--font-display);
+				font-size: 1.4rem;
+				color: var(--mm-gold);
+				transition: transform 220ms ease;
+			}
+			.faq-item.open .faq-q-icon {
+				transform: rotate(45deg);
+			}
+			.faq-a {
+				max-height: 0;
+				overflow: hidden;
+				transition:
+					max-height 320ms ease,
+					padding 220ms ease;
+				color: var(--mm-ink-muted);
+				font-size: 0.97rem;
+				line-height: 1.7;
+				padding: 0 0.3rem;
+			}
+			.faq-item.open .faq-a {
+				max-height: 460px;
+				padding: 0 0.3rem 1.5rem;
+			}
 
-/* FINAL CTA */
-.final-cta { text-align: center; }
-.final-cta .eyebrow { justify-content: center; }
-.final-cta h2 { margin: 0 auto 1.5rem; max-width: 22ch; }
-.final-cta p { margin: 0 auto 2.5rem; font-size: 1.08rem; }
-.final-cta .hero-cta-row { justify-content: center; }
+			/* FINAL CTA */
+			.final-cta {
+				text-align: center;
+			}
+			.final-cta .eyebrow {
+				justify-content: center;
+			}
+			.final-cta h2 {
+				margin: 0 auto 1.5rem;
+				max-width: 22ch;
+			}
+			.final-cta p {
+				margin: 0 auto 2.5rem;
+				font-size: 1.08rem;
+			}
+			.final-cta .hero-cta-row {
+				justify-content: center;
+			}
 
-/* CRISIS / FOOTER (shared) */
-.crisis-note { background: var(--mm-parchment); padding: 2rem 0; border-top: 1px solid rgba(43, 47, 74, 0.08); font-size: 0.85rem; line-height: 1.7; color: var(--mm-ink-muted); }
-.crisis-note strong { color: var(--mm-indigo); }
-.footer { background: var(--mm-indigo); color: rgba(245, 240, 232, 0.7); padding: 3rem 0 2rem; font-size: 0.88rem; }
-.footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 3rem; margin-bottom: 2.5rem; }
-@media (max-width: 700px) { .footer-grid { grid-template-columns: 1fr; gap: 1.8rem; } }
-.footer-brand { font-family: var(--font-display); font-size: 1.4rem; color: var(--mm-magnolia); margin-bottom: 0.8rem; }
-.footer-col h4 { font-family: var(--font-body); font-size: 0.78rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--mm-gold); margin-bottom: 1rem; font-weight: 600; }
-.footer-col a { display: block; margin-bottom: 0.55rem; color: rgba(245, 240, 232, 0.7); transition: color 200ms ease; }
-.footer-col a:hover { color: var(--mm-gold); }
-.footer-bottom { border-top: 1px solid rgba(245, 240, 232, 0.08); padding-top: 1.5rem; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 1rem; font-size: 0.82rem; color: rgba(245, 240, 232, 0.5); }
+			/* CRISIS / FOOTER (shared) */
+			.crisis-note {
+				background: var(--mm-parchment);
+				padding: 2rem 0;
+				border-top: 1px solid rgba(43, 47, 74, 0.08);
+				font-size: 0.85rem;
+				line-height: 1.7;
+				color: var(--mm-ink-muted);
+			}
+			.crisis-note strong {
+				color: var(--mm-indigo);
+			}
+			.footer {
+				background: var(--mm-indigo);
+				color: rgba(245, 240, 232, 0.7);
+				padding: 3rem 0 2rem;
+				font-size: 0.88rem;
+			}
+			.footer-grid {
+				display: grid;
+				grid-template-columns: 2fr 1fr 1fr;
+				gap: 3rem;
+				margin-bottom: 2.5rem;
+			}
+			@media (max-width: 700px) {
+				.footer-grid {
+					grid-template-columns: 1fr;
+					gap: 1.8rem;
+				}
+			}
+			.footer-brand {
+				font-family: var(--font-display);
+				font-size: 1.4rem;
+				color: var(--mm-magnolia);
+				margin-bottom: 0.8rem;
+			}
+			.footer-col h4 {
+				font-family: var(--font-body);
+				font-size: 0.78rem;
+				letter-spacing: 0.18em;
+				text-transform: uppercase;
+				color: var(--mm-gold);
+				margin-bottom: 1rem;
+				font-weight: 600;
+			}
+			.footer-col a {
+				display: block;
+				margin-bottom: 0.55rem;
+				color: rgba(245, 240, 232, 0.7);
+				transition: color 200ms ease;
+			}
+			.footer-col a:hover {
+				color: var(--mm-gold);
+			}
+			.footer-bottom {
+				border-top: 1px solid rgba(245, 240, 232, 0.08);
+				padding-top: 1.5rem;
+				display: flex;
+				justify-content: space-between;
+				flex-wrap: wrap;
+				gap: 1rem;
+				font-size: 0.82rem;
+				color: rgba(245, 240, 232, 0.5);
+			}
 
-/* Fade-in */
-.fade-in { opacity: 0; transform: translateY(14px); transition: opacity 700ms ease, transform 700ms ease; }
-.fade-in.visible { opacity: 1; transform: translateY(0); }
-@media (prefers-reduced-motion: reduce) { .fade-in { opacity: 1; transform: none; transition: none; } * { scroll-behavior: auto !important; animation-duration: 0.001ms !important; } }
-</style>
-</head>
-<body>
+			/* Fade-in */
+			.fade-in {
+				opacity: 0;
+				transform: translateY(14px);
+				transition:
+					opacity 700ms ease,
+					transform 700ms ease;
+			}
+			.fade-in.visible {
+				opacity: 1;
+				transform: translateY(0);
+			}
+			@media (prefers-reduced-motion: reduce) {
+				.fade-in {
+					opacity: 1;
+					transform: none;
+					transition: none;
+				}
+				* {
+					scroll-behavior: auto !important;
+					animation-duration: 0.001ms !important;
+				}
+			}
+		</style>
+	</head>
+	<body>
+		<nav class="nav">
+			<div class="container nav-inner">
+				<a
+					href="MM_Homepage_Hub.html"
+					class="nav-brand"
+					>Midnight <em>Magnolia</em></a
+				>
+				<div class="nav-links">
+					<a href="#arcs">The Three Arcs</a>
+					<a href="#sample">Sample Prompts</a>
+					<a href="#upgrade">Go Deeper</a>
+					<a href="#faq">FAQ</a>
+					<a
+						href="https://stan.store/MidnightMagnoliaSC"
+						class="nav-cta"
+						>Get the Kit · $9</a
+					>
+				</div>
+			</div>
+		</nav>
 
-<nav class="nav">
-  <div class="container nav-inner">
-    <a href="MM_Homepage_Hub.html" class="nav-brand">Midnight <em>Magnolia</em></a>
-    <div class="nav-links">
-      <a href="#arcs">The Three Arcs</a>
-      <a href="#sample">Sample Prompts</a>
-      <a href="#upgrade">Go Deeper</a>
-      <a href="#faq">FAQ</a>
-      <a href="https://stan.store/MidnightMagnoliaSC" class="nav-cta">Get the Kit · $9</a>
-    </div>
-  </div>
-</nav>
+		<!-- HERO -->
+		<header class="hero">
+			<div class="container hero-inner">
+				<div class="hero-content">
+					<div class="eyebrow eyebrow-light">02 Burn It · Entry product</div>
+					<h1>
+						The first <em>honest pass</em><br />at what you've been carrying.
+					</h1>
+					<p class="hero-lede">
+						Thirty prompts. Three arcs. One quiet month of work. The Shadow Work
+						Starter Kit is the lowest-friction way into the Midnight Magnolia
+						framework — built for the moment you stopped pretending you were
+						fine but haven't yet found where to put it down.
+					</p>
+					<div class="hero-cta-row">
+						<a
+							href="https://stan.store/MidnightMagnoliaSC"
+							class="btn btn-primary"
+							>Get the Kit · $9</a
+						>
+						<a
+							href="#arcs"
+							class="btn btn-ghost"
+							>See the three arcs →</a
+						>
+					</div>
+					<p class="hero-price-note">
+						One-time purchase. Instant PDF delivery. Yours to keep.
+					</p>
+				</div>
 
-<!-- HERO -->
-<header class="hero">
-  <div class="container hero-inner">
-    <div class="hero-content">
-      <div class="eyebrow eyebrow-light">02 Burn It · Entry product</div>
-      <h1>The first <em>honest pass</em><br/>at what you've been carrying.</h1>
-      <p class="hero-lede">
-        Thirty prompts. Three arcs. One quiet month of work. The Shadow Work Starter Kit is the lowest-friction way into the Midnight Magnolia framework — built for the moment you stopped pretending you were fine but haven't yet found where to put it down.
-      </p>
-      <div class="hero-cta-row">
-        <a href="https://stan.store/MidnightMagnoliaSC" class="btn btn-primary">Get the Kit · $9</a>
-        <a href="#arcs" class="btn btn-ghost">See the three arcs →</a>
-      </div>
-      <p class="hero-price-note">One-time purchase. Instant PDF delivery. Yours to keep.</p>
-    </div>
+				<aside class="hero-card">
+					<div class="hero-card-eyebrow">The Kit</div>
+					<div class="hero-card-price">$9<em> · one-time</em></div>
+					<div class="hero-card-cancel">
+						Instant PDF · 32 pages · journal-friendly
+					</div>
+					<ul class="hero-card-list">
+						<li>30 shadow work prompts</li>
+						<li>Three guided arcs: Foundation · Pattern · Return</li>
+						<li>Burn It opening ritual (optional, written for skeptics)</li>
+						<li>Suggested cadence (one prompt/day or one per week)</li>
+						<li>Closing letter from the keeper</li>
+					</ul>
+				</aside>
+			</div>
+		</header>
 
-    <aside class="hero-card">
-      <div class="hero-card-eyebrow">The Kit</div>
-      <div class="hero-card-price">$9<em> · one-time</em></div>
-      <div class="hero-card-cancel">Instant PDF · 32 pages · journal-friendly</div>
-      <ul class="hero-card-list">
-        <li>30 shadow work prompts</li>
-        <li>Three guided arcs: Foundation · Pattern · Return</li>
-        <li>Burn It opening ritual (optional, written for skeptics)</li>
-        <li>Suggested cadence (one prompt/day or one per week)</li>
-        <li>Closing letter from the keeper</li>
-      </ul>
-    </aside>
-  </div>
-</header>
+		<!-- WHO IT'S FOR -->
+		<section class="section">
+			<div class="container">
+				<div class="eyebrow eyebrow-dark">Who this is for</div>
+				<h2 class="section-title">
+					If you've been calling it <em>"just tired,"</em>
+				</h2>
 
-<!-- WHO IT'S FOR -->
-<section class="section">
-  <div class="container">
-    <div class="eyebrow eyebrow-dark">Who this is for</div>
-    <h2 class="section-title">If you've been calling it <em>"just tired,"</em></h2>
+				<div class="problem-grid">
+					<div class="problem-col">
+						<p>
+							You may have been doing the surface work for a while now. The
+							reading. The podcasts. The therapy intake forms. Maybe even the
+							bigger journals.
+						</p>
+						<p>
+							And still — there is something underneath that has not been named,
+							let alone <strong>set down</strong>. The shame you can't quite
+							locate. The feeling beneath the feeling. The thing you keep
+							turning away from because you don't know what to do once you face
+							it.
+						</p>
+						<p>
+							You don't need another framework to keep up with. You need a
+							<strong>first honest pass</strong> — a structured, gentle, finite
+							ritual that asks the right questions and then closes its own door
+							behind you.
+						</p>
+					</div>
+					<div class="problem-col">
+						<p>
+							The Shadow Work Starter Kit is exactly that. Thirty prompts. Three
+							arcs. One month, or one season, or however slowly you need to
+							move.
+						</p>
+						<p>
+							It is anchored to the second root of the Five Roots Theory of
+							Change: <strong>Burn It.</strong> The work of separating the
+							experience that was yours from the stigma that was absorbed from
+							outside. <em>Burn the stigma. Keep the person.</em>
+						</p>
+						<p>
+							It is also, deliberately, the lowest-friction door into the
+							Midnight Magnolia ecosystem. If the work lands, the next step
+							(Deep Roots, $49) is waiting. If it doesn't, you still got
+							something you can finish in one sitting if you want to.
+						</p>
+					</div>
+				</div>
+			</div>
+		</section>
 
-    <div class="problem-grid">
-      <div class="problem-col">
-        <p>
-          You may have been doing the surface work for a while now. The reading. The podcasts. The therapy intake forms. Maybe even the bigger journals.
-        </p>
-        <p>
-          And still — there is something underneath that has not been named, let alone <strong>set down</strong>. The shame you can't quite locate. The feeling beneath the feeling. The thing you keep turning away from because you don't know what to do once you face it.
-        </p>
-        <p>
-          You don't need another framework to keep up with. You need a <strong>first honest pass</strong> — a structured, gentle, finite ritual that asks the right questions and then closes its own door behind you.
-        </p>
-      </div>
-      <div class="problem-col">
-        <p>
-          The Shadow Work Starter Kit is exactly that. Thirty prompts. Three arcs. One month, or one season, or however slowly you need to move.
-        </p>
-        <p>
-          It is anchored to the second root of the Five Roots Theory of Change: <strong>Burn It.</strong> The work of separating the experience that was yours from the stigma that was absorbed from outside. <em>Burn the stigma. Keep the person.</em>
-        </p>
-        <p>
-          It is also, deliberately, the lowest-friction door into the Midnight Magnolia ecosystem. If the work lands, the next step (Deep Roots, $49) is waiting. If it doesn't, you still got something you can finish in one sitting if you want to.
-        </p>
-      </div>
-    </div>
-  </div>
-</section>
+		<!-- THE THREE ARCS -->
+		<section
+			class="section section-alt"
+			id="arcs">
+			<div class="container">
+				<div class="eyebrow">The Structure</div>
+				<h2 class="section-title">Three arcs. <em>Thirty days.</em></h2>
+				<p class="section-lede">
+					The kit is structured the way the brain actually moves through this
+					work — not the way self-help books pretend it does. You begin with
+					ground. You examine a pattern. You return to the present with
+					something gentler than you started with.
+				</p>
 
-<!-- THE THREE ARCS -->
-<section class="section section-alt" id="arcs">
-  <div class="container">
-    <div class="eyebrow">The Structure</div>
-    <h2 class="section-title">Three arcs. <em>Thirty days.</em></h2>
-    <p class="section-lede">
-      The kit is structured the way the brain actually moves through this work — not the way self-help books pretend it does. You begin with ground. You examine a pattern. You return to the present with something gentler than you started with.
-    </p>
+				<div class="arcs">
+					<div class="arc">
+						<div class="arc-num">i.</div>
+						<div class="arc-eyebrow">Days 1–10</div>
+						<h3>Foundation <em>· Ground beneath you</em></h3>
+						<p class="arc-body">
+							The first ten days set the floor. What are you actually feeling —
+							past the surface word? Where in your body does the feeling live?
+							What did you absorb from outside that was never yours to begin
+							with? The work of these prompts is to name without verdict.
+						</p>
+						<div class="arc-prompts">
+							Sample register: feelings wheel · body check-in · stigma inventory
+							· what's mine vs. what's absorbed
+						</div>
+					</div>
 
-    <div class="arcs">
-      <div class="arc">
-        <div class="arc-num">i.</div>
-        <div class="arc-eyebrow">Days 1–10</div>
-        <h3>Foundation <em>· Ground beneath you</em></h3>
-        <p class="arc-body">
-          The first ten days set the floor. What are you actually feeling — past the surface word? Where in your body does the feeling live? What did you absorb from outside that was never yours to begin with? The work of these prompts is to name without verdict.
-        </p>
-        <div class="arc-prompts">Sample register: feelings wheel · body check-in · stigma inventory · what's mine vs. what's absorbed</div>
-      </div>
+					<div class="arc">
+						<div class="arc-num">ii.</div>
+						<div class="arc-eyebrow">Days 11–20</div>
+						<h3>Pattern <em>· What keeps repeating</em></h3>
+						<p class="arc-body">
+							Days eleven through twenty move into honest examination. Where is
+							the loop? What story have you been telling about yourself that
+							doesn't quite hold up under direct sunlight? What does this
+							pattern give you, and what does it cost you? This arc is the most
+							demanding. It is also the most freeing.
+						</p>
+						<div class="arc-prompts">
+							Sample register: cost-benefit · the four agreements · inherited
+							vs. constructed · what would be true if the worst story wasn't
+						</div>
+					</div>
 
-      <div class="arc">
-        <div class="arc-num">ii.</div>
-        <div class="arc-eyebrow">Days 11–20</div>
-        <h3>Pattern <em>· What keeps repeating</em></h3>
-        <p class="arc-body">
-          Days eleven through twenty move into honest examination. Where is the loop? What story have you been telling about yourself that doesn't quite hold up under direct sunlight? What does this pattern give you, and what does it cost you? This arc is the most demanding. It is also the most freeing.
-        </p>
-        <div class="arc-prompts">Sample register: cost-benefit · the four agreements · inherited vs. constructed · what would be true if the worst story wasn't</div>
-      </div>
+					<div class="arc">
+						<div class="arc-num">iii.</div>
+						<div class="arc-eyebrow">Days 21–30</div>
+						<h3>Return <em>· What you carry now</em></h3>
+						<p class="arc-body">
+							The final ten days are about what is yours to keep, what is yours
+							to put down, and what tending you owe yourself once the burning is
+							done. The arc closes with a return — not to who you were before,
+							but to the version of you that did the work.
+						</p>
+						<div class="arc-prompts">
+							Sample register: what stays · what gets composted · daily best
+							(which changes day to day) · the closing letter
+						</div>
+					</div>
+				</div>
 
-      <div class="arc">
-        <div class="arc-num">iii.</div>
-        <div class="arc-eyebrow">Days 21–30</div>
-        <h3>Return <em>· What you carry now</em></h3>
-        <p class="arc-body">
-          The final ten days are about what is yours to keep, what is yours to put down, and what tending you owe yourself once the burning is done. The arc closes with a return — not to who you were before, but to the version of you that did the work.
-        </p>
-        <div class="arc-prompts">Sample register: what stays · what gets composted · daily best (which changes day to day) · the closing letter</div>
-      </div>
-    </div>
+				<!-- SAMPLE PROMPTS -->
+				<div
+					class="sample-prompts"
+					id="sample">
+					<div class="sample-prompt">
+						<div class="sample-prompt-eyebrow">Day 3 · Foundation</div>
+						<p class="sample-prompt-q">
+							"The feeling beneath the feeling I called 'fine' this week was —
+							and the version of me that needed to call it 'fine' was protecting
+							what?"
+						</p>
+					</div>
+					<div class="sample-prompt">
+						<div class="sample-prompt-eyebrow">Day 14 · Pattern</div>
+						<p class="sample-prompt-q">
+							"This pattern is giving me ____ and costing me ____. The first
+							time it was useful to me, I was approximately ___ years old."
+						</p>
+					</div>
+					<div class="sample-prompt">
+						<div class="sample-prompt-eyebrow">Day 27 · Return</div>
+						<p class="sample-prompt-q">
+							"One small thing I will tend tomorrow — not fix, not optimize,
+							just tend — is ____. If 'my best' looks different tomorrow than it
+							does today, both versions count."
+						</p>
+					</div>
+				</div>
+			</div>
+		</section>
 
-    <!-- SAMPLE PROMPTS -->
-    <div class="sample-prompts" id="sample">
-      <div class="sample-prompt">
-        <div class="sample-prompt-eyebrow">Day 3 · Foundation</div>
-        <p class="sample-prompt-q">"The feeling beneath the feeling I called 'fine' this week was — and the version of me that needed to call it 'fine' was protecting what?"</p>
-      </div>
-      <div class="sample-prompt">
-        <div class="sample-prompt-eyebrow">Day 14 · Pattern</div>
-        <p class="sample-prompt-q">"This pattern is giving me ____ and costing me ____. The first time it was useful to me, I was approximately ___ years old."</p>
-      </div>
-      <div class="sample-prompt">
-        <div class="sample-prompt-eyebrow">Day 27 · Return</div>
-        <p class="sample-prompt-q">"One small thing I will tend tomorrow — not fix, not optimize, just tend — is ____. If 'my best' looks different tomorrow than it does today, both versions count."</p>
-      </div>
-    </div>
-  </div>
-</section>
+		<!-- LINEAGE / BURN IT CONTEXT -->
+		<section
+			class="section"
+			id="lineage">
+			<div class="container">
+				<div class="eyebrow eyebrow-dark">Lineage</div>
+				<h2 class="section-title">The root behind <em>"Burn It."</em></h2>
+				<p
+					class="section-lede"
+					style="max-width: 70ch">
+					Every Midnight Magnolia product is anchored to one of the Five Roots.
+					The Shadow Work Starter Kit is anchored to the second — Burn It —
+					which is informed by four sources, named once here and never extracted
+					for content.
+				</p>
 
-<!-- LINEAGE / BURN IT CONTEXT -->
-<section class="section" id="lineage">
-  <div class="container">
-    <div class="eyebrow eyebrow-dark">Lineage</div>
-    <h2 class="section-title">The root behind <em>"Burn It."</em></h2>
-    <p class="section-lede" style="max-width: 70ch;">
-      Every Midnight Magnolia product is anchored to one of the Five Roots. The Shadow Work Starter Kit is anchored to the second — Burn It — which is informed by four sources, named once here and never extracted for content.
-    </p>
+				<div class="lineage">
+					<div>
+						<div class="lineage-eyebrow">The Sources</div>
+						<h2>Four <em>traditions</em><br />held alongside each other.</h2>
+					</div>
+					<div>
+						<p>
+							<strong style="color: var(--mm-gold)">Burn the Stigma</strong> — a
+							recovery framework whose central instruction is the title itself:
+							<em>burn the stigma, keep the person.</em> The work is not to
+							destroy the self; it is to separate the experience from the shame
+							absorbed about the experience.
+						</p>
+						<p>
+							<strong style="color: var(--mm-gold)"
+								>MARA (Medication-Assisted Recovery Anonymous)</strong
+							>
+							— whose preamble names non-judgment as the code. The kit borrows
+							MARA's posture of shame-free inventory without claiming the
+							fellowship itself.
+						</p>
+						<p>
+							<strong style="color: var(--mm-gold)">Recovery Dharma</strong> —
+							whose First Noble Truth holds that suffering exists not as a
+							verdict on the sufferer but as the condition that makes practice
+							possible. The kit's tone is informed by this.
+						</p>
+						<p>
+							<strong style="color: var(--mm-gold)"
+								>Hoodoo fire practice</strong
+							>
+							— a specific lineage technology from the Black Southern ancestral
+							tradition that informs my work. It is named here once, in context,
+							and not elaborated on. Specific practices belong to lineage; the
+							kit borrows the <em>logic</em> of release through fire, never the
+							practice itself.
+						</p>
+					</div>
+				</div>
+			</div>
+		</section>
 
-    <div class="lineage">
-      <div>
-        <div class="lineage-eyebrow">The Sources</div>
-        <h2>Four <em>traditions</em><br/>held alongside each other.</h2>
-      </div>
-      <div>
-        <p>
-          <strong style="color: var(--mm-gold);">Burn the Stigma</strong> — a recovery framework whose central instruction is the title itself: <em>burn the stigma, keep the person.</em> The work is not to destroy the self; it is to separate the experience from the shame absorbed about the experience.
-        </p>
-        <p>
-          <strong style="color: var(--mm-gold);">MARA (Medication-Assisted Recovery Anonymous)</strong> — whose preamble names non-judgment as the code. The kit borrows MARA's posture of shame-free inventory without claiming the fellowship itself.
-        </p>
-        <p>
-          <strong style="color: var(--mm-gold);">Recovery Dharma</strong> — whose First Noble Truth holds that suffering exists not as a verdict on the sufferer but as the condition that makes practice possible. The kit's tone is informed by this.
-        </p>
-        <p>
-          <strong style="color: var(--mm-gold);">Hoodoo fire practice</strong> — a specific lineage technology from the Black Southern ancestral tradition that informs my work. It is named here once, in context, and not elaborated on. Specific practices belong to lineage; the kit borrows the <em>logic</em> of release through fire, never the practice itself.
-        </p>
-      </div>
-    </div>
-  </div>
-</section>
+		<!-- UPGRADE PATH -->
+		<section
+			class="section section-alt"
+			id="upgrade">
+			<div class="container">
+				<div class="eyebrow">If the work lands</div>
+				<h2 class="section-title">Where this <em>opens to.</em></h2>
+				<p class="section-lede">
+					Some people will do the Starter Kit once and be complete. Some will
+					finish day thirty and feel the floor opening to a deeper room. For the
+					second group, the path is built.
+				</p>
 
-<!-- UPGRADE PATH -->
-<section class="section section-alt" id="upgrade">
-  <div class="container">
-    <div class="eyebrow">If the work lands</div>
-    <h2 class="section-title">Where this <em>opens to.</em></h2>
-    <p class="section-lede">
-      Some people will do the Starter Kit once and be complete. Some will finish day thirty and feel the floor opening to a deeper room. For the second group, the path is built.
-    </p>
+				<div class="upgrade-card">
+					<div>
+						<div class="eyebrow">Step Two</div>
+						<h3>Deep Roots Shadow Work System</h3>
+					</div>
+					<div>
+						<p>
+							The 14-week guided version. Four phases (Honest Ground · Inherited
+							Layer · Cost &amp; Benefit · Return &amp; Rest), 72 prompts,
+							anchored to the third root — <em>Examine It.</em> Built for the
+							work the Starter Kit opens but cannot finish: examining what was
+							inherited, what was absorbed, what is yours, what is the
+							lineage's, and what gets put down for good.
+						</p>
+						<p>
+							<strong
+								>The Starter Kit purchase price ($9) is credited toward Deep
+								Roots</strong
+							>
+							if you upgrade within 90 days. No code, no form to fill out — just
+							email and we adjust.
+						</p>
+						<a
+							href="MM_DeepRoots_LandingPage.html"
+							class="btn btn-dark upgrade-cta"
+							>See Deep Roots → $49</a
+						>
+					</div>
+				</div>
+			</div>
+		</section>
 
-    <div class="upgrade-card">
-      <div>
-        <div class="eyebrow">Step Two</div>
-        <h3>Deep Roots Shadow Work System</h3>
-      </div>
-      <div>
-        <p>
-          The 14-week guided version. Four phases (Honest Ground · Inherited Layer · Cost &amp; Benefit · Return &amp; Rest), 72 prompts, anchored to the third root — <em>Examine It.</em> Built for the work the Starter Kit opens but cannot finish: examining what was inherited, what was absorbed, what is yours, what is the lineage's, and what gets put down for good.
-        </p>
-        <p>
-          <strong>The Starter Kit purchase price ($9) is credited toward Deep Roots</strong> if you upgrade within 90 days. No code, no form to fill out — just email and we adjust.
-        </p>
-        <a href="MM_DeepRoots_LandingPage.html" class="btn btn-dark upgrade-cta">See Deep Roots → $49</a>
-      </div>
-    </div>
-  </div>
-</section>
+		<!-- FAQ -->
+		<section
+			class="section"
+			id="faq">
+			<div class="container">
+				<div class="eyebrow eyebrow-dark">Questions</div>
+				<h2 class="section-title">Before <em>you buy.</em></h2>
 
-<!-- FAQ -->
-<section class="section" id="faq">
-  <div class="container">
-    <div class="eyebrow eyebrow-dark">Questions</div>
-    <h2 class="section-title">Before <em>you buy.</em></h2>
+				<div class="faq">
+					<div class="faq-item">
+						<button class="faq-q">
+							What do I actually get? <span class="faq-q-icon">+</span>
+						</button>
+						<div class="faq-a">
+							A 32-page PDF — designed for screen reading and print-at-home
+							journaling. Includes a brief framework introduction, all thirty
+							prompts organized in three arcs, an optional opening ritual
+							(written for both spiritual and secular practitioners), a closing
+							letter from the keeper, and crisis-resource appendix. Instant
+							delivery via email after checkout.
+						</div>
+					</div>
+					<div class="faq-item">
+						<button class="faq-q">
+							Do I need to be in therapy or recovery to use this?
+							<span class="faq-q-icon">+</span>
+						</button>
+						<div class="faq-a">
+							No, but the kit is designed as a <em>companion</em> to
+							professional support, not a replacement for it. If you are
+							currently working with a therapist or in a recovery program, this
+							can be used alongside that work — many members do exactly this. If
+							you are not, the kit is still appropriate, with the caveat in the
+							crisis-resource appendix.
+						</div>
+					</div>
+					<div class="faq-item">
+						<button class="faq-q">
+							Is this a 30-day challenge? Will I fall behind?
+							<span class="faq-q-icon">+</span>
+						</button>
+						<div class="faq-a">
+							No. The "30 days" is a structural reference, not a deadline. You
+							can do one prompt a day. You can do one prompt a week. You can do
+							one a month for thirty months and finish in 2028. There is no
+							streak. There is no "falling behind." The kit is yours.
+						</div>
+					</div>
+					<div class="faq-item">
+						<button class="faq-q">
+							How is this different from the Deep Roots System?
+							<span class="faq-q-icon">+</span>
+						</button>
+						<div class="faq-a">
+							The Starter Kit is the entry product (02 Burn It · $9 · 30 prompts
+							in 3 arcs). Deep Roots is the flagship (03 Examine It · $49 · 72
+							prompts in 4 phases over 14 guided weeks, with the Ancestral
+							Healing Journal and an exclusive Integration Guide bundled in).
+							The Starter Kit is the first honest pass. Deep Roots is the long
+							arc. Both stand alone. They also nest cleanly.
+						</div>
+					</div>
+					<div class="faq-item">
+						<button class="faq-q">
+							Is there a refund policy? <span class="faq-q-icon">+</span>
+						</button>
+						<div class="faq-a">
+							All digital sales are final, per industry norm — but if there is a
+							delivery problem (you didn't get the email, the file is corrupt,
+							your link broke), email
+							<a
+								href="mailto:bgconscious@gmail.com"
+								style="color: var(--mm-rose); text-decoration: underline"
+								>bgconscious@gmail.com</a
+							>
+							and the keeper will fix it within 24 hours.
+						</div>
+					</div>
+					<div class="faq-item">
+						<button class="faq-q">
+							Who wrote this? <span class="faq-q-icon">+</span>
+						</button>
+						<div class="faq-a">
+							Latisha Vincent-Waters — Senior Program Manager, Soros Justice
+							Fellow (2022), founder of Midnight Magnolia, Lowcountry South
+							Carolina native. 15+ years of program design, experience securing
+							project funding, and a long, slow education in what actually holds
+							people. The kit is the small, distilled version of that work.
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
 
-    <div class="faq">
-      <div class="faq-item">
-        <button class="faq-q">What do I actually get? <span class="faq-q-icon">+</span></button>
-        <div class="faq-a">A 32-page PDF — designed for screen reading and print-at-home journaling. Includes a brief framework introduction, all thirty prompts organized in three arcs, an optional opening ritual (written for both spiritual and secular practitioners), a closing letter from the keeper, and crisis-resource appendix. Instant delivery via email after checkout.</div>
-      </div>
-      <div class="faq-item">
-        <button class="faq-q">Do I need to be in therapy or recovery to use this? <span class="faq-q-icon">+</span></button>
-        <div class="faq-a">No, but the kit is designed as a <em>companion</em> to professional support, not a replacement for it. If you are currently working with a therapist or in a recovery program, this can be used alongside that work — many members do exactly this. If you are not, the kit is still appropriate, with the caveat in the crisis-resource appendix.</div>
-      </div>
-      <div class="faq-item">
-        <button class="faq-q">Is this a 30-day challenge? Will I fall behind? <span class="faq-q-icon">+</span></button>
-        <div class="faq-a">No. The "30 days" is a structural reference, not a deadline. You can do one prompt a day. You can do one prompt a week. You can do one a month for thirty months and finish in 2028. There is no streak. There is no "falling behind." The kit is yours.</div>
-      </div>
-      <div class="faq-item">
-        <button class="faq-q">How is this different from the Deep Roots System? <span class="faq-q-icon">+</span></button>
-        <div class="faq-a">The Starter Kit is the entry product (02 Burn It · $9 · 30 prompts in 3 arcs). Deep Roots is the flagship (03 Examine It · $49 · 72 prompts in 4 phases over 14 guided weeks, with the Ancestral Healing Journal and an exclusive Integration Guide bundled in). The Starter Kit is the first honest pass. Deep Roots is the long arc. Both stand alone. They also nest cleanly.</div>
-      </div>
-      <div class="faq-item">
-        <button class="faq-q">Is there a refund policy? <span class="faq-q-icon">+</span></button>
-        <div class="faq-a">All digital sales are final, per industry norm — but if there is a delivery problem (you didn't get the email, the file is corrupt, your link broke), email <a href="mailto:bgconscious@gmail.com" style="color: var(--mm-rose); text-decoration: underline;">bgconscious@gmail.com</a> and the keeper will fix it within 24 hours.</div>
-      </div>
-      <div class="faq-item">
-        <button class="faq-q">Who wrote this? <span class="faq-q-icon">+</span></button>
-        <div class="faq-a">Latisha Vincent-Waters — Senior Program Manager, Soros Justice Fellow (2022), founder of Midnight Magnolia, Lowcountry South Carolina native. 15+ years of program design, $1.5M+ in funding secured, and a long, slow education in what actually holds people. The kit is the small, distilled version of that work.</div>
-      </div>
-    </div>
-  </div>
-</section>
+		<!-- FINAL CTA -->
+		<section class="section section-dark">
+			<div class="container final-cta">
+				<div class="eyebrow eyebrow-light">Begin</div>
+				<h2>One quiet month. <em>That's the door.</em></h2>
+				<p style="color: rgba(245, 240, 232, 0.85); max-width: 56ch">
+					Nine dollars. Thirty prompts. The first honest pass at what you have
+					been carrying. Burn the stigma. Keep the person.
+				</p>
+				<div class="hero-cta-row">
+					<a
+						href="https://stan.store/MidnightMagnoliaSC"
+						class="btn btn-primary"
+						>Get the Shadow Work Starter · $9</a
+					>
+					<a
+						href="#"
+						onclick="
+							window.scrollTo({ top: 0, behavior: 'smooth' });
+							return false;
+						"
+						class="btn btn-ghost"
+						>Back to top ↑</a
+					>
+				</div>
+			</div>
+		</section>
 
-<!-- FINAL CTA -->
-<section class="section section-dark">
-  <div class="container final-cta">
-    <div class="eyebrow eyebrow-light">Begin</div>
-    <h2>One quiet month. <em>That's the door.</em></h2>
-    <p style="color: rgba(245, 240, 232, 0.85); max-width: 56ch;">
-      Nine dollars. Thirty prompts. The first honest pass at what you have been carrying. Burn the stigma. Keep the person.
-    </p>
-    <div class="hero-cta-row">
-      <a href="https://stan.store/MidnightMagnoliaSC" class="btn btn-primary">Get the Shadow Work Starter · $9</a>
-      <a href="#" onclick="window.scrollTo({top: 0, behavior: 'smooth'}); return false;" class="btn btn-ghost">Back to top ↑</a>
-    </div>
-  </div>
-</section>
+		<!-- CRISIS NOTE -->
+		<div class="crisis-note">
+			<div class="container">
+				<strong>A note on scope.</strong> The Shadow Work Starter Kit is a
+				journaling and reflection tool — not a clinical service, legal service,
+				or crisis intervention service. It is a companion to professional
+				support, not a replacement for it. If you are in crisis, please reach
+				out to <strong>988</strong> (Suicide &amp; Crisis Lifeline, call or
+				text), the <strong>National Domestic Violence Hotline</strong> at
+				1-800-799-7233 (text START to 88788), or the
+				<strong>SAMHSA National Helpline</strong> at 1-800-662-4357. The door
+				here stays open for the slower work.
+			</div>
+		</div>
 
-<!-- CRISIS NOTE -->
-<div class="crisis-note">
-  <div class="container">
-    <strong>A note on scope.</strong> The Shadow Work Starter Kit is a journaling and reflection tool — not a clinical service, legal service, or crisis intervention service. It is a companion to professional support, not a replacement for it. If you are in crisis, please reach out to <strong>988</strong> (Suicide &amp; Crisis Lifeline, call or text), the <strong>National Domestic Violence Hotline</strong> at 1-800-799-7233 (text START to 88788), or the <strong>SAMHSA National Helpline</strong> at 1-800-662-4357. The door here stays open for the slower work.
-  </div>
-</div>
+		<!-- FOOTER -->
+		<footer class="footer">
+			<div class="container">
+				<div class="footer-grid">
+					<div>
+						<div class="footer-brand">
+							Midnight
+							<em style="color: var(--mm-gold); font-style: italic"
+								>Magnolia</em
+							>
+						</div>
+						<p
+							style="
+								color: rgba(245, 240, 232, 0.65);
+								max-width: 38ch;
+								font-size: 0.88rem;
+								line-height: 1.6;
+							">
+							A Southern Gothic sanctuary for neurodivergent creators,
+							healing-centered women, and quiet builders. Based in Ravenel,
+							South Carolina.
+						</p>
+					</div>
+					<div class="footer-col">
+						<h4>Storefront</h4>
+						<a href="MM_MagnoliaCircle_LandingPage.html"
+							>Magnolia Circle ($9/mo)</a
+						>
+						<a href="MM_ShadowWorkStarter_LandingPage.html"
+							>Shadow Work Starter ($9)</a
+						>
+						<a href="MM_DeepRoots_LandingPage.html">Deep Roots System ($49)</a>
+						<a href="MM_Homepage_Hub.html">All offerings</a>
+					</div>
+					<div class="footer-col">
+						<h4>Elsewhere</h4>
+						<a href="https://midnight-magnolia.com">midnight-magnolia.com</a>
+						<a href="https://stan.store/MidnightMagnoliaSC">Stan Store</a>
+						<a href="mailto:bgconscious@gmail.com">Email Latisha</a>
+					</div>
+				</div>
+				<div class="footer-bottom">
+					<div>
+						© 2026 Midnight Magnolia · A Rumi-Nations LLC brand · Ravenel, South
+						Carolina
+					</div>
+					<div>midnight-magnolia.com</div>
+				</div>
+			</div>
+		</footer>
 
-<!-- FOOTER -->
-<footer class="footer">
-  <div class="container">
-    <div class="footer-grid">
-      <div>
-        <div class="footer-brand">Midnight <em style="color: var(--mm-gold); font-style: italic;">Magnolia</em></div>
-        <p style="color: rgba(245, 240, 232, 0.65); max-width: 38ch; font-size: 0.88rem; line-height: 1.6;">
-          A Southern Gothic sanctuary for neurodivergent creators, healing-centered women, and quiet builders. Based in Ravenel, South Carolina.
-        </p>
-      </div>
-      <div class="footer-col">
-        <h4>Storefront</h4>
-        <a href="MM_MagnoliaCircle_LandingPage.html">Magnolia Circle ($9/mo)</a>
-        <a href="MM_ShadowWorkStarter_LandingPage.html">Shadow Work Starter ($9)</a>
-        <a href="MM_DeepRoots_LandingPage.html">Deep Roots System ($49)</a>
-        <a href="MM_Homepage_Hub.html">All offerings</a>
-      </div>
-      <div class="footer-col">
-        <h4>Elsewhere</h4>
-        <a href="https://midnight-magnolia.com">midnight-magnolia.com</a>
-        <a href="https://stan.store/MidnightMagnoliaSC">Stan Store</a>
-        <a href="mailto:bgconscious@gmail.com">Email Latisha</a>
-      </div>
-    </div>
-    <div class="footer-bottom">
-      <div>© 2026 Midnight Magnolia · A Rumi-Nations LLC brand · Ravenel, South Carolina</div>
-      <div>midnight-magnolia.com</div>
-    </div>
-  </div>
-</footer>
-
-<script>
-document.querySelectorAll('.faq-q').forEach(btn => {
-  btn.addEventListener('click', () => {
-    const item = btn.parentElement;
-    const isOpen = item.classList.contains('open');
-    document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
-    if (!isOpen) item.classList.add('open');
-  });
-});
-const observer = new IntersectionObserver(entries => {
-  entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); });
-}, { threshold: 0.12 });
-document.querySelectorAll('.section-title, .arc, .sample-prompt, .lineage, .problem-col, .hero-card, .upgrade-card').forEach(el => {
-  el.classList.add('fade-in');
-  observer.observe(el);
-});
-</script>
-
-</body>
+		<script>
+			document.querySelectorAll(".faq-q").forEach((btn) => {
+				btn.addEventListener("click", () => {
+					const item = btn.parentElement;
+					const isOpen = item.classList.contains("open");
+					document
+						.querySelectorAll(".faq-item")
+						.forEach((i) => i.classList.remove("open"));
+					if (!isOpen) item.classList.add("open");
+				});
+			});
+			const observer = new IntersectionObserver(
+				(entries) => {
+					entries.forEach((entry) => {
+						if (entry.isIntersecting) entry.target.classList.add("visible");
+					});
+				},
+				{ threshold: 0.12 },
+			);
+			document
+				.querySelectorAll(
+					".section-title, .arc, .sample-prompt, .lineage, .problem-col, .hero-card, .upgrade-card",
+				)
+				.forEach((el) => {
+					el.classList.add("fade-in");
+					observer.observe(el);
+				});
+		</script>
+	</body>
 </html>

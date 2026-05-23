@@ -11,7 +11,7 @@ import { URLS, PRODUCTS } from '../lib/constants';
 
 const HOME_DOORS = [
   {
-    title: 'Work With Me',
+              { number: 'Secured funding', label: 'Funding Secured' },
     desc: (
       <>
         Gentle, structured support for your workflows, career materials, and digital systems.
