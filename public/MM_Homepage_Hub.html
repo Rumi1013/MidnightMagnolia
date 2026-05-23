@@ -1,0 +1,721 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Midnight Magnolia · A Southern Gothic sanctuary for quiet builders</title>
+<meta name="description" content="A healing-centered product ecosystem anchored to the Five Roots Theory of Change. Three doors: Shadow Work Starter ($9), Magnolia Circle ($9/mo), Deep Roots System ($49). Built for neurodivergent creators and quiet builders."/>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+/* MIDNIGHT MAGNOLIA · Integration v4 — Homepage Hub */
+:root {
+  --mm-indigo:         #2B2F4A;
+  --mm-indigo-deep:    #1F2238;
+  --mm-gold:           #C9A84C;
+  --mm-gold-warm:      #B8923C;
+  --mm-magnolia:       #F5F0E8;
+  --mm-parchment:      #EBE3D5;
+  --mm-rose:           #B97A6A;
+  --mm-mist:           #C9C8C0;
+  --mm-ink:            #1A1C2A;
+  --mm-ink-muted:      #5A5D70;
+  --mm-cream-soft:     rgba(245, 240, 232, 0.88);
+  --font-display:      'Cormorant Garamond', Georgia, 'Times New Roman', serif;
+  --font-body:         'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+  --measure:           62ch;
+  --radius-sm:         3px;
+  --radius-md:         6px;
+  --shadow-sm:         0 1px 3px rgba(43, 47, 74, 0.08);
+  --shadow-md:         0 6px 24px rgba(43, 47, 74, 0.12);
+  --shadow-lg:         0 12px 48px rgba(43, 47, 74, 0.16);
+  --section-y:         clamp(4rem, 8vw, 7rem);
+  --container:         min(1180px, 92vw);
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+body { font-family: var(--font-body); font-size: 17px; line-height: 1.65; color: var(--mm-ink); background: var(--mm-magnolia); -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; }
+img, svg { max-width: 100%; display: block; }
+a { color: inherit; text-decoration: none; }
+button { font: inherit; cursor: pointer; border: none; background: none; color: inherit; }
+
+h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 500; letter-spacing: -0.01em; line-height: 1.15; color: var(--mm-indigo); }
+h1 { font-size: clamp(2.8rem, 6.5vw, 5rem); }
+h2 { font-size: clamp(1.9rem, 3.8vw, 2.9rem); }
+h3 { font-size: clamp(1.3rem, 2.2vw, 1.65rem); }
+h4 { font-size: 1.15rem; font-weight: 600; letter-spacing: 0; }
+p { max-width: var(--measure); }
+em { font-style: italic; }
+
+.eyebrow { display: inline-flex; align-items: center; gap: 0.7rem; font-family: var(--font-body); font-size: 0.78rem; font-weight: 500; letter-spacing: 0.18em; text-transform: uppercase; color: var(--mm-gold); margin-bottom: 1.25rem; }
+.eyebrow::before { content: ''; width: 2.2rem; height: 1px; background: var(--mm-gold); }
+.eyebrow.eyebrow-light { color: var(--mm-gold); }
+.eyebrow.eyebrow-dark { color: var(--mm-rose); }
+.eyebrow.eyebrow-dark::before { background: var(--mm-rose); }
+
+.container { width: var(--container); margin: 0 auto; }
+
+/* NAV */
+.nav { position: sticky; top: 0; z-index: 50; background: var(--mm-cream-soft); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border-bottom: 1px solid rgba(43, 47, 74, 0.06); }
+.nav-inner { display: flex; align-items: center; justify-content: space-between; padding: 1.1rem 0; }
+.nav-brand { font-family: var(--font-display); font-size: 1.35rem; font-weight: 500; color: var(--mm-indigo); }
+.nav-brand em { color: var(--mm-gold); font-style: italic; font-weight: 400; }
+.nav-links { display: flex; align-items: center; gap: 2rem; font-size: 0.93rem; }
+.nav-links a { color: var(--mm-ink-muted); transition: color 200ms ease; }
+.nav-links a:hover { color: var(--mm-indigo); }
+.nav-cta { padding: 0.55rem 1.2rem; background: var(--mm-indigo); color: var(--mm-magnolia) !important; border-radius: var(--radius-sm); font-weight: 500; font-size: 0.88rem; transition: background 200ms ease; }
+.nav-cta:hover { background: var(--mm-gold); color: var(--mm-indigo) !important; }
+@media (max-width: 760px) { .nav-links a:not(.nav-cta) { display: none; } }
+
+/* HERO — full-bleed indigo with strong typography statement */
+.hero { position: relative; background: var(--mm-indigo); color: var(--mm-magnolia); padding: clamp(5rem, 11vw, 9rem) 0 clamp(4rem, 8vw, 7rem); overflow: hidden; }
+.hero::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse 70% 55% at 70% 25%, rgba(201, 168, 76, 0.16), transparent 60%), radial-gradient(ellipse 65% 55% at 15% 80%, rgba(185, 122, 106, 0.12), transparent 60%); pointer-events: none; }
+.hero-inner { position: relative; max-width: 880px; }
+.hero h1 {
+  color: var(--mm-magnolia);
+  margin-bottom: 1.8rem;
+  font-weight: 400;
+  letter-spacing: -0.015em;
+  line-height: 1.05;
+}
+.hero h1 em { font-style: italic; color: var(--mm-gold); font-weight: 400; }
+.hero-lede {
+  font-size: clamp(1.15rem, 1.8vw, 1.35rem);
+  color: rgba(245, 240, 232, 0.85);
+  margin-bottom: 2.5rem;
+  max-width: 62ch;
+  line-height: 1.55;
+  font-weight: 300;
+}
+.hero-cta-row { display: flex; align-items: center; gap: 1.4rem; flex-wrap: wrap; margin-bottom: 3rem; }
+.btn { display: inline-flex; align-items: center; gap: 0.55rem; padding: 0.95rem 1.8rem; border-radius: var(--radius-sm); font-family: var(--font-body); font-weight: 500; font-size: 0.97rem; letter-spacing: 0.02em; transition: all 220ms ease; }
+.btn-primary { background: var(--mm-gold); color: var(--mm-indigo); }
+.btn-primary:hover { background: var(--mm-magnolia); transform: translateY(-1px); box-shadow: var(--shadow-md); }
+.btn-ghost { color: var(--mm-magnolia); border-bottom: 1px solid rgba(245, 240, 232, 0.4); padding: 0.2rem 0; border-radius: 0; }
+.btn-ghost:hover { border-bottom-color: var(--mm-gold); color: var(--mm-gold); }
+.btn-dark { background: var(--mm-indigo); color: var(--mm-magnolia); }
+.btn-dark:hover { background: var(--mm-gold); color: var(--mm-indigo); }
+.btn-outline { background: transparent; color: var(--mm-indigo); border: 1px solid var(--mm-indigo); }
+.btn-outline:hover { background: var(--mm-indigo); color: var(--mm-magnolia); }
+
+/* CREDENTIALS BAR — borrowed from live site, elevated */
+.credentials-bar {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 2rem;
+  padding-top: 2.5rem;
+  border-top: 1px solid rgba(201, 168, 76, 0.25);
+  max-width: 880px;
+}
+@media (max-width: 760px) { .credentials-bar { grid-template-columns: repeat(2, 1fr); gap: 1.5rem; } }
+.cred {
+  font-family: var(--font-display);
+}
+.cred-num {
+  font-size: clamp(1.6rem, 3vw, 2.2rem);
+  color: var(--mm-gold);
+  font-weight: 500;
+  line-height: 1;
+  margin-bottom: 0.4rem;
+}
+.cred-label {
+  font-family: var(--font-body);
+  font-size: 0.82rem;
+  letter-spacing: 0.08em;
+  color: rgba(245, 240, 232, 0.7);
+  text-transform: uppercase;
+  font-weight: 400;
+}
+
+/* SECTIONS */
+.section { padding: var(--section-y) 0; }
+.section-alt { background: var(--mm-parchment); }
+.section-dark { background: var(--mm-indigo); color: var(--mm-magnolia); position: relative; overflow: hidden; }
+.section-dark::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse 60% 50% at 50% 30%, rgba(201, 168, 76, 0.10), transparent 60%); pointer-events: none; }
+.section-dark h2, .section-dark h3 { color: var(--mm-magnolia); }
+.section-dark p { color: rgba(245, 240, 232, 0.82); }
+.section-title { max-width: 30ch; margin-bottom: 1.5rem; }
+.section-lede { font-size: clamp(1.05rem, 1.5vw, 1.2rem); color: var(--mm-ink-muted); max-width: 60ch; line-height: 1.65; margin-bottom: 3rem; }
+.section-dark .section-lede { color: rgba(245, 240, 232, 0.78); }
+
+/* ════════════════════════════════════════════
+   THREE DOORS — the integration-v4 dashboard
+   pattern, adapted as a storefront grid
+   ════════════════════════════════════════════ */
+.doors {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+  margin-top: 2.5rem;
+}
+@media (max-width: 880px) { .doors { grid-template-columns: 1fr; } }
+
+.door {
+  position: relative;
+  background: var(--mm-magnolia);
+  border: 1px solid rgba(43, 47, 74, 0.1);
+  border-radius: var(--radius-md);
+  padding: 2.4rem 2rem 2.2rem;
+  display: flex;
+  flex-direction: column;
+  transition: transform 260ms ease, box-shadow 260ms ease, border-color 260ms ease;
+  overflow: hidden;
+}
+.section-alt .door { background: #fff; }
+.door:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg);
+  border-color: rgba(201, 168, 76, 0.5);
+}
+.door::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: var(--mm-gold);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 320ms ease;
+}
+.door:hover::after { transform: scaleX(1); }
+.door-root {
+  font-family: var(--font-body);
+  font-size: 0.72rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--mm-rose);
+  font-weight: 600;
+  margin-bottom: 0.8rem;
+}
+.door-num {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 5rem;
+  color: rgba(201, 168, 76, 0.12);
+  position: absolute;
+  top: 0.3rem;
+  right: 1.1rem;
+  line-height: 1;
+  font-weight: 500;
+  pointer-events: none;
+}
+.door h3 { margin-bottom: 0.6rem; position: relative; }
+.door h3 em { color: var(--mm-rose); font-style: italic; }
+.door-price {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  color: var(--mm-gold);
+  font-weight: 500;
+  margin-bottom: 1.2rem;
+  position: relative;
+}
+.door-price em { font-size: 0.85rem; color: var(--mm-ink-muted); font-style: normal; }
+.door-body {
+  color: var(--mm-ink-muted);
+  font-size: 0.97rem;
+  line-height: 1.6;
+  flex: 1;
+  margin-bottom: 1.5rem;
+  position: relative;
+}
+.door-list {
+  list-style: none;
+  margin-bottom: 1.8rem;
+  position: relative;
+}
+.door-list li {
+  font-size: 0.92rem;
+  color: var(--mm-ink-muted);
+  padding-left: 1.2rem;
+  position: relative;
+  margin-bottom: 0.5rem;
+  line-height: 1.5;
+}
+.door-list li::before {
+  content: '◆';
+  position: absolute;
+  left: 0;
+  top: 0.05rem;
+  color: var(--mm-gold);
+  font-size: 0.6rem;
+}
+.door-cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.85rem 1.4rem;
+  background: var(--mm-indigo);
+  color: var(--mm-magnolia);
+  border-radius: var(--radius-sm);
+  font-weight: 500;
+  font-size: 0.93rem;
+  transition: all 220ms ease;
+  margin-top: auto;
+  text-align: center;
+  position: relative;
+}
+.door-cta:hover { background: var(--mm-gold); color: var(--mm-indigo); }
+.door-cta-arrow { transition: transform 220ms ease; }
+.door-cta:hover .door-cta-arrow { transform: translateX(3px); }
+
+/* FEATURED — Deep Roots emphasis */
+.door.featured {
+  background: var(--mm-indigo);
+  color: var(--mm-magnolia);
+  border-color: var(--mm-gold);
+}
+.door.featured h3 { color: var(--mm-magnolia); }
+.door.featured h3 em { color: var(--mm-gold); }
+.door.featured .door-body { color: rgba(245, 240, 232, 0.85); }
+.door.featured .door-list li { color: rgba(245, 240, 232, 0.85); }
+.door.featured .door-price { color: var(--mm-gold); }
+.door.featured .door-price em { color: rgba(245, 240, 232, 0.6); }
+.door.featured .door-cta { background: var(--mm-gold); color: var(--mm-indigo); }
+.door.featured .door-cta:hover { background: var(--mm-magnolia); }
+.door.featured .door-num { color: rgba(201, 168, 76, 0.22); }
+
+/* FIVE ROOTS FRAMEWORK */
+.framework {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(2.5rem, 5vw, 5rem);
+  align-items: start;
+}
+@media (max-width: 880px) { .framework { grid-template-columns: 1fr; } }
+.framework-vis {
+  background: var(--mm-magnolia);
+  border-radius: var(--radius-md);
+  padding: 2.5rem 2rem;
+  border: 1px solid rgba(43, 47, 74, 0.08);
+}
+.section-alt .framework-vis { background: #fff; }
+.root {
+  display: grid;
+  grid-template-columns: 4.5rem 1fr;
+  gap: 1.2rem;
+  padding: 1.2rem 0;
+  border-bottom: 1px solid rgba(43, 47, 74, 0.08);
+  align-items: start;
+}
+.root:last-child { border-bottom: none; padding-bottom: 0; }
+.root:first-child { padding-top: 0.4rem; }
+.root-num {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 1.8rem;
+  color: var(--mm-gold);
+  line-height: 1;
+  font-weight: 500;
+}
+.root-name {
+  font-family: var(--font-body);
+  font-size: 0.93rem;
+  font-weight: 600;
+  color: var(--mm-indigo);
+  margin-bottom: 0.3rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+.root-body {
+  font-size: 0.92rem;
+  color: var(--mm-ink-muted);
+  line-height: 1.55;
+}
+.root-product {
+  display: inline-block;
+  margin-top: 0.5rem;
+  font-size: 0.82rem;
+  color: var(--mm-rose);
+  font-style: italic;
+  font-family: var(--font-display);
+}
+
+/* LINEAGE — same component as product pages */
+.lineage { display: grid; grid-template-columns: 1fr 1.5fr; gap: clamp(2.5rem, 5vw, 5rem); align-items: center; padding: clamp(3rem, 6vw, 5rem); background: var(--mm-indigo); color: var(--mm-magnolia); border-radius: var(--radius-md); position: relative; overflow: hidden; margin-top: 3rem; }
+.lineage::before { content: ''; position: absolute; inset: 0; background: radial-gradient(circle at 80% 20%, rgba(185, 122, 106, 0.18), transparent 55%); pointer-events: none; }
+@media (max-width: 760px) { .lineage { grid-template-columns: 1fr; } }
+.lineage-eyebrow { font-size: 0.75rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--mm-rose); margin-bottom: 1rem; position: relative; }
+.lineage h2 { color: var(--mm-magnolia); font-size: clamp(1.7rem, 3vw, 2.4rem); position: relative; }
+.lineage p { color: rgba(245, 240, 232, 0.88); font-size: 1.02rem; line-height: 1.7; margin-bottom: 1.1rem; position: relative; }
+.lineage p:last-child { margin-bottom: 0; }
+.lineage-name { font-family: var(--font-display); font-style: italic; color: var(--mm-gold); font-size: 1.1rem; font-weight: 500; }
+
+/* QUIET PRINCIPLES */
+.principles {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1.5rem;
+  margin-top: 2.5rem;
+}
+.principle {
+  padding: 1.6rem 1.5rem;
+  background: rgba(43, 47, 74, 0.04);
+  border-left: 2px solid var(--mm-gold);
+  border-radius: 0 var(--radius-md) var(--radius-md) 0;
+}
+.principle-num {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 0.95rem;
+  color: var(--mm-gold);
+  margin-bottom: 0.4rem;
+}
+.principle h4 {
+  margin-bottom: 0.5rem;
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: 1.15rem;
+  color: var(--mm-indigo);
+  letter-spacing: 0;
+}
+.principle p {
+  font-size: 0.92rem;
+  color: var(--mm-ink-muted);
+  line-height: 1.6;
+}
+
+/* FINAL CTA */
+.final-cta { text-align: center; }
+.final-cta .eyebrow { justify-content: center; }
+.final-cta h2 { margin: 0 auto 1.5rem; max-width: 22ch; }
+.final-cta p { margin: 0 auto 2.5rem; font-size: 1.08rem; }
+.final-cta .hero-cta-row { justify-content: center; }
+
+/* FOOTER */
+.footer { background: var(--mm-indigo); color: rgba(245, 240, 232, 0.7); padding: 3rem 0 2rem; font-size: 0.88rem; }
+.footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 3rem; margin-bottom: 2.5rem; }
+@media (max-width: 700px) { .footer-grid { grid-template-columns: 1fr; gap: 1.8rem; } }
+.footer-brand { font-family: var(--font-display); font-size: 1.4rem; color: var(--mm-magnolia); margin-bottom: 0.8rem; }
+.footer-col h4 { font-family: var(--font-body); font-size: 0.78rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--mm-gold); margin-bottom: 1rem; font-weight: 600; }
+.footer-col a { display: block; margin-bottom: 0.55rem; color: rgba(245, 240, 232, 0.7); transition: color 200ms ease; }
+.footer-col a:hover { color: var(--mm-gold); }
+.footer-bottom { border-top: 1px solid rgba(245, 240, 232, 0.08); padding-top: 1.5rem; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 1rem; font-size: 0.82rem; color: rgba(245, 240, 232, 0.5); }
+
+/* Fade-in */
+.fade-in { opacity: 0; transform: translateY(14px); transition: opacity 700ms ease, transform 700ms ease; }
+.fade-in.visible { opacity: 1; transform: translateY(0); }
+@media (prefers-reduced-motion: reduce) { .fade-in { opacity: 1; transform: none; transition: none; } * { scroll-behavior: auto !important; } }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav">
+  <div class="container nav-inner">
+    <a href="#" class="nav-brand">Midnight <em>Magnolia</em></a>
+    <div class="nav-links">
+      <a href="#doors">The Three Doors</a>
+      <a href="#framework">Five Roots</a>
+      <a href="#lineage">Lineage</a>
+      <a href="#about">The Keeper</a>
+      <a href="https://stan.store/MidnightMagnoliaSC" class="nav-cta">Shop</a>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<header class="hero">
+  <div class="container hero-inner">
+    <div class="eyebrow eyebrow-light">A Southern Gothic sanctuary · Ravenel, SC</div>
+    <h1>For the <em>quiet builders.</em><br/>For the slower work.</h1>
+    <p class="hero-lede">
+      Midnight Magnolia is a healing-centered product ecosystem for neurodivergent creators, recovering hustlers, and women who already know their pace is not a problem. A spiral, not a staircase. A doorway, not a doctrine. Three doors in.
+    </p>
+    <div class="hero-cta-row">
+      <a href="#doors" class="btn btn-primary">See the three doors</a>
+      <a href="#framework" class="btn btn-ghost">What's the framework? →</a>
+    </div>
+
+    <!-- CREDENTIALS BAR -->
+    <div class="credentials-bar">
+      <div class="cred">
+        <div class="cred-num">$1.5M+</div>
+        <div class="cred-label">Funding secured</div>
+      </div>
+      <div class="cred">
+        <div class="cred-num">610+</div>
+        <div class="cred-label">Program participants</div>
+      </div>
+      <div class="cred">
+        <div class="cred-num">15+</div>
+        <div class="cred-label">Years building systems</div>
+      </div>
+      <div class="cred">
+        <div class="cred-num">2022</div>
+        <div class="cred-label">Soros Justice Fellow</div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- THE THREE DOORS -->
+<section class="section" id="doors">
+  <div class="container">
+    <div class="eyebrow eyebrow-dark">The Storefront</div>
+    <h2 class="section-title">Three doors. <em>Begin anywhere.</em></h2>
+    <p class="section-lede">
+      Every product is anchored to one of the Five Roots — a healing-centered theory of change built from lived experience, recovery frameworks, and a spiritual practice rooted in Black Southern ancestral tradition. The doors stand alone. They also nest cleanly.
+    </p>
+
+    <div class="doors">
+      <!-- DOOR 1: Shadow Work Starter -->
+      <article class="door">
+        <div class="door-num">i.</div>
+        <div class="door-root">02 Burn It · Entry product</div>
+        <h3>Shadow Work <em>Starter Kit</em></h3>
+        <div class="door-price">$9 <em>· one-time</em></div>
+        <p class="door-body">
+          Thirty prompts. Three arcs. One quiet month of work. The first honest pass at what you have been carrying — designed for the lowest-friction beginning.
+        </p>
+        <ul class="door-list">
+          <li>32-page PDF, instant delivery</li>
+          <li>Foundation · Pattern · Return arcs</li>
+          <li>$9 credits toward Deep Roots if you upgrade</li>
+        </ul>
+        <a href="MM_ShadowWorkStarter_LandingPage.html" class="door-cta">Open the door <span class="door-cta-arrow">→</span></a>
+      </article>
+
+      <!-- DOOR 2: Magnolia Circle -->
+      <article class="door">
+        <div class="door-num">ii.</div>
+        <div class="door-root">05 Root It · Membership</div>
+        <h3>Magnolia <em>Circle</em></h3>
+        <div class="door-price">$9 <em>· per month</em></div>
+        <p class="door-body">
+          A small, slow-built community for quiet builders. Monthly prompts, ritual practice, the member edition of <em>Dusk Letters</em>, and a room of people who do not hustle.
+        </p>
+        <ul class="door-list">
+          <li>3–5 monthly shadow work prompts</li>
+          <li>One optional ritual practice</li>
+          <li>Async, low-pressure Circle space</li>
+        </ul>
+        <a href="MM_MagnoliaCircle_LandingPage.html" class="door-cta">Open the door <span class="door-cta-arrow">→</span></a>
+      </article>
+
+      <!-- DOOR 3: Deep Roots (featured) -->
+      <article class="door featured">
+        <div class="door-num">iii.</div>
+        <div class="door-root">03 Examine It · Flagship</div>
+        <h3>Deep Roots <em>Shadow Work System</em></h3>
+        <div class="door-price">$49 <em>· complete</em></div>
+        <p class="door-body">
+          The 14-week guided arc. Four phases, 72 prompts, the Ancestral Healing Journal, and an exclusive Integration Guide. The long, structured version of the work.
+        </p>
+        <ul class="door-list">
+          <li>72 prompts across 14 weeks</li>
+          <li>Ancestral Healing Journal included</li>
+          <li>Exclusive Integration Guide</li>
+        </ul>
+        <a href="MM_DeepRoots_LandingPage.html" class="door-cta">Open the door <span class="door-cta-arrow">→</span></a>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- THE FRAMEWORK / FIVE ROOTS -->
+<section class="section section-alt" id="framework">
+  <div class="container">
+    <div class="eyebrow">The Logic Beneath</div>
+    <h2 class="section-title">A spiral, <em>not a staircase.</em></h2>
+
+    <div class="framework">
+      <div>
+        <p style="font-size: 1.05rem; line-height: 1.65; color: var(--mm-ink-muted); margin-bottom: 1.2rem;">
+          The Five Roots is a healing-centered theory of change developed through Midnight Magnolia — not in a vacuum, but from lived experience, from the recovery frameworks that held me, from the clinical tools that gave language to what I already knew, and from a spiritual practice rooted in Black Southern ancestral tradition.
+        </p>
+        <p style="font-size: 1.05rem; line-height: 1.65; color: var(--mm-ink-muted); margin-bottom: 1.2rem;">
+          The framework has five pillars. Each pillar anchors specific products and content. You enter where you are. You return where you need to. <strong style="color: var(--mm-indigo);">Healing is not a destination — it is a living practice approached through a spiral rather than a staircase.</strong>
+        </p>
+        <p style="font-size: 1.05rem; line-height: 1.65; color: var(--mm-ink-muted);">
+          The Ancestral Ground beneath all five pillars is not a metaphor. It is epistemology. <em>The archive and the theory of change are the same document.</em>
+        </p>
+      </div>
+
+      <div class="framework-vis">
+        <div class="root">
+          <div class="root-num">01</div>
+          <div>
+            <div class="root-name">Name It</div>
+            <div class="root-body">Emotional literacy as the first act of care. The surface word, then the root word beneath it.</div>
+          </div>
+        </div>
+        <div class="root">
+          <div class="root-num">02</div>
+          <div>
+            <div class="root-name">Burn It</div>
+            <div class="root-body">Release shame without burning the self. Separate the experience from the stigma.</div>
+            <span class="root-product">→ Shadow Work Starter ($9)</span>
+          </div>
+        </div>
+        <div class="root">
+          <div class="root-num">03</div>
+          <div>
+            <div class="root-name">Examine It</div>
+            <div class="root-body">Honest inventory after the shame is released. Curiosity with enough love to look clearly.</div>
+            <span class="root-product">→ Deep Roots System ($49)</span>
+          </div>
+        </div>
+        <div class="root">
+          <div class="root-num">04</div>
+          <div>
+            <div class="root-name">Tend It</div>
+            <div class="root-body">Cultivation over correction. You are not a problem to be fixed — you are a life to be tended.</div>
+          </div>
+        </div>
+        <div class="root">
+          <div class="root-num">05</div>
+          <div>
+            <div class="root-name">Root It</div>
+            <div class="root-body">Community as medicine. Wounds inflicted relationally require relational repair.</div>
+            <span class="root-product">→ Magnolia Circle ($9/mo)</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- LINEAGE -->
+<section class="section" id="lineage">
+  <div class="container">
+    <div class="eyebrow eyebrow-dark">The Archive</div>
+    <h2 class="section-title">Built on a <em>specific lineage.</em></h2>
+
+    <div class="lineage">
+      <div>
+        <div class="lineage-eyebrow">The Ancestral Ground</div>
+        <h2>This work has always been <em>happening.</em></h2>
+      </div>
+      <div>
+        <p>
+          Midnight Magnolia is not a brand built on aesthetic borrowed from somewhere else. The Five Roots are anchored to a specific, named lineage — the <span class="lineage-name">Vincent · Vinson</span> family archive, traced from the Lowcountry of South Carolina up through Caswell County, North Carolina, and the Virginia migration corridor.
+        </p>
+        <p>
+          Specific ancestors anchor specific products. <span class="lineage-name">Greene Vincent</span> and his twenty-four children anchor the Magnolia Circle — proof that community as medicine is documented, not metaphor. <span class="lineage-name">Clarence L. Vincent's</span> two families anchor Deep Roots — the work of examining a complex lineage with both honesty and tenderness.
+        </p>
+        <p>
+          The archive and the theory of change are the same document. Healing, in this framework, is <em>always also intergenerational.</em>
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- QUIET PRINCIPLES -->
+<section class="section section-alt">
+  <div class="container">
+    <div class="eyebrow">House Rules</div>
+    <h2 class="section-title">The principles <em>under everything.</em></h2>
+    <p class="section-lede">
+      Four commitments that govern every product, every page, every cadence. If something violates them, it doesn't ship.
+    </p>
+
+    <div class="principles">
+      <div class="principle">
+        <div class="principle-num">i.</div>
+        <h4>Anti-hustle</h4>
+        <p>No streaks, no challenges, no shame for missing a day. The work is to build something that holds — not to keep up.</p>
+      </div>
+      <div class="principle">
+        <div class="principle-num">ii.</div>
+        <h4>Neurodivergent-first</h4>
+        <p>Designed for the brain that actually shows up — including the one that opens a tab and closes it without finishing. The door stays open.</p>
+      </div>
+      <div class="principle">
+        <div class="principle-num">iii.</div>
+        <h4>Trauma-informed</h4>
+        <p>Not as a marketing word. As a structural commitment. Crisis resources on every page. The work is a companion to care, not a replacement.</p>
+      </div>
+      <div class="principle">
+        <div class="principle-num">iv.</div>
+        <h4>Lineage-grounded</h4>
+        <p>Every product is anchored to a specific root and a specific ancestor. We name the sources. We do not extract them.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT / KEEPER -->
+<section class="section" id="about">
+  <div class="container">
+    <div class="eyebrow eyebrow-dark">The Keeper</div>
+    <h2 class="section-title">Who is <em>actually</em> running this.</h2>
+    <p style="font-size: 1.05rem; line-height: 1.65; color: var(--mm-ink-muted); max-width: 70ch; margin-bottom: 1.5rem;">
+      I am <strong style="color: var(--mm-indigo);">Latisha Vincent-Waters</strong> — Senior Program Manager, Soros Justice Fellow (Open Society Foundations, 2022), digital entrepreneur, and Lowcountry South Carolina native with fifteen-plus years of building systems that actually hold people. I have secured over $1.5 million in funding, managed budgets above $300K, and directed programs serving 600+ community members across four counties.
+    </p>
+    <p style="font-size: 1.05rem; line-height: 1.65; color: var(--mm-ink-muted); max-width: 70ch; margin-bottom: 2rem;">
+      I am completing an A.A.S. in Information Technology at Trident Technical College and building toward an M.L.I.S. with a concentration in digital archival science and cultural heritage preservation. Midnight Magnolia is what I am building because the tools that help people should feel like rest, not labor.
+    </p>
+    <div class="hero-cta-row">
+      <a href="https://midnight-magnolia.com/sanctuary" class="btn btn-outline">Read the longer story →</a>
+      <a href="https://midnight-magnolia.com/work-with-me" class="btn btn-ghost" style="color: var(--mm-indigo); border-bottom-color: var(--mm-indigo);">Consulting & services →</a>
+    </div>
+  </div>
+</section>
+
+<!-- FINAL CTA -->
+<section class="section section-dark">
+  <div class="container final-cta">
+    <div class="eyebrow eyebrow-light">Begin</div>
+    <h2>You don't have to <em>hustle your way here.</em></h2>
+    <p style="color: rgba(245, 240, 232, 0.85); max-width: 56ch;">
+      Start where you are. Take whichever door fits. The work is not to do more — it is to build something that holds.
+    </p>
+    <div class="hero-cta-row">
+      <a href="#doors" class="btn btn-primary">See the three doors</a>
+      <a href="https://midnight-magnolia.com" class="btn btn-ghost">Visit the main site →</a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-brand">Midnight <em style="color: var(--mm-gold); font-style: italic;">Magnolia</em></div>
+        <p style="color: rgba(245, 240, 232, 0.65); max-width: 38ch; font-size: 0.88rem; line-height: 1.6;">
+          A Southern Gothic sanctuary for neurodivergent creators, healing-centered women, and quiet builders. Based in Ravenel, South Carolina.
+        </p>
+      </div>
+      <div class="footer-col">
+        <h4>Storefront</h4>
+        <a href="MM_MagnoliaCircle_LandingPage.html">Magnolia Circle ($9/mo)</a>
+        <a href="MM_ShadowWorkStarter_LandingPage.html">Shadow Work Starter ($9)</a>
+        <a href="MM_DeepRoots_LandingPage.html">Deep Roots System ($49)</a>
+        <a href="https://stan.store/MidnightMagnoliaSC">Stan Store · all products</a>
+      </div>
+      <div class="footer-col">
+        <h4>Elsewhere</h4>
+        <a href="https://midnight-magnolia.com">midnight-magnolia.com</a>
+        <a href="https://midnight-magnolia.com/sanctuary">The Sanctuary</a>
+        <a href="https://midnight-magnolia.com/work-with-me">Work With Me</a>
+        <a href="mailto:bgconscious@gmail.com">Email Latisha</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div>© 2026 Midnight Magnolia · A Rumi-Nations LLC brand · Ravenel, South Carolina</div>
+      <div>midnight-magnolia.com</div>
+    </div>
+  </div>
+</footer>
+
+<script>
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); });
+}, { threshold: 0.12 });
+document.querySelectorAll('.section-title, .door, .framework-vis, .lineage, .principle').forEach(el => {
+  el.classList.add('fade-in');
+  observer.observe(el);
+});
+</script>
+
+</body>
+</html>
