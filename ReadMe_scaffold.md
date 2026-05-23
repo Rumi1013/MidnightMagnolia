@@ -787,8 +787,8 @@ export default function Sanctuary() {
               and Lowcountry South Carolina native with 15+ years building systems that actually hold people.
             </p>
             <p style={{ marginBottom: 'var(--space-md)' }}>
-              I have secured over $1.5 million in funding, managed $300K+ budgets, and directed programs
-              serving 600+ community members across four counties. I am a Soros Justice Fellow,
+              I have secured project funding, managed six-figure budgets, and directed programs
+              serving hundreds of community members across multiple counties. I am a Soros Justice Fellow,
               completing my A.A.S. in Information Technology at Trident Technical College,
               and building toward an M.L.I.S. with a concentration in digital archival science
               and cultural heritage preservation.
