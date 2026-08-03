@@ -23,6 +23,17 @@ const nextConfig = {
       },
     ];
   },
+  /**
+   * Wix Headless OAuth returns code/state in the URL hash, so callbacks must
+   * hit a browser page. Keep the public paths under /api/auth/* for the
+   * documented redirect URI shape, and rewrite them to Pages Router screens.
+   */
+  async rewrites() {
+    return [
+      { source: '/api/auth/login', destination: '/auth/login' },
+      { source: '/api/auth/callback', destination: '/auth/callback' },
+    ];
+  },
 };
 
 export default nextConfig;

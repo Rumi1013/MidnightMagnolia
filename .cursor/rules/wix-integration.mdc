@@ -6,6 +6,13 @@ alwaysApply: false
 
 # Wix Integration
 
+## Member login (Headless OAuth)
+- Start: `/auth/login` (also `/api/auth/login` via rewrite)
+- Callback: `/auth/callback` (also `/api/auth/callback` via rewrite)
+- Helpers: `lib/wixBrowser.js`
+- Register the exact callback URL under Headless Settings → Midnitemag → Allowed authorization redirect URIs
+- Docs: https://dev.wix.com/docs/go-headless/authentication/members/wix-login-page/add-a-wix-login-page-js-sdk
+
 ## Auth precedence (in `getWixAuth()`)
 1. **API Key** — `WIX_API_KEY` + `WIX_SITE_ID` → admin-level reads (preferred for server-side)
 2. **OAuth with tokens** — `WIX_CLIENT_ID` + `WIX_ACCESS_TOKEN` + `WIX_REFRESH_TOKEN`
