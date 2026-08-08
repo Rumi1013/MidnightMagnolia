@@ -17,7 +17,7 @@ export default function Library() {
           <div className="divider" />
           <p className="hero__subtitle" style={{ maxWidth: '60ch' }}>
             A calm shelf between the Sanctuary and the Grimoire. Long-form lives on the public Wix blog and Dusk Letters;
-            digital products and memberships live on Stan. Nothing here is paywalled by accident—only pointed clearly.
+            digital products and memberships live on Buy Me a Coffee. Nothing here is paywalled by accident—only pointed clearly.
           </p>
         </div>
 
@@ -35,10 +35,10 @@ export default function Library() {
             <li style={{ marginBottom: '0.75rem' }}>
               <Link href="/grimoire">The Grimoire</Link>
               {' — '}
-              member writing and gated paths; start on the site, then follow through Stan when you are ready.
+              member writing and gated paths; start on the site, then follow through Buy Me a Coffee when you are ready.
             </li>
             <li style={{ marginBottom: '0.75rem' }}>
-              <a href={URLS.stanStore} target="_blank" rel="noopener noreferrer">Stan Store</a>
+              <a href={URLS.bmac} target="_blank" rel="noopener noreferrer">Buy Me a Coffee</a>
               {' — '}
               journals, kits, and Magnolia Circle.
             </li>

@@ -6,7 +6,7 @@ Cursor and humans: start here to map **strategy artifacts → code**.
 
 | Document | Path | Code touchpoints |
 |----------|------|-------------------|
-| Master Plan v3 | `MM_Canonical_Master_Plan_v3.html` | Wix/Stan/BMAC priorities, automations list, revenue goal — pair with `docs/CHECKOUT_LOOP.md`, `docs/STAN_STORE_MINIMUM.md` |
+| Master Plan v3 | `MM_Canonical_Master_Plan_v3.html` | Wix/BMAC priorities — pair with `docs/CHECKOUT_LOOP.md`, `docs/BMAC_MINIMUM.md` (Stan deferred) |
 | Integration v4 | `MM_Integration_v4.html` | Five Roots, Vincent/Vinson stats — pair with `docs/FIVE_ROOTS_CONTENT.md`, genealogy in Supabase |
 | Master Plan (older) | `completeairtable/MM_Canonical_Master_Plan.html` | Archive reference |
 
@@ -32,17 +32,22 @@ Cursor and humans: start here to map **strategy artifacts → code**.
 
 ## Ship path docs (this execution)
 
+- `docs/BMAC_MINIMUM.md` — **ASAP commerce gate**
+- `docs/DIGITAL_CONTENT_PIPELINE.md` — source → BMAC → CTA
+- `docs/DROPSHIP_LANE.md` — Printify / Enchanted Soul (post-ASAP)
 - `docs/WIX_MERCH_CHECKLIST.md`
-- `docs/CHECKOUT_LOOP.md`
+- `docs/CHECKOUT_LOOP.md` — BMAC-first
 - `docs/SITE_INTEGRITY_TASKS.md`
 - `docs/OPS_ENV_NOTION_AIRTABLE.md`
 - `docs/SUPABASE_RLS_AND_API.md`
 - `docs/CANONICAL_MASTER_PLAN_SYNC.md`
 - `docs/EMAIL_PLATFORM_DECISION.md`
-- `docs/STAN_STORE_MINIMUM.md`
+- `docs/STAN_STORE_MINIMUM.md` — **deferred**
 - `docs/NOTION_SIX_DB_RESTRUCTURE.md`
 - `docs/FIVE_ROOTS_CONTENT.md`
 - `docs/WIX_BLOG_DRAFT_EXPORT.md`
 - `docs/AIRTABLE_XLSX_RECONCILE.md`
 - `docs/ZAPIER_MAKE_PARITY_CHECKLIST.md`
 - `docs/PORTFOLIO_RESUME_ENV.md` (resume URL contract)
+- `docs/WIX_OAUTH_REDIRECTS.md` — Midnitemag callback URIs
+- `docs/DNS_CUTOVER.md` — www → Vercel; Wix stays Headless

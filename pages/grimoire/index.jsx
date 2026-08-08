@@ -2,8 +2,6 @@ import Layout from '../../components/Layout';
 import {
   getGrimoirePosts,
   formatPostDate,
-  getDigitalGrimoireItems,
-  rewriteWixUrl,
   jsonForProps,
 } from '../../lib/wix';
 import Link from 'next/link';
@@ -115,41 +113,15 @@ function inferCategory(post) {
 }
 
 export async function getStaticProps() {
-  const [posts, rawCmsItems] = await Promise.all([
-    getGrimoirePosts(12),
-    getDigitalGrimoireItems(50),
-  ]);
-
-  const cmsItems = (rawCmsItems || [])
-    .map((row) => {
-      const data = row?.data || row || {};
-      const linkPath =
-        data['link-digital-grimoire-1-all'] ||
-        data['link-digital-grimoire-all'] ||
-        null;
-      const wixHome =
-        process.env.NEXT_PUBLIC_WIX_STOREFRONT_URL || 'https://www.midnight-magnolia.com';
-      const url = linkPath ? rewriteWixUrl(`${wixHome}${linkPath}`) : null;
-      return {
-        id: data._id || row?._id,
-        title: data.title || 'Untitled',
-        intro: data.briefIntro || '',
-        category: data.category || null,
-        difficulty: data.difficultyEnergy || null,
-        relatedTools: data.relatedTools || null,
-        coverImage: data.coverImage || null,
-        url,
-      };
-    })
-    .filter((it) => it.title && it.title !== 'Untitled');
+  const posts = await getGrimoirePosts(12);
 
   return {
-    props: jsonForProps({ posts, cmsItems }),
+    props: jsonForProps({ posts }),
     revalidate: 300,
   };
 }
 
-export default function Grimoire({ posts, cmsItems = [] }) {
+export default function Grimoire({ posts }) {
   const [gateOpen, setGateOpen] = useState(false);
   const [hasHydrated, setHasHydrated] = useState(false);
   const [email, setEmail] = useState('');
@@ -207,10 +179,8 @@ export default function Grimoire({ posts, cmsItems = [] }) {
               <p className="muted" style={{ marginBottom: 'var(--space-lg)' }}>
                 Full archive access is gated here while email capture is wired to your chosen platform.
                 Start on{' '}
-                <a href={URLS.stanStore} target="_blank" rel="noopener noreferrer">Stan</a>
-                {' '}(Magnolia Circle, Gentle Beginning, kits) or leave a tip on{' '}
                 <a href={URLS.bmac} target="_blank" rel="noopener noreferrer">Buy Me a Coffee</a>
-                {' '}— then enter your email below to unlock reading on this device.
+                {' '}for Magnolia Circle, Gentle Beginning, kits, or a tip — then enter your email below to unlock reading on this device.
               </p>
               <form onSubmit={unlockGrimoire}>
                 <label style={{ display: 'flex', flexDirection: 'column', gap: 6, marginBottom: 'var(--space-md)' }}>
@@ -226,11 +196,8 @@ export default function Grimoire({ posts, cmsItems = [] }) {
                 </label>
                 <div style={{ display: 'flex', gap: 'var(--space-md)', flexWrap: 'wrap' }}>
                   <button type="submit" className="btn btn--primary">Unlock the Grimoire</button>
-                  <a href={URLS.stanStore} className="btn btn--outline" target="_blank" rel="noopener noreferrer">
-                    Open Stan Store
-                  </a>
-                  <a href={URLS.bmac} className="btn btn--ghost" target="_blank" rel="noopener noreferrer">
-                    Buy Me a Coffee
+                  <a href={URLS.bmac} className="btn btn--outline" target="_blank" rel="noopener noreferrer">
+                    Open Buy Me a Coffee
                   </a>
                 </div>
               </form>
@@ -312,99 +279,6 @@ export default function Grimoire({ posts, cmsItems = [] }) {
             </div>
           )}
         </section>
-        )}
-
-        {hasHydrated && gateOpen && cmsItems.length > 0 && (
-          <section className="section">
-            <h2>Rituals & Practices.</h2>
-            <div className="divider" />
-            <p
-              className="muted"
-              style={{ maxWidth: '56ch', marginBottom: 'var(--space-lg)' }}
-            >
-              From the Digital Grimoire CMS — short, low-spoon practices you can return to in any
-              season.
-            </p>
-            <div className="grid-2">
-              {cmsItems.map((item) => {
-                const inner = (
-                  <div className="card" style={{ height: '100%' }}>
-                    {item.coverImage && (
-                      <div
-                        style={{
-                          width: '100%',
-                          height: '160px',
-                          background: 'var(--color-ink)',
-                          borderRadius: 'var(--radius)',
-                          marginBottom: 'var(--space-md)',
-                          overflow: 'hidden',
-                        }}
-                      >
-                        <img
-                          src={item.coverImage}
-                          alt={item.title}
-                          style={{ width: '100%', height: '100%', objectFit: 'cover' }}
-                        />
-                      </div>
-                    )}
-                    <div
-                      style={{
-                        display: 'flex',
-                        gap: '0.5rem',
-                        flexWrap: 'wrap',
-                        marginBottom: '0.5rem',
-                      }}
-                    >
-                      {item.category && (
-                        <span className="tag" style={{ fontSize: '0.7rem' }}>
-                          {item.category}
-                        </span>
-                      )}
-                      {item.difficulty && (
-                        <span className="tag" style={{ fontSize: '0.7rem' }}>
-                          {item.difficulty}
-                        </span>
-                      )}
-                    </div>
-                    <h3 style={{ fontSize: '1.2rem' }}>{item.title}</h3>
-                    {item.intro && (
-                      <p
-                        className="muted"
-                        style={{ fontSize: '0.875rem', marginTop: '0.5rem' }}
-                      >
-                        {item.intro}
-                      </p>
-                    )}
-                    {item.relatedTools && (
-                      <p
-                        style={{
-                          fontSize: '0.75rem',
-                          color: 'var(--color-eyebrow-on-dark)',
-                          letterSpacing: '0.05em',
-                          marginTop: 'var(--space-md)',
-                        }}
-                      >
-                        Related: {item.relatedTools}
-                      </p>
-                    )}
-                  </div>
-                );
-                return item.url ? (
-                  <a
-                    key={item.id}
-                    href={item.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="card-link"
-                  >
-                    {inner}
-                  </a>
-                ) : (
-                  <div key={item.id}>{inner}</div>
-                );
-              })}
-            </div>
-          </section>
         )}
       </div>
     </Layout>

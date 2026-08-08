@@ -29,7 +29,7 @@ export async function getStaticProps() {
         image,
         imageAlt: hero?.alt || name,
         imagePosition: hero?.objectPosition || 'center',
-        url: getProductPageUrl(p) || URLS.stanStore,
+        url: getProductPageUrl(p) || URLS.bmac,
         ribbon: p.ribbon || null,
         inStock: p.stock?.inStock !== false,
       };
@@ -67,13 +67,13 @@ export default function Shop({ products }) {
                 Check back soon — products are syncing from the Wix store.
               </p>
               <a
-                href={URLS.stanStore}
+                href={URLS.bmac}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="btn btn--outline"
                 style={{ marginTop: 'var(--space-md)' }}
               >
-                Visit Stan Store
+                Visit Buy Me a Coffee
               </a>
             </div>
           ) : (

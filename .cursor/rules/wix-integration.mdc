@@ -1,9 +1,7 @@
 ---
 description: Wix Headless SDK conventions — auth, URLs, images, and fetchers
-globs: lib/wix.js, pages/api/wix/**, pages/shop/**, pages/services*, pages/grimoire/**, scripts/wix-*.mjs
 alwaysApply: false
 ---
-
 # Wix Integration
 
 ## Member login (Headless OAuth)
@@ -48,7 +46,7 @@ export async function getX(limit = 12) {
 - `/shop` → `getShopProducts()` — Wix Stores
 - `/services` → `getBookingServices()` — Wix Bookings
 - `/sanctuary` → first 3 from `getBookingServices()`
-- `/grimoire` → `getGrimoirePosts()` + `getDigitalGrimoireItems()` (CMS)
+- `/grimoire` → `getGrimoirePosts()` — Wix Blog (Dusk Letters archive)
 
 ## Adding a new Wix module
 1. Import in `lib/wix.js`: `import { newMod } from '@wix/<package>'`

@@ -6,7 +6,7 @@
 import { createClient, OAuthStrategy, ApiKeyStrategy } from '@wix/sdk';
 import { products } from '@wix/stores';
 import { services } from '@wix/bookings';
-import { items } from '@wix/data';
+import { posts } from '@wix/blog';
 
 const apiKey = process.env.WIX_API_KEY;
 const siteId = process.env.WIX_SITE_ID;
@@ -19,9 +19,7 @@ if (apiKey && siteId) {
   auth = OAuthStrategy({ clientId });
 }
 
-const client = createClient({ modules: { products, services, items }, auth });
-
-const collection = process.env.WIX_DATA_COLLECTION_DIGITAL_GRIMOIRE || 'DigitalGrimoire';
+const client = createClient({ modules: { products, services, posts }, auth });
 
 console.log('━━━━━━━━━━━━━━ PRODUCT (first item) ━━━━━━━━━━━━━━');
 try {
@@ -39,9 +37,9 @@ try {
   console.error(e.message || e);
 }
 
-console.log(`\n━━━━━━━━━━━━━━ CMS ITEM (first ${collection}) ━━━━━━━━━━━━━━`);
+console.log('\n━━━━━━━━━━━━━━ BLOG POST (first item — Grimoire) ━━━━━━━━━━━━━━');
 try {
-  const list = await client.items.query(collection).limit(1).find();
+  const list = await client.posts.queryPosts().limit(1).find();
   console.log(JSON.stringify(list.items?.[0], null, 2));
 } catch (e) {
   console.error(e.message || e);

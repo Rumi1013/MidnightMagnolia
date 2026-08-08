@@ -113,7 +113,6 @@ export default function Layout({ children, title, description }) {
             </div>
             <div className="footer__col">
               <h4>Connect</h4>
-              <a href={URLS.stanStore} target="_blank" rel="noopener noreferrer">Stan Store</a>
               <a href={URLS.bmac} target="_blank" rel="noopener noreferrer">Buy Me a Coffee</a>
               <Link href="/membership">Membership</Link>
               <a href={URLS.booking} target="_blank" rel="noopener noreferrer">Book a Session</a>

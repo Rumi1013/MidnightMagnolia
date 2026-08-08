@@ -41,3 +41,13 @@ data/*.pdf
 data/wix-blog-drafts.json
 data/wix-blog-drafts-md/
 files/Latisha_VincentWaters_ArchivalSystems_Preservation/
+
+# Vercel CLI env pulls (contain secrets)
+.env.vercel*
+.env.production.local
+.env.development.local
+
+# Local / nested worktrees and mirrors — never push
+.claude/worktrees/
+nextjs-project-bole-mirror/
+.cursor/hooks/

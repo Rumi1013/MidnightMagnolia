@@ -109,16 +109,8 @@ const serviceList = await wix.services.queryServices().limit(100).find();
 const serviceItems = serviceList.items || [];
 console.log(`  ${serviceItems.length} services\n`);
 
-console.log('Fetching Digital Grimoire CMS…');
-const collectionId = process.env.WIX_DATA_COLLECTION_DIGITAL_GRIMOIRE || 'DigitalGrimoire';
-let grimoireItems = [];
-try {
-  const res = await wix.items.query(collectionId).limit(100).find();
-  grimoireItems = res.items || [];
-  console.log(`  ${grimoireItems.length} grimoire rows\n`);
-} catch (err) {
-  console.warn(`  ⚠️  Grimoire fetch failed: ${err.message}\n`);
-}
+console.log('Skipping Digital Grimoire CMS (not provisioned — /grimoire uses Wix Blog).');
+const grimoireItems = [];
 
 // ── Normalize products ──────────────────────────────────────────
 const products_normalized = productItems.map(p => {

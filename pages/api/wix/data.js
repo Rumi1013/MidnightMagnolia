@@ -2,12 +2,11 @@ import { getDataCollectionItems } from '../../../lib/wix';
 import { requireAdmin } from '../../../lib/server/adminAuth';
 
 function publicCollections() {
-  const defaults = [process.env.WIX_DATA_COLLECTION_DIGITAL_GRIMOIRE || 'DigitalGrimoire'];
   const configured = (process.env.WIX_PUBLIC_DATA_COLLECTIONS || '')
     .split(',')
     .map((item) => item.trim())
     .filter(Boolean);
-  return new Set([...defaults, ...configured]);
+  return new Set(configured);
 }
 
 export default async function handler(req, res) {
@@ -25,13 +24,19 @@ export default async function handler(req, res) {
       typeof collectionParam === 'string' && collectionParam.trim().length > 0
         ? collectionParam.trim()
         : undefined;
-    const resolvedCollection =
-      collection || process.env.WIX_DATA_COLLECTION_DIGITAL_GRIMOIRE || 'DigitalGrimoire';
 
-    if (!publicCollections().has(resolvedCollection)) {
+    if (!collection) {
+      return res.status(400).json({
+        ok: false,
+        error: 'collection query param is required',
+      });
+    }
+
+    const allowed = publicCollections();
+    if (allowed.size === 0 || !allowed.has(collection)) {
       return res.status(403).json({
         ok: false,
-        error: 'Collection is not exposed by this API',
+        error: 'Collection is not exposed by this API. Set WIX_PUBLIC_DATA_COLLECTIONS.',
       });
     }
 
@@ -39,11 +44,11 @@ export default async function handler(req, res) {
     const parsedLimit = Number.parseInt(limitParam, 10);
     const limit = Number.isFinite(parsedLimit) ? Math.min(Math.max(parsedLimit, 1), 100) : 50;
 
-    const items = await getDataCollectionItems(resolvedCollection, limit);
+    const items = await getDataCollectionItems(collection, limit);
 
     return res.status(200).json({
       ok: true,
-      collection: resolvedCollection,
+      collection,
       total: items.length,
       items,
     });

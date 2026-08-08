@@ -1,19 +1,27 @@
-# Stan + BMAC checkout loop (verification)
+# BMAC + Wix checkout loop (verification)
 
-Membership and digital goods are **Stan-first**; **Buy Me a Coffee** is the parallel tip/support surface (`NEXT_PUBLIC_BMAC_URL`).
+Membership and digital goods are **Buy Me a Coffee–first** (`NEXT_PUBLIC_BMAC_URL` → `URLS.bmac`). **Stan Store is deferred** (cost). Wix Headless remains the CMS/catalog/bookings backend; Next on Vercel is the front door.
 
-## Pages already aligned in code
+## Pages aligned in code
 
-- **`/`** — Shop CTA → Stan Store; secondary links to Stan + BMAC in the hero band.
-- **`/membership`** — Stan-first copy; BMAC + optional Patreon.
-- **`/grimoire`** — After email gate, CTAs include Stan + BMAC (`lib/constants` `URLS.stanStore`, `URLS.bmac`).
-- **`/library`** — Points digital SKUs to Stan.
+- **`/`** — Primary shop CTA → BMAC; Wix catalog is secondary (`/shop`).
+- **`/membership`** — BMAC-first copy; optional Patreon.
+- **`/grimoire`** — Gate CTAs → BMAC.
+- **`/library`** — Digital SKUs → BMAC.
+- **Nav “The Shop”** → `URLS.bmac`.
 
 ## Manual QA (do once before launch)
 
-1. Open `https://stan.store/MidnightMagnoliaSC` (or your live Stan URL) in a private window. Confirm profile, free starter, Magnolia Circle, and $9 kit are visible.
-2. Add a low-price test item to cart and complete checkout (or Stan test mode if available).
-3. Click **Buy Me a Coffee** from the site footer and confirm the destination matches your real page.
-4. From **`/grimoire`**, submit the email gate, then confirm **Open Stan Store** and **Buy Me a Coffee** links resolve.
+1. Open `https://www.buymeacoffee.com/midnightmagnolia` (or your live `NEXT_PUBLIC_BMAC_URL`) in a private window. Confirm profile, freebie/membership, and at least one digital SKU path.
+2. Complete a tip, membership join, or low-price digital purchase and confirm delivery email/access.
+3. From **`/`**, **`/membership`**, and **`/grimoire`**, confirm Shop/Membership CTAs land on that BMAC page (not Stan).
+4. Optional: open `/shop` and confirm Wix catalog cards still resolve for physical/booking SKUs.
 
-Record failures in Supabase `dashboard_tasks` under `stan` / `site` categories.
+Record results below and/or in Supabase `dashboard_tasks` under `bmac` / `site`.
+
+## QA log
+
+| Date | Path tested | Result | Notes |
+|------|-------------|--------|-------|
+| 2026-08-08 | Code CTAs → `URLS.bmac` | Pass (code) | Live purchase still operator-confirmed on BMAC |
+| | BMAC page reachable | Pass | https://www.buymeacoffee.com/midnightmagnolia |

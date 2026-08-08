@@ -31,8 +31,9 @@ const HOME_DOORS = [
         Start small. Take what you need. Come back when you&apos;re ready.
       </>
     ),
-    href: '/shop',
+    href: URLS.bmac,
     cta: 'Browse Products',
+    external: true,
   },
   {
     title: 'The Grimoire',
@@ -66,8 +67,8 @@ export default function Home() {
             creators who know their pace is not a problem.
           </p>
           <div className="hero__actions">
-            <a href={URLS.stanStore} className="btn btn--primary" target="_blank" rel="noopener noreferrer">
-              Shop Stan Store
+            <a href={URLS.bmac} className="btn btn--primary" target="_blank" rel="noopener noreferrer">
+              Shop on Buy Me a Coffee
             </a>
             <a href={URLS.booking} className="btn btn--outline" target="_blank" rel="noopener noreferrer">
               Book a Session
@@ -75,10 +76,9 @@ export default function Home() {
             <Link href="/shop" className="btn btn--ghost">Wix Catalog</Link>
           </div>
           <p className="muted" style={{ marginTop: 'var(--space-md)', fontSize: '0.85rem', maxWidth: '52ch' }}>
-            Membership and digital goods run through{' '}
-            <a href={URLS.stanStore} target="_blank" rel="noopener noreferrer">Stan</a>
-            {' '}first. Tips and light support:{' '}
+            Membership and digital goods live on{' '}
             <a href={URLS.bmac} target="_blank" rel="noopener noreferrer">Buy Me a Coffee</a>.
+            {' '}Physical / booking catalog stays on Wix Headless.
           </p>
         </div>
       </section>
@@ -147,14 +147,15 @@ export default function Home() {
               {
                 title: 'The Healing Shop',
                 desc:  'Six products built as one healing ecosystem — from the free starter kit to the Deep Roots Shadow Work System. Begin anywhere.',
-                href:  '/shop',
-                cta:   'Browse the Shop',
+                href:  URLS.bmac,
+                cta:   'Browse on BMAC',
+                external: true,
               },
               {
                 title: 'Magnolia Circle',
                 desc:  'A $9/month membership with monthly shadow work prompts, ritual practices, and the member edition of Dusk Letters.',
-                href:  URLS.stanStore,
-                cta:   'Join on Stan',
+                href:  URLS.bmac,
+                cta:   'Join on BMAC',
                 external: true,
               },
               {
@@ -194,7 +195,7 @@ export default function Home() {
                 You don&apos;t need everything. Just one tool that meets you where you are.
               </p>
             </div>
-            <Link href="/shop" className="btn btn--outline">All Products</Link>
+            <Link href="/shop" className="btn btn--outline">Wix Catalog</Link>
           </div>
           <div className="grid-3">
             {featuredProducts.map(p => (
@@ -226,7 +227,7 @@ export default function Home() {
           </p>
           <div style={{ marginTop: 'var(--space-lg)', display: 'flex', gap: 'var(--space-md)', justifyContent: 'center', flexWrap: 'wrap' }}>
             <Link href="/sanctuary" className="btn btn--outline">Read the Story</Link>
-            <Link href="/shop" className="btn btn--primary">Browse the Shop</Link>
+            <a href={URLS.bmac} className="btn btn--primary" target="_blank" rel="noopener noreferrer">Browse the Shop</a>
           </div>
         </div>
       </section>

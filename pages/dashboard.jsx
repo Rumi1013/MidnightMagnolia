@@ -42,7 +42,7 @@ function supabaseDashboardHref() {
 const DROPSHIP = [
   { name: 'Printify',        phase: 1, products: 'Branded journal, Magnolia soy candle, tote bag',    action: 'Sign up free — design Phase 1 products' },
   { name: 'Enchanted Soul',  phase: 1, products: 'Crystal sets, ritual candles, spell oils',          action: 'Apply at enchantedsoul.store/pages/dropshipping' },
-  { name: 'Printful',        phase: 2, products: 'Premium apparel, wall art (Magnolia Circle gifts)',  action: 'Connect to Wix/Stan Store — 20% sample discount' },
+  { name: 'Printful',        phase: 2, products: 'Premium apparel, wall art (Magnolia Circle gifts)',  action: 'Connect to Wix Stores — 20% sample discount' },
   { name: 'Starlinks Gifts', phase: 3, products: 'Gothic healing charm pendants, tarot card bags',    action: 'Apply for wholesale account' },
 ];
 
@@ -462,7 +462,10 @@ function CareerPanel({ jobs, resumes, mlis }) {
       )}
 
       {!mlis?.length && !activeJobs.length && !resumes?.length && (
-        <NotConnected name="Career Command" hint="Add AIRTABLE_CAREER_BASE_ID to .env.local and create the Career Command base." />
+        <NotConnected
+          name="Career Command"
+          hint="Career panel reads the Writing / Creative Airtable base (AIRTABLE_WRITING_BASE_ID) via /api/airtable/career — opportunities + resumes tables. Confirm AIRTABLE_TBL_OPPORTUNITIES / AIRTABLE_TBL_RESUMES (or defaults) and unlock the dashboard with MM_DASHBOARD_TOKEN. AIRTABLE_CAREER_BASE_ID is unused by this app."
+        />
       )}
     </div>
   );
@@ -819,7 +822,7 @@ export default function Dashboard() {
               {divider}
               <SectionHeader title="Quick Links" />
               <div style={{ display: 'flex', gap: 'var(--space-md)', flexWrap: 'wrap' }}>
-                <a href="https://stan.store/MidnightMagnoliaSC"                                    className="btn btn--outline" target="_blank" rel="noopener">Stan Store</a>
+                <a href="https://www.buymeacoffee.com/midnightmagnolia" className="btn btn--outline" target="_blank" rel="noopener">Buy Me a Coffee</a>
                 <a href="https://www.midnight-magnolia.com"                                         className="btn btn--outline" target="_blank" rel="noopener">Wix Site</a>
                 <a href={supabaseDashboardHref()}                                                      className="btn btn--outline" target="_blank" rel="noopener">Supabase</a>
                 <a href="https://notion.so"                                                         className="btn btn--outline" target="_blank" rel="noopener">Notion</a>

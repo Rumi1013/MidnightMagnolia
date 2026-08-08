@@ -41,6 +41,14 @@
   ],
   "exclude": [
     "node_modules",
-    "scripts"
+    "scripts",
+    "dist",
+    "build",
+    "coverage",
+    ".next",
+    ".claude",
+    "hermes",
+    "files",
+    "nextjs-project-bole-mirror"
   ]
 }
