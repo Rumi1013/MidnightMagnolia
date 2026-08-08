@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "lint": "eslint pages components lib next.config.mjs proxy.ts --ext .js,.jsx,.ts,.tsx",
+    "lint": "eslint pages components lib next.config.mjs middleware.ts --ext .js,.jsx,.ts,.tsx",
     "typecheck": "tsc --noEmit",
     "start": "next start",
     "wix:smoke": "node --env-file=.env.local scripts/wix-api-smoke.mjs",

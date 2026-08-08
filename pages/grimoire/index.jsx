@@ -113,7 +113,18 @@ function inferCategory(post) {
 }
 
 export async function getStaticProps() {
-  const posts = await getGrimoirePosts(12);
+  const raw = await getGrimoirePosts(12);
+  // List cards only — never serialize full post bodies into __NEXT_DATA__ (review: soft gate ≠ security).
+  const posts = (raw || []).map((post) => ({
+    title: post.title || '',
+    excerpt: post.excerpt || '',
+    slug: post.slug || '',
+    publishedDate: post.firstPublishedDate || post.publishedDate || null,
+    coverMedia: post.coverMedia || null,
+    hashtags: post.hashtags || [],
+    tags: post.tags || [],
+    categoryIds: post.categoryIds || [],
+  }));
 
   return {
     props: jsonForProps({ posts }),
@@ -150,10 +161,13 @@ export default function Grimoire({ posts }) {
 
   const unlockGrimoire = (e) => {
     e.preventDefault();
-    if (!email.trim()) return;
+    const value = email.trim();
+    // HTML5 type=email + simple shape check (review: validate before unlock)
+    if (!value || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) return;
     if (typeof window !== 'undefined') {
       window.localStorage.setItem('mm_grimoire_unlocked', '1');
-      window.localStorage.setItem('mm_grimoire_email', email.trim());
+      // Do not persist email (review: PII) — unlock flag only
+      window.localStorage.removeItem('mm_grimoire_email');
     }
     setGateOpen(true);
   };
@@ -177,10 +191,10 @@ export default function Grimoire({ posts }) {
               <h2 style={{ marginBottom: 'var(--space-sm)' }}>Enter the Grimoire</h2>
               <div className="divider" />
               <p className="muted" style={{ marginBottom: 'var(--space-lg)' }}>
-                Full archive access is gated here while email capture is wired to your chosen platform.
-                Start on{' '}
+                This is a soft device unlock for pacing and CTAs — not server-side membership auth.
+                Full post bodies are not embedded in locked HTML. Start on{' '}
                 <a href={URLS.bmac} target="_blank" rel="noopener noreferrer">Buy Me a Coffee</a>
-                {' '}for Magnolia Circle, Gentle Beginning, kits, or a tip — then enter your email below to unlock reading on this device.
+                {' '}for Magnolia Circle, Gentle Beginning, kits, or a tip — then enter your email below to unlock browsing on this device.
               </p>
               <form onSubmit={unlockGrimoire}>
                 <label style={{ display: 'flex', flexDirection: 'column', gap: 6, marginBottom: 'var(--space-md)' }}>
@@ -202,7 +216,7 @@ export default function Grimoire({ posts }) {
                 </div>
               </form>
               <p className="muted" style={{ fontSize: '0.8rem', marginTop: 'var(--space-md)' }}>
-                This gate currently unlocks in-browser and stores access on this device.
+                Unlock is stored on this device only (no email saved in localStorage). Soft gate — not encryption.
               </p>
             </div>
           </section>
