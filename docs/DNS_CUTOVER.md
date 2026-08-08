@@ -6,7 +6,7 @@
 
 - [x] Production deploy succeeds on Vercel project `midnight-magnolia`
 - [x] BMAC CTAs + portfolio resumes live on the Vercel alias
-- [ ] Smoke public routes on the production alias
+- [x] Smoke public routes on the production alias (`/`, `/portfolio`, resume PDFs — 2026-08-08)
 - [x] Wix OAuth redirect URIs include www + Vercel callback paths (`docs/WIX_OAUTH_REDIRECTS.md`)
 
 ## Steps
