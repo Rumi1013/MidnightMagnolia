@@ -7,6 +7,17 @@ out
 .env-backups/
 secrets/
 
+# SSH keys (never commit — Hermes/DO keys belong in ~/.ssh)
+MidnightMagnolia
+MidnightMagnolia.pub
+*.pem
+id_ed25519
+id_ed25519.pub
+id_rsa
+id_rsa.pub
+*_ed25519
+*_ed25519.pub
+
 # Local agent MCP config (Supabase project_ref — copy from *.example, never commit)
 .codex/config.toml
 .mcp.json
