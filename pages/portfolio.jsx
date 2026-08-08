@@ -6,15 +6,15 @@ import { URLS, CASE_STUDIES, SKILLS, FEATURED_PORTFOLIO_CARDS } from '../lib/con
 const RESUME_TRACK_META = [
   {
     id: 'A',
-    title: 'Track A — Archival resume (primary)',
+    title: 'Track A — Flagship Executive ATS (primary)',
     desc:
-      'Digital preservation, archivist practice, and recovery-oriented framing—how the work is stewarded, not rushed.',
+      'Career Command working master: executive ATS resume for AI enablement, information governance, knowledge systems, and operations leadership.',
   },
   {
     id: 'B',
-    title: 'Track B — Data / systems resume (secondary)',
+    title: 'Track B — Executive Networking (secondary)',
     desc:
-      'Implementation and documentation platforms, metadata and taxonomy, and cross-functional program delivery for data-heavy environments.',
+      'Shorter networking-facing draft for conversations, warm intros, and roles where a full ATS packet is not the first touch.',
   },
 ];
 
@@ -27,7 +27,7 @@ export default function Portfolio({ links, resumeA, resumeB }) {
   return (
     <Layout
       title="Portfolio"
-      description="Latisha Vincent-Waters — digital preservation, archivist practice, and recovery-aware program leadership. Portfolio cards mirror LinkedIn Featured; resume tracks: Archival (A) and Data (B)."
+      description="Latisha Vincent-Waters — digital preservation, archivist practice, and recovery-aware program leadership. Portfolio cards mirror LinkedIn Featured; resume tracks: Flagship Executive ATS (A) and Executive Networking (B)."
     >
       <div className="container">
 
@@ -100,9 +100,9 @@ export default function Portfolio({ links, resumeA, resumeB }) {
           <h2>Resume tracks.</h2>
           <div className="divider" />
           <p className="muted" style={{ marginBottom: 'var(--space-lg)', maxWidth: '58ch' }}>
-            Two ATS-friendly PDFs hosted outside this repo. <strong>Track A</strong> is the primary download (archival /
-            preservation). <strong>Track B</strong> is the secondary track (data and systems). Point the env URLs at your
-            live files when you ship.
+            Two PDFs from Career Command. <strong>Track A</strong> is the Flagship Executive ATS working master.{' '}
+            <strong>Track B</strong> is the Executive Networking draft. Files live under <code>/resumes/</code> and are
+            pointed at by <code>RESUME_TRACK_A_URL</code> / <code>RESUME_TRACK_B_URL</code>.
           </p>
           <div className="grid-2">
             {RESUME_TRACK_META.map((track, index) => {

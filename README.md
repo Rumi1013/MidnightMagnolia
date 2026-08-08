@@ -33,8 +33,8 @@ npx vercel
 ## Portfolio resume URLs
 After uploading PDFs (or hosting elsewhere), set in `.env.local` (see `.env.local.example`):
 
-- **`RESUME_TRACK_A_URL`** — **Archival / preservation resume** (primary download on `/portfolio`).
-- **`RESUME_TRACK_B_URL`** — **Data / systems resume** (secondary).
+- **`RESUME_TRACK_A_URL`** — **Flagship Executive ATS** resume (primary download on `/portfolio`).
+- **`RESUME_TRACK_B_URL`** — **Executive Networking** resume (secondary).
 
 Optional Featured card links (hosted case studies / Notion public pages):
 

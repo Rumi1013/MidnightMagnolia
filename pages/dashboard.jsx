@@ -411,7 +411,7 @@ function CareerPanel({ jobs, resumes, mlis }) {
   return (
     <div>
       <p className="muted" style={{ fontSize: '0.78rem', maxWidth: '62ch', marginBottom: 'var(--space-md)', lineHeight: 1.5 }}>
-        Public portfolio: four Featured cards plus <strong>Archival</strong> (Track A) and <strong>Data</strong> (Track B) resume downloads — see{' '}
+        Public portfolio: four Featured cards plus <strong>Flagship Executive ATS</strong> (Track A) and <strong>Executive Networking</strong> (Track B) resume downloads — see{' '}
         <Link href="/portfolio" style={{ color: 'var(--color-amber)' }}>/portfolio</Link>.
       </p>
       {/* MLIS programs */}

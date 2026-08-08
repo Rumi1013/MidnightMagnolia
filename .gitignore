@@ -6,6 +6,7 @@ out
 .env*.local
 .env-backups/
 secrets/
+public/resumes/.archive-*/
 
 # SSH keys (never commit — Hermes/DO keys belong in ~/.ssh)
 MidnightMagnolia
