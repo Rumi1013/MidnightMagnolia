@@ -12,7 +12,9 @@
     "wix:export": "node --env-file=.env.local scripts/wix-inventory-export.mjs",
     "wix:blog-drafts": "node --env-file=.env.local scripts/wix-blog-drafts-export.mjs",
     "supabase:verify": "node scripts/supabase-db-verify.mjs",
-    "genealogy:seed": "node scripts/seed-genealogy.mjs"
+    "genealogy:seed": "node scripts/seed-genealogy.mjs",
+    "audit": "npm audit --omit=dev",
+    "audit:all": "npm audit"
   },
   "dependencies": {
     "@notionhq/client": "^5.20.0",
@@ -25,14 +27,14 @@
     "@wix/sdk": "^1.21.7",
     "@wix/stores": "^1.0.759",
     "airtable": "^0.12.2",
-    "next": "^15.5.16",
+    "next": "^15.5.23",
     "react": "^18.3.0",
     "react-dom": "^18.3.0"
   },
   "devDependencies": {
     "@types/react": "^18.3.27",
     "eslint": "^8.57.0",
-    "eslint-config-next": "^15.5.16",
+    "eslint-config-next": "^15.5.23",
     "fast-json-stable-stringify": "^2.1.0",
     "json-schema-traverse": "^1.0.0",
     "postcss": "^8.5.10",
@@ -40,6 +42,7 @@
     "uri-js": "^4.4.1"
   },
   "overrides": {
-    "postcss": "^8.5.10"
+    "postcss": "^8.5.10",
+    "sharp": "^0.35.0"
   }
 }
