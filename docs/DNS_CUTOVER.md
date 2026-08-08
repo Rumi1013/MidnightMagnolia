@@ -7,7 +7,7 @@
 - [x] Production deploy succeeds on Vercel project `midnight-magnolia`
 - [x] BMAC CTAs + portfolio resumes live on the Vercel alias
 - [ ] Smoke public routes on the production alias
-- [ ] Wix OAuth redirect URIs include www + Vercel callback paths (`docs/WIX_OAUTH_REDIRECTS.md`)
+- [x] Wix OAuth redirect URIs include www + Vercel callback paths (`docs/WIX_OAUTH_REDIRECTS.md`)
 
 ## Steps
 
@@ -22,3 +22,5 @@
 ## Status
 
 Operator DNS change required at registrar/Wix Domains. Repo cannot complete apex cutover without DNS credentials.
+
+**Prep done (2026-08-08):** Production env includes `NEXT_PUBLIC_SITE_URL=https://www.midnight-magnolia.com`, Wix client ID, BMAC URL, and local resume PDF paths. After DNS points www/apex at Vercel, re-check OAuth URIs in `docs/WIX_OAUTH_REDIRECTS.md`.

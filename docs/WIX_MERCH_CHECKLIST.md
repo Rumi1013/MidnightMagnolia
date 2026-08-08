@@ -4,13 +4,9 @@ This repo already applies **canonical taglines on the Next.js `/services` page**
 
 ## 1. Paste taglines into Wix Bookings (source of truth for Wix UI)
 
-For each service in `data/SERVICE-TAGLINES.md`, open **Wix Dashboard → Bookings → Services →** edit service → **Tagline / subtitle** → paste the **Primary** line. Services that currently need it (see `data/INVENTORY-GAP-REPORT.md`):
+For each service in `data/SERVICE-TAGLINES.md`, open **Wix Dashboard → Bookings → Services →** edit service → **Tagline / subtitle** → paste the **Primary** line.
 
-- WhollyInspired Publishing Package  
-- Free 15-Minute Publishing Consultation  
-- Manuscript Development  
-- KDP Self-Publishing Setup  
-- Book + Journal Bundle Package  
+**Done (2026-08-08):** Primary taglines applied via Bookings Services V2 for WhollyInspired Publishing Package, Free 15-Minute Publishing Consultation, Manuscript Development, KDP Self-Publishing Setup, and Book + Journal Bundle Package.
 
 ## 2. Hero images (stores + bookings)
 

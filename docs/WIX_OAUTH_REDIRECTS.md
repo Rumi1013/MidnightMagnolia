@@ -24,4 +24,6 @@ Docs: https://dev.wix.com/docs/go-headless/authentication/setup/allow-redirect-u
 ## Status
 
 - [x] URI list documented for Midnitemag
-- [ ] Operator confirms URIs saved in Wix Headless Settings (dashboard UI — not writable via this repo)
+- [x] URIs saved on Midnitemag via OAuth Apps API (2026-08-08): Vercel hosts, `www.midnight-magnolia.com`, and `localhost:3000` (`/auth/callback` + `/api/auth/callback`)
+
+**Production env (Vercel, 2026-08-08):** `NEXT_PUBLIC_WIX_CLIENT_ID`, `NEXT_PUBLIC_SITE_URL`, `WIX_CLIENT_SECRET`, and scoped `WIX_API_KEY` + `WIX_SITE_ID` are set. Smoke confirms API-key auth for Bookings/Stores/Blog.

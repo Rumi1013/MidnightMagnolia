@@ -8,10 +8,21 @@ import Layout from '../components/Layout';
 
 const ADMIN_TOKEN_STORAGE_KEY = 'mm_dashboard_admin_token';
 const ADMIN_TOKEN_HEADER = 'x-mm-admin-token';
+const ADMIN_TOKEN_COOKIE = 'mm_dashboard_admin';
 
 function storedAdminToken() {
   if (typeof window === 'undefined') return '';
   return window.sessionStorage.getItem(ADMIN_TOKEN_STORAGE_KEY) || '';
+}
+
+function setAdminTokenCookie(token) {
+  if (typeof document === 'undefined') return;
+  if (!token) {
+    document.cookie = `${ADMIN_TOKEN_COOKIE}=; Path=/; Max-Age=0; SameSite=Strict`;
+    return;
+  }
+  const secure = window.location.protocol === 'https:' ? '; Secure' : '';
+  document.cookie = `${ADMIN_TOKEN_COOKIE}=${encodeURIComponent(token)}; Path=/; SameSite=Strict${secure}`;
 }
 
 function adminFetch(url, token, options = {}) {
@@ -521,6 +532,11 @@ export default function Dashboard() {
   const [authMessage, setAuthMessage] = useState('');
 
   useEffect(() => {
+    const token = storedAdminToken();
+    if (token) setAdminTokenCookie(token);
+  }, []);
+
+  useEffect(() => {
     let cancelled = false;
     async function load() {
       setLoading(true);
@@ -620,6 +636,7 @@ export default function Dashboard() {
     if (typeof window !== 'undefined') {
       if (token) window.sessionStorage.setItem(ADMIN_TOKEN_STORAGE_KEY, token);
       else window.sessionStorage.removeItem(ADMIN_TOKEN_STORAGE_KEY);
+      setAdminTokenCookie(token);
     }
     setAdminToken(token);
   }, [tokenInput]);

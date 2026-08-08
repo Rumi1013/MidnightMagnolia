@@ -30,6 +30,8 @@ Verify against the live page in `NEXT_PUBLIC_BMAC_URL` / `lib/constants.js` `URL
 - [ ] Private window: site → BMAC → membership join or low-price purchase / tip completes
 - [x] Record result in `docs/CHECKOUT_LOOP.md` (BMAC-first) or Supabase `dashboard_tasks` under `bmac` / `site`
 
+**Vercel (2026-08-08):** `NEXT_PUBLIC_BMAC_URL` is set to `https://www.buymeacoffee.com/midnightmagnolia` (not the bare root). Remaining unchecked items above still need a human on Buy Me a Coffee + one private-window purchase/tip.
+
 Cross-check product names with `data/inventory-products.csv` after Wix export if physical catalog still matters; digital SKU source of truth for ASAP is BMAC.
 
 ## Minimal content → BMAC pipeline (ship gate)

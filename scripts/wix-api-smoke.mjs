@@ -25,6 +25,12 @@ if (apiKey && siteId && apiKey !== 'your_wix_api_key_here' && siteId !== 'your_w
 } else if (clientId && clientId !== 'your_wix_client_id_here') {
   auth = OAuthStrategy({ clientId });
   mode = 'OAuth client ID (public)';
+  if (apiKey && apiKey !== 'your_wix_api_key_here' && !siteId) {
+    console.warn(
+      'Note: WIX_API_KEY is set but WIX_SITE_ID is not — using OAuth public reads.\n' +
+        'Only set WIX_SITE_ID after the API key returns 200 for that site (403 breaks catalog).\n',
+    );
+  }
 } else {
   console.error('No Wix credentials found. Set WIX_API_KEY+WIX_SITE_ID or NEXT_PUBLIC_WIX_CLIENT_ID in .env.local');
   process.exit(1);
