@@ -36,7 +36,11 @@ function tokensMatch(actual: string, expected: string): boolean {
  */
 export function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
-  const isDashboardPage = pathname === '/dashboard' || pathname.startsWith('/dashboard/');
+  const isDashboardPage =
+    pathname === '/dashboard' ||
+    pathname.startsWith('/dashboard/') ||
+    pathname === '/career-command' ||
+    pathname.startsWith('/career-command/');
   const isAdminApi =
     pathname.startsWith('/api/tasks') ||
     pathname.startsWith('/api/genealogy') ||
@@ -78,6 +82,8 @@ export const config = {
   matcher: [
     '/dashboard',
     '/dashboard/:path*',
+    '/career-command',
+    '/career-command/:path*',
     '/api/tasks',
     '/api/tasks/:path*',
     '/api/genealogy',

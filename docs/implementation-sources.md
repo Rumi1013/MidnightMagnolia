@@ -33,7 +33,9 @@ Cursor and humans: start here to map **strategy artifacts → code**.
 ## Ship path docs (this execution)
 
 - `docs/BMAC_MINIMUM.md` — **ASAP commerce gate**
-- `docs/DIGITAL_CONTENT_PIPELINE.md` — source → BMAC → CTA
+- `docs/DIGITAL_CONTENT_PIPELINE.md` — source → Gumroad → CTA (membership on BMAC)
+- `docs/EMAIL_PLATFORM_DECISION.md` — lead-magnet scale blocker
+- `hermes/DAILY_USE.md` — Hermes Chunk 2+ for Daily Nudge
 - `docs/DROPSHIP_LANE.md` — Printify / Enchanted Soul (post-ASAP)
 - `docs/WIX_MERCH_CHECKLIST.md`
 - `docs/CHECKOUT_LOOP.md` — Gumroad digital + BMAC membership

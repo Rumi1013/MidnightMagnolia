@@ -46,17 +46,17 @@ export async function getStaticProps() {
 export default function Services({ services }) {
   return (
     <Layout
-      title="Work With Me"
-      description="Book a session with Latisha — creative direction, publishing, brand voice, and Notion sanctuary work for healing-centered creators."
+      title="Work With Me · Bookings"
+      description="Book a session with Latisha — knowledge systems, creative direction, publishing, and sanctuary setup. Powered by Wix Bookings Headless."
     >
       <div className="container">
         <div className="page-hero">
-          <p className="page-hero__eyebrow">Work With Me</p>
+          <p className="page-hero__eyebrow">Work With Me · Wix Bookings</p>
           <h1>Sessions for the messy middle.</h1>
           <div className="divider" />
           <p className="hero__subtitle">
-            One-on-one strategy, publishing, and systems work for creators who refuse to hustle
-            their way to wholeness. Booking happens on the secure Wix booking page.
+            One-on-one strategy, publishing, and knowledge-systems work for creators and nonprofit leaders who refuse
+            to hustle their way to wholeness. Live services sync from Wix Bookings; Book Now opens the in-app calendar.
           </p>
         </div>
 
@@ -184,8 +184,9 @@ export default function Services({ services }) {
                       href={s.url}
                       className="btn btn--primary"
                       style={{ padding: '0.5rem 1.2rem' }}
-                      target="_blank"
-                      rel="noopener noreferrer"
+                      {...(s.url?.startsWith('http')
+                        ? { target: '_blank', rel: 'noopener noreferrer' }
+                        : {})}
                     >
                       Book Now
                     </a>

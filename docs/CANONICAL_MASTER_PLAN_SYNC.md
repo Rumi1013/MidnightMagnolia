@@ -1,5 +1,12 @@
 # Canonical Master Plan v3 — platform table sync
 
-**Checked:** [MM_Canonical_Master_Plan_v3.html](file:///Users/latishaimara/Development/Projects/Active/MidnightMagnolia/MM_Canonical_Master_Plan_v3.html) (repo root) already lists **Next.js codebase** as **`Live`** (headless ops dashboard, portfolio, Grimoire gate, integrations). Wix remains canonical storefront until apex DNS moves.
+**Checked (Aug 2026):** [MM_Canonical_Master_Plan_v3.html](../MM_Canonical_Master_Plan_v3.html) (repo root) and Docs copy synced to ASAP stack:
 
-When strategy changes, edit that single HTML row in the **Live Status** / platform table section rather than duplicating platform state in markdown.
+- **Next.js Pages on Vercel** = front door (Live)
+- **Wix Headless** = CMS / catalog / bookings / blog
+- **Gumroad** = digital products (Nav Shop)
+- **BMAC** = Magnolia Circle membership + tips
+- **Stan Store** = deferred (cost)
+- **Hermes / DigitalOcean** = **unpaused for daily use** — Chunk 1 done; next = Chunk 2 server harden ([`hermes/SETUP_PLAN.md`](../hermes/SETUP_PLAN.md), [`hermes/DAILY_USE.md`](../hermes/DAILY_USE.md))
+
+Also synced: Docs `MM_Integration_v4 copy.html` (+ `MM_Integration_v4.html`) infrastructure note.

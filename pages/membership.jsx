@@ -42,7 +42,7 @@ export default function MembershipPage() {
           <p className="hero__subtitle">
             Magnolia Circle and tips live on Buy Me a Coffee.
             Journals, kits, and career docs live on Gumroad.
-            Physical merch and bookings stay on Wix Headless. Stan Store is paused for cost.
+            Physical merch and bookings stay on Wix Headless. Stan Store is deferred (storefront unavailable).
           </p>
         </div>
 

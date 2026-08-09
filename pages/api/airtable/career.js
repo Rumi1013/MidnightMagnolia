@@ -12,6 +12,7 @@ import {
   getBooks,
   getResumes,
   getOpportunities,
+  getMlisPrograms,
   getIncomeTracking,
   updateOpportunity,
   updateResume,
@@ -26,6 +27,7 @@ const FETCHERS = {
   books:            ()  => getBooks(),
   resumes:          ()  => getResumes(),
   opportunities:    (q) => getOpportunities({ status: q.status, track: q.track }),
+  mlis:             ()  => getMlisPrograms(),
   income:           (q) => getIncomeTracking({ limit: parseInt(q.limit ?? '12', 10) }),
 };
 

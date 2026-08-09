@@ -22,7 +22,9 @@ export default function Layout({ children, title, description }) {
         <title>{pageTitle}</title>
         <meta name="description" content={pageDesc} />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta name="p:domain_verify" content="884b629c74f83688db9ae10a4090f7d7" />
         <meta property="og:title" content={pageTitle} />
+
         <meta property="og:description" content={pageDesc} />
         <meta property="og:type" content="website" />
         {canonicalHref ? <link rel="canonical" href={canonicalHref} /> : null}
@@ -72,7 +74,7 @@ export default function Layout({ children, title, description }) {
                 </Link>
               );
             })}
-            <Link href={URLS.booking} className="nav__cta" target="_blank" rel="noopener noreferrer">
+            <Link href={URLS.booking} className="nav__cta">
               Book a Session
             </Link>
           </div>
@@ -116,7 +118,8 @@ export default function Layout({ children, title, description }) {
               <a href={URLS.gumroad} target="_blank" rel="noopener noreferrer">Gumroad</a>
               <a href={URLS.bmac} target="_blank" rel="noopener noreferrer">Buy Me a Coffee</a>
               <Link href="/membership">Membership</Link>
-              <a href={URLS.booking} target="_blank" rel="noopener noreferrer">Book a Session</a>
+              <Link href="/services">Book a Session</Link>
+              <Link href="/blog">Blog</Link>
               <a href={URLS.email}>Email Latisha</a>
               <a href={URLS.patreon} target="_blank" rel="noopener noreferrer" className="muted" style={{ fontSize: '0.9rem', opacity: 0.85 }}>Patreon (if active)</a>
             </div>
