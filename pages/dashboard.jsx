@@ -6,11 +6,54 @@ import { useState, useEffect, useCallback } from 'react';
 import Link from 'next/link';
 import Layout from '../components/Layout';
 
+const ADMIN_TOKEN_STORAGE_KEY = 'mm_dashboard_admin_token';
+const ADMIN_TOKEN_HEADER = 'x-mm-admin-token';
+const ADMIN_TOKEN_COOKIE = 'mm_dashboard_admin';
+
+function storedAdminToken() {
+  if (typeof window === 'undefined') return '';
+  return window.sessionStorage.getItem(ADMIN_TOKEN_STORAGE_KEY) || '';
+}
+
+function setAdminTokenCookie(token) {
+  if (typeof document === 'undefined') return;
+  if (!token) {
+    document.cookie = `${ADMIN_TOKEN_COOKIE}=; Path=/; Max-Age=0; SameSite=Strict`;
+    return;
+  }
+  const secure = window.location.protocol === 'https:' ? '; Secure' : '';
+  document.cookie = `${ADMIN_TOKEN_COOKIE}=${encodeURIComponent(token)}; Path=/; SameSite=Strict${secure}`;
+}
+
+function adminFetch(url, token, options = {}) {
+  const headers = {
+    ...(options.headers || {}),
+    ...(token ? { [ADMIN_TOKEN_HEADER]: token } : {}),
+  };
+  return fetch(url, { ...options, headers });
+}
+
 // ── Static data (no DB needed) ────────────────────────────────
+/** Supabase dashboard deep-link from NEXT_PUBLIC_SUPABASE_URL (project ref = subdomain). */
+function supabaseDashboardHref() {
+  const raw = process.env.NEXT_PUBLIC_SUPABASE_URL;
+  if (!raw || typeof raw !== 'string') return 'https://supabase.com/dashboard';
+  try {
+    const host = new URL(raw.trim()).hostname;
+    const ref = host.split('.')[0];
+    if (ref && host.endsWith('.supabase.co')) {
+      return `https://supabase.com/dashboard/project/${ref}`;
+    }
+  } catch {
+    /* invalid URL */
+  }
+  return 'https://supabase.com/dashboard';
+}
+
 const DROPSHIP = [
   { name: 'Printify',        phase: 1, products: 'Branded journal, Magnolia soy candle, tote bag',    action: 'Sign up free — design Phase 1 products' },
   { name: 'Enchanted Soul',  phase: 1, products: 'Crystal sets, ritual candles, spell oils',          action: 'Apply at enchantedsoul.store/pages/dropshipping' },
-  { name: 'Printful',        phase: 2, products: 'Premium apparel, wall art (Magnolia Circle gifts)',  action: 'Connect to Wix/Stan Store — 20% sample discount' },
+  { name: 'Printful',        phase: 2, products: 'Premium apparel, wall art (Magnolia Circle gifts)',  action: 'Connect to Wix Stores — 20% sample discount' },
   { name: 'Starlinks Gifts', phase: 3, products: 'Gothic healing charm pendants, tarot card bags',    action: 'Apply for wholesale account' },
 ];
 
@@ -52,7 +95,6 @@ function StatusPill({ status }) {
   return (
     <span style={{ fontSize: '0.7rem', fontWeight: 600, color, background: `${color}22`, borderRadius: 99, padding: '2px 10px', whiteSpace: 'nowrap' }}>
       {status || '—'}
-      {status}
     </span>
   );
 }
@@ -72,6 +114,41 @@ function NotConnected({ name, hint }) {
   return (
     <div style={{ padding: '1.25rem', background: 'rgba(255,255,255,0.03)', borderRadius: 8, border: '1px dashed rgba(255,255,255,0.12)', color: 'var(--color-muted)', fontSize: '0.85rem' }}>
       <strong style={{ color: 'inherit' }}>{name} not connected.</strong> {hint}
+    </div>
+  );
+}
+
+function EmptyPanel({ text }) {
+  return (
+    <div style={{ padding: '1rem 1.25rem', background: 'rgba(255,255,255,0.02)', borderRadius: 8, border: '1px dashed rgba(255,255,255,0.08)', color: 'var(--color-muted)', fontSize: '0.85rem' }}>
+      {text}
+    </div>
+  );
+}
+
+function AdminTokenForm({ tokenInput, setTokenInput, onSubmit, message }) {
+  return (
+    <div className="card" style={{ maxWidth: 520, margin: '0 auto var(--space-xl)', padding: 'var(--space-xl)' }}>
+      <h3 style={{ marginBottom: 'var(--space-sm)' }}>Dashboard access</h3>
+      <p className="muted" style={{ marginBottom: 'var(--space-md)' }}>
+        Enter the admin token configured as <code>MM_DASHBOARD_TOKEN</code>.
+      </p>
+      {message && (
+        <div style={{ background: 'rgba(192,57,43,0.15)', border: '1px solid rgba(192,57,43,0.4)', borderRadius: 8, padding: '0.75rem', marginBottom: 'var(--space-md)', color: '#e74c3c', fontSize: '0.85rem' }}>
+          {message}
+        </div>
+      )}
+      <form onSubmit={onSubmit} style={{ display: 'flex', gap: 'var(--space-sm)', flexWrap: 'wrap' }}>
+        <input
+          type="password"
+          value={tokenInput}
+          onChange={(event) => setTokenInput(event.target.value)}
+          placeholder="Admin token"
+          autoComplete="current-password"
+          style={{ flex: '1 1 240px', padding: '0.7rem', borderRadius: 8, border: '1px solid rgba(255,255,255,0.15)', background: 'rgba(255,255,255,0.04)', color: 'inherit' }}
+        />
+        <button type="submit" className="btn btn--primary">Unlock</button>
+      </form>
     </div>
   );
 }
@@ -183,7 +260,6 @@ function ContentPipeline({ items, onStatusChange, saving }) {
             disabled={saving}
             aria-label={`Status for ${item.title}`}
             onChange={(e) => onStatusChange(item.id, e.target.value)}
-            onChange={e => onStatusChange(item.id, e.target.value)}
             style={{ all: 'unset', fontSize: '0.7rem', fontWeight: 600, color: STATUS_COLOR[item.status] ?? '#aaa', background: `${STATUS_COLOR[item.status] ?? '#aaa'}22`, borderRadius: 99, padding: '2px 10px', cursor: 'pointer' }}
           >
             {STATUS_OPTIONS.map(s => <option key={s} value={s} style={{ background: '#1a1d2e', color: '#fff' }}>{s}</option>)}
@@ -194,15 +270,12 @@ function ContentPipeline({ items, onStatusChange, saving }) {
   );
 }
 
-function AirtableAffiliates({ partners, onStatusChange, saving }) {
-  if (partners === null) {
-    return <NotConnected name="Airtable Affiliate Partners" hint="Create the Affiliate Partners table in MM Command and invite the token’s workspace (see lib/airtable.js)." />;
-  }
-  if (!partners.length) return <EmptyPanel text="No affiliate rows yet." />;
-  const STATUS_OPTIONS = ['Not Contacted', 'Reached Out', 'In Discussion', 'Live'];
 // ── Airtable affiliate tracker ────────────────────────────────
 function AirtableAffiliates({ partners, onStatusChange, saving }) {
-  if (!partners?.length) return <NotConnected name="Airtable Affiliate Tracker" hint="Add AIRTABLE_API_KEY + AIRTABLE_BASE_ID to .env.local and create an 'Affiliate Partners' table." />;
+  if (partners === null) {
+    return <NotConnected name="Airtable Affiliate Partners" hint="Add AIRTABLE_API_KEY + AIRTABLE_BASE_ID to .env.local and create an 'Affiliate Partners' table (see lib/airtable.js)." />;
+  }
+  if (!partners.length) return <EmptyPanel text="No affiliate rows yet." />;
 
   const STATUS_OPTIONS = ['Not Contacted', 'Reached Out', 'In Discussion', 'Live'];
 
@@ -224,13 +297,47 @@ function AirtableAffiliates({ partners, onStatusChange, saving }) {
             disabled={saving}
             aria-label={`Status for ${a.name}`}
             onChange={(e) => onStatusChange(a.id, e.target.value)}
-            onChange={e => onStatusChange(a.id, e.target.value)}
             style={{ all: 'unset', fontSize: '0.7rem', fontWeight: 600, color: STATUS_COLOR[a.status] ?? '#aaa', background: `${STATUS_COLOR[a.status] ?? '#aaa'}22`, borderRadius: 99, padding: '2px 10px', cursor: 'pointer' }}
           >
             {STATUS_OPTIONS.map(s => <option key={s} value={s} style={{ background: '#1a1d2e', color: '#fff' }}>{s}</option>)}
           </select>
         </div>
       ))}
+    </div>
+  );
+}
+
+// ── Airtable services tracker (Wix Bookings inventory) ───────
+function AirtableServices({ services }) {
+  if (services === null) {
+    return <NotConnected name="Airtable Services" hint="Import data/inventory-services.csv into the Midnight Operations base, then set AIRTABLE_TBL_SERVICES in .env.local." />;
+  }
+  if (!services.length) return <EmptyPanel text="No service rows in Airtable yet — import data/inventory-services.csv." />;
+
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
+      {services.map(s => {
+        const gaps = [];
+        if (!s.hasImage)       gaps.push('img');
+        if (!s.hasTagline)     gaps.push('tag');
+        if (!s.hasDescription) gaps.push('desc');
+        const allReady = gaps.length === 0;
+        return (
+          <div key={s.id} style={{ display: 'grid', gridTemplateColumns: '1fr auto auto auto', gap: 'var(--space-md)', alignItems: 'center', padding: '0.7rem 1rem', background: 'rgba(255,255,255,0.03)', borderRadius: 8, borderLeft: `3px solid ${allReady ? 'rgba(46,204,113,0.5)' : 'rgba(247,174,63,0.5)'}` }}>
+            <div>
+              <span style={{ fontSize: '0.87rem' }}>{s.name}</span>
+              <div className="muted" style={{ fontSize: '0.72rem', marginTop: 2 }}>{s.tagline || s.category || '—'}</div>
+            </div>
+            <span className="muted" style={{ fontSize: '0.72rem', whiteSpace: 'nowrap' }}>{s.price || '—'} · {s.durationMinutes ? `${s.durationMinutes}m` : '—'}</span>
+            <span style={{ fontSize: '0.68rem', fontWeight: 600, color: allReady ? '#27ae60' : '#e67e22' }}>
+              {allReady ? '✓ ready' : `gaps: ${gaps.join(', ')}`}
+            </span>
+            {s.bookingUrl ? (
+              <a href={s.bookingUrl} target="_blank" rel="noopener" className="muted" style={{ fontSize: '0.7rem', color: 'var(--color-amber)' }}>open ↗</a>
+            ) : <span style={{ width: 36 }} />}
+          </div>
+        );
+      })}
     </div>
   );
 }
@@ -252,6 +359,10 @@ function AirtableProducts({ items }) {
           <StatusPill status={row.status} />
         </div>
       ))}
+    </div>
+  );
+}
+
 // ── Revenue panel ─────────────────────────────────────────────
 function RevenueLog({ months }) {
   if (!months?.length) return <NotConnected name="Monthly Revenue Log" hint="Add AIRTABLE_BASE_ID + create 'Monthly Revenue Log' table in Airtable." />;
@@ -275,6 +386,7 @@ function RevenueLog({ months }) {
       <div style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
         {[
           { label: 'Stan Store',  value: latest.stanRevenue },
+          { label: 'BMAC',        value: latest.bmacRevenue },
           { label: 'Patreon',     value: latest.patreonRevenue },
           { label: 'Gumroad',     value: latest.gumroadRevenue },
           { label: 'KDP',         value: latest.kdpRoyalties },
@@ -298,6 +410,10 @@ function CareerPanel({ jobs, resumes, mlis }) {
   const activeJobs = jobs?.filter(j => !['Rejected', 'Withdrawn'].includes(j.status)) ?? [];
   return (
     <div>
+      <p className="muted" style={{ fontSize: '0.78rem', maxWidth: '62ch', marginBottom: 'var(--space-md)', lineHeight: 1.5 }}>
+        Public portfolio: four Featured cards plus <strong>Flagship Executive ATS</strong> (Track A) and <strong>Executive Networking</strong> (Track B) resume downloads — see{' '}
+        <Link href="/portfolio" style={{ color: 'var(--color-amber)' }}>/portfolio</Link>.
+      </p>
       {/* MLIS programs */}
       {mlis?.length > 0 && (
         <div style={{ marginBottom: 'var(--space-md)' }}>
@@ -357,7 +473,10 @@ function CareerPanel({ jobs, resumes, mlis }) {
       )}
 
       {!mlis?.length && !activeJobs.length && !resumes?.length && (
-        <NotConnected name="Career Command" hint="Add AIRTABLE_CAREER_BASE_ID to .env.local and create the Career Command base." />
+        <NotConnected
+          name="Career Command"
+          hint="Career panel reads the Writing / Creative Airtable base (AIRTABLE_WRITING_BASE_ID) via /api/airtable/career — opportunities + resumes tables. Confirm AIRTABLE_TBL_OPPORTUNITIES / AIRTABLE_TBL_RESUMES (or defaults) and unlock the dashboard with MM_DASHBOARD_TOKEN. AIRTABLE_CAREER_BASE_ID is unused by this app."
+        />
       )}
     </div>
   );
@@ -380,10 +499,9 @@ function GenealogyPanel({ stats }) {
           </div>
         ))}
       </div>
-      <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
-        <a href="/api/genealogy?type=people" target="_blank" className="btn btn--outline" style={{ fontSize: '0.8rem' }}>Browse Individuals API</a>
-        <a href="/api/genealogy?type=search&q=Vincent" target="_blank" className="btn btn--outline" style={{ fontSize: '0.8rem' }}>Search Vincents</a>
-      </div>
+      <p className="muted" style={{ fontSize: '0.82rem' }}>
+        Genealogy API reads are available to this dashboard session only.
+      </p>
     </div>
   );
 }
@@ -399,6 +517,7 @@ export default function Dashboard() {
   // Airtable — MM Operations
   const [pipeline,     setPipeline]     = useState(null);
   const [atAffiliates, setAtAffiliates] = useState(null);
+  const [atServices,   setAtServices]   = useState(null);
   const [revenue,      setRevenue]      = useState(null);
   // Airtable — Writing / Creative base
   const [jobs,    setJobs]    = useState(null);
@@ -407,24 +526,59 @@ export default function Dashboard() {
   const [loading,  setLoading]  = useState(true);
   const [saving,   setSaving]   = useState(false);
   const [errors,   setErrors]   = useState({});
+  const [adminToken, setAdminToken] = useState(storedAdminToken);
+  const [tokenInput, setTokenInput] = useState(storedAdminToken);
+  const [authRequired, setAuthRequired] = useState(false);
+  const [authMessage, setAuthMessage] = useState('');
 
   useEffect(() => {
+    const token = storedAdminToken();
+    if (token) setAdminTokenCookie(token);
+  }, []);
+
+  useEffect(() => {
+    let cancelled = false;
     async function load() {
       setLoading(true);
+      setAuthMessage('');
       const errs = {};
+      const loadJson = async (url) => {
+        const response = await adminFetch(url, adminToken);
+        const json = await response.json();
+        if (response.status === 401 || response.status === 503) {
+          const error = new Error(json?.error || 'Admin authorization required');
+          error.status = response.status;
+          throw error;
+        }
+        return json;
+      };
 
       // All fetches run in parallel — failures are isolated
-      const [taskRes, geoRes, notionRes, pipelineRes, atAffRes, revenueRes, jobsRes, resumesRes] =
+      const [taskRes, geoRes, notionRes, pipelineRes, atAffRes, atSvcRes, revenueRes, jobsRes, resumesRes] =
         await Promise.allSettled([
-          fetch('/api/tasks').then(r => r.json()),
-          fetch('/api/genealogy?type=people').then(r => r.json()),
-          fetch('/api/notion/content').then(r => r.json()),
-          fetch('/api/airtable/operations?table=content').then(r => r.json()),
-          fetch('/api/airtable/operations?table=affiliatePipeline').then(r => r.json()),
-          fetch('/api/airtable/career?table=income&limit=1').then(r => r.json()),
-          fetch('/api/airtable/career?table=opportunities').then(r => r.json()),
-          fetch('/api/airtable/career?table=resumes').then(r => r.json()),
+          loadJson('/api/tasks'),
+          loadJson('/api/genealogy?type=people'),
+          loadJson('/api/notion/content'),
+          loadJson('/api/airtable/operations?table=content'),
+          loadJson('/api/airtable/operations?table=affiliatePipeline'),
+          loadJson('/api/airtable/operations?table=services'),
+          loadJson('/api/airtable/career?table=income&limit=1'),
+          loadJson('/api/airtable/career?table=opportunities'),
+          loadJson('/api/airtable/career?table=resumes'),
         ]);
+
+      if (cancelled) return;
+
+      const authFailure = [taskRes, geoRes, notionRes, pipelineRes, atAffRes, atSvcRes, revenueRes, jobsRes, resumesRes]
+        .find((result) => result.status === 'rejected' && [401, 503].includes(result.reason?.status));
+      if (authFailure) {
+        setAuthRequired(true);
+        setAuthMessage(authFailure.reason.message);
+        setLoading(false);
+        return;
+      }
+
+      setAuthRequired(false);
 
       if (taskRes.status === 'fulfilled' && !taskRes.value.error) {
         setTasks(taskRes.value);
@@ -454,6 +608,12 @@ export default function Dashboard() {
         setAtAffiliates(Array.isArray(atAffRes.value) ? atAffRes.value : null);
       }
 
+      // services: null (uninitialised) when AIRTABLE_TBL_SERVICES env var is missing;
+      // array (possibly empty) when the table exists.
+      if (atSvcRes.status === 'fulfilled' && !atSvcRes.value?.error) {
+        setAtServices(Array.isArray(atSvcRes.value) ? atSvcRes.value : null);
+      }
+
       if (revenueRes.status === 'fulfilled' && Array.isArray(revenueRes.value)) {
         setRevenue(revenueRes.value);
       }
@@ -465,39 +625,53 @@ export default function Dashboard() {
       setLoading(false);
     }
     load();
-  }, []);
+    return () => {
+      cancelled = true;
+    };
+  }, [adminToken]);
+
+  const unlockDashboard = useCallback((event) => {
+    event.preventDefault();
+    const token = tokenInput.trim();
+    if (typeof window !== 'undefined') {
+      if (token) window.sessionStorage.setItem(ADMIN_TOKEN_STORAGE_KEY, token);
+      else window.sessionStorage.removeItem(ADMIN_TOKEN_STORAGE_KEY);
+      setAdminTokenCookie(token);
+    }
+    setAdminToken(token);
+  }, [tokenInput]);
 
   // Supabase task toggle
   const toggleTask = useCallback(async (id, done) => {
     setSaving(true);
     setTasks(prev => prev.map(t => t.id === id ? { ...t, done } : t));
     try {
-      const res = await fetch('/api/tasks', { method: 'PATCH', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ id, done }) });
+      const res = await adminFetch('/api/tasks', adminToken, { method: 'PATCH', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ id, done }) });
       if (!res.ok) throw new Error();
     } catch {
       setTasks(prev => prev.map(t => t.id === id ? { ...t, done: !done } : t));
     } finally { setSaving(false); }
-  }, []);
+  }, [adminToken]);
 
   // Airtable pipeline status update
   const updatePipelineStatus = useCallback(async (id, status) => {
     setSaving(true);
     setPipeline(prev => prev.map(i => i.id === id ? { ...i, status } : i));
     try {
-      await fetch('/api/airtable/pipeline', { method: 'PATCH', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ id, status }) });
+      await adminFetch('/api/airtable/pipeline', adminToken, { method: 'PATCH', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ id, status }) });
     } catch { /* silently revert isn't critical here */ }
     finally { setSaving(false); }
-  }, []);
+  }, [adminToken]);
 
   // Airtable affiliate status update
   const updateAffiliateStatus = useCallback(async (id, status) => {
     setSaving(true);
     setAtAffiliates(prev => prev.map(a => a.id === id ? { ...a, status } : a));
     try {
-      await fetch('/api/airtable/affiliates', { method: 'PATCH', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ id, status }) });
+      await adminFetch('/api/airtable/affiliates', adminToken, { method: 'PATCH', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ id, status }) });
     } catch { /* */ }
     finally { setSaving(false); }
-  }, []);
+  }, [adminToken]);
 
   // ── Derived ────────────────────────────────────────────────
   const byCategory   = cat => tasks.filter(t => t.category === cat);
@@ -520,6 +694,15 @@ export default function Dashboard() {
             Supabase · Notion · Airtable (3 bases) — one view. Tasks toggle on click. Statuses update in place.
           </p>
 
+          {authRequired && (
+            <AdminTokenForm
+              tokenInput={tokenInput}
+              setTokenInput={setTokenInput}
+              onSubmit={unlockDashboard}
+              message={authMessage}
+            />
+          )}
+
           {/* ── Integration status pills ────────────────────── */}
           <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap', marginBottom: 'var(--space-xl)' }}>
             {[
@@ -527,6 +710,7 @@ export default function Dashboard() {
               { name: 'Genealogy DB',      connected: !!genealogyStats,      color: '#3ecf8e' },
               { name: 'Notion',           connected: calendar !== null,      color: '#c0a0f0' },
               { name: 'MM Operations',  connected: pipeline !== null, color: '#f7ae3f' },
+              { name: 'Services Inv.',  connected: atServices !== null, color: '#f7ae3f' },
               { name: 'Writing Base',   connected: jobs !== null,     color: '#f7ae3f' },
             ].map(s => (
               <span key={s.name} style={{ fontSize: '0.75rem', fontWeight: 600, color: s.connected ? s.color : '#7f8c8d', background: s.connected ? `${s.color}22` : 'rgba(127,140,141,0.12)', borderRadius: 99, padding: '4px 12px', border: `1px solid ${s.connected ? `${s.color}44` : 'rgba(127,140,141,0.2)'}` }}>
@@ -544,7 +728,7 @@ export default function Dashboard() {
 
           {loading ? (
             <div style={{ textAlign: 'center', padding: 'var(--space-xl)', color: 'var(--color-muted)' }}>Loading dashboard…</div>
-          ) : (
+          ) : authRequired ? null : (
             <>
               {/* ── Overall progress ─────────────────────────── */}
               <div className="card" style={{ marginBottom: 'var(--space-xl)', textAlign: 'center', padding: 'var(--space-xl)' }}>
@@ -586,6 +770,15 @@ export default function Dashboard() {
                 source="Airtable"
               />
               <AirtableAffiliates partners={atAffiliates} onStatusChange={updateAffiliateStatus} saving={saving} />
+
+              {/* ── AIRTABLE: Services Inventory (Wix Bookings) ─ */}
+              {divider}
+              <SectionHeader
+                title="Services Inventory"
+                sub={atServices?.length ? `${atServices.length} services · ${atServices.filter(s => s.hasImage && s.hasTagline && s.hasDescription).length} fully ready` : ''}
+                source="Airtable"
+              />
+              <AirtableServices services={atServices} />
 
               {/* ── AIRTABLE: Monthly Revenue ────────────────── */}
               {divider}
@@ -646,9 +839,9 @@ export default function Dashboard() {
               {divider}
               <SectionHeader title="Quick Links" />
               <div style={{ display: 'flex', gap: 'var(--space-md)', flexWrap: 'wrap' }}>
-                <a href="https://stan.store/MidnightMagnoliaSC"                                    className="btn btn--outline" target="_blank" rel="noopener">Stan Store</a>
+                <a href="https://www.buymeacoffee.com/midnightmagnolia" className="btn btn--outline" target="_blank" rel="noopener">Buy Me a Coffee</a>
                 <a href="https://www.midnight-magnolia.com"                                         className="btn btn--outline" target="_blank" rel="noopener">Wix Site</a>
-                <a href={`https://supabase.com/dashboard/project/ucgdtqkzjibsevgmnlqj`}            className="btn btn--outline" target="_blank" rel="noopener">Supabase</a>
+                <a href={supabaseDashboardHref()}                                                      className="btn btn--outline" target="_blank" rel="noopener">Supabase</a>
                 <a href="https://notion.so"                                                         className="btn btn--outline" target="_blank" rel="noopener">Notion</a>
                 <a href="https://airtable.com"                                                      className="btn btn--outline" target="_blank" rel="noopener">Airtable</a>
                 <a href="https://ancestry.com"                                                      className="btn btn--outline" target="_blank" rel="noopener">Ancestry.com</a>

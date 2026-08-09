@@ -3,8 +3,11 @@
 // Responses are cached for 5 min via Cache-Control to avoid hammering the API.
 
 import { getContentCalendar, getDuskLettersDrafts } from '../../../lib/notion';
+import { requireAdmin } from '../../../lib/server/adminAuth';
 
 export default async function handler(req, res) {
+  if (!requireAdmin(req, res)) return;
+
   if (req.method !== 'GET') {
     res.setHeader('Allow', ['GET']);
     return res.status(405).json({ error: `Method ${req.method} not allowed` });

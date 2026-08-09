@@ -116,11 +116,11 @@ p.note{font-size:13px;font-style:italic;color:var(--mist);padding:10px 14px;bord
 </div>
 
 <nav class="tabs">
-  <button class="tab on"  onclick="show('overview')">🜁 Overview</button>
-  <button class="tab"     onclick="show('roots')">🌿 The Five Roots</button>
-  <button class="tab"     onclick="show('archive')">🌳 Ancestral Archive</button>
-  <button class="tab"     onclick="show('map')">📡 Integration Map</button>
-  <button class="tab"     onclick="show('narrative')">📖 Brand Narrative</button>
+  <button class="tab on"  onclick="show('overview', event)">🜁 Overview</button>
+  <button class="tab"     onclick="show('roots', event)">🌿 The Five Roots</button>
+  <button class="tab"     onclick="show('archive', event)">🌳 Ancestral Archive</button>
+  <button class="tab"     onclick="show('map', event)">📡 Integration Map</button>
+  <button class="tab"     onclick="show('narrative', event)">📖 Brand Narrative</button>
 </nav>
 
 <main class="main">
@@ -535,11 +535,12 @@ p.note{font-size:13px;font-style:italic;color:var(--mist);padding:10px 14px;bord
 </footer>
 
 <script>
-function show(id){
+function show(id, e){
+  const evt = e || window.event;
   document.querySelectorAll('.panel').forEach(p=>p.classList.remove('on'));
   document.querySelectorAll('.tab').forEach(t=>t.classList.remove('on'));
   document.getElementById('panel-'+id).classList.add('on');
-  event.currentTarget.classList.add('on');
+  if (evt && evt.currentTarget) evt.currentTarget.classList.add('on');
 }
 </script>
 </body>

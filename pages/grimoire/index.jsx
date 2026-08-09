@@ -1,5 +1,9 @@
 import Layout from '../../components/Layout';
-import { getGrimoirePosts, formatPostDate } from '../../lib/wix';
+import {
+  getGrimoirePosts,
+  formatPostDate,
+  jsonForProps,
+} from '../../lib/wix';
 import Link from 'next/link';
 import { useEffect, useMemo, useState } from 'react';
 import { URLS } from '../../lib/constants';
@@ -109,8 +113,23 @@ function inferCategory(post) {
 }
 
 export async function getStaticProps() {
-  const posts = await getGrimoirePosts(12);
-  return { props: { posts }, revalidate: 300 }; // ISR: refresh every 5 min
+  const raw = await getGrimoirePosts(12);
+  // List cards only — never serialize full post bodies into __NEXT_DATA__ (review: soft gate ≠ security).
+  const posts = (raw || []).map((post) => ({
+    title: post.title || '',
+    excerpt: post.excerpt || '',
+    slug: post.slug || '',
+    publishedDate: post.firstPublishedDate || post.publishedDate || null,
+    coverMedia: post.coverMedia || null,
+    hashtags: post.hashtags || [],
+    tags: post.tags || [],
+    categoryIds: post.categoryIds || [],
+  }));
+
+  return {
+    props: jsonForProps({ posts }),
+    revalidate: 300,
+  };
 }
 
 export default function Grimoire({ posts }) {
@@ -142,10 +161,13 @@ export default function Grimoire({ posts }) {
 
   const unlockGrimoire = (e) => {
     e.preventDefault();
-    if (!email.trim()) return;
+    const value = email.trim();
+    // HTML5 type=email + simple shape check (review: validate before unlock)
+    if (!value || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) return;
     if (typeof window !== 'undefined') {
       window.localStorage.setItem('mm_grimoire_unlocked', '1');
-      window.localStorage.setItem('mm_grimoire_email', email.trim());
+      // Do not persist email (review: PII) — unlock flag only
+      window.localStorage.removeItem('mm_grimoire_email');
     }
     setGateOpen(true);
   };
@@ -169,8 +191,12 @@ export default function Grimoire({ posts }) {
               <h2 style={{ marginBottom: 'var(--space-sm)' }}>Enter the Grimoire</h2>
               <div className="divider" />
               <p className="muted" style={{ marginBottom: 'var(--space-lg)' }}>
-                Join Dusk Letters for access to Shadow Work, Moon Phase, Ancestral Healing,
-                ND Creator Guides, and archive entries.
+                This is a soft device unlock for pacing and CTAs — not server-side membership auth.
+                Full post bodies are not embedded in locked HTML. Start on{' '}
+                <a href={URLS.gumroad} target="_blank" rel="noopener noreferrer">Gumroad</a>
+                {' '}for Gentle Beginning and kits, or{' '}
+                <a href={URLS.bmac} target="_blank" rel="noopener noreferrer">Buy Me a Coffee</a>
+                {' '}for Magnolia Circle / tips — then enter your email below to unlock browsing on this device.
               </p>
               <form onSubmit={unlockGrimoire}>
                 <label style={{ display: 'flex', flexDirection: 'column', gap: 6, marginBottom: 'var(--space-md)' }}>
@@ -186,13 +212,13 @@ export default function Grimoire({ posts }) {
                 </label>
                 <div style={{ display: 'flex', gap: 'var(--space-md)', flexWrap: 'wrap' }}>
                   <button type="submit" className="btn btn--primary">Unlock the Grimoire</button>
-                  <a href={URLS.stanStore} className="btn btn--outline" target="_blank" rel="noopener noreferrer">
-                    Get the Gentle Beginning
+                  <a href={URLS.gumroad} className="btn btn--outline" target="_blank" rel="noopener noreferrer">
+                    Open Gumroad
                   </a>
                 </div>
               </form>
               <p className="muted" style={{ fontSize: '0.8rem', marginTop: 'var(--space-md)' }}>
-                This gate currently unlocks in-browser and stores access on this device.
+                Unlock is stored on this device only (no email saved in localStorage). Soft gate — not encryption.
               </p>
             </div>
           </section>

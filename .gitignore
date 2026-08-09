@@ -4,6 +4,24 @@ out
 .vercel
 .DS_Store
 .env*.local
+.env-backups/
+secrets/
+public/resumes/.archive-*/
+
+# SSH keys (never commit — Hermes/DO keys belong in ~/.ssh)
+MidnightMagnolia
+MidnightMagnolia.pub
+*.pem
+id_ed25519
+id_ed25519.pub
+id_rsa
+id_rsa.pub
+*_ed25519
+*_ed25519.pub
+
+# Local agent MCP config (Supabase project_ref — copy from *.example, never commit)
+.codex/config.toml
+.mcp.json
 *.docx
 ~$*.docx
 __pycache__/
@@ -24,3 +42,28 @@ yarn-error.log*
 dist/
 build/
 coverage/
+
+# Personal / local exports (skills, archives, PDFs — do not commit)
+*.skill
+notions.zip
+# Edge-function / worker bundles (keep local only)
+**/hyper-worker.zip
+**/hyperworker.zip
+data/*.pdf
+# Wix blog draft export (local only; may contain unpublished copy)
+data/wix-blog-drafts.json
+data/wix-blog-drafts-md/
+files/Latisha_VincentWaters_ArchivalSystems_Preservation/
+
+# Vercel CLI env pulls (contain secrets)
+.env.vercel*
+.env.production.local
+.env.development.local
+
+# Local / nested worktrees and mirrors — never push
+.claude/worktrees/
+nextjs-project-bole-mirror/
+.cursor/hooks/
+.cursor/settings.json
+files/
+MidnightMagnolia_Evaluation.code-workspace

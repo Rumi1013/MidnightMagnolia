@@ -3,8 +3,11 @@
 //   body: { id: 'recXXX', status: 'Ready' }
 
 import { getContentPipeline, updateContentItem } from '../../../lib/airtable';
+import { requireAdmin } from '../../../lib/server/adminAuth';
 
 export default async function handler(req, res) {
+  if (!requireAdmin(req, res)) return;
+
   if (req.method === 'GET') {
     try {
       const pipeline = await getContentPipeline();

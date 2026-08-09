@@ -1,6 +1,6 @@
 import Layout from '../../components/Layout';
 import Link from 'next/link';
-import { getGrimoirePosts, getPostBySlug, formatPostDate } from '../../lib/wix';
+import { getGrimoirePosts, getPostBySlug, formatPostDate, jsonForProps } from '../../lib/wix';
 import { useEffect, useState } from 'react';
 import { URLS } from '../../lib/constants';
 
@@ -17,7 +17,14 @@ export async function getStaticProps({ params }) {
   if (!post) {
     return { notFound: true };
   }
-  return { props: { post }, revalidate: 300 };
+  const previewPost = {
+    title: post.title || 'Post',
+    excerpt: post.excerpt || '',
+    slug: post.slug || params.slug,
+    publishedDate: post.publishedDate || null,
+    coverMedia: post.coverMedia || null,
+  };
+  return { props: jsonForProps({ post: previewPost }), revalidate: 300 };
 }
 
 export default function GrimoirePost({ post }) {
@@ -25,7 +32,6 @@ export default function GrimoirePost({ post }) {
   const [hasHydrated, setHasHydrated] = useState(false);
   const title = post.title || 'Post';
   const excerpt = post.excerpt || '';
-  const body = post.richContent || post.content || '';
 
   useEffect(() => {
     if (typeof window === 'undefined') return;
@@ -46,7 +52,7 @@ export default function GrimoirePost({ post }) {
               </p>
               <div style={{ display: 'flex', gap: 'var(--space-md)', flexWrap: 'wrap' }}>
                 <Link href="/grimoire" className="btn btn--primary">Go to Grimoire gate</Link>
-                <a href={URLS.stanStore} className="btn btn--outline" target="_blank" rel="noopener noreferrer">
+                <a href={URLS.gumroad} className="btn btn--outline" target="_blank" rel="noopener noreferrer">
                   Get the Gentle Beginning
                 </a>
               </div>
@@ -79,15 +85,18 @@ export default function GrimoirePost({ post }) {
           </p>
         )}
 
-        {body ? (
-          <article
-            className="section"
-            style={{ paddingTop: 0 }}
-            dangerouslySetInnerHTML={{ __html: typeof body === 'string' ? body : '' }}
-          />
-        ) : (
-          <p className="muted">No body content returned for this post yet.</p>
-        )}
+        <section className="section" style={{ paddingTop: 0 }}>
+          <div className="card" style={{ maxWidth: 760, margin: '0 auto' }}>
+            <h2 style={{ marginBottom: 'var(--space-sm)' }}>Full entry access</h2>
+            <div className="divider" />
+            <p className="muted" style={{ marginBottom: 'var(--space-lg)' }}>
+              This page no longer embeds locked Grimoire body content in the static HTML. Wire a server-side member or email entitlement before publishing the full entry here.
+            </p>
+            <a href={URLS.gumroad} className="btn btn--primary" target="_blank" rel="noopener noreferrer">
+              Open Gumroad
+            </a>
+          </div>
+        </section>
         </>
         )}
       </div>

@@ -1,27 +1,30 @@
 import Layout from '../components/Layout';
+import Link from 'next/link';
 import { URLS } from '../lib/constants';
 
-const TIERS = [
+const OFFERINGS = [
   {
-    name: 'Candle Tender',
-    focus: 'Grounding + reflection',
-    includes: ['Monthly reflection note', 'Prompt set', 'Member update'],
-    cta: 'Join on Patreon',
-    url: URLS.patreon,
+    name: 'Magnolia Circle',
+    focus: 'Monthly membership',
+    includes: [
+      'Monthly shadow work prompts',
+      'Ritual practice notes',
+      'Member edition of Dusk Letters',
+      'Community for quiet builders',
+    ],
+    cta: 'Join on Buy Me a Coffee',
+    url: URLS.bmac,
   },
   {
-    name: 'Circle Keeper',
-    focus: 'Practice + momentum',
-    includes: ['Everything in Candle Tender', 'Audio ritual or guided reflection', 'Bonus resource'],
-    cta: 'Join on Patreon',
-    url: URLS.patreon,
-  },
-  {
-    name: 'Altar Keeper',
-    focus: 'Deep support',
-    includes: ['Everything in Circle Keeper', 'Quarterly private session support', 'Priority member notes'],
-    cta: 'Join on Patreon',
-    url: URLS.patreon,
+    name: 'Digital goods + kits',
+    focus: 'Gumroad storefront',
+    includes: [
+      'The Gentle Beginning (free starter)',
+      'Shadow Work Starter Kit ($9)',
+      'Journals, workbooks, and Deep Roots bundle',
+    ],
+    cta: 'Open Gumroad',
+    url: URLS.gumroad,
   },
 ];
 
@@ -29,40 +32,46 @@ export default function MembershipPage() {
   return (
     <Layout
       title="Membership"
-      description="Patreon and Buy Me a Coffee options for supporting Midnight Magnolia."
+      description="Buy Me a Coffee for Magnolia Circle membership and tips. Digital products live on Gumroad. Stan is deferred for cost. Patreon remains optional when the account is active."
     >
       <div className="container">
         <div className="page-hero">
           <p className="page-hero__eyebrow">Membership</p>
-          <h1>Support the work, choose your pace.</h1>
+          <h1>Membership on BMAC. Digital on Gumroad.</h1>
           <div className="divider" />
           <p className="hero__subtitle">
-            Patreon is for recurring tiered membership. Buy Me a Coffee is for one-time support.
+            Magnolia Circle and tips live on Buy Me a Coffee.
+            Journals, kits, and career docs live on Gumroad.
+            Physical merch and bookings stay on Wix Headless. Stan Store is paused for cost.
           </p>
         </div>
 
         <section className="section section--dark" style={{ borderRadius: 'var(--radius-lg)', padding: 'var(--space-xl)' }}>
-          <h2>Patreon vs Buy Me a Coffee</h2>
+          <h2>Where to go first</h2>
           <div className="divider" />
           <div className="grid-2" style={{ marginTop: 'var(--space-lg)' }}>
             <div className="card">
-              <h3>Patreon</h3>
-              <p className="muted">Best if you want monthly support and tier benefits.</p>
-              <a href={URLS.patreon} className="btn btn--primary" target="_blank" rel="noopener noreferrer">Open Patreon</a>
+              <h3>Buy Me a Coffee</h3>
+              <p className="muted">Magnolia Circle membership and tips.</p>
+              <a href={URLS.bmac} className="btn btn--primary" target="_blank" rel="noopener noreferrer">Open Buy Me a Coffee</a>
             </div>
             <div className="card">
-              <h3>Buy Me a Coffee</h3>
-              <p className="muted">Best for one-time gratitude support or occasional giving.</p>
-              <a href={URLS.bmac} className="btn btn--outline" target="_blank" rel="noopener noreferrer">Open Buy Me a Coffee</a>
+              <h3>Gumroad</h3>
+              <p className="muted">Digital products — free starter, journals, workbooks, and bundles.</p>
+              <a href={URLS.gumroad} className="btn btn--outline" target="_blank" rel="noopener noreferrer">Open Gumroad</a>
             </div>
           </div>
+          <p className="muted" style={{ marginTop: 'var(--space-lg)' }}>
+            Optional physical catalog and session booking:{' '}
+            <Link href="/shop">Browse Wix Catalog</Link>.
+          </p>
         </section>
 
         <section className="section">
-          <h2>Membership tiers</h2>
+          <h2>Offerings</h2>
           <div className="divider" />
-          <div className="grid-3" style={{ marginTop: 'var(--space-lg)' }}>
-            {TIERS.map((tier) => (
+          <div className="grid-2" style={{ marginTop: 'var(--space-lg)' }}>
+            {OFFERINGS.map((tier) => (
               <div className="card" key={tier.name} style={{ display: 'flex', flexDirection: 'column' }}>
                 <span className="tag" style={{ marginBottom: 'var(--space-md)', display: 'inline-block' }}>{tier.focus}</span>
                 <h3>{tier.name}</h3>
@@ -81,11 +90,14 @@ export default function MembershipPage() {
           </div>
         </section>
 
-        <section className="section" style={{ paddingTop: 0, paddingBottom: 'var(--space-2xl)' }}>
-          <p className="muted" style={{ maxWidth: '58ch' }}>
-            If you are unsure where to begin, start with one month at Candle Tender.
-            You can move up only if it still feels aligned and sustainable.
+        <section className="section section--dusk" style={{ borderRadius: 'var(--radius-lg)', padding: 'var(--space-xl)', marginBottom: 'var(--space-2xl)' }}>
+          <h3>Patreon (optional)</h3>
+          <p className="muted" style={{ maxWidth: '56ch', marginTop: 'var(--space-sm)' }}>
+            When the Patreon account is accessible again, you can mirror tier names there. This site treats Buy Me a Coffee as the primary membership and support surface.
           </p>
+          <a href={URLS.patreon} className="btn btn--ghost" style={{ marginTop: 'var(--space-md)' }} target="_blank" rel="noopener noreferrer">
+            Patreon (if active)
+          </a>
         </section>
       </div>
     </Layout>

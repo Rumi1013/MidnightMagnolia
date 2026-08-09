@@ -12,7 +12,6 @@ import { posts } from '@wix/blog';
 import { products, collections } from '@wix/stores';
 import { services } from '@wix/bookings';
 import { wixEventsV2 } from '@wix/events';
-import { items } from '@wix/data';
 
 const apiKey = process.env.WIX_API_KEY;
 const siteId = process.env.WIX_SITE_ID;
@@ -26,6 +25,12 @@ if (apiKey && siteId && apiKey !== 'your_wix_api_key_here' && siteId !== 'your_w
 } else if (clientId && clientId !== 'your_wix_client_id_here') {
   auth = OAuthStrategy({ clientId });
   mode = 'OAuth client ID (public)';
+  if (apiKey && apiKey !== 'your_wix_api_key_here' && !siteId) {
+    console.warn(
+      'Note: WIX_API_KEY is set but WIX_SITE_ID is not — using OAuth public reads.\n' +
+        'Only set WIX_SITE_ID after the API key returns 200 for that site (403 breaks catalog).\n',
+    );
+  }
 } else {
   console.error('No Wix credentials found. Set WIX_API_KEY+WIX_SITE_ID or NEXT_PUBLIC_WIX_CLIENT_ID in .env.local');
   process.exit(1);
@@ -34,12 +39,9 @@ if (apiKey && siteId && apiKey !== 'your_wix_api_key_here' && siteId !== 'your_w
 console.log(`Auth mode: ${mode}\n`);
 
 const myWixClient = createClient({
-  modules: { posts, products, collections, services, wixEventsV2, items },
+  modules: { posts, products, collections, services, wixEventsV2 },
   auth,
 });
-
-const collection =
-  process.env.WIX_DATA_COLLECTION_DIGITAL_GRIMOIRE || 'DigitalGrimoire';
 
 try {
   const serviceList = await myWixClient.services.queryServices().find();
@@ -69,15 +71,10 @@ try {
 }
 
 try {
-  const dataItemsList = await myWixClient.items.query(collection).find();
-  console.log('\nMy Data Items:', collection);
-  console.log('Total:', dataItemsList.items?.length ?? 0);
-  console.log(
-    (dataItemsList.items || [])
-      .map((item) => item._id || item.data?._id)
-      .filter(Boolean)
-      .join('\n'),
-  );
+  const blogList = await myWixClient.posts.queryPosts().limit(5).find();
+  console.log('\nMy Blog Posts (Grimoire / Dusk Letters):');
+  console.log('Total:', blogList.items?.length ?? 0);
+  console.log((blogList.items || []).map((item) => item.title).join('\n'));
 } catch (e) {
-  console.error('Data:', e.message || e);
+  console.error('Blog:', e.message || e);
 }

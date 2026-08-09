@@ -17,6 +17,7 @@ import {
   updateResume,
   updateManuscriptTask,
 } from '../../../lib/airtable';
+import { requireAdmin } from '../../../lib/server/adminAuth';
 
 const FETCHERS = {
   posts:            (q) => getPosts({ status: q.status, type: q.type }),
@@ -36,6 +37,8 @@ const UPDATERS = {
 
 export default async function handler(req, res) {
   try {
+    if (!requireAdmin(req, res)) return;
+
     if (req.method === 'GET') {
       const { table, ...q } = req.query;
       const fetcher = FETCHERS[table];

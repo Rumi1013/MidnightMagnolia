@@ -1,0 +1,46 @@
+# Post a comment on a specific commit (visible on the commit page under "Comments").
+#
+# How to run: GitHub → Actions → "Commit comment (manual)" → Run workflow
+#   - Pick the branch (the commit at its tip is used unless you override SHA).
+#   - Fill in the comment body (Markdown is fine).
+#   - Optional: paste a full 40-character commit SHA to comment on that commit instead of the branch tip.
+#
+# Permissions: needs contents:write for the REST API.
+name: Commit comment (manual)
+
+on:
+  workflow_dispatch:
+    inputs:
+      body:
+        description: Markdown body for the commit comment
+        required: true
+        default: |
+          _(Posted from GitHub Actions — Commit comment manual workflow.)_
+      commit_sha:
+        description: Full 40-char commit SHA (leave empty to use the branch tip / workflow context)
+        required: false
+        default: ''
+
+permissions:
+  contents: write
+
+jobs:
+  post:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Create commit comment
+        uses: actions/github-script@f28e40c7f34bde8b3046d885e986cb6290c5673b # v7
+        env:
+          COMMENT_BODY: ${{ github.event.inputs.body }}
+          INPUT_COMMIT_SHA: ${{ github.event.inputs.commit_sha }}
+        with:
+          script: |
+            const sha = (process.env.INPUT_COMMIT_SHA || '').trim() || context.sha;
+            const body = process.env.COMMENT_BODY || '';
+            await github.rest.repos.createCommitComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              commit_sha: sha,
+              body,
+            });
+            core.info(`Posted commit comment on ${sha.slice(0, 7)}`);

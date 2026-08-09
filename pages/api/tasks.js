@@ -3,9 +3,13 @@
 // PATCH /api/tasks                   → toggle a task's done status
 //   body: { id: 'p1', done: true }
 
-import { supabase } from '../../lib/supabase';
+import { createRouteHandlerClient } from '../../lib/supabaseServer';
+import { requireAdmin } from '../../lib/server/adminAuth';
 
 export default async function handler(req, res) {
+  if (!requireAdmin(req, res)) return;
+
+  const supabase = createRouteHandlerClient();
   if (req.method === 'GET') {
     const { category } = req.query;
     let query = supabase
@@ -23,9 +27,9 @@ export default async function handler(req, res) {
   }
 
   if (req.method === 'PATCH') {
-    const { id, done } = req.body;
-    if (!id || done === undefined) {
-      return res.status(400).json({ error: 'id and done are required' });
+    const { id, done } = req.body ?? {};
+    if (typeof id !== 'string' || !id.trim() || typeof done !== 'boolean') {
+      return res.status(400).json({ error: 'id (string) and done (boolean) are required' });
     }
 
     const { data, error } = await supabase

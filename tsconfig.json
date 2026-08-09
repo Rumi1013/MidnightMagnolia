@@ -13,9 +13,6 @@
     "forceConsistentCasingInFileNames": true,
     "plugins": [
       {
-        "name": "workflow"
-      },
-      {
         "name": "supabase-postgres-best-practices"
       },
       {
@@ -31,15 +28,27 @@
       "esnext"
     ],
     "allowJs": true,
-    "skipLibCheck": true
+    "skipLibCheck": true,
+    "target": "ES2017"
   },
   "include": [
     "next-env.d.ts",
     ".next/types/**/*.ts",
+    "**/*.js",
+    "**/*.jsx",
     "**/*.ts",
     "**/*.tsx"
   ],
   "exclude": [
-    "node_modules"
+    "node_modules",
+    "scripts",
+    "dist",
+    "build",
+    "coverage",
+    ".next",
+    ".claude",
+    "hermes",
+    "files",
+    "nextjs-project-bole-mirror"
   ]
 }

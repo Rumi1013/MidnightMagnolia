@@ -4,8 +4,34 @@ import Layout from '../components/Layout';
 import PageIllustration from '../components/PageIllustration';
 import { PAGE_ILLUSTRATIONS } from '../lib/brandAssets';
 import { URLS } from '../lib/constants';
+import {
+  getBookingServices,
+  formatServicePrice,
+  formatServiceDuration,
+  getServiceBookingUrl,
+} from '../lib/wix';
+import { resolveServiceTagline } from '../lib/serviceTaglines';
 
-export default function Sanctuary() {
+export async function getStaticProps() {
+  const raw = await getBookingServices(20);
+  const previewServices = (raw || [])
+    .filter((s) => s?.hidden !== true)
+    .slice(0, 3)
+    .map((s) => ({
+      id: s._id,
+      name: s.name || 'Untitled service',
+      tagline: resolveServiceTagline(s.name || '', s.tagLine),
+      price: formatServicePrice(s),
+      duration: formatServiceDuration(s),
+      url: getServiceBookingUrl(s) || URLS.booking,
+    }));
+  return {
+    props: { previewServices },
+    revalidate: 300,
+  };
+}
+
+export default function Sanctuary({ previewServices = [] }) {
   const [form, setForm] = useState({
     name: '',
     email: '',
@@ -52,7 +78,7 @@ export default function Sanctuary() {
               {
                 title: 'Gentle Beginning',
                 desc: 'Start with grounding prompts and low-spoon structure.',
-                href: URLS.stanStore,
+                href: URLS.gumroad,
                 cta: 'Get the free starter',
               },
               {
@@ -92,16 +118,86 @@ export default function Sanctuary() {
             A gentle monthly membership for reflection, prompts, and community practice.
             Begin with Candle Tender, then scale only when it still feels sustainable.
           </p>
-          <div style={{ display: 'flex', gap: 'var(--space-md)', flexWrap: 'wrap' }}>
-            <Link href="/membership" className="btn btn--primary">View membership tiers</Link>
-            <a href={URLS.patreon} className="btn btn--outline" target="_blank" rel="noopener noreferrer">
-              Join on Patreon
+          <div style={{ display: 'flex', gap: 'var(--space-md)', flexWrap: 'wrap', alignItems: 'center' }}>
+            <a href={URLS.bmac} className="btn btn--primary" target="_blank" rel="noopener noreferrer">
+              Join on BMAC
             </a>
+            <Link href="/membership" className="btn btn--outline">Membership details</Link>
             <a href={URLS.bmac} className="btn btn--ghost" target="_blank" rel="noopener noreferrer">
-              Support on BMAC
+              Tip on Buy Me a Coffee
+            </a>
+            <a href={URLS.patreon} className="muted" style={{ fontSize: '0.82rem' }} target="_blank" rel="noopener noreferrer">
+              Patreon (if active)
             </a>
           </div>
         </section>
+
+        {previewServices.length > 0 && (
+          <section className="section">
+            <h2>Work with me.</h2>
+            <div className="divider" />
+            <p className="muted" style={{ maxWidth: '56ch', marginBottom: 'var(--space-lg)' }}>
+              A few sessions to help you move with intention. Booking happens on the secure Wix
+              calendar — pick a time that fits your week.
+            </p>
+            <div className="grid-3">
+              {previewServices.map((s) => (
+                <article
+                  className="card"
+                  key={s.id}
+                  style={{ display: 'flex', flexDirection: 'column' }}
+                >
+                  <h3 style={{ fontSize: '1.15rem' }}>{s.name}</h3>
+                  {s.tagline && (
+                    <p className="muted" style={{ fontSize: '0.875rem', flex: 1, marginTop: '0.4rem' }}>
+                      {s.tagline}
+                    </p>
+                  )}
+                  <div
+                    style={{
+                      display: 'flex',
+                      gap: '0.5rem',
+                      flexWrap: 'wrap',
+                      marginTop: 'var(--space-md)',
+                    }}
+                  >
+                    {s.duration && (
+                      <span className="tag" style={{ fontSize: '0.7rem' }}>
+                        {s.duration}
+                      </span>
+                    )}
+                    {s.price && (
+                      <span
+                        className="tag"
+                        style={{
+                          fontSize: '0.7rem',
+                          background: 'var(--color-amber)',
+                          color: 'var(--color-ink)',
+                        }}
+                      >
+                        {s.price}
+                      </span>
+                    )}
+                  </div>
+                  <a
+                    href={s.url}
+                    className="btn btn--outline"
+                    style={{ marginTop: 'var(--space-md)', alignSelf: 'flex-start' }}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    Book this session
+                  </a>
+                </article>
+              ))}
+            </div>
+            <div style={{ marginTop: 'var(--space-lg)' }}>
+              <Link href="/services" className="btn btn--ghost">
+                View all sessions →
+              </Link>
+            </div>
+          </section>
+        )}
 
         <section className="section">
           <h2>About Latisha.</h2>

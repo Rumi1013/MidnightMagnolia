@@ -1,0 +1,768 @@
+{
+  "generatedAt": "2026-05-14T04:06:06.983Z",
+  "authMode": "API key (authenticated)",
+  "counts": {
+    "products": 9,
+    "services": 9,
+    "grimoire": 5
+  },
+  "products": [
+    {
+      "id": "6f0821be-19ba-46f6-8bfe-3f5010595b77",
+      "name": "Utility backpack",
+      "sku": "698BA62435690_24563",
+      "price": 64.35,
+      "formatted": "$64.35",
+      "currency": "USD",
+      "visible": true,
+      "stockStatus": "IN_STOCK",
+      "inStock": true,
+      "quantity": null,
+      "productType": "physical",
+      "description": "Express your style with a backpack that’s equal parts trendy and practical. It provides spacious compartments, a secure laptop pocket, and a comfy fit to keep you ready for work, weekend trips, and last-minute adventures.\n\n• 100% polyester\n• Fabric weight: 9.73 oz./yd.² (330 g/m²)\n• Capacity: 4.3 gallons (16.1 l)\n• Maximum weight limit: 11.02 lbs (5 kg)\n• Spacious main compartment with multiple pockets\n• 2 front pockets\n• Mesh pockets on both sides\n• Hidden back pocket\n• Zippered laptop pocket\n• Adjustable straps\n• Blank product sourced from China",
+      "heroImageUrl": "https://static.wixstatic.com/media/4e164e_8f4cf8fed9254c45b4d62bf1df32f6fa~mv2.jpg/v1/fit/w_2000,h_2000,q_90/file.jpg",
+      "galleryCount": 4,
+      "productPageUrl": "https://www.midnight-magnolia.com/product-page/utility-backpack"
+    },
+    {
+      "id": "0de48f8f-bc9c-45b6-8815-11c4386e0598",
+      "name": "Utility crossbody bag",
+      "sku": "698BA8BC4ADE3_19256",
+      "price": 34.25,
+      "formatted": "$34.25",
+      "currency": "USD",
+      "visible": true,
+      "stockStatus": "IN_STOCK",
+      "inStock": true,
+      "quantity": null,
+      "productType": "physical",
+      "description": "This bag is sturdy, stylish, and ready to go wherever you do. With adjustable straps and two spacious pockets, it’s the ultimate accessory for hiking, festivals, and everyday use.\n\n• 100% polyester\n• Fabric weight: 9 oz./yd.² (305 g/m²)\n• Bag size: 5.7″ × 7.7″ × 2″ (14.5 cm × 19.5 cm × 5 cm)\n• Capacity: 0.37 gallons (1.4 l)\n• Water-resistant and durable\n• Sturdy fabric with fusible backing to add firmness\n• Inside and outside pockets\n• Adjustable strap\n• Two-way zipper\n• Blank product components sourced from China",
+      "heroImageUrl": "https://static.wixstatic.com/media/4e164e_9de0182f2c1f47f5bff29a07abc7cc9a~mv2.jpg/v1/fit/w_2000,h_2000,q_90/file.jpg",
+      "galleryCount": 4,
+      "productPageUrl": "https://www.midnight-magnolia.com/product-page/utility-crossbody-bag"
+    },
+    {
+      "id": "14a34938-167c-49ac-b04e-0339d54717f1",
+      "name": "Round mouse pad",
+      "sku": "698BA944D1557_25786",
+      "price": 18.13,
+      "formatted": "$18.13",
+      "currency": "USD",
+      "visible": true,
+      "stockStatus": "IN_STOCK",
+      "inStock": true,
+      "quantity": null,
+      "productType": "physical",
+      "description": "Upgrade your desk setup with this sleek round mouse pad. Its compact design makes it perfect for smaller workspaces, while the smooth top surface ensures easy, precise mouse movements. With durable edges and a non-slip rubber base, it’s built to stay put and look sharp.\n\n• Neoprene material with rubber backing\n• Diameter: 8″ (20.3 cm)\n• Smooth surface for accurate mouse control\n• Non-slip bottom for stability\n• Blank product sourced from China",
+      "heroImageUrl": "https://static.wixstatic.com/media/4e164e_6b83d804c2ab445088e42f5fb3214f75~mv2.jpg/v1/fit/w_2000,h_2000,q_90/file.jpg",
+      "galleryCount": 1,
+      "productPageUrl": "https://www.midnight-magnolia.com/product-page/round-mouse-pad"
+    },
+    {
+      "id": "32a73454-86a4-40e8-ae68-07fb4b800c36",
+      "name": "Spiral bound journal",
+      "sku": "698BAFBF538BD_24307",
+      "price": 20.57,
+      "formatted": "$20.57",
+      "currency": "USD",
+      "visible": true,
+      "stockStatus": "IN_STOCK",
+      "inStock": true,
+      "quantity": null,
+      "productType": "physical",
+      "description": "Keep your thoughts organized in this compact spiral-bound journal. With 150 lined pages, there’s plenty of space for writing, planning, or capturing ideas on the go, and the laminated cover provides durability for daily use at home, school, or work.\n\n• Paper weight: 90 g/m²\n• Weight: 10.6 oz. (300 g)\n• Size: 5.12″ × 6.97″ × 0.39″ (13 × 17.7 × 1 cm)\n• 150 lined pages\n• Glossy laminated cover\n• Metal spiral\n• Blank product sourced from the USA",
+      "heroImageUrl": "https://static.wixstatic.com/media/4e164e_c5c8c3f14ca6419a8ceb342d2f6506fb~mv2.jpg/v1/fit/w_2000,h_2000,q_90/file.jpg",
+      "galleryCount": 2,
+      "productPageUrl": "https://www.midnight-magnolia.com/product-page/spiral-bound-journal"
+    },
+    {
+      "id": "a6db71f0-c24b-4353-8745-e9c5eefd5de9",
+      "name": "The Gentle Beginning — Free Shadow Work Starter",
+      "sku": "",
+      "price": 0,
+      "formatted": "$0.00",
+      "currency": "USD",
+      "visible": true,
+      "stockStatus": "IN_STOCK",
+      "inStock": true,
+      "quantity": null,
+      "productType": "physical",
+      "description": "Begin here. This is free — and it's real.\nFive shadow work prompts for the part of you that's ready to look, but doesn't want to be rushed. The Gentle Beginning is Midnight Magnolia's welcome to you — a short PDF designed to meet you exactly where you are, without demanding anything you're not ready to give.\nWhat's inside:\n5 carefully crafted shadow work prompts\nA welcome letter from founder Latisha Vincent\nGentle framing for each prompt — no clinical language\nBreathing cues between pages\nInstant download, yours to keep. Download it free. Begin when you're ready.",
+      "heroImageUrl": null,
+      "galleryCount": 0,
+      "productPageUrl": "https://www.midnight-magnolia.com/product-page/the-gentle-beginning-free-shadow-work-starter"
+    },
+    {
+      "id": "9e05ca57-aafa-4cbf-af1e-3cd03f34bf96",
+      "name": "Shadow Work Starter Kit",
+      "sku": "",
+      "price": 9,
+      "formatted": "$9.00",
+      "currency": "USD",
+      "visible": true,
+      "stockStatus": "IN_STOCK",
+      "inStock": true,
+      "quantity": null,
+      "productType": "physical",
+      "description": "Thirty days of turning inward. One prompt at a time.\nThe Shadow Work Starter Kit is a 30-prompt guided journal designed for neurodivergent women who are ready to do the quiet, honest work of healing — on their own terms, at their own pace. No clinical language. No performance. Just you and the page.\nWhat's inside:\n30 shadow work prompts organized in a 30-day arc\n3 themed sections: The Foundation, The Pattern, The Return\nGentle framing for every prompt\nGenerous writing space on every page\nA note on neurodivergence and non-linear use\nClosing reflection + next steps\nBegin your shadow work tonight. Instant download, 40–50 pages, beautifully designed.",
+      "heroImageUrl": null,
+      "galleryCount": 0,
+      "productPageUrl": "https://www.midnight-magnolia.com/product-page/shadow-work-starter-kit"
+    },
+    {
+      "id": "288eb4cb-cd36-4a27-a749-3cb2e3c9f5b5",
+      "name": "Ancestral Healing Journal",
+      "sku": "",
+      "price": 19,
+      "formatted": "$19.00",
+      "currency": "USD",
+      "visible": true,
+      "stockStatus": "IN_STOCK",
+      "inStock": true,
+      "quantity": null,
+      "productType": "physical",
+      "description": "You cannot fully heal what you do not know the roots of.\nThe Ancestral Healing Journal bridges personal healing with lineage work. Rooted in the African diaspora, the American South, and the tradition of oral storytelling and family memory, this 40-prompt journal begins the excavation — gently, deliberately, with deep respect for what was passed down and what was lost.\nWhat's inside:\n40 prompts across 3 parts: What Was Passed Down, The Inheritance You Chose, and The Return\nAn opening letter on ancestral healing in plain language\nA note on the Lowcountry and Southern Black experience\nSpace to write, sit, and return to\nDesigned specifically for the African diaspora experience\nInstant download. 50–60 pages. There is no other healing journal like this one.",
+      "heroImageUrl": null,
+      "galleryCount": 0,
+      "productPageUrl": "https://www.midnight-magnolia.com/product-page/ancestral-healing-journal"
+    },
+    {
+      "id": "051d8d07-0e7b-4840-8927-680524bb11a7",
+      "name": "Creative Foundations Workbook",
+      "sku": "",
+      "price": 29,
+      "formatted": "$29.00",
+      "currency": "USD",
+      "visible": true,
+      "stockStatus": "IN_STOCK",
+      "inStock": true,
+      "quantity": null,
+      "productType": "physical",
+      "description": "Structure and creativity were never opposites. This workbook proves it.\nThe Creative Foundations Workbook is built for neurodivergent creators who need systems that actually work with their brain — not against it. It brings together project planning, creative rhythm-setting, and intentional work design in a format that is gentle, visual, and genuinely usable.\nWhat's inside:\nA framework for understanding your creative energy cycles\nProject mapping tools designed for nonlinear thinkers\nGentle systems for managing multiple creative projects\nPrompts for identifying your creative values and boundaries\nA weekly rhythm template that works for executive function differences\nInstant download. For the creator who is done apologizing for how their mind works.",
+      "heroImageUrl": null,
+      "galleryCount": 0,
+      "productPageUrl": "https://www.midnight-magnolia.com/product-page/creative-foundations-workbook"
+    },
+    {
+      "id": "2ad66bc7-1cd4-4be2-930e-ea485aefa844",
+      "name": "Deep Roots Shadow Work System",
+      "sku": "",
+      "price": 49,
+      "formatted": "$49.00",
+      "currency": "USD",
+      "visible": true,
+      "stockStatus": "IN_STOCK",
+      "inStock": true,
+      "quantity": null,
+      "productType": "physical",
+      "description": "The complete system. The flagship. The one you've been building toward.\nThe Deep Roots Shadow Work System is a full curriculum for the woman who is done dipping in and ready to go deep. It combines shadow work, ancestral healing, identity reclamation, and creative rebuilding into a structured 30-week arc — with the flexibility to move at your own pace, in your own season.\nWhat's inside:\nA full shadow work curriculum across 5 modules\nModule 1: The Excavation — understanding your shadow landscape\nModule 2: The Inheritance — ancestral patterns and lineage healing\nModule 3: The Reckoning — relationships, trauma, and the body\nModule 4: The Reclamation — identity, creativity, and self-authorship\nModule 5: The Return — integration, values, and what comes next\n30 deep-dive prompts per module (150…",
+      "heroImageUrl": null,
+      "galleryCount": 0,
+      "productPageUrl": "https://www.midnight-magnolia.com/product-page/deep-roots-shadow-work-system"
+    }
+  ],
+  "services": [
+    {
+      "id": "11211cb2-a7a3-4d85-9cfb-e41e8a80473b",
+      "name": "Creative Direction Session",
+      "tagline": "Gentle strategy for creators in the messy middle.",
+      "description": "Gentle strategy for creators in the messy middle — when you know something powerful is forming but need clarity on the next step.\nYou'll leave with:\n- Recorded session for reference\n- Written summary of recommendations\n- One clear next step\n\nBest for:\nCreators in the messy middle who need a thinking partner, not a course.",
+      "type": "APPOINTMENT",
+      "category": "Our Services",
+      "fixedPrice": "127",
+      "currency": "USD",
+      "priceLabel": "$127",
+      "durationMinutes": 60,
+      "hidden": false,
+      "heroImageUrl": "https://static.wixstatic.com/media/nsplsh_0e9b906727494fa387c5687327994ae3~mv2.jpg",
+      "bookingPageUrl": "https://www.midnight-magnolia.com/booking-calendar/creative-direction-session"
+    },
+    {
+      "id": "18d21a47-e52f-4f3f-8a1d-e1a056890034",
+      "name": "WhollyInspired Publishing Package",
+      "tagline": "",
+      "description": "The complete Midnight Magnolia publishing experience — two 90-minute sessions held at whatever pace your nervous system can meet. Together we'll move through manuscript development, KDP setup, cover direction, distribution strategy, and a personalized publishing plan built around your life and your timeline, not someone else's launch calendar. This is for the author who is ready to bring their whole story into the world — with support that honors the weight of what they're carrying and the power of what they've written.",
+      "type": "APPOINTMENT",
+      "category": "Publishing Services",
+      "fixedPrice": "997",
+      "currency": "USD",
+      "priceLabel": "$997",
+      "durationMinutes": 90,
+      "hidden": false,
+      "heroImageUrl": null,
+      "bookingPageUrl": "https://www.midnight-magnolia.com/booking-calendar/whollyinspired-publishing-package"
+    },
+    {
+      "id": "4b693db9-5a29-4eea-bc61-d07e6d49dd1f",
+      "name": "Free 15-Minute Publishing Consultation",
+      "tagline": "",
+      "description": "Before you commit, let's connect. This free 15-minute call is an unhurried conversation to hear where you are in your writing journey, what kind of support would serve you best, and whether working together is the right fit. No pressure. No pitch. Just a quiet, honest conversation between two people who take words seriously. Book your call and bring whatever questions are sitting with you.",
+      "type": "APPOINTMENT",
+      "category": "Publishing Services",
+      "fixedPrice": null,
+      "currency": "USD",
+      "priceLabel": "varies",
+      "durationMinutes": 15,
+      "hidden": false,
+      "heroImageUrl": null,
+      "bookingPageUrl": "https://www.midnight-magnolia.com/booking-calendar/free-15-minute-publishing-consultation"
+    },
+    {
+      "id": "6ef19172-bd15-4863-8842-1c5d8992044e",
+      "name": "Manuscript Development",
+      "tagline": "",
+      "description": "Your story has always been worth telling. This 90-minute 1:1 session is where we begin. We'll clarify your vision, excavate your voice, and map a clear path from the messy middle of your manuscript to a finished work you're proud to put your name on. Healing-centered pacing throughout — no rush, no pressure, no performance. Just honest, skilled guidance for the author who's ready to go deeper.",
+      "type": "APPOINTMENT",
+      "category": "Publishing Services",
+      "fixedPrice": "397",
+      "currency": "USD",
+      "priceLabel": "$397",
+      "durationMinutes": 90,
+      "hidden": false,
+      "heroImageUrl": null,
+      "bookingPageUrl": "https://www.midnight-magnolia.com/booking-calendar/manuscript-development"
+    },
+    {
+      "id": "9a5dcf5f-d12b-4b38-85f7-3ca2dc1814f4",
+      "name": "VIP Half-Day Intensive",
+      "tagline": "Real-time collaboration / body-doubling support for creators who move best with focused partnership.",
+      "description": "Real-time collaboration and body-doubling support for creators who move best with focused partnership.\nDuration: 3 hours (with breaks)\n\nDescription:\nFor creators who want to get a significant piece of work done  *with* someone, not just advised by someone. We'll spend a focused half-day together—building your Notion system, refining your website copy, mapping your content strategy, or whatever you need most.\n\nYou'll leave with:\n- Completed deliverable (not just a plan)\n- Recorded session\n- 1 week of follow-up support\n\nBest for:\nThose who do better with body-doubling and real-time collaboration.\n\nInvestment: $497\n\nAvailability: 2 spots per month",
+      "type": "APPOINTMENT",
+      "category": "Our Services",
+      "fixedPrice": "497",
+      "currency": "USD",
+      "priceLabel": "$497",
+      "durationMinutes": 195,
+      "hidden": false,
+      "heroImageUrl": "https://static.wixstatic.com/media/nsplsh_618b8d61f23f439b9972479d84037c5c~mv2.jpg",
+      "bookingPageUrl": "https://www.midnight-magnolia.com/booking-calendar/vip-half-day-intensive"
+    },
+    {
+      "id": "a9a70e50-2bf1-43dc-a5a6-5229a6a04e43",
+      "name": "Notion Sanctuary Setup",
+      "tagline": "One calm digital workspace designed specifically for you.",
+      "description": "One calm digital workspace designed specifically for your creative process, ideas, and projects.\n\nYou'll leave with:\n- A custom Notion dashboard designed for neurodivergent-friendly workflow\n- Task management that doesn't overwhelm\n- Content planning system (if applicable)\n- 2 weeks of async support for questions",
+      "type": "APPOINTMENT",
+      "category": "Our Services",
+      "fixedPrice": "297",
+      "currency": "USD",
+      "priceLabel": "$297",
+      "durationMinutes": 120,
+      "hidden": false,
+      "heroImageUrl": "https://static.wixstatic.com/media/4e164e_eab0d3adb26b4eee9a51c5cdf28db2ae~mv2.png",
+      "bookingPageUrl": "https://www.midnight-magnolia.com/booking-calendar/notion-sanctuary-setup"
+    },
+    {
+      "id": "ab14ae8b-cd83-436f-933e-0fcc962761d5",
+      "name": "KDP Self-Publishing Setup",
+      "tagline": "",
+      "description": "You wrote the book. Now let's get it into the world. This 60-minute guided session walks you through everything Amazon KDP requires — formatting, metadata, cover specifications, category selection, and pricing strategy — without the overwhelm or the jargon. You'll leave with your book live or a clear, confident roadmap to launch day. This is the session that turns a file on your desktop into a book people can hold.",
+      "type": "APPOINTMENT",
+      "category": "Publishing Services",
+      "fixedPrice": "297",
+      "currency": "USD",
+      "priceLabel": "$297",
+      "durationMinutes": 60,
+      "hidden": false,
+      "heroImageUrl": null,
+      "bookingPageUrl": "https://www.midnight-magnolia.com/booking-calendar/kdp-self-publishing-setup"
+    },
+    {
+      "id": "b27f7b75-b45d-485c-9aef-271ff17cb2d8",
+      "name": "Book + Journal Bundle Package",
+      "tagline": "",
+      "description": "The most powerful healing products don't stand alone — they travel together. This 2-hour session is designed for authors building both a book and a companion shadow work or healing journal. We'll develop both concepts in tandem: voice, structure, layout direction, and a publishing roadmap that treats them as the ecosystem they are. If you're building a transformational product suite rooted in healing, this is where that begins.",
+      "type": "APPOINTMENT",
+      "category": "Publishing Services",
+      "fixedPrice": "597",
+      "currency": "USD",
+      "priceLabel": "$597",
+      "durationMinutes": 120,
+      "hidden": false,
+      "heroImageUrl": null,
+      "bookingPageUrl": "https://www.midnight-magnolia.com/booking-calendar/book-journal-bundle-package"
+    },
+    {
+      "id": "f034722a-a989-4741-883b-f39205351941",
+      "name": "Brand Voice Clarity Session",
+      "tagline": "Find the language that truly sounds like you. ",
+      "description": "Find the language that truly sounds like you. Together we'll shape your story, message, and creative voice.\n\nYou'll leave with:\n- A written brand voice guide (tone, do's and don'ts, sample phrases)\n- 3-5 taglines or positioning statements\n- Clarity on your core message",
+      "type": "APPOINTMENT",
+      "category": "Our Services",
+      "fixedPrice": "197",
+      "currency": "USD",
+      "priceLabel": "$197",
+      "durationMinutes": 90,
+      "hidden": false,
+      "heroImageUrl": "https://static.wixstatic.com/media/nsplsh_196c37116c034e61be7fbf58ee933d32~mv2.jpg",
+      "bookingPageUrl": "https://www.midnight-magnolia.com/booking-calendar/brand-voice-clarity-session"
+    }
+  ],
+  "grimoire": [
+    {
+      "id": "8cd0c5b4-1a40-4ac4-adc6-16db9af648e5",
+      "title": "Lunar Renewal Ritual",
+      "slug": "",
+      "excerpt": "",
+      "fields": [
+        "link-digital-grimoire-1-all",
+        "relatedTools",
+        "coverImage",
+        "difficultyEnergy",
+        "category",
+        "theWork",
+        "briefIntro",
+        "title",
+        "link-digital-grimoire-all"
+      ]
+    },
+    {
+      "id": "3caa0583-40cd-4e38-b440-f04a0d4fda78",
+      "title": "Sigil Crafting Template",
+      "slug": "",
+      "excerpt": "",
+      "fields": [
+        "link-digital-grimoire-1-all",
+        "relatedTools",
+        "coverImage",
+        "difficultyEnergy",
+        "category",
+        "theWork",
+        "briefIntro",
+        "title",
+        "link-digital-grimoire-all"
+      ]
+    },
+    {
+      "id": "93cee180-3643-4496-b843-d995e2af0cf9",
+      "title": "Astral Travel System",
+      "slug": "",
+      "excerpt": "",
+      "fields": [
+        "link-digital-grimoire-1-all",
+        "relatedTools",
+        "coverImage",
+        "difficultyEnergy",
+        "category",
+        "theWork",
+        "briefIntro",
+        "title",
+        "link-digital-grimoire-all"
+      ]
+    },
+    {
+      "id": "e90ff5c1-bd02-4655-84f2-89d4ee93033f",
+      "title": "Samhain Celebration Guide",
+      "slug": "",
+      "excerpt": "",
+      "fields": [
+        "link-digital-grimoire-1-all",
+        "relatedTools",
+        "coverImage",
+        "difficultyEnergy",
+        "category",
+        "theWork",
+        "briefIntro",
+        "title",
+        "link-digital-grimoire-all"
+      ]
+    },
+    {
+      "id": "7abff2b8-757f-4ce4-b32c-b3c117025857",
+      "title": "Elemental Balancing Ritual",
+      "slug": "",
+      "excerpt": "",
+      "fields": [
+        "link-digital-grimoire-1-all",
+        "relatedTools",
+        "coverImage",
+        "difficultyEnergy",
+        "category",
+        "theWork",
+        "briefIntro",
+        "title",
+        "link-digital-grimoire-all"
+      ]
+    }
+  ],
+  "rawSamples": {
+    "product": {
+      "name": "Utility backpack",
+      "slug": "utility-backpack",
+      "visible": true,
+      "productType": "physical",
+      "description": "Express your style with a backpack that’s equal parts trendy and practical. It provides spacious compartments, a secure laptop pocket, and a comfy fit to keep you ready for work, weekend trips, and last-minute adventures.<br><br>• 100% polyester<br>• Fabric weight: 9.73 oz./yd.² (330 g/m²)<br>• Capacity: 4.3 gallons (16.1 l)<br>• Maximum weight limit: 11.02 lbs (5 kg)<br>• Spacious main compartment with multiple pockets<br>• 2 front pockets<br>• Mesh pockets on both sides<br>• Hidden back pocket<br>• Zippered laptop pocket<br>• Adjustable straps<br>• Blank product sourced from China",
+      "sku": "698BA62435690_24563",
+      "weight": 0,
+      "weightRange": {
+        "minValue": 0,
+        "maxValue": 0
+      },
+      "stock": {
+        "trackInventory": false,
+        "inStock": true,
+        "inventoryStatus": "IN_STOCK"
+      },
+      "price": {
+        "currency": "USD",
+        "price": 64.35,
+        "discountedPrice": 64.35,
+        "formatted": {
+          "price": "$64.35",
+          "discountedPrice": "$64.35"
+        }
+      },
+      "priceData": {
+        "currency": "USD",
+        "price": 64.35,
+        "discountedPrice": 64.35,
+        "formatted": {
+          "price": "$64.35",
+          "discountedPrice": "$64.35"
+        }
+      },
+      "convertedPriceData": {
+        "currency": "USD",
+        "price": 64.35,
+        "discountedPrice": 64.35,
+        "formatted": {
+          "price": "$64.35",
+          "discountedPrice": "$64.35"
+        }
+      },
+      "priceRange": {
+        "minValue": 64.35,
+        "maxValue": 64.35
+      },
+      "costRange": {
+        "minValue": 45,
+        "maxValue": 45
+      },
+      "additionalInfoSections": [],
+      "ribbons": [],
+      "media": {
+        "mainMedia": {
+          "thumbnail": {
+            "url": "https://static.wixstatic.com/media/4e164e_8f4cf8fed9254c45b4d62bf1df32f6fa~mv2.jpg/v1/fit/w_50,h_50,q_90/file.jpg",
+            "width": 50,
+            "height": 50
+          },
+          "mediaType": "image",
+          "title": "",
+          "image": {
+            "url": "https://static.wixstatic.com/media/4e164e_8f4cf8fed9254c45b4d62bf1df32f6fa~mv2.jpg/v1/fit/w_2000,h_2000,q_90/file.jpg",
+            "width": 2000,
+            "height": 2000
+          },
+          "_id": "4e164e_8f4cf8fed9254c45b4d62bf1df32f6fa~mv2.jpg"
+        },
+        "items": [
+          {
+            "thumbnail": {
+              "url": "https://static.wixstatic.com/media/4e164e_8f4cf8fed9254c45b4d62bf1df32f6fa~mv2.jpg/v1/fit/w_50,h_50,q_90/file.jpg",
+              "width": 50,
+              "height": 50
+            },
+            "mediaType": "image",
+            "title": "",
+            "image": {
+              "url": "https://static.wixstatic.com/media/4e164e_8f4cf8fed9254c45b4d62bf1df32f6fa~mv2.jpg/v1/fit/w_2000,h_2000,q_90/file.jpg",
+              "width": 2000,
+              "height": 2000
+            },
+            "_id": "4e164e_8f4cf8fed9254c45b4d62bf1df32f6fa~mv2.jpg"
+          },
+          {
+            "thumbnail": {
+              "url": "https://static.wixstatic.com/media/4e164e_65060b8a09f9444fb273414aa1010174~mv2.jpg/v1/fit/w_50,h_50,q_90/file.jpg",
+              "width": 50,
+              "height": 50
+            },
+            "mediaType": "image",
+            "title": "",
+            "image": {
+              "url": "https://static.wixstatic.com/media/4e164e_65060b8a09f9444fb273414aa1010174~mv2.jpg/v1/fit/w_2000,h_2000,q_90/file.jpg",
+              "width": 2000,
+              "height": 2000
+            },
+            "_id": "4e164e_65060b8a09f9444fb273414aa1010174~mv2.jpg"
+          },
+          {
+            "thumbnail": {
+              "url": "https://static.wixstatic.com/media/4e164e_019d89984fcc4bedb86cfd3ad099c786~mv2.jpg/v1/fit/w_50,h_50,q_90/file.jpg",
+              "width": 50,
+              "height": 50
+            },
+            "mediaType": "image",
+            "title": "",
+            "image": {
+              "url": "https://static.wixstatic.com/media/4e164e_019d89984fcc4bedb86cfd3ad099c786~mv2.jpg/v1/fit/w_2000,h_2000,q_90/file.jpg",
+              "width": 2000,
+              "height": 2000
+            },
+            "_id": "4e164e_019d89984fcc4bedb86cfd3ad099c786~mv2.jpg"
+          },
+          {
+            "thumbnail": {
+              "url": "https://static.wixstatic.com/media/4e164e_b1b4b2cbf67d45c09fbf650857ec3e6e~mv2.jpg/v1/fit/w_50,h_50,q_90/file.jpg",
+              "width": 50,
+              "height": 50
+            },
+            "mediaType": "image",
+            "title": "",
+            "image": {
+              "url": "https://static.wixstatic.com/media/4e164e_b1b4b2cbf67d45c09fbf650857ec3e6e~mv2.jpg/v1/fit/w_2000,h_2000,q_90/file.jpg",
+              "width": 2000,
+              "height": 2000
+            },
+            "_id": "4e164e_b1b4b2cbf67d45c09fbf650857ec3e6e~mv2.jpg"
+          }
+        ]
+      },
+      "customTextFields": [],
+      "manageVariants": false,
+      "productOptions": [],
+      "productPageUrl": {
+        "base": "https://www.midnight-magnolia.com/",
+        "path": "/product-page/utility-backpack"
+      },
+      "numericId": "1770759716645000",
+      "inventoryItemId": "90f7de41-e645-b909-7401-c0afefa6a488",
+      "discount": {
+        "type": "NONE",
+        "value": 0
+      },
+      "collectionIds": [
+        "00000000-000000-000000-000000000001"
+      ],
+      "variants": [
+        {
+          "choices": {},
+          "variant": {
+            "priceData": {
+              "currency": "USD",
+              "price": 64.35,
+              "discountedPrice": 64.35,
+              "formatted": {
+                "price": "$64.35",
+                "discountedPrice": "$64.35"
+              }
+            },
+            "convertedPriceData": {
+              "currency": "USD",
+              "price": 64.35,
+              "discountedPrice": 64.35,
+              "formatted": {
+                "price": "$64.35",
+                "discountedPrice": "$64.35"
+              }
+            },
+            "weight": 0,
+            "sku": "698BA62435690_24563",
+            "visible": true
+          },
+          "stock": {
+            "trackQuantity": false,
+            "inStock": true
+          },
+          "_id": "00000000-0000-0000-0000-000000000000"
+        }
+      ],
+      "lastUpdated": "2026-02-10T22:32:00.976Z",
+      "ribbon": "",
+      "exportProductId": "product_6f0821be-19ba-46f6-8bfe-3f5010595b77",
+      "_id": "6f0821be-19ba-46f6-8bfe-3f5010595b77",
+      "_createdDate": "2026-02-10T21:41:56.645Z"
+    },
+    "service": {
+      "appId": "13d21c63-b5ec-5912-8397-c3a5ddb27a97",
+      "createdByAppId": "13d21c63-b5ec-5912-8397-c3a5ddb27a97",
+      "type": "APPOINTMENT",
+      "sortOrder": 0,
+      "name": "Creative Direction Session",
+      "description": "Gentle strategy for creators in the messy middle — when you know something powerful is forming but need clarity on the next step.\nYou'll leave with:\n- Recorded session for reference\n- Written summary of recommendations\n- One clear next step\n\nBest for: \nCreators in the messy middle who need a thinking partner, not a course.\n",
+      "tagLine": "Gentle strategy for creators in the messy middle.",
+      "defaultCapacity": 1,
+      "media": {
+        "items": [],
+        "mainMedia": {
+          "image": "wix:image://v1/nsplsh_0e9b906727494fa387c5687327994ae3~mv2.jpg/nsplsh_0e9b906727494fa387c5687327994ae3~mv2.jpg#originWidth=3052&originHeight=1717"
+        }
+      },
+      "hidden": false,
+      "category": {
+        "name": "Our Services",
+        "sortOrder": 2006813,
+        "_id": "2516f700-8641-4092-b507-f3e5db8147e7"
+      },
+      "form": {
+        "mobileSettings": {
+          "hidden": false
+        },
+        "_id": "00000000-0000-0000-0000-000000000000"
+      },
+      "payment": {
+        "rateType": "FIXED",
+        "fixed": {
+          "price": {
+            "value": "127",
+            "currency": "USD"
+          }
+        },
+        "options": {
+          "online": true,
+          "inPerson": false
+        },
+        "pricingPlanIds": [],
+        "addOnOption": "UNKNOWN_ADD_ON_PAYMENT_OPTIONS"
+      },
+      "onlineBooking": {
+        "enabled": true,
+        "requireManualApproval": false,
+        "allowMultipleRequests": false
+      },
+      "conferencing": {
+        "enabled": true
+      },
+      "locations": [
+        {
+          "type": "CUSTOM",
+          "calculatedAddress": {
+            "formatted": "Virtual Meeting",
+            "addressLine1": "Virtual Meeting"
+          },
+          "custom": {
+            "address": {
+              "formatted": "Virtual Meeting",
+              "addressLine1": "Virtual Meeting"
+            },
+            "_id": "456e7890-e89e-45f6-d789-726917207003"
+          },
+          "_id": "456e7890-e89e-45f6-d789-726917207003"
+        }
+      ],
+      "bookingPolicy": {
+        "revision": "1",
+        "appId": "13d21c63-b5ec-5912-8397-c3a5ddb27a97",
+        "name": "Default policy",
+        "customPolicyDescription": {
+          "enabled": true,
+          "description": ""
+        },
+        "default": true,
+        "limitEarlyBookingPolicy": {
+          "enabled": false,
+          "earliestBookingInMinutes": 10080
+        },
+        "limitLateBookingPolicy": {
+          "enabled": false,
+          "latestBookingInMinutes": 1440
+        },
+        "bookAfterStartPolicy": {
+          "enabled": false
+        },
+        "cancellationPolicy": {
+          "enabled": true,
+          "limitLatestCancellation": false,
+          "latestCancellationInMinutes": 1440
+        },
+        "reschedulePolicy": {
+          "enabled": true,
+          "limitLatestReschedule": false,
+          "latestRescheduleInMinutes": 1440
+        },
+        "waitlistPolicy": {
+          "enabled": false,
+          "capacity": 10,
+          "reservationTimeInMinutes": 10
+        },
+        "participantsPolicy": {
+          "enabled": true,
+          "maxParticipantsPerBooking": 1
+        },
+        "resourcesPolicy": {
+          "enabled": false,
+          "autoAssignAllowed": false
+        },
+        "cancellationFeePolicy": {
+          "enabled": false,
+          "cancellationWindows": [],
+          "autoCollectFeeEnabled": true
+        },
+        "saveCreditCardPolicy": {
+          "enabled": false
+        },
+        "staffSortingPolicy": {
+          "sortingMethodType": "RANDOM"
+        },
+        "_id": "7a0fdb27-9c4b-4911-9cbe-9f8cb07694d6",
+        "_createdDate": "2026-01-19T03:46:03.779Z",
+        "_updatedDate": "2026-01-19T03:46:03.779Z"
+      },
+      "schedule": {
+        "availabilityConstraints": {
+          "durations": [
+            {
+              "minutes": 60
+            }
+          ],
+          "sessionDurations": [
+            60
+          ],
+          "timeBetweenSessions": 10
+        },
+        "_id": "9f95d931-930f-4891-b442-8e9ce17c4420"
+      },
+      "staffMemberIds": [
+        "93b754b8-53c1-4133-a5a3-b46caae1dd21"
+      ],
+      "staffMembers": [],
+      "resourceGroups": [],
+      "serviceResources": [],
+      "supportedSlugs": [
+        {
+          "name": "creative-direction-session",
+          "custom": false,
+          "_createdDate": "2026-01-19T22:11:21.988Z"
+        }
+      ],
+      "mainSlug": {
+        "name": "creative-direction-session",
+        "custom": false,
+        "_createdDate": "2026-01-19T22:11:21.988Z"
+      },
+      "urls": {
+        "servicePage": "https://www.midnight-magnolia.com/service-page/creative-direction-session",
+        "bookingPage": "https://www.midnight-magnolia.com/booking-calendar/creative-direction-session",
+        "calendarPage": "https://www.midnight-magnolia.com/booking-calendar/creative-direction-session"
+      },
+      "revision": "6",
+      "addOnGroups": [],
+      "addOnDetails": [],
+      "taxableAddress": {
+        "taxableAddressType": "BUSINESS"
+      },
+      "tags": [],
+      "primaryResourceType": "1cd44cf8-756f-41c3-bd90-3e2ffcaf1155",
+      "_id": "11211cb2-a7a3-4d85-9cfb-e41e8a80473b",
+      "_createdDate": "2026-01-19T22:11:22.119Z",
+      "_updatedDate": "2026-03-11T00:36:04.976Z"
+    },
+    "grimoireRow": {
+      "_id": "8cd0c5b4-1a40-4ac4-adc6-16db9af648e5",
+      "_owner": "4e164ea7-59f0-43b1-8dd2-cb8724e9f4fa",
+      "_createdDate": "2026-01-03T04:53:23.156Z",
+      "link-digital-grimoire-1-all": "/digital-grimoire-1/",
+      "relatedTools": "Moon Phase Tracker, Cleansing Incense Recipe",
+      "_updatedDate": "2026-01-21T03:11:16.799Z",
+      "coverImage": "https://static.wixstatic.com/media/c8b8b1723c4b4e6a840f8922fe3bfb05.jpg",
+      "difficultyEnergy": "Medium",
+      "_publishStatus": "PUBLISHED",
+      "category": "Ritual",
+      "theWork": "Begin at sunset during the new moon. Light a white candle and incense. Meditate to visualize releasing old energy. Write down intentions on paper and safely burn them. Close the ritual by grounding with deep breaths.",
+      "briefIntro": "Harness the power of the new moon to cleanse and recharge your spirit.",
+      "title": "Lunar Renewal Ritual",
+      "link-digital-grimoire-all": "/digital-grimoire/"
+    }
+  }
+}

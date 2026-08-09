@@ -1,0 +1,52 @@
+---
+description: Airtable schema, fetcher conventions, and API patterns for Midnight Operations + Writing bases
+globs: lib/airtable.js, pages/api/airtable/**, pages/dashboard.jsx
+alwaysApply: false
+---
+
+# Airtable Conventions
+
+## Two bases
+- **Midnight Operations** — `AIRTABLE_OPS_BASE_ID` (`appj7TCIoDQke9S7d`) — products, services, content, sales, contacts, affiliates, patreon
+- **Writing / Creative** — `AIRTABLE_WRITING_BASE_ID` (`appiZEJmrbIH4lVvE`) — posts, manuscripts, books, opportunities, income
+
+**Family Tree lives in Supabase only.** Do not mirror it to Airtable (free-plan row limits).
+
+## All tables addressed by stable ID
+Look up via the `TBL` map in `lib/airtable.js`. Pattern:
+```js
+TBL.SERVICES = () => process.env.AIRTABLE_TBL_SERVICES || null;
+```
+When the env var is missing, the getter returns `null` and the dashboard renders a `NotConnected` panel. **Never throw on a missing table.**
+
+## Fetcher shape
+```js
+export async function getX({ filterFlag = false } = {}) {
+  const tableId = TBL.X();
+  if (!tableId) return null;          // signals "not configured"
+  const records = await fetchTable(opsBase, tableId, {
+    sort: [{ field: 'Priority', direction: 'asc' }],
+    filterByFormula: filterFlag ? "({Live} = 1)" : '',
+  });
+  return records.map(r => ({ id: r.id, /* normalize fields */ }));
+}
+```
+- Return `null` → "not connected"
+- Return `[]` → "connected but empty"
+- Return array → render
+Dashboard logic depends on this distinction.
+
+## Updater shape
+```js
+export async function updateX(recordId, fields) {
+  const tableId = TBL.X();
+  if (!tableId) throw new Error('AIRTABLE_TBL_X not set');
+  return updateRecord(opsBase, tableId, recordId, fields);
+}
+```
+
+## API route
+All Airtable HTTP access goes through `pages/api/airtable/operations.js`. To register a new table, add it to the `TABLES` map at the top of the file. GET and PATCH share the same registry.
+
+## Env var documentation
+Every new `AIRTABLE_TBL_*` must be added (commented out) to `.env.local.example` with a one-line description of how to create the source table.
