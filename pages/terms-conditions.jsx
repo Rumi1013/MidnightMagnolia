@@ -13,6 +13,7 @@ export default function TermsConditions() {
         <div style={{ maxWidth: '65ch' }} className="muted">
           <p>
             Digital products, memberships, and many services are sold or scheduled through{' '}
+            <a href={URLS.gumroad} target="_blank" rel="noopener noreferrer">Gumroad</a>,{' '}
             <a href={URLS.bmac} target="_blank" rel="noopener noreferrer">Buy Me a Coffee</a>,{' '}
             <a href={URLS.wixHome} target="_blank" rel="noopener noreferrer">Wix</a>, and linked tools. Each platform has its own checkout terms.
           </p>

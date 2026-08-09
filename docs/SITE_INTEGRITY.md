@@ -5,7 +5,7 @@ Supabase seeds `dashboard_tasks` rows (`lib/supabase-schema.sql`) that came from
 | Task id | Intent | Next.js (this repo) | Wix / other |
 |--------|--------|---------------------|-------------|
 | `site-footer-wix` | Remove Wix-branded footer junk | N/A — `components/Layout.jsx` footer is MM-owned | Edit Wix theme footer on live site |
-| `site-nav-shop` | Shop → BMAC | **Done:** `NAV` uses `URLS.bmac` with `external: true` | Remove duplicate Shop row in Wix menus if any |
+| `site-nav-shop` | Shop → Gumroad | **Done:** `NAV` uses `URLS.gumroad` with `external: true` | Remove duplicate Shop row in Wix menus if any |
 | `site-nav-about` | About link | **Done:** `/about` exists | — |
 | `site-nav-contact` | Contact | Use **Work With Me** + **Email**; no separate `/contact` required unless you want one | Optional Wix contact page |
 | `site-nav-grimoire` | Grimoire submenu | **Check:** top nav is flat; `/grimoire` is the hub | Fix Wix-only submenu if it still exists |
@@ -13,9 +13,9 @@ Supabase seeds `dashboard_tasks` rows (`lib/supabase-schema.sql`) that came from
 | `site-library` | Library page | **Done:** `/library` scaffold | Expand when “Option A/B/C” is chosen |
 | `site-about` | About | `/about` | — |
 | `site-email` | Email capture | Not implemented in Next — **blocking** for lead magnet scale | Wix forms or ESP embed |
-| `site-grimoire-pg` | Grimoire gate | `/grimoire` + BMAC CTAs | — |
+| `site-grimoire-pg` | Grimoire gate | `/grimoire` + Gumroad digital / BMAC membership CTAs | — |
 | `site-blog-rename` | “Blog” → “Dusk Letters” | Next uses **The Grimoire**; no “Blog” label in `NAV` | Rename in Wix menus + blog section labels |
 | `site-legal` | Legal placeholders | **Improved:** `/privacy-policy`, `/terms-conditions` with Wix cross-links | Paste full Wix legal text when ready |
 | `site-mobile` | Mobile audit | Manual QA on deployed Next + Wix | — |
 
-**Memberships / support (canonical):** Buy Me a Coffee first (Stan deferred for cost); Patreon only when access is restored — reflected in `Layout` footer and Master Plan HTML row for BMAC.
+**Commerce (canonical):** Gumroad for digital products; Buy Me a Coffee for Magnolia Circle membership + tips (Stan deferred); Patreon only when access is restored — reflected in `Layout` footer.

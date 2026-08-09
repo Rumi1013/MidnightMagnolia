@@ -1,27 +1,30 @@
-# BMAC + Wix checkout loop (verification)
+# Gumroad + BMAC + Wix checkout loop (verification)
 
-Membership and digital goods are **Buy Me a Coffee–first** (`NEXT_PUBLIC_BMAC_URL` → `URLS.bmac`). **Stan Store is deferred** (cost). Wix Headless remains the CMS/catalog/bookings backend; Next on Vercel is the front door.
+**Gumroad** = digital products (`NEXT_PUBLIC_GUMROAD_URL` → `URLS.gumroad`).
+**Buy Me a Coffee** = membership + tips (`NEXT_PUBLIC_BMAC_URL` → `URLS.bmac`).
+**Stan Store is deferred** (cost). Wix Headless remains the CMS/catalog/bookings backend; Next on Vercel is the front door.
 
 ## Pages aligned in code
 
-- **`/`** — Primary shop CTA → BMAC; Wix catalog is secondary (`/shop`).
-- **`/membership`** — BMAC-first copy; optional Patreon.
-- **`/grimoire`** — Gate CTAs → BMAC.
-- **`/library`** — Digital SKUs → BMAC.
-- **Nav “The Shop”** → `URLS.bmac`.
+- **`/`** — Primary shop CTA → Gumroad; Magnolia Circle → BMAC; Wix catalog secondary (`/shop`).
+- **`/membership`** — BMAC for Circle/tips; Gumroad for digital goods; optional Patreon.
+- **`/grimoire`** — Digital CTAs → Gumroad; membership/tips → BMAC.
+- **`/library`** — Digital SKUs → Gumroad; Circle → BMAC.
+- **Nav “The Shop”** → `URLS.gumroad`.
 
 ## Manual QA (do once before launch)
 
-1. Open `https://www.buymeacoffee.com/midnightmagnolia` (or your live `NEXT_PUBLIC_BMAC_URL`) in a private window. Confirm profile, freebie/membership, and at least one digital SKU path.
-2. Complete a tip, membership join, or low-price digital purchase and confirm delivery email/access.
-3. From **`/`**, **`/membership`**, and **`/grimoire`**, confirm Shop/Membership CTAs land on that BMAC page (not Stan).
-4. Optional: open `/shop` and confirm Wix catalog cards still resolve for physical/booking SKUs.
+1. Open Gumroad (`URLS.gumroad` / `NEXT_PUBLIC_GUMROAD_URL`) in a private window. Confirm at least one digital SKU path.
+2. Open `https://www.buymeacoffee.com/midnightmagnolia` (or live `NEXT_PUBLIC_BMAC_URL`). Confirm membership/tip path.
+3. Complete a tip, membership join, or low-price digital purchase and confirm delivery email/access.
+4. From **`/`**, **`/membership`**, and **`/grimoire`**, confirm Shop CTAs land on Gumroad and membership CTAs on BMAC (not Stan).
+5. Optional: open `/shop` and confirm Wix catalog cards still resolve for physical/booking SKUs.
 
-Record results below and/or in Supabase `dashboard_tasks` under `bmac` / `site`.
+Record results below and/or in Supabase `dashboard_tasks` under `gumroad` / `bmac` / `site`.
 
 ## QA log
 
 | Date | Path tested | Result | Notes |
 |------|-------------|--------|-------|
-| 2026-08-08 | Code CTAs → `URLS.bmac` | Pass (code) | Live purchase still operator-confirmed on BMAC |
+| 2026-08-08 | Code CTAs → Gumroad digital + BMAC membership | Pass (code) | Live purchase still operator-confirmed |
 | | BMAC page reachable | Pass | https://www.buymeacoffee.com/midnightmagnolia |

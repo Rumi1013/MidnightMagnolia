@@ -35,12 +35,17 @@ export default function Library() {
             <li style={{ marginBottom: '0.75rem' }}>
               <Link href="/grimoire">The Grimoire</Link>
               {' — '}
-              member writing and gated paths; start on the site, then follow through Buy Me a Coffee when you are ready.
+              member writing and gated paths; start on the site, then follow through Gumroad or Buy Me a Coffee when you are ready.
+            </li>
+            <li style={{ marginBottom: '0.75rem' }}>
+              <a href={URLS.gumroad} target="_blank" rel="noopener noreferrer">Gumroad</a>
+              {' — '}
+              journals, kits, and digital downloads.
             </li>
             <li style={{ marginBottom: '0.75rem' }}>
               <a href={URLS.bmac} target="_blank" rel="noopener noreferrer">Buy Me a Coffee</a>
               {' — '}
-              journals, kits, and Magnolia Circle.
+              Magnolia Circle membership and tips.
             </li>
             <li>
               <a href={URLS.wixHome} target="_blank" rel="noopener noreferrer">Public Wix site</a>

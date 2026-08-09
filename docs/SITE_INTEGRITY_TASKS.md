@@ -5,7 +5,7 @@ Seed rows live in `lib/supabase-schema.sql` (`insert into dashboard_tasks … on
 | id | Category | Intent |
 |----|----------|--------|
 | `site-footer-wix` | site | Remove Wix-branded footer social links on the live Wix site |
-| `site-nav-shop` | site | Shop nav → BMAC URL (Next `NAV` uses BMAC for “The Shop”; Stan deferred) |
+| `site-nav-shop` | site | Shop nav → Gumroad URL (Next `NAV` uses Gumroad for “The Shop”; membership on BMAC; Stan deferred) |
 | `site-nav-about` | site | Fix About nav (build `/about` or redirect) |
 | `site-nav-contact` | site | Fix Contact nav |
 | `site-nav-grimoire` | site | Fix Grimoire submenu links on Wix |

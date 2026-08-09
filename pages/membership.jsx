@@ -2,7 +2,7 @@ import Layout from '../components/Layout';
 import Link from 'next/link';
 import { URLS } from '../lib/constants';
 
-const BMAC_OFFERINGS = [
+const OFFERINGS = [
   {
     name: 'Magnolia Circle',
     focus: 'Monthly membership',
@@ -17,14 +17,14 @@ const BMAC_OFFERINGS = [
   },
   {
     name: 'Digital goods + kits',
-    focus: 'BMAC storefront',
+    focus: 'Gumroad storefront',
     includes: [
       'The Gentle Beginning (free starter)',
       'Shadow Work Starter Kit ($9)',
       'Journals, workbooks, and Deep Roots bundle',
     ],
-    cta: 'Open Buy Me a Coffee',
-    url: URLS.bmac,
+    cta: 'Open Gumroad',
+    url: URLS.gumroad,
   },
 ];
 
@@ -32,15 +32,16 @@ export default function MembershipPage() {
   return (
     <Layout
       title="Membership"
-      description="Buy Me a Coffee–first membership and digital goods. Stan is deferred for cost. Patreon remains optional when the account is active."
+      description="Buy Me a Coffee for Magnolia Circle membership and tips. Digital products live on Gumroad. Stan is deferred for cost. Patreon remains optional when the account is active."
     >
       <div className="container">
         <div className="page-hero">
           <p className="page-hero__eyebrow">Membership</p>
-          <h1>BMAC first. Tips and membership in one place.</h1>
+          <h1>Membership on BMAC. Digital on Gumroad.</h1>
           <div className="divider" />
           <p className="hero__subtitle">
-            Magnolia Circle and digital products live on Buy Me a Coffee.
+            Magnolia Circle and tips live on Buy Me a Coffee.
+            Journals, kits, and career docs live on Gumroad.
             Physical merch and bookings stay on Wix Headless. Stan Store is paused for cost.
           </p>
         </div>
@@ -51,22 +52,26 @@ export default function MembershipPage() {
           <div className="grid-2" style={{ marginTop: 'var(--space-lg)' }}>
             <div className="card">
               <h3>Buy Me a Coffee</h3>
-              <p className="muted">Membership (Magnolia Circle), free starter, journals, tips, and bundles.</p>
+              <p className="muted">Magnolia Circle membership and tips.</p>
               <a href={URLS.bmac} className="btn btn--primary" target="_blank" rel="noopener noreferrer">Open Buy Me a Coffee</a>
             </div>
             <div className="card">
-              <h3>Wix catalog / bookings</h3>
-              <p className="muted">Optional physical catalog and session booking via the Headless storefront.</p>
-              <Link href="/shop" className="btn btn--outline">Browse Wix Catalog</Link>
+              <h3>Gumroad</h3>
+              <p className="muted">Digital products — free starter, journals, workbooks, and bundles.</p>
+              <a href={URLS.gumroad} className="btn btn--outline" target="_blank" rel="noopener noreferrer">Open Gumroad</a>
             </div>
           </div>
+          <p className="muted" style={{ marginTop: 'var(--space-lg)' }}>
+            Optional physical catalog and session booking:{' '}
+            <Link href="/shop">Browse Wix Catalog</Link>.
+          </p>
         </section>
 
         <section className="section">
-          <h2>BMAC offerings</h2>
+          <h2>Offerings</h2>
           <div className="divider" />
           <div className="grid-2" style={{ marginTop: 'var(--space-lg)' }}>
-            {BMAC_OFFERINGS.map((tier) => (
+            {OFFERINGS.map((tier) => (
               <div className="card" key={tier.name} style={{ display: 'flex', flexDirection: 'column' }}>
                 <span className="tag" style={{ marginBottom: 'var(--space-md)', display: 'inline-block' }}>{tier.focus}</span>
                 <h3>{tier.name}</h3>

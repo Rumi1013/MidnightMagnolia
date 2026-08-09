@@ -193,8 +193,10 @@ export default function Grimoire({ posts }) {
               <p className="muted" style={{ marginBottom: 'var(--space-lg)' }}>
                 This is a soft device unlock for pacing and CTAs — not server-side membership auth.
                 Full post bodies are not embedded in locked HTML. Start on{' '}
+                <a href={URLS.gumroad} target="_blank" rel="noopener noreferrer">Gumroad</a>
+                {' '}for Gentle Beginning and kits, or{' '}
                 <a href={URLS.bmac} target="_blank" rel="noopener noreferrer">Buy Me a Coffee</a>
-                {' '}for Magnolia Circle, Gentle Beginning, kits, or a tip — then enter your email below to unlock browsing on this device.
+                {' '}for Magnolia Circle / tips — then enter your email below to unlock browsing on this device.
               </p>
               <form onSubmit={unlockGrimoire}>
                 <label style={{ display: 'flex', flexDirection: 'column', gap: 6, marginBottom: 'var(--space-md)' }}>
@@ -210,8 +212,8 @@ export default function Grimoire({ posts }) {
                 </label>
                 <div style={{ display: 'flex', gap: 'var(--space-md)', flexWrap: 'wrap' }}>
                   <button type="submit" className="btn btn--primary">Unlock the Grimoire</button>
-                  <a href={URLS.bmac} className="btn btn--outline" target="_blank" rel="noopener noreferrer">
-                    Open Buy Me a Coffee
+                  <a href={URLS.gumroad} className="btn btn--outline" target="_blank" rel="noopener noreferrer">
+                    Open Gumroad
                   </a>
                 </div>
               </form>

@@ -1,7 +1,7 @@
 # Midnight Magnolia Platform Plan
 
 **Decision date:** July 28, 2026  
-**ASAP override (2026-08):** Active repo ships **Wix Headless + Next.js on Vercel + Buy Me a Coffee** for digital/membership. Gumroad-as-primary below is **hermes historical** — do not treat as Active ASAP commerce gate. Stan is deferred (cost). See `docs/BMAC_MINIMUM.md`.
+**ASAP override (2026-08):** Active repo ships **Wix Headless + Next.js on Vercel + Gumroad (digital) + Buy Me a Coffee (membership/tips)**. Align with `docs/DIGITAL_CONTENT_PIPELINE.md` and `docs/BMAC_MINIMUM.md`. Stan is deferred (cost).
 
 This file is the hermes platform and subscription plan for the Midnight Magnolia launch.
 When an older document disagrees with Active ASAP docs (`docs/BMAC_MINIMUM.md`, `docs/DIGITAL_CONTENT_PIPELINE.md`), **Active ASAP wins**.

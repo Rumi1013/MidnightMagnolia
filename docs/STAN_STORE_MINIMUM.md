@@ -1,7 +1,7 @@
 # Stan Store minimum (DEFERRED)
 
-> **Deferred 2026-08:** Buy Me a Coffee replaces Stan as ASAP digital/membership commerce (cost).
-> Do **not** block ship on this checklist. Use `docs/BMAC_MINIMUM.md` + `docs/DIGITAL_CONTENT_PIPELINE.md` instead.
+> **Deferred 2026-08:** Gumroad (digital) + Buy Me a Coffee (membership) replace Stan for ASAP commerce (cost).
+> Do **not** block ship on this checklist. Use `docs/DIGITAL_CONTENT_PIPELINE.md` + `docs/BMAC_MINIMUM.md` instead.
 
 Archive reference against `https://stan.store/MidnightMagnoliaSC` (`URLS.stanStore` kept in code for reference only).
 

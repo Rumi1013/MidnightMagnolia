@@ -61,7 +61,7 @@ export default function AboutPage() {
           <div style={{ display: 'flex', gap: 'var(--space-md)', flexWrap: 'wrap' }}>
             <Link href="/sanctuary" className="btn btn--primary">Enter the Sanctuary</Link>
             <Link href="/membership" className="btn btn--outline">View Membership</Link>
-            <a href={URLS.bmac} className="btn btn--ghost" target="_blank" rel="noopener noreferrer">Visit the Shop</a>
+            <a href={URLS.gumroad} className="btn btn--ghost" target="_blank" rel="noopener noreferrer">Visit the Shop</a>
           </div>
         </section>
       </div>

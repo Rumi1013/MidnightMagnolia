@@ -31,7 +31,7 @@ const HOME_DOORS = [
         Start small. Take what you need. Come back when you&apos;re ready.
       </>
     ),
-    href: URLS.bmac,
+    href: URLS.gumroad,
     cta: 'Browse Products',
     external: true,
   },
@@ -67,8 +67,8 @@ export default function Home() {
             creators who know their pace is not a problem.
           </p>
           <div className="hero__actions">
-            <a href={URLS.bmac} className="btn btn--primary" target="_blank" rel="noopener noreferrer">
-              Shop on Buy Me a Coffee
+            <a href={URLS.gumroad} className="btn btn--primary" target="_blank" rel="noopener noreferrer">
+              Shop on Gumroad
             </a>
             <a href={URLS.booking} className="btn btn--outline" target="_blank" rel="noopener noreferrer">
               Book a Session
@@ -76,7 +76,9 @@ export default function Home() {
             <Link href="/shop" className="btn btn--ghost">Wix Catalog</Link>
           </div>
           <p className="muted" style={{ marginTop: 'var(--space-md)', fontSize: '0.85rem', maxWidth: '52ch' }}>
-            Membership and digital goods live on{' '}
+            Digital products live on{' '}
+            <a href={URLS.gumroad} target="_blank" rel="noopener noreferrer">Gumroad</a>
+            ; membership and tips on{' '}
             <a href={URLS.bmac} target="_blank" rel="noopener noreferrer">Buy Me a Coffee</a>.
             {' '}Physical / booking catalog stays on Wix Headless.
           </p>
@@ -147,8 +149,8 @@ export default function Home() {
               {
                 title: 'The Healing Shop',
                 desc:  'Six products built as one healing ecosystem — from the free starter kit to the Deep Roots Shadow Work System. Begin anywhere.',
-                href:  URLS.bmac,
-                cta:   'Browse on BMAC',
+                href:  URLS.gumroad,
+                cta:   'Browse on Gumroad',
                 external: true,
               },
               {
@@ -227,7 +229,7 @@ export default function Home() {
           </p>
           <div style={{ marginTop: 'var(--space-lg)', display: 'flex', gap: 'var(--space-md)', justifyContent: 'center', flexWrap: 'wrap' }}>
             <Link href="/sanctuary" className="btn btn--outline">Read the Story</Link>
-            <a href={URLS.bmac} className="btn btn--primary" target="_blank" rel="noopener noreferrer">Browse the Shop</a>
+            <a href={URLS.gumroad} className="btn btn--primary" target="_blank" rel="noopener noreferrer">Browse the Shop</a>
           </div>
         </div>
       </section>

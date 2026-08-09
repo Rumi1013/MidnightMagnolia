@@ -5,7 +5,7 @@
 ## Preconditions
 
 - [x] Production deploy succeeds on Vercel project `midnight-magnolia`
-- [x] BMAC CTAs + portfolio resumes live on the Vercel alias
+- [x] Gumroad digital + BMAC membership CTAs + portfolio resumes live on the Vercel alias
 - [x] Smoke public routes on the production alias (`/`, `/portfolio`, resume PDFs — 2026-08-08)
 - [x] Wix OAuth redirect URIs include www + Vercel callback paths (`docs/WIX_OAUTH_REDIRECTS.md`)
 
@@ -16,7 +16,7 @@
    - `www` → CNAME to `cname.vercel-dns.com` (or the target Vercel shows)
    - Apex → A / ALIAS per Vercel instructions
 3. Keep `NEXT_PUBLIC_WIX_STOREFRONT_URL=https://www.midnight-magnolia.com` only if bookings/catalog still need the classic storefront path; otherwise point storefront URL at the Wix site domain Wix assigns after cutover, or keep Headless API-only.
-4. After TLS is active on Vercel, verify `/`, `/portfolio`, `/membership`, Shop → BMAC.
+4. After TLS is active on Vercel, verify `/`, `/portfolio`, `/membership`, Shop → Gumroad, Circle → BMAC.
 5. Leave classic Wix publish as unpublished or parked — Headless APIs continue to use site ID `ad2ce561-4efa-4255-a998-9074ffc0de7b`.
 
 ## Status

@@ -78,7 +78,7 @@ export default function Sanctuary({ previewServices = [] }) {
               {
                 title: 'Gentle Beginning',
                 desc: 'Start with grounding prompts and low-spoon structure.',
-                href: URLS.bmac,
+                href: URLS.gumroad,
                 cta: 'Get the free starter',
               },
               {

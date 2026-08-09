@@ -36,7 +36,7 @@ Cursor and humans: start here to map **strategy artifacts → code**.
 - `docs/DIGITAL_CONTENT_PIPELINE.md` — source → BMAC → CTA
 - `docs/DROPSHIP_LANE.md` — Printify / Enchanted Soul (post-ASAP)
 - `docs/WIX_MERCH_CHECKLIST.md`
-- `docs/CHECKOUT_LOOP.md` — BMAC-first
+- `docs/CHECKOUT_LOOP.md` — Gumroad digital + BMAC membership
 - `docs/SITE_INTEGRITY_TASKS.md`
 - `docs/OPS_ENV_NOTION_AIRTABLE.md`
 - `docs/SUPABASE_RLS_AND_API.md`
