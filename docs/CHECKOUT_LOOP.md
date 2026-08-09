@@ -28,3 +28,5 @@ Record results below and/or in Supabase `dashboard_tasks` under `gumroad` / `bma
 |------|-------------|--------|-------|
 | 2026-08-08 | Code CTAs → Gumroad digital + BMAC membership | Pass (code) | Live purchase still operator-confirmed |
 | | BMAC page reachable | Pass | https://www.buymeacoffee.com/midnightmagnolia |
+| | Human private-window Gumroad SKU | Pending | List at least one digital product |
+| | Human private-window BMAC tip/join | Pending | Magnolia Circle or tips-only |

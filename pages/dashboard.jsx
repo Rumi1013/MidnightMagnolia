@@ -522,6 +522,7 @@ export default function Dashboard() {
   // Airtable — Writing / Creative base
   const [jobs,    setJobs]    = useState(null);
   const [resumes, setResumes] = useState(null);
+  const [mlis,    setMlis]    = useState(null);
   // UI state
   const [loading,  setLoading]  = useState(true);
   const [saving,   setSaving]   = useState(false);
@@ -554,7 +555,7 @@ export default function Dashboard() {
       };
 
       // All fetches run in parallel — failures are isolated
-      const [taskRes, geoRes, notionRes, pipelineRes, atAffRes, atSvcRes, revenueRes, jobsRes, resumesRes] =
+      const [taskRes, geoRes, notionRes, pipelineRes, atAffRes, atSvcRes, revenueRes, jobsRes, resumesRes, mlisRes] =
         await Promise.allSettled([
           loadJson('/api/tasks'),
           loadJson('/api/genealogy?type=people'),
@@ -565,11 +566,12 @@ export default function Dashboard() {
           loadJson('/api/airtable/career?table=income&limit=1'),
           loadJson('/api/airtable/career?table=opportunities'),
           loadJson('/api/airtable/career?table=resumes'),
+          loadJson('/api/airtable/career?table=mlis'),
         ]);
 
       if (cancelled) return;
 
-      const authFailure = [taskRes, geoRes, notionRes, pipelineRes, atAffRes, atSvcRes, revenueRes, jobsRes, resumesRes]
+      const authFailure = [taskRes, geoRes, notionRes, pipelineRes, atAffRes, atSvcRes, revenueRes, jobsRes, resumesRes, mlisRes]
         .find((result) => result.status === 'rejected' && [401, 503].includes(result.reason?.status));
       if (authFailure) {
         setAuthRequired(true);
@@ -620,6 +622,8 @@ export default function Dashboard() {
 
       if (jobsRes.status === 'fulfilled' && Array.isArray(jobsRes.value))     setJobs(jobsRes.value);
       if (resumesRes.status === 'fulfilled' && Array.isArray(resumesRes.value)) setResumes(resumesRes.value);
+      if (mlisRes.status === 'fulfilled' && Array.isArray(mlisRes.value)) setMlis(mlisRes.value);
+      else if (mlisRes.status === 'fulfilled' && mlisRes.value === null) setMlis(null);
 
       setErrors(errs);
       setLoading(false);
@@ -796,7 +800,12 @@ export default function Dashboard() {
                 sub={jobs?.length ? `${jobs.filter(j => !['Rejected','Withdrawn'].includes(j.status)).length} active applications` : ''}
                 source="Airtable"
               />
-              <CareerPanel jobs={jobs} resumes={resumes} mlis={null} />
+              <p className="muted" style={{ fontSize: '0.8rem', marginBottom: 'var(--space-sm)' }}>
+                Full builders:{' '}
+                <Link href="/career-command" style={{ color: 'var(--color-amber)' }}>/career-command</Link>
+                {' '}(same dashboard unlock token).
+              </p>
+              <CareerPanel jobs={jobs} resumes={resumes} mlis={mlis} />
 
               {/* ── SUPABASE: Genealogy ──────────────────────── */}
               {divider}

@@ -22,7 +22,9 @@ export default function Layout({ children, title, description }) {
         <title>{pageTitle}</title>
         <meta name="description" content={pageDesc} />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta name="p:domain_verify" content="884b629c74f83688db9ae10a4090f7d7" />
         <meta property="og:title" content={pageTitle} />
+
         <meta property="og:description" content={pageDesc} />
         <meta property="og:type" content="website" />
         {canonicalHref ? <link rel="canonical" href={canonicalHref} /> : null}
