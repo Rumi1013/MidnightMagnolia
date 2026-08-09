@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import Layout from '../components/Layout';
 import PageIllustration from '../components/PageIllustration';
 import { PAGE_ILLUSTRATIONS } from '../lib/brandAssets';
@@ -8,13 +9,13 @@ const RESUME_TRACK_META = [
     id: 'A',
     title: 'Track A — Flagship Executive ATS (primary)',
     desc:
-      'Career Command working master: executive ATS resume for AI enablement, information governance, knowledge systems, and operations leadership.',
+      'Working master from Career Command: information governance, knowledge systems, digital stewardship, records management, and AI enablement training — ATS-ready.',
   },
   {
     id: 'B',
     title: 'Track B — Executive Networking (secondary)',
     desc:
-      'Shorter networking-facing draft for conversations, warm intros, and roles where a full ATS packet is not the first touch.',
+      'Shorter networking draft for warm intros and conversations: same IG / stewardship story, lighter packet than Track A.',
   },
 ];
 
@@ -36,9 +37,9 @@ export default function Portfolio({ links, resumeA, resumeB }) {
           <h1>The work speaks.</h1>
           <div className="divider" />
           <p className="hero__subtitle">
-            Fifteen-plus years building programs, securing funding, and leading digital operations in nonprofit and
-            technology settings. Direction today: digital preservation, archivist practice, and recovery-oriented pacing
-            in how work is scoped and carried.
+            Fifteen-plus years across knowledge systems, digital governance, records management, and AI enablement in
+            nonprofit, education, and public service. Direction today: information stewardship and archival practice —
+            with recovery-oriented pacing in how work is scoped and carried.
           </p>
           <div style={{ display: 'flex', gap: 'var(--space-md)', flexWrap: 'wrap', marginTop: 'var(--space-lg)' }}>
             <a href={URLS.linkedin} className="btn btn--primary" target="_blank" rel="noopener">LinkedIn Profile</a>
@@ -220,7 +221,7 @@ export default function Portfolio({ links, resumeA, resumeB }) {
             for workflow, archives-adjacent systems, and AI literacy stays open through Midnight Magnolia.
           </p>
           <div style={{ display: 'flex', gap: 'var(--space-md)', justifyContent: 'center', flexWrap: 'wrap' }}>
-            <a href={URLS.booking} className="btn btn--primary" target="_blank" rel="noopener">Book a Strategy Session</a>
+            <Link href="/services" className="btn btn--primary">Book a Strategy Session</Link>
             <a href={URLS.email} className="btn btn--outline">Send an Email</a>
           </div>
         </section>

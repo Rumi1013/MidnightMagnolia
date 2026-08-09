@@ -70,9 +70,9 @@ export default function Home() {
             <a href={URLS.gumroad} className="btn btn--primary" target="_blank" rel="noopener noreferrer">
               Shop on Gumroad
             </a>
-            <a href={URLS.booking} className="btn btn--outline" target="_blank" rel="noopener noreferrer">
+            <Link href="/services" className="btn btn--outline">
               Book a Session
-            </a>
+            </Link>
             <Link href="/shop" className="btn btn--ghost">Wix Catalog</Link>
           </div>
           <p className="muted" style={{ marginTop: 'var(--space-md)', fontSize: '0.85rem', maxWidth: '52ch' }}>
@@ -112,7 +112,7 @@ export default function Home() {
             ))}
           </div>
           <p className="muted" style={{ marginTop: 'var(--space-lg)', fontSize: '0.875rem', maxWidth: '48ch' }}>
-            <a href={URLS.booking} target="_blank" rel="noopener noreferrer">Book a session</a>
+            <Link href="/services">Book a session</Link>
             {' · '}
             <Link href="/work-with-me">See how we work together</Link>
           </p>

@@ -21,6 +21,11 @@ const nextConfig = {
         destination: 'https://www.midnight-magnolia.com/:path*',
         permanent: true,
       },
+      // Legacy Wix / Stan paths — keep visitors inside the Next front door
+      { source: '/booking-calendar', destination: '/services', permanent: false },
+      { source: '/bookings', destination: '/services', permanent: false },
+      { source: '/booking', destination: '/services', permanent: false },
+      { source: '/post/:slug', destination: '/blog/:slug', permanent: false },
     ];
   },
   /**

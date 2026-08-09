@@ -15,12 +15,12 @@
 2. At the **DNS host** (often Wix Domains or external registrar), set:
    - `www` → CNAME to `cname.vercel-dns.com` (or the target Vercel shows)
    - Apex → A / ALIAS per Vercel instructions
-3. Keep `NEXT_PUBLIC_WIX_STOREFRONT_URL=https://www.midnight-magnolia.com` only if bookings/catalog still need the classic storefront path; otherwise point storefront URL at the Wix site domain Wix assigns after cutover, or keep Headless API-only.
-4. After TLS is active on Vercel, verify `/`, `/portfolio`, `/membership`, Shop → Gumroad, Circle → BMAC.
+3. Do **not** point `NEXT_PUBLIC_WIX_STOREFRONT_URL` at www once www is on Vercel — classic `/booking-calendar/*` and `/post/*` 404 there. Bookings use in-app `/services` + `/booking-calendar/[slug]`; blog uses `/blog`. Optional: attach a Wix-hosted pages subdomain later for paid checkout redirects.
+4. After TLS is active on Vercel, verify `/`, `/portfolio`, `/membership`, `/services`, `/blog`, Shop → Gumroad, Circle → BMAC.
 5. Leave classic Wix publish as unpublished or parked — Headless APIs continue to use site ID `ad2ce561-4efa-4255-a998-9074ffc0de7b`.
 
 ## Status
 
-Operator DNS change required at registrar/Wix Domains. Repo cannot complete apex cutover without DNS credentials.
+**www already resolves to Vercel (observed 2026-08-09).** Promote the latest production deployment to the www alias after each ship. Optional: connect a Wix pages subdomain for Headless paid-checkout redirects (`createRedirectSession`) once OAuth visitor tokens work.
 
-**Prep done (2026-08-08):** Production env includes `NEXT_PUBLIC_SITE_URL=https://www.midnight-magnolia.com`, Wix client ID, BMAC URL, and local resume PDF paths. After DNS points www/apex at Vercel, re-check OAuth URIs in `docs/WIX_OAUTH_REDIRECTS.md`.
+**Prep done (2026-08-08):** Production env includes `NEXT_PUBLIC_SITE_URL=https://www.midnight-magnolia.com`, Wix client ID, BMAC URL, and local resume PDF paths. Re-check OAuth URIs in `docs/WIX_OAUTH_REDIRECTS.md` after any domain change.

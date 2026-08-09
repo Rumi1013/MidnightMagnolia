@@ -385,10 +385,10 @@ function RevenueLog({ months }) {
       </div>
       <div style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
         {[
-          { label: 'Stan Store',  value: latest.stanRevenue },
+          { label: 'Gumroad',     value: latest.gumroadRevenue },
           { label: 'BMAC',        value: latest.bmacRevenue },
           { label: 'Patreon',     value: latest.patreonRevenue },
-          { label: 'Gumroad',     value: latest.gumroadRevenue },
+          { label: 'Stan (legacy)', value: latest.stanRevenue },
           { label: 'KDP',         value: latest.kdpRoyalties },
           { label: 'Other',       value: latest.otherRevenue },
         ].map(s => (
@@ -747,7 +747,7 @@ export default function Dashboard() {
               {divider}
               <TaskList tasks={byCategory('product')} title="Product Builds"       onToggle={toggleTask} saving={saving} />
               {divider}
-              <TaskList tasks={byCategory('stan')}    title="Stan Store Setup"     onToggle={toggleTask} saving={saving} />
+              <TaskList tasks={byCategory('stan')}    title="Commerce Setup (Gumroad / BMAC; Stan deferred)" onToggle={toggleTask} saving={saving} />
               {divider}
               <TaskList tasks={byCategory('site')}    title="Site Tasks (Next.js)" onToggle={toggleTask} saving={saving} />
 

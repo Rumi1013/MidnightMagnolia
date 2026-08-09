@@ -16,7 +16,8 @@ export default function Library() {
           <h1>Read, study, return.</h1>
           <div className="divider" />
           <p className="hero__subtitle" style={{ maxWidth: '60ch' }}>
-            A calm shelf between the Sanctuary and the Grimoire. Long-form lives on the public Wix blog and Dusk Letters;
+            A calm shelf between the Sanctuary and the Grimoire. Long-form lives on the{' '}
+            <Link href="/blog">public blog</Link> (Wix Headless) and Dusk Letters;
             digital products and memberships live on Buy Me a Coffee. Nothing here is paywalled by accident—only pointed clearly.
           </p>
         </div>

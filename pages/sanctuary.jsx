@@ -204,8 +204,9 @@ export default function Sanctuary({ previewServices = [] }) {
           <div className="divider" />
           <div style={{ maxWidth: '70ch' }}>
             <p style={{ marginBottom: 'var(--space-md)' }}>
-              I am Latisha Vincent-Waters, a Senior Program Manager, systems strategist, and Lowcountry
-              South Carolina builder with 15+ years of program, funding, and operations leadership.
+              I am Latisha Vincent-Waters — knowledge-systems builder and Lowcountry South Carolina
+              steward with 15+ years across information governance, digital stewardship, records
+              management, and AI enablement in nonprofit, education, and public service.
             </p>
             <p style={{ marginBottom: 'var(--space-md)' }} className="muted">
               Midnight Magnolia grows from a healing-centered framework and a living family archive:
@@ -257,7 +258,7 @@ export default function Sanctuary({ previewServices = [] }) {
             </label>
             <div style={{ display: 'flex', gap: 'var(--space-md)', flexWrap: 'wrap' }}>
               <a href={mailtoHref} className="btn btn--primary">Send Message</a>
-              <a href={URLS.booking} className="btn btn--outline" target="_blank" rel="noopener noreferrer">Book a Session</a>
+              <Link href="/services" className="btn btn--outline">Book a Session</Link>
             </div>
           </div>
         </section>
