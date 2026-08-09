@@ -25,7 +25,7 @@
     "@wix/data": "^1.0.450",
     "@wix/events": "^1.0.756",
     "@wix/redirects": "^1.0.125",
-    "@wix/sdk": "^1.21.7",
+    "@wix/sdk": "^1.21.14",
     "@wix/stores": "^1.0.759",
     "airtable": "^0.12.2",
     "next": "^15.5.23",
