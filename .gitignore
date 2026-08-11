@@ -67,3 +67,7 @@ nextjs-project-bole-mirror/
 .cursor/settings.json
 files/
 MidnightMagnolia_Evaluation.code-workspace
+
+# Local upload / IDE junk
+.tmp.driveupload/
+*.code-workspace
