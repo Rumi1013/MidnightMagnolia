@@ -7,7 +7,7 @@ Walk **Master Plan v3** automation list (P-01…P-03, Z-01…Z-03, M-01…M-04) 
 | P-01 | _fill_ | live / stub / replaced-by-Next | |
 | P-02 | | | |
 | P-03 | | | |
-| Z-01 | Stan → Airtable | | |
+| Z-01 | Gumroad → Airtable | | |
 | Z-02 | | | |
 | Z-03 | | | |
 | M-01 | | | |

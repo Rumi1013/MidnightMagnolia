@@ -6,7 +6,6 @@
 - **Wix Headless** = CMS / catalog / bookings / blog
 - **Gumroad** = digital products (Nav Shop)
 - **BMAC** = Magnolia Circle membership + tips
-- **Stan Store** = deferred (cost)
 - **Hermes / DigitalOcean** = **unpaused for daily use** — Chunk 1 done; next = Chunk 2 server harden ([`hermes/SETUP_PLAN.md`](../hermes/SETUP_PLAN.md), [`hermes/DAILY_USE.md`](../hermes/DAILY_USE.md))
 
 Also synced: Docs `MM_Integration_v4 copy.html` (+ `MM_Integration_v4.html`) infrastructure note.

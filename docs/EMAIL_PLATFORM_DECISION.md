@@ -6,9 +6,9 @@ Master Plan marks **email platform choice** before scaling lead magnet, Dusk Let
 
 | Platform | Pros | Cons |
 |-----------|------|------|
-| **Stan native** | Single stack with storefront | Feature depth vs ESP |
 | **ConvertKit** | Creator workflows, tagging | Extra cost |
 | **Mailchimp** | Familiar, free tier limits | Heavier UI |
+| **Substack** | Already used for Dusk Letters | Weaker commerce tagging |
 
 ## Decision record
 
