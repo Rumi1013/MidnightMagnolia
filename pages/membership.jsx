@@ -32,7 +32,7 @@ export default function MembershipPage() {
   return (
     <Layout
       title="Membership"
-      description="Buy Me a Coffee for Magnolia Circle membership and tips. Digital products live on Gumroad. Stan is deferred for cost. Patreon remains optional when the account is active."
+      description="Buy Me a Coffee for Magnolia Circle membership and tips. Digital products live on Gumroad. Patreon remains optional when the account is active."
     >
       <div className="container">
         <div className="page-hero">
@@ -42,7 +42,7 @@ export default function MembershipPage() {
           <p className="hero__subtitle">
             Magnolia Circle and tips live on Buy Me a Coffee.
             Journals, kits, and career docs live on Gumroad.
-            Physical merch and bookings stay on Wix Headless. Stan Store is deferred (storefront unavailable).
+            Physical merch and bookings stay on Wix Headless.
           </p>
         </div>
 

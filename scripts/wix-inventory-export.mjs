@@ -218,7 +218,7 @@ console.log(`✓ data/wix-inventory-snapshot.json`);
 // ── Write Products CSV (matches lib/airtable.js Products schema) ─
 const productHeaders = [
   'Product Name', 'Product Code', 'Category', 'Price', 'Build Stage',
-  'Platform', 'Content Done', 'Design Done', 'Live', 'Stan Store URL',
+  'Platform', 'Content Done', 'Design Done', 'Live', 'Gumroad URL',
   'Priority', 'Upsells To', 'Est Monthly Revenue', 'Units Sold MTD',
   'Target Audience', 'Notes / Next Action',
 ];
@@ -249,7 +249,7 @@ const productRows = products_normalized.map(p => ({
   'Content Done':          p.description ? 'true' : 'false',
   'Design Done':           p.heroImageUrl ? 'true' : 'false',
   'Live':                  p.visible ? 'true' : 'false',
-  'Stan Store URL':        '',
+  'Gumroad URL':           '',
   'Priority':              inferPriority(p),
   'Upsells To':            '',
   'Est Monthly Revenue':   '',

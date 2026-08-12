@@ -6,7 +6,7 @@
 -- ── Tasks table ───────────────────────────────────────────────
 create table if not exists dashboard_tasks (
   id          text        primary key,          -- e.g. 'p1', 'nav-shop'
-  category    text        not null,             -- 'product' | 'stan' | 'site'
+  category    text        not null,             -- 'product' | 'commerce' | 'site'
   label       text        not null,
   priority    text        not null default 'medium', -- 'critical' | 'high' | 'medium'
   done        boolean     not null default false,
@@ -64,21 +64,21 @@ create policy "auth users full access" on affiliate_partners
 -- ── Seed: Tasks ───────────────────────────────────────────────
 insert into dashboard_tasks (id, category, label, priority, done, price, sort_order) values
 -- Products
-('p1', 'product', 'The Gentle Beginning (FREE) — Design in Canva + upload to Stan Store', 'critical', false, 'Free',    1),
+('p1', 'product', 'The Gentle Beginning (FREE) — Design in Canva + upload to Gumroad', 'critical', false, 'Free',    1),
 ('p4', 'product', 'Magnolia Circle ($9/mo) — Set up membership tier + welcome email',     'critical', false, '$9/mo',   2),
 ('p2', 'product', 'Shadow Work Starter Kit ($9) — Build 30 prompts + design + publish',   'critical', false, '$9',      3),
 ('p3', 'product', 'Ancestral Healing Journal ($19) — Build + design + publish',            'high',     false, '$19',     4),
 ('p5', 'product', 'Creative Foundations Workbook ($29) — Build 7 modules + publish',       'high',     false, '$29',     5),
 ('p6', 'product', 'Deep Roots Shadow Work System ($49) — Bundle + Integration Guide',     'medium',   false, '$49',     6),
--- Stan Store
-('s1', 'stan', 'Configure Stan Store profile (photo, bio, brand colors)',   'critical', false, null, 1),
-('s2', 'stan', 'Set up 3-email welcome sequence for freebie (Day 0, 3, 7)', 'high',     false, null, 2),
-('s3', 'stan', 'Set up Magnolia Circle onboarding email',                   'high',     false, null, 3),
-('s4', 'stan', 'Add upsell offers on product pages',                        'medium',   false, null, 4),
-('s5', 'stan', 'Publish 1:1 Creative Strategy Session booking ($97–$147)',  'medium',   false, null, 5),
+-- Commerce (Gumroad + BMAC)
+('s1', 'commerce', 'Configure Gumroad profile (photo, bio, brand colors)',     'critical', false, null, 1),
+('s2', 'commerce', 'Set up 3-email welcome sequence for freebie (Day 0, 3, 7)', 'high',     false, null, 2),
+('s3', 'commerce', 'Set up Magnolia Circle onboarding email on BMAC',          'high',     false, null, 3),
+('s4', 'commerce', 'Add upsell offers on Gumroad product pages',               'medium',   false, null, 4),
+('s5', 'commerce', 'Publish 1:1 Creative Strategy Session booking ($97–$147)', 'medium',   false, null, 5),
 -- Site
 ('site-footer-wix',   'site', 'Remove Wix-branded footer social links',             'critical', false, null,  1),
-('site-nav-shop',     'site', 'Fix Shop nav → Stan Store URL',                       'critical', false, null,  2),
+('site-nav-shop',     'site', 'Confirm Shop nav → Gumroad URL',                      'critical', false, null,  2),
 ('site-nav-about',    'site', 'Fix About nav link (build page or redirect)',         'critical', false, null,  3),
 ('site-nav-contact',  'site', 'Fix Contact nav link',                                'critical', false, null,  4),
 ('site-nav-grimoire', 'site', 'Fix Grimoire submenu links (all point to homepage)',  'critical', false, null,  5),
@@ -91,6 +91,15 @@ insert into dashboard_tasks (id, category, label, priority, done, price, sort_or
 ('site-legal',        'site', 'Audit legal pages for placeholder content',           'high',     false, null, 12),
 ('site-mobile',       'site', 'Full mobile audit — every page on iPhone',            'medium',   false, null, 13)
 on conflict (id) do nothing;
+
+-- Rehome existing commerce-setup rows (ids s1–s5 were seeded under an old category)
+update dashboard_tasks set category = 'commerce', label = 'Configure Gumroad profile (photo, bio, brand colors)' where id = 's1';
+update dashboard_tasks set category = 'commerce', label = 'Set up 3-email welcome sequence for freebie (Day 0, 3, 7)' where id = 's2';
+update dashboard_tasks set category = 'commerce', label = 'Set up Magnolia Circle onboarding email on BMAC' where id = 's3';
+update dashboard_tasks set category = 'commerce', label = 'Add upsell offers on Gumroad product pages' where id = 's4';
+update dashboard_tasks set category = 'commerce', label = 'Publish 1:1 Creative Strategy Session booking ($97–$147)' where id = 's5';
+update dashboard_tasks set label = 'The Gentle Beginning (FREE) — Design in Canva + upload to Gumroad' where id = 'p1';
+update dashboard_tasks set label = 'Confirm Shop nav → Gumroad URL' where id = 'site-nav-shop';
 
 -- ── Seed: Affiliate Partners ──────────────────────────────────
 insert into affiliate_partners (name, tier, score, action, contact, sort_order) values
