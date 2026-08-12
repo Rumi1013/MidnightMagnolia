@@ -31,10 +31,15 @@ Writing base IDs are listed in `.env.local.example` for manuscripts, posts, inco
 
 ## Career Command
 
-Optional panel on `/dashboard`:
+Private surfaces: `/dashboard` Career panel + `/career-command`. Both unlock with `MM_DASHBOARD_TOKEN` (cookie / `x-mm-admin-token`).
+
+Jobs + resume vault read the **Writing / Creative** base:
 
 ```bash
-AIRTABLE_CAREER_BASE_ID=app…
+AIRTABLE_API_KEY=pat…
+AIRTABLE_WRITING_BASE_ID=appiZEJmrbIH4lVvE
+# aliases also work: AIRTABLE_RESUMESID, AIRTABLE_CREATIVE_OPPORTUNITIES
+# or explicit AIRTABLE_TBL_RESUMES / AIRTABLE_TBL_OPPORTUNITIES
 ```
 
-Use the same **portfolio direction** as `/portfolio` (archival primary, data secondary) when you design that base.
+`AIRTABLE_CAREER_BASE_ID` is **optional and MLIS-only** (`AIRTABLE_TBL_MLIS`). Do not set it for the job/resume path. Stale `AIRTABLE_TBL_JOB_*` / `AIRTABLE_TBL_RESUME_VERSIONS` names are unused by `lib/airtable.js`.

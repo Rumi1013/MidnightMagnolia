@@ -474,7 +474,7 @@ function CareerPanel({ jobs, resumes, mlis }) {
       {!mlis?.length && !activeJobs.length && !resumes?.length && (
         <NotConnected
           name="Career Command"
-          hint="Career panel reads the Writing / Creative Airtable base (AIRTABLE_WRITING_BASE_ID) via /api/airtable/career — opportunities + resumes tables. Confirm AIRTABLE_TBL_OPPORTUNITIES / AIRTABLE_TBL_RESUMES (or defaults) and unlock the dashboard with MM_DASHBOARD_TOKEN. AIRTABLE_CAREER_BASE_ID is unused by this app."
+          hint="Career panel reads the Writing / Creative Airtable base (AIRTABLE_WRITING_BASE_ID) via /api/airtable/career — opportunities + resumes. Unlock with MM_DASHBOARD_TOKEN. Optional AIRTABLE_CAREER_BASE_ID is MLIS-only; jobs/resumes do not use it."
         />
       )}
     </div>
