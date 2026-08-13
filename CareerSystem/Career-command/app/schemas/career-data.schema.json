@@ -1,0 +1,89 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "career-data.schema.json",
+  "title": "Career Command Data",
+  "type": "object",
+  "required": ["schemaVersion","profile","roleLanes","resumes","achievements","markets","opportunities","interviews","weeklySprints","templates"],
+  "properties": {
+    "schemaVersion": {"type":"integer","enum":[1,2]},
+    "updatedAt": {"type":"string"},
+    "profile": {"type":"object","required":["salaryTargetMin","salaryTargetMax","fixedMonthlyObligations","weeklyApplicationTarget","activeInterviewGoal"]},
+    "roleLanes": {"type":"array","items":{"type":"object","required":["id","name","titles"]}},
+    "resumes": {"type":"array","items":{"type":"object","required":["id","name","version","status","filePath"]}},
+    "achievements": {
+      "type":"array",
+      "items":{
+        "type":"object",
+        "required":["id","title","summary","evidencePath"],
+        "properties":{
+          "id":{"type":"string"},
+          "title":{"type":"string"},
+          "summary":{"type":"string"},
+          "metrics":{"type":"string"},
+          "evidencePath":{"type":"string"},
+          "approved":{"type":"boolean"},
+          "categories":{"type":"array","items":{"type":"string"}},
+          "evidenceType":{"type":"string","enum":["third-party","authored-work-sample","self-reported","operational-artifact"]},
+          "verificationStatus":{"type":"string","enum":["verified","partial","needs-verification"]},
+          "confidentiality":{"type":"string","enum":["public","excerpt","interview-only"]},
+          "sourcePath":{"type":"string"},
+          "sourceUrl":{"type":"string"},
+          "sourceDate":{"type":"string"},
+          "authorshipStatus":{"type":"string","enum":["confirmed","pending","shared"]},
+          "supportedClaim":{"type":"string"},
+          "supportedMetric":{"type":"string"},
+          "corroborationNeeded":{"type":"string"},
+          "gapTypes":{"type":"array","items":{"type":"string","enum":["attendance-reports","award-accounting","usage-adoption","evaluation-testimonial","grades-rubrics","dated-completion"]}},
+          "targetRoleLanes":{"type":"array","items":{"type":"string"}},
+          "portfolioSuitable":{"type":"boolean"},
+          "interviewSuitable":{"type":"boolean"},
+          "resumeSuitable":{"type":"boolean"}
+        }
+      }
+    },
+    "markets": {"type":"array","items":{"type":"object","required":["id","name","salaryFloor","rentReference","employers"]}},
+    "opportunities": {
+      "type":"array",
+      "items":{
+        "type":"object",
+        "required":["id","company","title","location","status","nextAction"],
+        "properties":{
+          "resumeId":{"type":"string"},
+          "coverLetter":{"type":"string"},
+          "postingSaved":{"type":"boolean"},
+          "confirmationNumber":{"type":"string"},
+          "applicationNotes":{"type":"string"},
+          "postingText":{"type":"string"},
+          "requiredKeywords":{"type":"array","items":{"type":"string"}},
+          "preferredKeywords":{"type":"array","items":{"type":"string"}},
+          "evidenceIds":{"type":"array","items":{"type":"string"}}
+        }
+      }
+    },
+    "atsAnalyses": {
+      "type":"array",
+      "items":{
+        "type":"object",
+        "required":["id","resumeId","opportunityId","analyzedAt","method","findings"],
+        "properties":{
+          "id":{"type":"string"},
+          "resumeId":{"type":"string"},
+          "opportunityId":{"type":"string"},
+          "analyzedAt":{"type":"string"},
+          "method":{"type":"string"},
+          "requiredCoveragePct":{"type":["integer","null"]},
+          "preferredCoveragePct":{"type":["integer","null"]},
+          "missingRequired":{"type":"array","items":{"type":"string"}},
+          "missingPreferred":{"type":"array","items":{"type":"string"}},
+          "weaklySupported":{"type":"array","items":{"type":"string"}},
+          "formattingRisks":{"type":"array","items":{"type":"string"}},
+          "findings":{"type":"string"}
+        }
+      }
+    },
+    "interviews": {"type":"array"},
+    "weeklySprints": {"type":"array"},
+    "templates": {"type":"array"},
+    "sources": {"type":"array"}
+  }
+}

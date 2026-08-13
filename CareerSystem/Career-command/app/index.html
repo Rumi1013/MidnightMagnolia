@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="A private, local-first career transition command center.">
+  <title>Career Command</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="topbar">
+    <div>
+      <p class="eyebrow">CAREER TRANSITION SYSTEM</p>
+      <h1>Career Command</h1>
+    </div>
+    <div class="top-actions">
+      <span id="save-state" class="save-state">Saved locally</span>
+      <button id="export-header" class="button secondary" type="button">Export backup</button>
+    </div>
+  </header>
+  <nav id="tabs" class="tabs" aria-label="Career Command sections"></nav>
+  <main id="app" tabindex="-1"><p class="loading">Loading your career system…</p></main>
+  <footer>Private by design · Data stays in this browser unless you export it.</footer>
+  <script type="module" src="app.js"></script>
+</body>
+</html>
