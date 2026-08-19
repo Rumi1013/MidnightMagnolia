@@ -29,10 +29,11 @@
   --color-amber:      var(--color-antique-gold);
   --color-dusk:       #3f2f45;
   --color-sage:       #8B9E8A;
-  /** Body secondary text on indigo / dusk (AA vs #1E1B2E at ~4.6:1) */
-  --color-muted:      rgba(250, 243, 224, 0.78);
-  /** Nav / de-emphasized on dark (AA at uppercase sizes; avoid for long body) */
-  --color-muted-quiet: rgba(250, 243, 224, 0.7);
+  /** Body secondary text — plum on linen (AA vs #F3E6D3). Dark chrome overrides this. */
+  --color-muted:      rgba(45, 30, 47, 0.72);
+  --color-muted-on-dark: rgba(250, 243, 224, 0.78);
+  /** Nav / de-emphasized on linen */
+  --color-muted-quiet: rgba(45, 30, 47, 0.62);
   --color-amber-rgb:  198, 167, 94;
 
   /* Links: AA on dark (#1E1B2E) and on warm linen (#F3E6D3) */
@@ -43,7 +44,7 @@
   /* Eyebrows / small caps on dark — brighter than gold for small sizes */
   --color-eyebrow-on-dark:     #E8DCC4;
   --color-focus-ring:          #F0D78C;
-  --color-focus-ring-offset:   #1E1B2E;
+  --color-focus-ring-offset:   #F3E6D3;
 
   --font-display:     'Cormorant Garamond', Georgia, serif;
   --font-body:        'DM Sans', system-ui, sans-serif;
@@ -65,7 +66,7 @@
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 html {
   scroll-behavior: smooth;
-  color-scheme: dark;
+  color-scheme: light;
 }
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
@@ -74,8 +75,8 @@ html {
 }
 body {
   font-family: var(--font-body);
-  background: var(--color-indigo-night);
-  color: var(--color-magnolia);
+  background: var(--color-warm-linen);
+  color: var(--color-midnight-plum);
   line-height: 1.75;
   font-size: 1rem;
   -webkit-font-smoothing: antialiased;
@@ -86,7 +87,7 @@ h1, h2, h3, h4 {
   font-family: var(--font-display);
   font-weight: 400;
   line-height: 1.2;
-  color: var(--color-magnolia);
+  color: var(--color-midnight-plum);
 }
 h1 { font-size: clamp(2.8rem, 7vw, 5rem); }
 h2 { font-size: clamp(1.9rem, 4vw, 3rem); }
@@ -95,21 +96,20 @@ h4 { font-size: 1rem; letter-spacing: 0.07em; text-transform: uppercase; font-fa
 
 p { max-width: 65ch; line-height: 1.8; }
 
-/* Links on dark backgrounds (default site chrome).
-   Exclude .card / .card-link: those use a.card-link rules (0,1,1) and would lose to this (0,2,1) if matched. */
+/* Links on linen pages (default). Dark chrome overrides below. */
 a:not(.btn):not(.nav__cta):not(.card):not(.card-link) {
-  color: var(--color-link-on-dark);
+  color: var(--color-link-on-light);
   text-decoration: underline;
-  text-decoration-color: rgba(250, 243, 224, 0.35);
+  text-decoration-color: rgba(74, 36, 52, 0.35);
   text-underline-offset: 0.18em;
   transition: color var(--transition), text-decoration-color var(--transition);
 }
 a:not(.btn):not(.nav__cta):not(.card):not(.card-link):hover {
-  color: var(--color-link-on-dark-hover);
-  text-decoration-color: rgba(198, 167, 94, 0.65);
+  color: var(--color-link-on-light-hover);
+  text-decoration-color: rgba(107, 33, 48, 0.55);
 }
 a:not(.btn):not(.nav__cta):not(.card):not(.card-link):visited {
-  color: #e2d8c8;
+  color: #4a2434;
 }
 
 .section--linen a:not(.btn):not(.card):not(.card-link),
@@ -185,6 +185,34 @@ button:focus-visible,
 .section--linen .muted { color: rgba(45, 30, 47, 0.72); }
 .section--linen .divider { background: var(--color-soft-brick); }
 
+/* Dark chrome keeps dusk type on nav, footer, hero, and dusk bands. */
+.nav, .footer, .hero, .section--dusk, .section--dark, .section--cta-split, .print-strip__frame {
+  --color-muted: var(--color-muted-on-dark);
+  --color-muted-quiet: rgba(250, 243, 224, 0.7);
+  color: var(--color-magnolia);
+}
+.hero h1, .hero h2, .hero h3, .hero h4,
+.section--dusk h1, .section--dusk h2, .section--dusk h3, .section--dusk h4,
+.section--dark h1, .section--dark h2, .section--dark h3, .section--dark h4,
+.footer h3 {
+  color: var(--color-magnolia);
+}
+.hero a:not(.btn):not(.card):not(.card-link),
+.hero a:not(.btn):not(.card):not(.card-link):visited,
+.section--dusk a:not(.btn):not(.card):not(.card-link),
+.section--dusk a:not(.btn):not(.card):not(.card-link):visited,
+.section--dark a:not(.btn):not(.card):not(.card-link),
+.section--dark a:not(.btn):not(.card):not(.card-link):visited {
+  color: var(--color-link-on-dark);
+  text-decoration-color: rgba(250, 243, 224, 0.35);
+}
+.hero a:not(.btn):not(.card):not(.card-link):hover,
+.section--dusk a:not(.btn):not(.card):not(.card-link):hover,
+.section--dark a:not(.btn):not(.card):not(.card-link):hover {
+  color: var(--color-link-on-dark-hover);
+  text-decoration-color: rgba(198, 167, 94, 0.65);
+}
+
 /* ── Buttons ────────────────────────────────────────────── */
 .btn {
   display: inline-block;
@@ -202,11 +230,40 @@ button:focus-visible,
 }
 .btn--primary  { background: var(--color-amber); color: var(--color-ink); text-decoration: none; }
 .btn--primary:hover { background: #d4b456; opacity: 1; }
-/** Outline on dark: cream label + gold rim (gold alone fails AA at small caps) */
-.btn--outline  { background: transparent; color: var(--color-link-on-dark); border: 1px solid var(--color-antique-gold); text-decoration: none; }
-.btn--outline:hover { background: rgba(198, 167, 94, 0.18); color: var(--color-magnolia); border-color: #d9b85c; opacity: 1; }
-.btn--ghost    { background: transparent; color: var(--color-magnolia); border: 1px solid rgba(250,243,224,0.42); text-decoration: none; }
-.btn--ghost:hover { border-color: var(--color-magnolia); opacity: 1; }
+/** Outline on linen: plum label + brick rim */
+.btn--outline  { background: transparent; color: var(--color-link-on-light); border: 1px solid var(--color-soft-brick); text-decoration: none; }
+.btn--outline:hover { background: rgba(140, 58, 58, 0.1); color: var(--color-link-on-light-hover); border-color: var(--color-burnt-rose); opacity: 1; }
+.btn--ghost    { background: transparent; color: var(--color-midnight-plum); border: 1px solid rgba(45, 30, 47, 0.28); text-decoration: none; }
+.btn--ghost:hover { border-color: var(--color-midnight-plum); opacity: 1; }
+
+.hero .btn--outline,
+.section--dusk .btn--outline,
+.section--dark .btn--outline,
+.nav .btn--outline,
+.footer .btn--outline {
+  color: var(--color-link-on-dark);
+  border-color: var(--color-antique-gold);
+}
+.hero .btn--outline:hover,
+.section--dusk .btn--outline:hover,
+.section--dark .btn--outline:hover {
+  background: rgba(198, 167, 94, 0.18);
+  color: var(--color-magnolia);
+  border-color: #d9b85c;
+}
+.hero .btn--ghost,
+.section--dusk .btn--ghost,
+.section--dark .btn--ghost,
+.nav .btn--ghost,
+.footer .btn--ghost {
+  color: var(--color-magnolia);
+  border-color: rgba(250,243,224,0.42);
+}
+.hero .btn--ghost:hover,
+.section--dusk .btn--ghost:hover,
+.section--dark .btn--ghost:hover {
+  border-color: var(--color-magnolia);
+}
 
 .section--linen .btn--outline {
   color: var(--color-link-on-light);
@@ -220,13 +277,35 @@ button:focus-visible,
 
 /* ── Cards ──────────────────────────────────────────────── */
 .card {
-  background: var(--color-dusk);
+  background: var(--color-magnolia-cream);
+  color: var(--color-midnight-plum);
   border-radius: var(--radius-lg);
   padding: var(--space-lg);
-  border: 1px solid rgba(var(--color-amber-rgb), 0.14);
+  border: 1px solid rgba(var(--color-amber-rgb), 0.28);
   transition: border-color var(--transition), transform var(--transition);
 }
-.card:hover { border-color: rgba(var(--color-amber-rgb), 0.38); transform: translateY(-2px); }
+.card:hover { border-color: rgba(var(--color-amber-rgb), 0.55); transform: translateY(-2px); }
+.section--dusk .card,
+.section--dark .card {
+  background: var(--color-dusk);
+  color: var(--color-magnolia);
+  border: 1px solid rgba(var(--color-amber-rgb), 0.14);
+}
+
+.card__media {
+  position: relative;
+  width: calc(100% + (var(--space-lg) * 2));
+  margin: calc(var(--space-lg) * -1) calc(var(--space-lg) * -1) var(--space-md);
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  background: var(--color-warm-linen);
+}
+.card__media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
 
 /** Card-as-link: no global link underline on the whole block */
 a.card,
@@ -241,7 +320,9 @@ a.card-link:hover {
 
 /* ── Utility ────────────────────────────────────────────── */
 .divider      { width: 48px; height: 2px; background: var(--color-amber); margin: var(--space-md) 0 var(--space-lg); }
-.tag          { display: inline-block; padding: 0.2rem 0.7rem; font-size: 0.68rem; letter-spacing: 0.1em; text-transform: uppercase; background: rgba(30, 27, 46, 0.35); color: rgba(250, 243, 224, 0.95); border-radius: 2px; border: 1px solid rgba(var(--color-amber-rgb), 0.45); }
+.tag          { display: inline-block; padding: 0.2rem 0.7rem; font-size: 0.68rem; letter-spacing: 0.1em; text-transform: uppercase; background: rgba(243, 230, 211, 0.95); color: var(--color-midnight-plum); border-radius: 2px; border: 1px solid rgba(var(--color-amber-rgb), 0.45); }
+.section--dusk .tag,
+.section--dark .tag { background: rgba(30, 27, 46, 0.35); color: rgba(250, 243, 224, 0.95); }
 .muted        { color: var(--color-muted); }
 .grid-2       { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: var(--space-lg); }
 .grid-3       { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: var(--space-lg); }
@@ -308,7 +389,7 @@ a.card-link:hover {
   font-size: 0.8rem;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: var(--color-muted-quiet);
+  color: rgba(250, 243, 224, 0.7);
   text-decoration: none;
   transition: color var(--transition);
 }
@@ -376,8 +457,9 @@ a.card-link:hover {
 .hero__actions { display: flex; gap: var(--space-md); flex-wrap: wrap; }
 
 /* ── Page Hero (inner pages) ────────────────────────────── */
-.page-hero { padding: var(--space-xl) 0 var(--space-lg); border-bottom: 1px solid rgba(var(--color-amber-rgb), 0.14); margin-bottom: var(--space-xl); }
-.page-hero__eyebrow { font-size: 0.7rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--color-eyebrow-on-dark); margin-bottom: var(--space-sm); }
+.page-hero { padding: var(--space-xl) 0 var(--space-lg); border-bottom: 1px solid rgba(var(--color-amber-rgb), 0.22); margin-bottom: var(--space-xl); }
+.page-hero__eyebrow { font-size: 0.7rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--color-dusty-violet); margin-bottom: var(--space-sm); }
+.page-hero .hero__subtitle { color: var(--color-muted); }
 
 /* ── Inner-page illustration (magnolia library PNGs) ───── */
 .page-illustration {
