@@ -126,9 +126,6 @@ export default function Sanctuary({ previewServices = [] }) {
             <a href={URLS.bmac} className="btn btn--ghost" target="_blank" rel="noopener noreferrer">
               Tip on Buy Me a Coffee
             </a>
-            <a href={URLS.patreon} className="muted" style={{ fontSize: '0.82rem' }} target="_blank" rel="noopener noreferrer">
-              Patreon (if active)
-            </a>
           </div>
         </section>
 

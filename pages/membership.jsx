@@ -32,21 +32,21 @@ export default function MembershipPage() {
   return (
     <Layout
       title="Membership"
-      description="Buy Me a Coffee for Magnolia Circle membership and tips. Digital products live on Gumroad. Patreon remains optional when the account is active."
+      description="Magnolia Circle and tips on Buy Me a Coffee. Journals and kits on Gumroad."
     >
       <div className="container">
         <div className="page-hero">
           <p className="page-hero__eyebrow">Membership</p>
-          <h1>Membership on BMAC. Digital on Gumroad.</h1>
+          <h1>The circle lives on Buy Me a Coffee.</h1>
           <div className="divider" />
           <p className="hero__subtitle">
             Magnolia Circle and tips live on Buy Me a Coffee.
-            Journals, kits, and career docs live on Gumroad.
-            Physical merch and bookings stay on Wix Headless.
+            Journals and kits live on Gumroad.
+            Book a session when you want company for the work.
           </p>
         </div>
 
-        <section className="section section--dark" style={{ borderRadius: 'var(--radius-lg)', padding: 'var(--space-xl)' }}>
+        <section className="section">
           <h2>Where to go first</h2>
           <div className="divider" />
           <div className="grid-2" style={{ marginTop: 'var(--space-lg)' }}>
@@ -62,8 +62,9 @@ export default function MembershipPage() {
             </div>
           </div>
           <p className="muted" style={{ marginTop: 'var(--space-lg)' }}>
-            Optional physical catalog and session booking:{' '}
-            <Link href="/shop">Browse Wix Catalog</Link>.
+            <Link href="/shop">Open the shop</Link>
+            {' · '}
+            <Link href="/services">Book a session</Link>
           </p>
         </section>
 
@@ -88,16 +89,6 @@ export default function MembershipPage() {
               </div>
             ))}
           </div>
-        </section>
-
-        <section className="section section--dusk" style={{ borderRadius: 'var(--radius-lg)', padding: 'var(--space-xl)', marginBottom: 'var(--space-2xl)' }}>
-          <h3>Patreon (optional)</h3>
-          <p className="muted" style={{ maxWidth: '56ch', marginTop: 'var(--space-sm)' }}>
-            When the Patreon account is accessible again, you can mirror tier names there. This site treats Buy Me a Coffee as the primary membership and support surface.
-          </p>
-          <a href={URLS.patreon} className="btn btn--ghost" style={{ marginTop: 'var(--space-md)' }} target="_blank" rel="noopener noreferrer">
-            Patreon (if active)
-          </a>
         </section>
       </div>
     </Layout>
