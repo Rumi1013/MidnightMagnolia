@@ -65,7 +65,7 @@ export default function Home() {
                   <p className="muted" style={{ fontSize: '0.875rem', marginTop: '0.5rem' }}>{p.description}</p>
                   <div className="flex-between" style={{ marginTop: 'var(--space-lg)' }}>
                     <span style={{ fontFamily: 'var(--font-display)', fontSize: '1.5rem', color: 'var(--color-deep-honey)' }}>{p.price}</span>
-                    <Link href={`/shop#${p.id}`} className="btn btn--primary" style={{ padding: '0.5rem 1.2rem' }}>
+                    <Link href={`/shop/${p.id}`} className="btn btn--primary" style={{ padding: '0.5rem 1.2rem' }}>
                       View
                     </Link>
                   </div>

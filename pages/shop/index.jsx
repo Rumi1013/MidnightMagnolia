@@ -1,8 +1,10 @@
 import Image from 'next/image';
+import Link from 'next/link';
 import Layout from '../../components/Layout';
 import PageIllustration from '../../components/PageIllustration';
 import { PAGE_ILLUSTRATIONS, getProductHero } from '../../lib/brandAssets';
 import { PRODUCTS, URLS } from '../../lib/constants';
+import { getProductPath } from '../../lib/products';
 import {
   getShopProducts,
   formatProductPrice,
@@ -29,6 +31,7 @@ export async function getStaticProps() {
         imageAlt: hero?.alt || name,
         imagePosition: hero?.objectPosition || 'center',
         url: getProductPageUrl(p) || URLS.gumroad,
+        external: true,
       };
     });
 
@@ -43,8 +46,8 @@ export async function getStaticProps() {
       image: hero?.src || null,
       imageAlt: hero?.alt || p.title,
       imagePosition: hero?.objectPosition || 'center',
-      url: p.url,
-      cta: p.id === 'magnolia-circle' ? 'Open membership' : 'View listing',
+      href: getProductPath(p),
+      cta: 'View',
     };
   });
 
@@ -96,15 +99,21 @@ function ProductCard({ p }) {
             {p.price}
           </span>
         ) : null}
-        <a
-          href={p.url}
-          className="btn btn--primary"
-          style={{ padding: '0.5rem 1.2rem' }}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          {p.cta || 'View listing'}
-        </a>
+        {p.external ? (
+          <a
+            href={p.url}
+            className="btn btn--primary"
+            style={{ padding: '0.5rem 1.2rem' }}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            {p.cta || 'View listing'}
+          </a>
+        ) : (
+          <Link href={p.href || `/shop/${p.id}`} className="btn btn--primary" style={{ padding: '0.5rem 1.2rem' }}>
+            {p.cta || 'View'}
+          </Link>
+        )}
       </div>
     </article>
   );
