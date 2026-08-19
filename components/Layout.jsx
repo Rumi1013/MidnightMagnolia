@@ -44,7 +44,7 @@ export default function Layout({ children, title, description }) {
               priority
             />
             <span className="nav__wordmark">
-              Midnight <span className="nav__accent">Magnolia</span>
+              Midnight Magnolia
             </span>
           </Link>
           <div className="nav__links">
@@ -88,9 +88,7 @@ export default function Layout({ children, title, description }) {
             <div className="footer__brand">
               <h3 style={{ fontFamily: 'var(--font-display)', fontSize: '1.5rem', display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
                 <Image src={BRAND_ASSETS.logo} alt="" width={40} height={40} className="nav__logo-img" aria-hidden />
-                <span>
-                  Midnight <span style={{ color: 'var(--color-amber)' }}>Magnolia</span>
-                </span>
+                <span>Midnight Magnolia</span>
               </h3>
               <p>A Southern Gothic sanctuary for healing, creation, and quiet growth.</p>
               <div style={{ display: 'flex', gap: '1rem', marginTop: '1.25rem', flexWrap: 'wrap' }}>
