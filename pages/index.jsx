@@ -1,29 +1,8 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import Layout from '../components/Layout';
-import { BRAND_ASSETS, HOME_DOOR_ART, getProductHero } from '../lib/brandAssets';
-import { URLS, PRODUCTS } from '../lib/constants';
-
-const HOME_DOORS = [
-  {
-    title: 'Buy',
-    desc: 'Journals, kits, and digital tools. Start small. Take what you need.',
-    href: '/shop',
-    cta: 'Open the shop',
-  },
-  {
-    title: 'Book',
-    desc: 'A session for the messy middle: publishing, systems, or a short honest consult.',
-    href: '/services',
-    cta: 'See sessions',
-  },
-  {
-    title: 'Look',
-    desc: 'Original artwork and print samples. Atmosphere first. No checkout required.',
-    href: '/gallery',
-    cta: 'Open the gallery',
-  },
-];
+import { BRAND_ASSETS, getProductHero } from '../lib/brandAssets';
+import { PRODUCTS } from '../lib/constants';
 
 export default function Home() {
   const featuredProducts = PRODUCTS.filter((p) =>
@@ -34,109 +13,35 @@ export default function Home() {
     <Layout>
       <section className="hero">
         <div className="container">
-          <p className="hero__eyebrow">Midnight Magnolia · Lowcountry, SC</p>
+          <p className="hero__eyebrow">Lowcountry, SC</p>
           <h1 className="hero__title">
-            A sanctuary for <em style={{ color: 'var(--color-amber)', fontStyle: 'italic' }}>quiet builders.</em>
+            A sanctuary for <em style={{ fontStyle: 'italic' }}>quiet builders.</em>
           </h1>
           <p className="hero__subtitle">
-            Three doors. Buy a tool. Book a session. Or look at the work.
+            Journals and kits in the shop. Sessions on the calendar.
           </p>
           <div className="hero__actions">
             <Link href="/shop" className="btn btn--primary">
-              Shop
+              Open the shop
             </Link>
             <Link href="/services" className="btn btn--outline">
-              Book
-            </Link>
-            <Link href="/gallery" className="btn btn--ghost">
-              Look
+              Book a session
             </Link>
           </div>
         </div>
       </section>
 
-      <section className="section" aria-labelledby="doors-heading">
-        <div className="container">
-          <h2 id="doors-heading">Buy. Book. Look.</h2>
-          <div className="divider" />
-          <p className="muted" style={{ maxWidth: '52ch', marginBottom: 'var(--space-lg)' }}>
-            You do not have to do all three. Pick the door that matches the energy you have today.
-          </p>
-          <div className="grid-3" style={{ marginTop: 'var(--space-lg)' }}>
-            {HOME_DOORS.map((door, i) => {
-              const art = HOME_DOOR_ART[i];
-              return (
-                <article className="card" key={door.title}>
-                  {art ? (
-                    <div className="card__media">
-                      <Image
-                        src={art.src}
-                        alt={art.alt}
-                        width={640}
-                        height={420}
-                        sizes="(max-width: 768px) 100vw, 33vw"
-                        style={art.objectPosition ? { objectPosition: art.objectPosition, objectFit: 'cover' } : { objectFit: 'cover' }}
-                      />
-                    </div>
-                  ) : null}
-                  <h3>{door.title}</h3>
-                  <div className="divider" style={{ width: 32 }} />
-                  <p className="muted">{door.desc}</p>
-                  <Link href={door.href} className="btn btn--ghost" style={{ marginTop: 'var(--space-lg)', display: 'inline-block' }}>
-                    {door.cta}
-                  </Link>
-                </article>
-              );
-            })}
-          </div>
-        </div>
-      </section>
-
-      <section id="catalog" className="section section--linen">
-        <div className="container">
-          <h2>From the illustration library.</h2>
-          <div className="divider" />
-          <p className="muted" style={{ maxWidth: '52ch', marginTop: 'var(--space-md)' }}>
-            Original pieces from the <strong>Magnolia Priestess</strong> and{' '}
-            <strong>Riverwalk Lantern Path</strong> series.
-          </p>
-          <div className="art-strip">
-            {BRAND_ASSETS.gallery.map((img) => (
-              <figure key={img.src} className="art-strip__frame">
-                <Image
-                  src={img.src}
-                  alt={img.alt}
-                  width={720}
-                  height={540}
-                  sizes="(max-width: 768px) 100vw, 25vw"
-                  style={img.objectPosition ? { objectPosition: img.objectPosition } : undefined}
-                />
-                <figcaption className="art-strip__cap">
-                  {img.series}
-                  {img.medium ? <span className="art-strip__medium"> · {img.medium}</span> : null}
-                </figcaption>
-              </figure>
-            ))}
-          </div>
-          <p className="muted" style={{ marginTop: 'var(--space-lg)', fontSize: '0.875rem', maxWidth: '48ch' }}>
-            <Link href="/gallery">Look</Link>
-            {' · '}
-            <Link href="/publication-design">Print samples</Link>
-          </p>
-        </div>
-      </section>
-
-      <section className="section">
+      <section className="section" aria-labelledby="shop-heading">
         <div className="container">
           <div className="flex-between" style={{ marginBottom: 'var(--space-lg)' }}>
             <div>
-              <h2>Start where it feels light.</h2>
+              <h2 id="shop-heading">Start where it feels light.</h2>
               <div className="divider" />
               <p className="muted" style={{ maxWidth: '46ch', marginTop: 'var(--space-sm)', fontSize: '0.9rem' }}>
-                You don&apos;t need everything. One tool that meets you where you are.
+                One tool. You do not need the whole shelf.
               </p>
             </div>
-            <Link href="/shop" className="btn btn--outline">Open the shop</Link>
+            <Link href="/shop" className="btn btn--outline">All listings</Link>
           </div>
           <div className="grid-3">
             {featuredProducts.map((p) => {
@@ -171,20 +76,47 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="section section--dusk home-quote" aria-labelledby="philosophy-heading">
+      <section className="section section--linen" aria-labelledby="look-heading">
         <div className="container">
-          <h2 id="philosophy-heading" style={{ maxWidth: '20ch', margin: '0 auto' }}>
-            The work is not to do more.
-            <br />
-            <em style={{ color: 'var(--color-amber)' }}>It is to build something that holds.</em>
+          <h2 id="look-heading">Look.</h2>
+          <div className="divider" />
+          <p className="muted" style={{ maxWidth: '52ch', marginTop: 'var(--space-md)' }}>
+            Original pieces from Magnolia Priestess and Riverwalk Lantern Path.
+          </p>
+          <div className="art-strip">
+            {BRAND_ASSETS.gallery.map((img) => (
+              <figure key={img.src} className="art-strip__frame">
+                <Image
+                  src={img.src}
+                  alt={img.alt}
+                  width={720}
+                  height={540}
+                  sizes="(max-width: 768px) 100vw, 25vw"
+                  style={img.objectPosition ? { objectPosition: img.objectPosition } : undefined}
+                />
+                <figcaption className="art-strip__cap">
+                  {img.series}
+                  {img.medium ? <span className="art-strip__medium"> · {img.medium}</span> : null}
+                </figcaption>
+              </figure>
+            ))}
+          </div>
+          <p style={{ marginTop: 'var(--space-lg)' }}>
+            <Link href="/gallery" className="btn btn--outline">Open the gallery</Link>
+          </p>
+        </div>
+      </section>
+
+      <section className="section section--dusk home-quote" aria-labelledby="book-heading">
+        <div className="container">
+          <h2 id="book-heading" style={{ maxWidth: '22ch', margin: '0 auto' }}>
+            If a listing is not enough, sit down for an hour.
           </h2>
           <p className="muted" style={{ maxWidth: '44ch', margin: 'var(--space-md) auto 0' }}>
-            You don&apos;t have to hustle your way here. Start where you are.
+            Publishing, systems, or a short honest consult.
           </p>
-          <div style={{ marginTop: 'var(--space-lg)', display: 'flex', gap: 'var(--space-md)', justifyContent: 'center', flexWrap: 'wrap' }}>
-            <Link href="/shop" className="btn btn--primary">Shop</Link>
-            <Link href="/services" className="btn btn--outline">Book</Link>
-            <Link href="/gallery" className="btn btn--ghost">Look</Link>
+          <div style={{ marginTop: 'var(--space-lg)', display: 'flex', justifyContent: 'center' }}>
+            <Link href="/services" className="btn btn--primary">Book a session</Link>
           </div>
         </div>
       </section>
