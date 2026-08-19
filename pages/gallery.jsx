@@ -58,6 +58,7 @@ export default function GalleryPage() {
           <div className="divider" />
           <p className="muted" style={{ maxWidth: '56ch', marginBottom: 'var(--space-lg)' }}>
             A wider cut from the bloom library. Prints and product use stay on the shop when listed.
+            Catalogs and commemorative print live on a separate page, so this room stays artwork.
           </p>
           <div
             style={{
@@ -94,7 +95,10 @@ export default function GalleryPage() {
             ))}
           </div>
           <div style={{ marginTop: 'var(--space-xl)', display: 'flex', gap: 'var(--space-md)', flexWrap: 'wrap' }}>
-            <Link href="/portfolio" className="btn btn--outline">
+            <Link href="/publication-design" className="btn btn--outline">
+              Publication design samples
+            </Link>
+            <Link href="/portfolio" className="btn btn--ghost">
               View portfolio
             </Link>
             <Link href="/services" className="btn btn--ghost">

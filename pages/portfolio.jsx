@@ -103,8 +103,8 @@ export default function Portfolio({ links, resumeA, resumeB }) {
           <h2>Selected projects.</h2>
           <div className="divider" />
           <p className="muted" style={{ marginBottom: 'var(--space-lg)', maxWidth: '62ch' }}>
-            Proof of work from the Career Command archive / knowledge-management resumes — digitization, statewide IA,
-            AI enablement, and workflow systems.
+            Proof of work from the Career Command archive / knowledge-management resumes — publication
+            design, digitization, statewide IA, AI enablement, and workflow systems.
           </p>
           <div className="grid-2" style={{ gap: 'var(--space-lg)' }}>
             {SELECTED_PROJECTS.map((project) => (

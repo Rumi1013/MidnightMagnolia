@@ -444,6 +444,80 @@ a.card-link:hover {
   color: rgba(45, 30, 47, 0.62);
 }
 
+/* ── Print-design sample strip (covers + spreads) ───────── */
+.print-strip {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-md);
+  margin-top: var(--space-lg);
+  align-items: start;
+}
+@media (min-width: 900px) {
+  .print-strip { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+}
+.print-strip__frame {
+  margin: 0;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  border: 1px solid rgba(var(--color-amber-rgb), 0.22);
+  background: var(--color-indigo-night);
+}
+.print-strip__frame--spread {
+  grid-column: 1 / -1;
+}
+@media (min-width: 900px) {
+  .print-strip__frame--spread { grid-column: span 2; }
+}
+.print-strip__frame img {
+  width: 100%;
+  display: block;
+  object-fit: cover;
+  object-position: top center;
+}
+.print-strip__frame--cover img {
+  aspect-ratio: 3 / 4;
+}
+.print-strip__frame--spread img {
+  aspect-ratio: 16 / 9;
+}
+.print-strip__pending {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  gap: 0.35rem;
+  min-height: 16rem;
+  padding: 1rem 0.9rem;
+  background:
+    linear-gradient(180deg, rgba(250, 243, 224, 0.08) 0%, rgba(26, 28, 46, 0.92) 100%);
+}
+.print-strip__frame--cover .print-strip__pending { aspect-ratio: 3 / 4; min-height: 0; }
+.print-strip__frame--spread .print-strip__pending { aspect-ratio: 16 / 9; min-height: 0; }
+.print-strip__pending-title {
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  color: var(--color-magnolia);
+}
+.print-strip__pending-note {
+  font-size: 0.75rem;
+  color: var(--color-muted);
+}
+.print-strip__cap {
+  font-size: 0.68rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(45, 30, 47, 0.75);
+  padding: 0.55rem 0.7rem;
+  background: rgba(243, 230, 211, 0.95);
+  border-top: 1px solid rgba(var(--color-amber-rgb), 0.2);
+}
+.print-strip__title { letter-spacing: 0.1em; }
+.print-strip__medium {
+  text-transform: none;
+  letter-spacing: 0.03em;
+  font-style: italic;
+  color: rgba(45, 30, 47, 0.62);
+}
+
 /* ── Home: spotlight (art + CTAs) ─────────────────────────── */
 .section--spotlight {
   overflow: hidden;
