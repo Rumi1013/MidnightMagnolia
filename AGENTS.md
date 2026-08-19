@@ -7,6 +7,7 @@
 - For ASAP public ship, prioritize the marketing site (including a real `/portfolio` with real projects + resume links), **Gumroad for digital products** + **BMAC for membership/tips**, and a minimal operable content→Gumroad product pipeline; treat Career Command as a private ops panel (`/dashboard` + `/career-command`) first.
 - Digital checkout leads with **Gumroad** (`NEXT_PUBLIC_GUMROAD_URL` / `URLS.gumroad`); nav “The Shop” is that Gumroad storefront. Membership/tips lead with **Buy Me a Coffee** (`NEXT_PUBLIC_BMAC_URL` / `URLS.bmac`). Keep Wix Headless for catalog/bookings/optional physical SKUs rather than adding Stripe/Shopify for v1.
 - Prefer finishing env, Gumroad + BMAC QA, portfolio content, and one digital content→Gumroad listing over new storefronts. `docs/DNS_CUTOVER.md` records **www already on Vercel** (observed 2026-08-09) — remaining work is promote + smoke, not greenfield DNS. Dropship (Printify Phase 1), Hermes Chunk 2, and full Zapier/Make parity stay **post-ASAP** — do not forget, do not block digital ship.
+- Git: commit **by topic**, not by session. Keep each commit to **25 files or fewer**. Nav, copy, CSS, shop, and portfolio stay separate commits even when they ship on the same branch. Split mixed files (`lib/constants.js`) by concern instead of bundling unrelated hunks.
 
 ## Learned Workspace Facts
 
