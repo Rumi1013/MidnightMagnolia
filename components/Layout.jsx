@@ -2,7 +2,7 @@ import Head from 'next/head';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { NAV, URLS } from '../lib/constants';
+import { NAV, FOOTER_NAV, URLS } from '../lib/constants';
 import { BRAND_ASSETS } from '../lib/brandAssets';
 
 export default function Layout({ children, title, description }) {
@@ -74,9 +74,6 @@ export default function Layout({ children, title, description }) {
                 </Link>
               );
             })}
-            <Link href={URLS.booking} className="nav__cta">
-              Book a Session
-            </Link>
           </div>
         </div>
       </nav>
@@ -105,23 +102,18 @@ export default function Layout({ children, title, description }) {
             </div>
             <div className="footer__col">
               <h4>Navigate</h4>
-              {NAV.map(item => (
-                item.external ? (
-                  <a key={item.label} href={item.href} target="_blank" rel="noopener noreferrer">{item.label}</a>
-                ) : (
-                  <Link key={item.href} href={item.href}>{item.label}</Link>
-                )
+              {FOOTER_NAV.map(item => (
+                <Link key={item.href} href={item.href}>{item.label}</Link>
               ))}
             </div>
             <div className="footer__col">
               <h4>Connect</h4>
+              <Link href="/shop">Shop</Link>
+              <Link href="/services">Book a session</Link>
+              <Link href="/gallery">Look</Link>
               <a href={URLS.gumroad} target="_blank" rel="noopener noreferrer">Gumroad</a>
               <a href={URLS.bmac} target="_blank" rel="noopener noreferrer">Buy Me a Coffee</a>
-              <Link href="/membership">Membership</Link>
-              <Link href="/services">Book a Session</Link>
-              <Link href="/blog">Blog</Link>
               <a href={URLS.email}>Email Latisha</a>
-              <a href={URLS.patreon} target="_blank" rel="noopener noreferrer" className="muted" style={{ fontSize: '0.9rem', opacity: 0.85 }}>Patreon (if active)</a>
             </div>
           </div>
           <div className="footer__bottom">
