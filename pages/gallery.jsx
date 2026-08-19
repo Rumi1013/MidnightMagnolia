@@ -54,11 +54,10 @@ export default function GalleryPage() {
         </section>
 
         <section className="section" style={{ paddingBottom: 'var(--space-2xl)' }}>
-          <h2>Catalog.</h2>
+          <h2>More from the library.</h2>
           <div className="divider" />
           <p className="muted" style={{ maxWidth: '56ch', marginBottom: 'var(--space-lg)' }}>
-            A wider cut from the bloom library. Prints and product use stay on the shop when listed.
-            Catalogs and commemorative print live on a separate page, so this room stays artwork.
+            More Magnolia Priestess pieces. Same hand. Sit with them as long as you want.
           </p>
           <div
             style={{
