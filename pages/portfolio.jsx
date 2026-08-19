@@ -70,7 +70,7 @@ export default function Portfolio({ links, resumeA, resumeB }) {
           <h2>Featured work.</h2>
           <div className="divider" />
           <p className="muted" style={{ marginBottom: 'var(--space-lg)', maxWidth: '62ch' }}>
-            Same four blocks as LinkedIn Featured: lineage archive, statewide documentation IA, COVID-era
+            Print samples, statewide documentation IA, COVID-era
             digitization and taxonomy, and Midnight Magnolia as a live knowledge system.
           </p>
           <div className="grid-2" style={{ gap: 'var(--space-lg)' }}>
@@ -294,10 +294,9 @@ export default function Portfolio({ links, resumeA, resumeB }) {
 }
 
 export async function getStaticProps() {
-  const site = (process.env.NEXT_PUBLIC_SITE_URL || 'https://www.midnight-magnolia.com').replace(/\/$/, '');
   const resumeA = process.env.RESUME_TRACK_A_URL?.trim() || DEFAULT_RESUME_A;
   const resumeB = process.env.RESUME_TRACK_B_URL?.trim() || DEFAULT_RESUME_B;
-  const genealogy = process.env.NEXT_PUBLIC_PORTFOLIO_FEATURED_GENEALOGY_URL?.trim() || site;
+  const genealogy = process.env.NEXT_PUBLIC_PORTFOLIO_FEATURED_GENEALOGY_URL?.trim() || '';
   const statewide =
     process.env.NEXT_PUBLIC_PORTFOLIO_FEATURED_STATEWIDE_URL?.trim() || '/portfolio/statewide-documentation';
   const digitization =
@@ -308,10 +307,11 @@ export async function getStaticProps() {
       resumeA,
       resumeB,
       links: {
+        print: '/publication-design',
         genealogy,
         statewide,
         digitization,
-        mm: site,
+        mm: '/gallery',
       },
     },
     revalidate: 300,
