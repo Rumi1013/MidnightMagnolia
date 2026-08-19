@@ -435,21 +435,22 @@ a.card-link:hover {
 }
 .footer__brand > div a:hover { text-decoration: underline; color: var(--color-magnolia); }
 
-/* ── Hero ───────────────────────────────────────────────── */
+/* ── Hero ─────────────────────────────────────────────────
+   Priestess art is dusk atmosphere, not a 92vh mood poster.
+   Heavy scrim keeps Shop / Book readable. */
 .hero {
-  min-height: 92vh;
+  min-height: 0;
   display: flex;
   align-items: center;
-  padding: var(--space-xl) 0;
+  padding: var(--space-2xl) 0 var(--space-xl);
   position: relative;
   overflow: hidden;
   background-color: var(--color-indigo-night);
   background-image:
-    linear-gradient(105deg, rgba(30, 27, 46, 0.94) 0%, rgba(45, 30, 47, 0.55) 45%, rgba(30, 27, 46, 0.2) 100%),
+    linear-gradient(100deg, rgba(30, 27, 46, 0.94) 0%, rgba(30, 27, 46, 0.82) 48%, rgba(30, 27, 46, 0.7) 100%),
     url('/brand/hero-magnolia-priestess.jpg');
   background-size: cover;
-  /* Bloom focal slightly left of center; keeps type readable and eases top-right corner crop. */
-  background-position: 40% 48%;
+  background-position: 42% 46%;
   background-repeat: no-repeat;
 }
 .hero::before {
@@ -828,6 +829,6 @@ a.card-link:hover {
   .nav__links { display: none; }
   .footer__grid { grid-template-columns: 1fr; }
   .grid-3 { grid-template-columns: 1fr; }
-  .hero { min-height: 80vh; }
+  .hero { min-height: 0; padding: var(--space-xl) 0 var(--space-lg); }
   .art-strip { grid-template-columns: 1fr; }
 }
