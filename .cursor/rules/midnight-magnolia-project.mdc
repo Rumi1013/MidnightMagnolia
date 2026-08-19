@@ -21,6 +21,7 @@ alwaysApply: true
 - `data/SERVICE-TAGLINES.md` — canonical brand voice + service copy
 
 ## Conventions
+- **25 by topic**: commit by topic, not by session. Keep each commit to **25 files or fewer**. Nav, copy, CSS, shop, and portfolio are separate commits. Split mixed files by concern.
 - **ISR everywhere**: every public page uses `getStaticProps` with a `revalidate` window (60–600s). Never use `getServerSideProps` for catalog/booking pages.
 - **Graceful degradation**: if an env var is missing, return `null`/`[]` and let the UI render a "Not Connected" state. Never throw on missing config.
 - **Wix images** must pass through `getProductImageUrl()` / `getServiceImageUrl()` — Bookings returns `wix:image://` URIs that need `media.getImageUrl()`.
