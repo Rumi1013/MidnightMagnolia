@@ -109,32 +109,34 @@ export default function Layout({ children, title, description }) {
                 />
               );
             })}
-            <div className="nav__more" ref={moreRef}>
-              <button
-                type="button"
-                className="nav__more-trigger"
-                aria-haspopup="true"
-                aria-expanded={moreOpen}
-                onClick={() => setMoreOpen(o => !o)}
-              >
-                More
-              </button>
-              {moreOpen ? (
-                <div className="nav__more-menu" role="menu">
-                  {MORE_NAV.map(item => {
-                    const active = !item.external && router.pathname === item.href;
-                    return (
-                      <NavLink
-                        key={item.label}
-                        item={item}
-                        className={active ? 'active' : ''}
-                        onClick={() => setMoreOpen(false)}
-                      />
-                    );
-                  })}
-                </div>
-              ) : null}
-            </div>
+            {MORE_NAV.length > 0 ? (
+              <div className="nav__more" ref={moreRef}>
+                <button
+                  type="button"
+                  className="nav__more-trigger"
+                  aria-haspopup="true"
+                  aria-expanded={moreOpen}
+                  onClick={() => setMoreOpen(o => !o)}
+                >
+                  More
+                </button>
+                {moreOpen ? (
+                  <div className="nav__more-menu" role="menu">
+                    {MORE_NAV.map(item => {
+                      const active = !item.external && router.pathname === item.href;
+                      return (
+                        <NavLink
+                          key={item.label}
+                          item={item}
+                          className={active ? 'active' : ''}
+                          onClick={() => setMoreOpen(false)}
+                        />
+                      );
+                    })}
+                  </div>
+                ) : null}
+              </div>
+            ) : null}
             <Link href={URLS.booking} className="nav__cta">
               Book a Session
             </Link>
@@ -214,7 +216,6 @@ export default function Layout({ children, title, description }) {
               <Link href="/services">Book a Session</Link>
               <Link href="/blog">Blog</Link>
               <a href={URLS.email}>Email Latisha</a>
-              <a href={URLS.patreon} target="_blank" rel="noopener noreferrer" className="muted" style={{ fontSize: '0.9rem', opacity: 0.85 }}>Patreon (if active)</a>
             </div>
           </div>
           <div className="footer__bottom">
