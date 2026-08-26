@@ -2,16 +2,67 @@ import Head from 'next/head';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
+import { useEffect, useRef, useState } from 'react';
 import { NAV, URLS } from '../lib/constants';
 import { BRAND_ASSETS } from '../lib/brandAssets';
 
+const PRIMARY_NAV = NAV.filter(item => item.primary);
+const MORE_NAV = NAV.filter(item => !item.primary);
+
+function NavLink({ item, className, onClick }) {
+  if (item.external) {
+    return (
+      <a href={item.href} className={className} target="_blank" rel="noopener noreferrer" onClick={onClick}>
+        {item.label}
+      </a>
+    );
+  }
+  return (
+    <Link href={item.href} className={className} onClick={onClick}>
+      {item.label}
+    </Link>
+  );
+}
+
 export default function Layout({ children, title, description }) {
   const router = useRouter();
+  const [moreOpen, setMoreOpen] = useState(false);
+  const [mobileOpen, setMobileOpen] = useState(false);
+  const moreRef = useRef(null);
   const pageTitle = title ? `${title} · Midnight Magnolia` : 'Midnight Magnolia · A Southern Gothic Digital Sanctuary';
   const pageDesc  = description || 'A Southern Gothic sanctuary for healing, creation, and quiet growth. Digital offerings, gentle strategy, and tools for neurodivergent creators.';
   const siteBase = process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, '');
   const pathOnly = router.asPath.split('?')[0];
   const canonicalHref = siteBase ? `${siteBase}${pathOnly === '/' ? '' : pathOnly}` : null;
+
+  // Close the "More" dropdown and mobile drawer on route change, outside click, or Escape.
+  useEffect(() => {
+    const closeAll = () => { setMoreOpen(false); setMobileOpen(false); };
+    router.events.on('routeChangeStart', closeAll);
+    return () => router.events.off('routeChangeStart', closeAll);
+  }, [router.events]);
+
+  useEffect(() => {
+    function handleClick(e) {
+      if (moreOpen && moreRef.current && !moreRef.current.contains(e.target)) {
+        setMoreOpen(false);
+      }
+    }
+    function handleKey(e) {
+      if (e.key === 'Escape') { setMoreOpen(false); setMobileOpen(false); }
+    }
+    document.addEventListener('mousedown', handleClick);
+    document.addEventListener('keydown', handleKey);
+    return () => {
+      document.removeEventListener('mousedown', handleClick);
+      document.removeEventListener('keydown', handleKey);
+    };
+  }, [moreOpen]);
+
+  useEffect(() => {
+    document.body.style.overflow = mobileOpen ? 'hidden' : '';
+    return () => { document.body.style.overflow = ''; };
+  }, [mobileOpen]);
 
   return (
     <>
@@ -48,37 +99,79 @@ export default function Layout({ children, title, description }) {
             </span>
           </Link>
           <div className="nav__links">
-            {NAV.map(item => {
+            {PRIMARY_NAV.map(item => {
               const active = !item.external && router.pathname === item.href;
-              const className = active ? 'active' : '';
-              if (item.external) {
-                return (
-                  <a
-                    key={item.label}
-                    href={item.href}
-                    className={className}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    {item.label}
-                  </a>
-                );
-              }
               return (
-                <Link
-                  key={item.href}
-                  href={item.href}
-                  className={className}
-                >
-                  {item.label}
-                </Link>
+                <NavLink
+                  key={item.label}
+                  item={item}
+                  className={active ? 'active' : ''}
+                />
               );
             })}
+            <div className="nav__more" ref={moreRef}>
+              <button
+                type="button"
+                className="nav__more-trigger"
+                aria-haspopup="true"
+                aria-expanded={moreOpen}
+                onClick={() => setMoreOpen(o => !o)}
+              >
+                More
+              </button>
+              {moreOpen ? (
+                <div className="nav__more-menu" role="menu">
+                  {MORE_NAV.map(item => {
+                    const active = !item.external && router.pathname === item.href;
+                    return (
+                      <NavLink
+                        key={item.label}
+                        item={item}
+                        className={active ? 'active' : ''}
+                        onClick={() => setMoreOpen(false)}
+                      />
+                    );
+                  })}
+                </div>
+              ) : null}
+            </div>
             <Link href={URLS.booking} className="nav__cta">
               Book a Session
             </Link>
           </div>
+
+          <button
+            type="button"
+            className={`nav__toggle${mobileOpen ? ' is-open' : ''}`}
+            aria-haspopup="true"
+            aria-expanded={mobileOpen}
+            aria-label={mobileOpen ? 'Close menu' : 'Open menu'}
+            onClick={() => setMobileOpen(o => !o)}
+          >
+            <span />
+            <span />
+            <span />
+          </button>
         </div>
+
+        {mobileOpen ? (
+          <div className="nav__drawer" role="menu">
+            {NAV.map(item => {
+              const active = !item.external && router.pathname === item.href;
+              return (
+                <NavLink
+                  key={item.label}
+                  item={item}
+                  className={active ? 'active' : ''}
+                  onClick={() => setMobileOpen(false)}
+                />
+              );
+            })}
+            <Link href={URLS.booking} className="nav__cta" onClick={() => setMobileOpen(false)}>
+              Book a Session
+            </Link>
+          </div>
+        ) : null}
       </nav>
 
       <main id="main-content" tabIndex={-1}>

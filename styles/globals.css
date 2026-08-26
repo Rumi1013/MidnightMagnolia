@@ -293,6 +293,8 @@ a.card-link:hover {
   align-items: center;
   gap: 0.65rem;
   text-decoration: none;
+  white-space: nowrap;
+  flex-shrink: 0;
 }
 .nav__logo .nav__accent { color: var(--color-amber); }
 .nav__logo-img {
@@ -311,6 +313,7 @@ a.card-link:hover {
   color: var(--color-muted-quiet);
   text-decoration: none;
   transition: color var(--transition);
+  white-space: nowrap;
 }
 .nav__links a:hover, .nav__links a.active { color: var(--color-magnolia); opacity: 1; }
 .nav__cta {
@@ -320,8 +323,74 @@ a.card-link:hover {
   padding: 0.5rem 1.2rem;
   border-radius: var(--radius);
   text-decoration: none !important;
+  white-space: nowrap;
 }
 .nav__cta:hover { filter: brightness(1.08); opacity: 1 !important; }
+
+/* "More" dropdown (desktop) — houses the secondary nav items so the
+   primary row never has to fit more than a handful of links. */
+.nav__more { position: relative; }
+.nav__more-trigger {
+  font-family: var(--font-body);
+  font-size: 0.8rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-muted-quiet);
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  transition: color var(--transition);
+}
+.nav__more-trigger:hover, .nav__more[data-open] .nav__more-trigger { color: var(--color-magnolia); }
+.nav__more-menu {
+  position: absolute;
+  top: calc(100% + 1rem);
+  right: 0;
+  display: flex;
+  flex-direction: column;
+  min-width: 180px;
+  padding: 0.6rem 0;
+  background: var(--color-dusk);
+  border: 1px solid rgba(var(--color-amber-rgb), 0.22);
+  border-radius: var(--radius-lg);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.35);
+  z-index: 110;
+}
+.nav__more-menu a {
+  padding: 0.55rem 1.1rem;
+  color: var(--color-muted);
+}
+.nav__more-menu a:hover, .nav__more-menu a.active { color: var(--color-magnolia); background: rgba(var(--color-amber-rgb), 0.1); }
+
+/* Hamburger toggle (mobile) */
+.nav__toggle {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  width: 40px;
+  height: 40px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+}
+.nav__toggle span {
+  display: block;
+  width: 22px;
+  height: 2px;
+  background: var(--color-magnolia);
+  transition: transform var(--transition), opacity var(--transition);
+}
+.nav__toggle.is-open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.nav__toggle.is-open span:nth-child(2) { opacity: 0; }
+.nav__toggle.is-open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+/* Mobile drawer — full nav + CTA, shown beneath the bar when open */
+.nav__drawer {
+  display: none;
+}
 
 /* ── Footer ─────────────────────────────────────────────── */
 .footer {
@@ -658,8 +727,35 @@ a.card-link:hover {
 }
 
 /* ── Responsive ─────────────────────────────────────────── */
-@media (max-width: 768px) {
+/* Below this, the primary nav row (5 links + More + CTA) no longer
+   reliably fits alongside the wordmark — switch to the hamburger drawer. */
+@media (min-width: 901px) and (max-width: 1180px) {
+  .nav__links { gap: 1.15rem; }
+  .nav__links a, .nav__more-trigger { font-size: 0.72rem; }
+  .nav__logo { font-size: 1.2rem; }
+}
+@media (max-width: 900px) {
   .nav__links { display: none; }
+  .nav__toggle { display: flex; }
+  .nav__drawer {
+    display: flex;
+    flex-direction: column;
+    padding: var(--space-md) var(--space-lg) var(--space-lg);
+    border-top: 1px solid rgba(var(--color-amber-rgb), 0.14);
+    background: var(--color-ink);
+  }
+  .nav__drawer a:not(.nav__cta) {
+    padding: 0.75rem 0;
+    font-size: 0.9rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--color-muted);
+    border-bottom: 1px solid rgba(250, 243, 224, 0.08);
+  }
+  .nav__drawer a:hover, .nav__drawer a.active { color: var(--color-magnolia); }
+  .nav__drawer .nav__cta { margin-top: var(--space-md); text-align: center; }
+}
+@media (max-width: 768px) {
   .footer__grid { grid-template-columns: 1fr; }
   .grid-3 { grid-template-columns: 1fr; }
   .hero { min-height: 80vh; }
