@@ -17,15 +17,15 @@ const DEFAULT_RESUME_B = '/resumes/resume-track-b-executive-networking.pdf';
 const RESUME_TRACK_META = [
   {
     id: 'A',
-    title: 'Track A — Flagship Executive ATS (primary)',
+    title: 'Track A — Flagship résumé',
     desc:
-      'Career Command Working Master: information governance, knowledge systems, digital stewardship, records management, and AI enablement — ATS-ready.',
+      'Information governance, knowledge systems, digital stewardship, records management, and AI enablement.',
   },
   {
     id: 'B',
-    title: 'Track B — Executive Networking (secondary)',
+    title: 'Track B — Networking résumé',
     desc:
-      'Career Command Networking draft: same IG / stewardship story for warm intros — lighter packet than Track A.',
+      'The same story, written for introductions — a lighter packet than Track A.',
   },
 ];
 
@@ -42,7 +42,7 @@ export default function Portfolio({ links, resumeA, resumeB }) {
   return (
     <Layout
       title="Portfolio"
-      description="Latisha Vincent-Waters — information governance, digital stewardship, and knowledge systems. Career Command archive/KM resumes plus proof-of-work projects."
+      description="Latisha Vincent-Waters — information governance, digital stewardship, and knowledge systems. Résumés and proof-of-work projects."
     >
       <div className="container">
 
@@ -52,13 +52,13 @@ export default function Portfolio({ links, resumeA, resumeB }) {
           <div className="divider" />
           <p className="hero__subtitle">
             Fifteen-plus years across knowledge systems, digital governance, records management, and AI enablement in
-            nonprofit, education, and public service. Direction today: information stewardship and archival practice —
-            with recovery-oriented pacing in how work is scoped and carried.
+            nonprofit, education, and public service. Direction today: information stewardship and archival practice,
+            scoped at a human pace.
           </p>
           <div style={{ display: 'flex', gap: 'var(--space-md)', flexWrap: 'wrap', marginTop: 'var(--space-lg)' }}>
             <a href={URLS.linkedin} className="btn btn--primary" target="_blank" rel="noopener noreferrer">LinkedIn Profile</a>
             <a href={resumeA} className="btn btn--outline" target="_blank" rel="noopener noreferrer" download>
-              Download Flagship ATS
+              Download résumé
             </a>
             <a href={URLS.email} className="btn btn--ghost">Email Latisha</a>
           </div>
@@ -70,8 +70,7 @@ export default function Portfolio({ links, resumeA, resumeB }) {
           <h2>Featured work.</h2>
           <div className="divider" />
           <p className="muted" style={{ marginBottom: 'var(--space-lg)', maxWidth: '62ch' }}>
-            Same four blocks as LinkedIn Featured: lineage archive, statewide documentation IA, COVID-era
-            digitization and taxonomy, and Midnight Magnolia as a live knowledge system.
+            Four doors into the work: records governance, statewide documentation, a community resource database, and the genealogy archive still in progress.
           </p>
           <div className="grid-2" style={{ gap: 'var(--space-lg)' }}>
             {featured.map((card) => (
@@ -92,7 +91,7 @@ export default function Portfolio({ links, resumeA, resumeB }) {
                     </Link>
                   )
                 ) : (
-                  <p className="muted" style={{ fontSize: '0.8rem', margin: 0 }}>Case study link coming soon.</p>
+                  <p className="muted" style={{ fontSize: '0.8rem', margin: 0 }}>Details on request.</p>
                 )}
               </div>
             ))}
@@ -103,8 +102,7 @@ export default function Portfolio({ links, resumeA, resumeB }) {
           <h2>Selected projects.</h2>
           <div className="divider" />
           <p className="muted" style={{ marginBottom: 'var(--space-lg)', maxWidth: '62ch' }}>
-            Proof of work from the Career Command archive / knowledge-management resumes — digitization, statewide IA,
-            AI enablement, and workflow systems.
+            Six verified case studies. Print catalogs live in the lookbook. Cases 7 and 8 stay labeled planned until the artifacts exist.
           </p>
           <div className="grid-2" style={{ gap: 'var(--space-lg)' }}>
             {SELECTED_PROJECTS.map((project) => (
@@ -124,6 +122,11 @@ export default function Portfolio({ links, resumeA, resumeB }) {
               </article>
             ))}
           </div>
+          <p className="muted" style={{ marginTop: 'var(--space-lg)', maxWidth: '58ch' }}>
+            Print work lives in the{' '}
+            <Link href="/portfolio/publication-design">publication lookbook</Link>
+            . Case 8 — the three-project ecosystem — stays planned until Institute, Roots, and Press exist as inspectable systems.
+          </p>
         </section>
 
         <section className="section">
@@ -143,9 +146,9 @@ export default function Portfolio({ links, resumeA, resumeB }) {
           <h2>Resume tracks.</h2>
           <div className="divider" />
           <p className="muted" style={{ marginBottom: 'var(--space-lg)', maxWidth: '58ch' }}>
-            Archive / knowledge-management PDFs from Career Command.{' '}
-            <strong>Track A</strong> is the Flagship Executive ATS Working Master.{' '}
-            <strong>Track B</strong> is the Executive Networking draft.
+            Two résumé tracks for information governance and knowledge systems roles.{' '}
+            <strong>Track A</strong> is the flagship packet.{' '}
+            <strong>Track B</strong> is written for introductions.
           </p>
           <div className="grid-2">
             {RESUME_TRACK_META.map((track, index) => {
@@ -302,6 +305,8 @@ export async function getStaticProps() {
     process.env.NEXT_PUBLIC_PORTFOLIO_FEATURED_STATEWIDE_URL?.trim() || '/portfolio/statewide-documentation';
   const digitization =
     process.env.NEXT_PUBLIC_PORTFOLIO_FEATURED_DIGITIZATION_URL?.trim() || '/portfolio/records-digitization';
+  const community =
+    process.env.NEXT_PUBLIC_PORTFOLIO_FEATURED_COMMUNITY_URL?.trim() || '/portfolio/community-resource-database';
 
   return {
     props: {
@@ -311,7 +316,7 @@ export async function getStaticProps() {
         genealogy,
         statewide,
         digitization,
-        mm: site,
+        community,
       },
     },
     revalidate: 300,
