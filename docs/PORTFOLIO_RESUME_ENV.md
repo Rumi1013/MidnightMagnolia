@@ -1,21 +1,23 @@
 # Portfolio resume URLs (Career Command)
 
-**Contract (fixed):**
+**Contract (fixed):** archive / knowledge-management tracks only.
 
 | Env | Resume |
 |-----|--------|
-| `RESUME_TRACK_A_URL` | **Flagship Executive ATS** — primary (Career Command working master) |
-| `RESUME_TRACK_B_URL` | **Executive Networking** — secondary (shorter networking draft) |
+| `RESUME_TRACK_A_URL` | **Flagship Executive ATS Working Master** — IG / knowledge systems / digital stewardship |
+| `RESUME_TRACK_B_URL` | **Executive Networking Working Draft** — same story, lighter networking packet |
 
-Source pack: `CareerSystem/Career command /` (exported from Career Command; the Docs `career-command-center.zip` is the app scaffold only and does not contain PDF binaries).
+**Do not ship** the older ops/leadership-framed `Flagship Executive ATS Resume.docx` (non–Working Master) as Track A.
 
-Host PDFs under `public/resumes/` (repo); paste into `.env.local`. Next.js `/portfolio` reads these at build time (`getStaticProps`).
+Source pack: `CareerSystem/Career command /01 Resumes/`. Funding figure on these tracks is **$1.1M+** (not $1.5M).
 
-Shipped defaults (Active ASAP):
+Host PDFs under `public/resumes/` (repo). `/portfolio` defaults to those paths when env is unset.
+
+Shipped defaults:
 
 - `RESUME_TRACK_A_URL=/resumes/resume-track-a-flagship-executive-ats.pdf`
 - `RESUME_TRACK_B_URL=/resumes/resume-track-b-executive-networking.pdf`
 - `NEXT_PUBLIC_PORTFOLIO_FEATURED_STATEWIDE_URL=/portfolio/statewide-documentation`
 - `NEXT_PUBLIC_PORTFOLIO_FEATURED_DIGITIZATION_URL=/portfolio/records-digitization`
 
-See `lib/constants.js` `FEATURED_PORTFOLIO_CARDS` for the four-card copy.
+Proof-of-work: `SELECTED_PROJECTS` + `FEATURED_PORTFOLIO_CARDS` in `lib/constants.js`. Art: `/gallery` + portfolio gallery strip.

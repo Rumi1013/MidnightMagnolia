@@ -1,7 +1,7 @@
 # Midnight Magnolia Platform Plan
 
 **Decision date:** July 28, 2026  
-**ASAP override (2026-08):** Active repo ships **Wix Headless + Next.js on Vercel + Gumroad (digital) + Buy Me a Coffee (membership/tips)**. Align with `docs/DIGITAL_CONTENT_PIPELINE.md` and `docs/BMAC_MINIMUM.md`. Stan is deferred (cost).
+**ASAP override (2026-08):** Active repo ships **Wix Headless + Next.js on Vercel + Gumroad (digital) + Buy Me a Coffee (membership/tips)**. Align with `docs/DIGITAL_CONTENT_PIPELINE.md` and `docs/BMAC_MINIMUM.md`.
 
 This file is the hermes platform and subscription plan for the Midnight Magnolia launch.
 When an older document disagrees with Active ASAP docs (`docs/BMAC_MINIMUM.md`, `docs/DIGITAL_CONTENT_PIPELINE.md`), **Active ASAP wins**.
@@ -11,15 +11,15 @@ When an older document disagrees with Active ASAP docs (`docs/BMAC_MINIMUM.md`, 
 `GitHub -> Vercel Pro -> midnight-magnolia.com` (Next front door; Wix remains Headless backend)
 
 Vercel is the production website host for the Next app. Wix Headless supplies catalog/bookings/blog.
-ASAP digital commerce is **Buy Me a Coffee**; physical/dropship is Printify→Wix (see `docs/DROPSHIP_LANE.md`).
+ASAP digital commerce is **Gumroad**; membership and tips are **Buy Me a Coffee**; physical/dropship is Printify→Wix (see `docs/DROPSHIP_LANE.md`).
 
 | Need | Current platform | Plan |
 | --- | --- | --- |
 | Website hosting and deployment | Vercel Pro | Authoritative production platform for Next |
 | CMS / bookings / catalog API | Wix Headless | Keep as backend after DNS cutover |
 | Source control and deployment trigger | GitHub | Keep connected to Vercel |
-| Digital products and membership (ASAP) | Buy Me a Coffee | Primary; replaces Stan (cost) |
-| Digital products (hermes alternate) | Gumroad | Not Active ASAP gate |
+| Digital products (ASAP) | Gumroad | Primary digital storefront |
+| Membership and tips (ASAP) | Buy Me a Coffee | Magnolia Circle + tips |
 | Community support | Buy Me a Coffee | Tips + membership |
 | Newsletter | Substack | Dusk Letters publishing and subscriber list |
 | Automation | Make.com | Sole automation platform; do not duplicate in Zapier |

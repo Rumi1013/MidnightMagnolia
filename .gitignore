@@ -67,3 +67,13 @@ nextjs-project-bole-mirror/
 .cursor/settings.json
 files/
 MidnightMagnolia_Evaluation.code-workspace
+
+# Local upload / IDE junk
+.tmp.driveupload/
+*.code-workspace
+
+# CareerSystem offline packs (track app source only; not zips/xlsx/PDF binaries)
+CareerSystem/*.zip
+CareerSystem/**/*.zip
+CareerSystem/**/*.xlsx
+CareerSystem/**/*.pdf

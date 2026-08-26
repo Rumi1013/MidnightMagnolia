@@ -388,7 +388,6 @@ function RevenueLog({ months }) {
           { label: 'Gumroad',     value: latest.gumroadRevenue },
           { label: 'BMAC',        value: latest.bmacRevenue },
           { label: 'Patreon',     value: latest.patreonRevenue },
-          { label: 'Stan (legacy)', value: latest.stanRevenue },
           { label: 'KDP',         value: latest.kdpRoyalties },
           { label: 'Other',       value: latest.otherRevenue },
         ].map(s => (
@@ -475,7 +474,7 @@ function CareerPanel({ jobs, resumes, mlis }) {
       {!mlis?.length && !activeJobs.length && !resumes?.length && (
         <NotConnected
           name="Career Command"
-          hint="Career panel reads the Writing / Creative Airtable base (AIRTABLE_WRITING_BASE_ID) via /api/airtable/career — opportunities + resumes tables. Confirm AIRTABLE_TBL_OPPORTUNITIES / AIRTABLE_TBL_RESUMES (or defaults) and unlock the dashboard with MM_DASHBOARD_TOKEN. AIRTABLE_CAREER_BASE_ID is unused by this app."
+          hint="Career panel reads the Writing / Creative Airtable base (AIRTABLE_WRITING_BASE_ID) via /api/airtable/career — opportunities + resumes. Unlock with MM_DASHBOARD_TOKEN. Optional AIRTABLE_CAREER_BASE_ID is MLIS-only; jobs/resumes do not use it."
         />
       )}
     </div>
@@ -678,7 +677,12 @@ export default function Dashboard() {
   }, [adminToken]);
 
   // ── Derived ────────────────────────────────────────────────
-  const byCategory   = cat => tasks.filter(t => t.category === cat);
+  const byCategory   = cat => {
+    if (cat === 'commerce') {
+      return tasks.filter(t => t.category === 'commerce' || /^s[1-5]$/.test(t.id));
+    }
+    return tasks.filter(t => t.category === cat);
+  };
   const allDone      = tasks.filter(t => t.done).length;
   const overallPct   = tasks.length ? Math.round((allDone / tasks.length) * 100) : 0;
   const divider      = <div className="divider" style={{ margin: 'var(--space-xl) 0' }} />;
@@ -747,7 +751,7 @@ export default function Dashboard() {
               {divider}
               <TaskList tasks={byCategory('product')} title="Product Builds"       onToggle={toggleTask} saving={saving} />
               {divider}
-              <TaskList tasks={byCategory('stan')}    title="Commerce Setup (Gumroad / BMAC; Stan deferred)" onToggle={toggleTask} saving={saving} />
+              <TaskList tasks={byCategory('commerce')} title="Commerce Setup (Gumroad / BMAC)" onToggle={toggleTask} saving={saving} />
               {divider}
               <TaskList tasks={byCategory('site')}    title="Site Tasks (Next.js)" onToggle={toggleTask} saving={saving} />
 

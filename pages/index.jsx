@@ -125,7 +125,7 @@ export default function Home() {
           <h2 style={{ textAlign: 'center', marginBottom: 'var(--space-lg)' }}>The work, in numbers.</h2>
           <div className="stat-grid">
             {[
-              { number: '$1.5M+', label: 'Funding Secured' },
+              { number: '$1.1M+', label: 'Funding Secured' },
               { number: '610+',   label: 'Program Participants' },
               { number: '15+',    label: 'Years of Leadership' },
               { number: '$300K+', label: 'Annual Budget Managed' },

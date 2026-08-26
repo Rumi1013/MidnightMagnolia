@@ -6,7 +6,7 @@ Cursor and humans: start here to map **strategy artifacts → code**.
 
 | Document | Path | Code touchpoints |
 |----------|------|-------------------|
-| Master Plan v3 | `MM_Canonical_Master_Plan_v3.html` | Wix/BMAC priorities — pair with `docs/CHECKOUT_LOOP.md`, `docs/BMAC_MINIMUM.md` (Stan deferred) |
+| Master Plan v3 | `MM_Canonical_Master_Plan_v3.html` | Wix/BMAC/Gumroad priorities — pair with `docs/CHECKOUT_LOOP.md`, `docs/BMAC_MINIMUM.md` |
 | Integration v4 | `MM_Integration_v4.html` | Five Roots, Vincent/Vinson stats — pair with `docs/FIVE_ROOTS_CONTENT.md`, genealogy in Supabase |
 | Master Plan (older) | `completeairtable/MM_Canonical_Master_Plan.html` | Archive reference |
 
@@ -44,7 +44,6 @@ Cursor and humans: start here to map **strategy artifacts → code**.
 - `docs/SUPABASE_RLS_AND_API.md`
 - `docs/CANONICAL_MASTER_PLAN_SYNC.md`
 - `docs/EMAIL_PLATFORM_DECISION.md`
-- `docs/STAN_STORE_MINIMUM.md` — **deferred**
 - `docs/NOTION_SIX_DB_RESTRUCTURE.md`
 - `docs/FIVE_ROOTS_CONTENT.md`
 - `docs/WIX_BLOG_DRAFT_EXPORT.md`
