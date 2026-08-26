@@ -1,6 +1,9 @@
 import { useCallback, useEffect, useState } from 'react';
 import Link from 'next/link';
 import Layout from '../components/Layout';
+import HubShell from '../components/command-hub/HubShell';
+import { HubProvider, HubSection } from '../components/command-hub/HubPanels';
+import { DEFAULT_OUTCOMES, STORAGE_KEY } from '../lib/commandHub';
 
 const ADMIN_TOKEN_STORAGE_KEY = 'mm_dashboard_admin_token';
 const ADMIN_TOKEN_HEADER = 'x-mm-admin-token';
@@ -29,28 +32,27 @@ function adminFetch(url, token, options = {}) {
   return fetch(url, { ...options, headers });
 }
 
-const BUILDERS = [
-  { id: 'jobs', label: 'Job Tracker', blurb: 'Active applications from Airtable Opportunities.' },
-  { id: 'resumes', label: 'Resume Vault', blurb: 'Active resume tracks + public portfolio PDFs.' },
-  { id: 'mlis', label: 'MLIS Programs', blurb: 'School shortlist when AIRTABLE_TBL_MLIS is set.' },
-  { id: 'ats', label: 'ATS Optimizer', blurb: 'Checklist for Flagship Executive ATS (Track A).' },
-  { id: 'cover', label: 'Cover Letters', blurb: 'Prompts aligned to archival / MLIS pivot.' },
-  { id: 'skills', label: 'Skills Inventory', blurb: 'Portfolio skills mirror for LinkedIn Featured.' },
-];
-
-function StatusPill({ status }) {
-  const color = status === 'Top Choice' || status === 'Interview' ? 'var(--color-amber)' : 'rgba(255,255,255,0.45)';
-  return (
-    <span style={{ fontSize: '0.65rem', fontWeight: 700, letterSpacing: '0.06em', textTransform: 'uppercase', color, border: `1px solid ${color}`, borderRadius: 99, padding: '2px 8px' }}>
-      {status || '—'}
-    </span>
-  );
+function readHubState() {
+  if (typeof window === 'undefined') {
+    return { outcomes: DEFAULT_OUTCOMES, checks: {} };
+  }
+  try {
+    const raw = window.localStorage.getItem(STORAGE_KEY);
+    if (!raw) return { outcomes: DEFAULT_OUTCOMES, checks: {} };
+    const parsed = JSON.parse(raw);
+    const outcomes = Array.isArray(parsed.outcomes) && parsed.outcomes.length === 3
+      ? parsed.outcomes.map((item) => String(item ?? ''))
+      : DEFAULT_OUTCOMES;
+    return { outcomes, checks: parsed.checks && typeof parsed.checks === 'object' ? parsed.checks : {} };
+  } catch {
+    return { outcomes: DEFAULT_OUTCOMES, checks: {} };
+  }
 }
 
 function UnlockForm({ tokenInput, setTokenInput, onSubmit, message }) {
   return (
     <form onSubmit={onSubmit} className="card" style={{ maxWidth: 480, margin: '0 auto', padding: 'var(--space-xl)' }}>
-      <h2 style={{ marginBottom: 'var(--space-sm)' }}>Unlock Career Command</h2>
+      <h2 style={{ marginBottom: 'var(--space-sm)' }}>Unlock Command Hub</h2>
       <p className="muted" style={{ marginBottom: 'var(--space-md)' }}>
         Same token as `/dashboard` (`MM_DASHBOARD_TOKEN`).
       </p>
@@ -68,7 +70,7 @@ function UnlockForm({ tokenInput, setTokenInput, onSubmit, message }) {
 }
 
 export default function CareerCommandPage() {
-  const [tab, setTab] = useState('jobs');
+  const [section, setSection] = useState('today');
   const [adminToken, setAdminToken] = useState(storedAdminToken);
   const [tokenInput, setTokenInput] = useState(storedAdminToken);
   const [authRequired, setAuthRequired] = useState(false);
@@ -77,11 +79,26 @@ export default function CareerCommandPage() {
   const [jobs, setJobs] = useState(null);
   const [resumes, setResumes] = useState(null);
   const [mlis, setMlis] = useState(null);
+  const [outcomes, setOutcomes] = useState(DEFAULT_OUTCOMES);
+  const [checks, setChecks] = useState({});
+  const [copied, setCopied] = useState('');
+  const [hubReady, setHubReady] = useState(false);
+  const [packet, setPacket] = useState(null);
+  const [packetAvailable, setPacketAvailable] = useState(false);
 
   useEffect(() => {
     const token = storedAdminToken();
     if (token) setAdminTokenCookie(token);
+    const saved = readHubState();
+    setOutcomes(saved.outcomes);
+    setChecks(saved.checks);
+    setHubReady(true);
   }, []);
+
+  useEffect(() => {
+    if (!hubReady || typeof window === 'undefined') return;
+    window.localStorage.setItem(STORAGE_KEY, JSON.stringify({ outcomes, checks }));
+  }, [outcomes, checks, hubReady]);
 
   useEffect(() => {
     let cancelled = false;
@@ -99,13 +116,14 @@ export default function CareerCommandPage() {
           }
           return json;
         };
-        const [jobsRes, resumesRes, mlisRes] = await Promise.allSettled([
+        const [jobsRes, resumesRes, mlisRes, packetRes] = await Promise.allSettled([
           loadJson('/api/airtable/career?table=opportunities'),
           loadJson('/api/airtable/career?table=resumes'),
           loadJson('/api/airtable/career?table=mlis'),
+          loadJson('/api/career-command/packet'),
         ]);
         if (cancelled) return;
-        const authFailure = [jobsRes, resumesRes, mlisRes].find(
+        const authFailure = [jobsRes, resumesRes, mlisRes, packetRes].find(
           (r) => r.status === 'rejected' && [401, 503].includes(r.reason?.status),
         );
         if (authFailure) {
@@ -116,9 +134,25 @@ export default function CareerCommandPage() {
         }
         setAuthRequired(false);
         if (jobsRes.status === 'fulfilled' && Array.isArray(jobsRes.value)) setJobs(jobsRes.value);
+        else setJobs(null);
         if (resumesRes.status === 'fulfilled' && Array.isArray(resumesRes.value)) setResumes(resumesRes.value);
+        else setResumes(null);
         if (mlisRes.status === 'fulfilled' && Array.isArray(mlisRes.value)) setMlis(mlisRes.value);
         else setMlis(null);
+        if (packetRes.status === 'fulfilled' && packetRes.value?.available && packetRes.value.packet) {
+          setPacketAvailable(true);
+          setPacket(packetRes.value.packet);
+          const packetOutcomes = packetRes.value.packet.DEFAULT_OUTCOMES;
+          setOutcomes((current) => {
+            const blank = !current.some((item) => String(item || '').trim());
+            return blank && Array.isArray(packetOutcomes) && packetOutcomes.length === 3
+              ? packetOutcomes.map((item) => String(item ?? ''))
+              : current;
+          });
+        } else {
+          setPacketAvailable(false);
+          setPacket(null);
+        }
       } finally {
         if (!cancelled) setLoading(false);
       }
@@ -138,149 +172,72 @@ export default function CareerCommandPage() {
     setAdminToken(token);
   }, [tokenInput]);
 
-  const activeJobs = jobs?.filter((j) => !['Rejected', 'Withdrawn'].includes(j.status)) ?? [];
+  const onOutcome = useCallback((index, value) => {
+    setOutcomes((prev) => prev.map((item, i) => (i === index ? value : item)));
+  }, []);
+
+  const onCheck = useCallback((id) => {
+    setChecks((prev) => ({ ...prev, [id]: !prev[id] }));
+  }, []);
+
+  const onCopy = useCallback(async (text) => {
+    try {
+      await navigator.clipboard.writeText(text);
+      setCopied('Copied.');
+      window.setTimeout(() => setCopied(''), 1600);
+    } catch {
+      setCopied('Copy failed.');
+    }
+  }, []);
 
   return (
-    <Layout title="Career Command" description="Private Career Command Center — job tracker, resumes, MLIS, and builder checklists.">
-      <div className="container" style={{ paddingBottom: 'var(--space-2xl)' }}>
-        <div className="page-hero">
-          <p className="page-hero__eyebrow">Private ops</p>
-          <h1>Career Command Center</h1>
-          <div className="divider" />
-          <p className="hero__subtitle">
-            Daily career workflow for the archival / MLIS pivot. Public story lives on{' '}
-            <Link href="/portfolio">/portfolio</Link>. Ops overview on{' '}
-            <Link href="/dashboard">/dashboard</Link>.
-          </p>
-        </div>
-
-        {authRequired ? (
+    <Layout title="Command Hub" description="Private Career Command Hub — daily outcomes, application bank, case studies, and the 90-day plan.">
+      {authRequired ? (
+        <div className="container" style={{ padding: 'var(--space-xl) 0 var(--space-2xl)' }}>
           <UnlockForm
             tokenInput={tokenInput}
             setTokenInput={setTokenInput}
             onSubmit={unlock}
             message={authMessage}
           />
-        ) : loading ? (
-          <p className="muted" style={{ textAlign: 'center' }}>Loading Career Command…</p>
-        ) : (
-          <>
-            <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap', marginBottom: 'var(--space-lg)' }}>
-              {BUILDERS.map((b) => (
-                <button
-                  key={b.id}
-                  type="button"
-                  className={tab === b.id ? 'btn btn--primary' : 'btn btn--ghost'}
-                  onClick={() => setTab(b.id)}
-                  style={{ fontSize: '0.8rem' }}
-                >
-                  {b.label}
-                </button>
-              ))}
-            </div>
-
-            <div className="card" style={{ padding: 'var(--space-xl)' }}>
-              <p className="muted" style={{ marginBottom: 'var(--space-md)', fontSize: '0.85rem' }}>
-                {BUILDERS.find((b) => b.id === tab)?.blurb}
+        </div>
+      ) : loading ? (
+        <div className="container" style={{ padding: 'var(--space-xl) 0' }}>
+          <p className="muted" style={{ textAlign: 'center' }}>Loading Command Hub…</p>
+        </div>
+      ) : (
+        <>
+          <HubProvider packet={packet} available={packetAvailable}>
+            <HubShell section={section} onSection={setSection}>
+            {section === 'today' && mlis?.length ? (
+              <p className="muted" style={{ fontSize: '0.8rem', marginBottom: '1rem' }}>
+                MLIS shortlist connected · {mlis.length} program{mlis.length === 1 ? '' : 's'}. Timeline panel holds the six-week sprint.
               </p>
-
-              {tab === 'jobs' && (
-                activeJobs.length ? (
-                  <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
-                    {activeJobs.map((j) => (
-                      <div key={j.id} style={{ display: 'flex', justifyContent: 'space-between', gap: 12, padding: '0.75rem 0', borderBottom: '1px solid rgba(255,255,255,0.06)' }}>
-                        <div>
-                          <strong>{j.roleTitle}</strong>
-                          <span className="muted" style={{ marginLeft: 8 }}>· {j.company}</span>
-                          <div className="muted" style={{ fontSize: '0.75rem' }}>{j.track} · {j.remote ? 'Remote' : j.location}</div>
-                        </div>
-                        <StatusPill status={j.status} />
-                      </div>
-                    ))}
-                  </div>
-                ) : (
-                  <p className="muted">No active applications (or Airtable Opportunities not connected).</p>
-                )
-              )}
-
-              {tab === 'resumes' && (
-                <>
-                  <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap', marginBottom: 'var(--space-md)' }}>
-                    <a className="btn btn--outline" href="/resumes/resume-track-a-flagship-executive-ats.pdf" target="_blank" rel="noopener noreferrer">Track A — Flagship ATS</a>
-                    <a className="btn btn--outline" href="/resumes/resume-track-b-executive-networking.pdf" target="_blank" rel="noopener noreferrer">Track B — Networking</a>
-                  </div>
-                  {resumes?.length ? (
-                    <ul style={{ listStyle: 'none', padding: 0 }}>
-                      {resumes.map((r) => (
-                        <li key={r.id} style={{ marginBottom: 8 }}>
-                          <a href={r.fileUrl || '#'} target="_blank" rel="noopener noreferrer" style={{ color: 'var(--color-amber)' }}>
-                            {r.versionName || r.track}
-                          </a>
-                          <span className="muted" style={{ marginLeft: 8, fontSize: '0.75rem' }}>{r.targetRole}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  ) : (
-                    <p className="muted">Airtable resume vault empty or not connected — public PDFs above still work.</p>
-                  )}
-                </>
-              )}
-
-              {tab === 'mlis' && (
-                mlis?.length ? (
-                  <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
-                    {mlis.map((p) => (
-                      <div key={p.id} style={{ padding: '0.75rem 0', borderBottom: '1px solid rgba(255,255,255,0.06)' }}>
-                        <strong>{p.programName}</strong>
-                        <span className="muted" style={{ marginLeft: 8 }}>· {p.institution}</span>
-                        <div style={{ marginTop: 4, display: 'flex', gap: 8, flexWrap: 'wrap', alignItems: 'center' }}>
-                          <StatusPill status={p.priority} />
-                          {p.alaAccredited ? <span className="muted" style={{ fontSize: '0.7rem' }}>ALA</span> : null}
-                          {p.hbcu ? <span className="muted" style={{ fontSize: '0.7rem' }}>HBCU</span> : null}
-                          <span className="muted" style={{ fontSize: '0.7rem' }}>{p.format}</span>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                ) : (
-                  <p className="muted">
-                    Set <code>AIRTABLE_TBL_MLIS</code> (and optional <code>AIRTABLE_CAREER_BASE_ID</code>) in env after creating an MLIS Programs table.
-                    Until then this tab stays empty by design.
-                  </p>
-                )
-              )}
-
-              {tab === 'ats' && (
-                <ol style={{ paddingLeft: '1.2rem', lineHeight: 1.7 }}>
-                  <li>Open Track A Flagship Executive ATS PDF from Resume Vault.</li>
-                  <li>Paste the target JD; mark must-have keywords missing from the resume.</li>
-                  <li>Keep archival / digital preservation language primary; retire ops/PM framing.</li>
-                  <li>Export a role-specific variant name in Airtable Resumes when ready.</li>
-                </ol>
-              )}
-
-              {tab === 'cover' && (
-                <ol style={{ paddingLeft: '1.2rem', lineHeight: 1.7 }}>
-                  <li>One paragraph: why this archive / library / digital preservation role.</li>
-                  <li>One proof: statewide IA, digitization, or Vincent/Vinson research.</li>
-                  <li>One close: recovery-aware pacing + availability.</li>
-                  <li>Store final letter next to the Opportunity record notes in Airtable.</li>
-                </ol>
-              )}
-
-              {tab === 'skills' && (
-                <ul style={{ paddingLeft: '1.2rem', lineHeight: 1.7 }}>
-                  <li>Metadata · taxonomy · digital preservation workflows</li>
-                  <li>Information architecture · content governance</li>
-                  <li>Genealogy / primary source research · community archives</li>
-                  <li>Notion · Airtable · documentation systems</li>
-                  <li>Mirror these on LinkedIn Featured + `/portfolio` cards</li>
-                </ul>
-              )}
-            </div>
-          </>
-        )}
-      </div>
+            ) : null}
+            {section === 'today' && !mlis?.length ? (
+              <p className="muted" style={{ fontSize: '0.8rem', marginBottom: '1rem' }}>
+                MLIS table stays empty until <code>AIRTABLE_TBL_MLIS</code> is set.{' '}
+                <Link href="/dashboard">Ops dashboard</Link>
+                {' · '}
+                local ATS lives in CareerSystem/Career-command.
+              </p>
+            ) : null}
+            <HubSection
+              section={section}
+              jobs={jobs}
+              resumes={resumes}
+              mlis={mlis}
+              outcomes={outcomes}
+              onOutcome={onOutcome}
+              checks={checks}
+              onCheck={onCheck}
+              onCopy={onCopy}
+            />
+            {copied ? <p className="muted" style={{ marginTop: '1rem', fontSize: '0.8rem' }}>{copied}</p> : null}
+            </HubShell>
+          </HubProvider>
+        </>
+      )}
     </Layout>
   );
 }

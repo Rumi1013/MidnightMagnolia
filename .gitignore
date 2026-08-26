@@ -77,3 +77,7 @@ CareerSystem/*.zip
 CareerSystem/**/*.zip
 CareerSystem/**/*.xlsx
 CareerSystem/**/*.pdf
+
+# Local-first Command Hub packet (résumé, application bank, dollar targets)
+CareerSystem/Career-command/private/*
+!CareerSystem/Career-command/private/README.md

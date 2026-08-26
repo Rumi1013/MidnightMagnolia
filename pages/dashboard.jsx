@@ -807,7 +807,7 @@ export default function Dashboard() {
               <p className="muted" style={{ fontSize: '0.8rem', marginBottom: 'var(--space-sm)' }}>
                 Full builders:{' '}
                 <Link href="/career-command" style={{ color: 'var(--color-amber)' }}>/career-command</Link>
-                {' '}(same dashboard unlock token).
+                {' '}Command Hub (same dashboard unlock token).
               </p>
               <CareerPanel jobs={jobs} resumes={resumes} mlis={mlis} />
 
