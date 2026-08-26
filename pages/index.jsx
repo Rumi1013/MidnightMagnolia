@@ -1,53 +1,8 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import Layout from '../components/Layout';
-import {
-  BRAND_ASSETS,
-  HOME_SPOTLIGHT,
-  HOME_DOOR_ART,
-  HOME_CTA_ART,
-} from '../lib/brandAssets';
+import { BRAND_ASSETS } from '../lib/brandAssets';
 import { URLS, PRODUCTS } from '../lib/constants';
-
-const HOME_DOORS = [
-  {
-    title: 'Work With Me',
-    desc: (
-      <>
-        Gentle, structured support for your workflows, career materials, and digital systems.
-        <br /><br />
-        We focus on clarity, not pressure—so you can move forward without burning out.
-      </>
-    ),
-    href: '/work-with-me',
-    cta: 'See Services',
-  },
-  {
-    title: 'The Shop',
-    desc: (
-      <>
-        Journals, planners, and digital tools designed for real life—low energy days included.
-        <br /><br />
-        Start small. Take what you need. Come back when you&apos;re ready.
-      </>
-    ),
-    href: URLS.gumroad,
-    cta: 'Browse Products',
-    external: true,
-  },
-  {
-    title: 'The Grimoire',
-    desc: (
-      <>
-        Writing, archives, and healing-centered resources for the long haul.
-        <br /><br />
-        This is where story meets survival—and turns into something sacred.
-      </>
-    ),
-    href: '/grimoire',
-    cta: 'Read the Grimoire',
-  },
-];
 
 export default function Home() {
   // Show 3 featured products: the free starter, the $9 journal, and the flagship $49 bundle
@@ -68,19 +23,20 @@ export default function Home() {
           </p>
           <div className="hero__actions">
             <a href={URLS.gumroad} className="btn btn--primary" target="_blank" rel="noopener noreferrer">
-              Shop on Gumroad
+              Start Here
             </a>
-            <Link href="/services" className="btn btn--outline">
-              Book a Session
-            </Link>
-            <Link href="/shop" className="btn btn--ghost">Wix Catalog</Link>
+            <a href={URLS.bmac} className="btn btn--outline" target="_blank" rel="noopener noreferrer">
+              Magnolia Circle
+            </a>
           </div>
           <p className="muted" style={{ marginTop: 'var(--space-md)', fontSize: '0.85rem', maxWidth: '52ch' }}>
-            Digital products live on{' '}
-            <a href={URLS.gumroad} target="_blank" rel="noopener noreferrer">Gumroad</a>
-            ; membership and tips on{' '}
-            <a href={URLS.bmac} target="_blank" rel="noopener noreferrer">Buy Me a Coffee</a>.
-            {' '}Physical / booking catalog stays on Wix Headless.
+            One door in. Journals and kits live in{' '}
+            <a href={URLS.gumroad} target="_blank" rel="noopener noreferrer">the shop</a>
+            . Membership and tips live on{' '}
+            <a href={URLS.bmac} target="_blank" rel="noopener noreferrer">Buy Me a Coffee</a>
+            . Sessions live on{' '}
+            <Link href="/services">Bookings</Link>
+            — after you know where you are.
           </p>
         </div>
       </section>
@@ -122,20 +78,10 @@ export default function Home() {
       {/* ── About / positioning ───────────────────────────────── */}
       <section className="section section--dusk home-about" aria-labelledby="about-heading">
         <div className="container">
-          <h2 style={{ textAlign: 'center', marginBottom: 'var(--space-lg)' }}>The work, in numbers.</h2>
-          <div className="stat-grid">
-            {[
-              { number: '$1.1M+', label: 'Funding Secured' },
-              { number: '610+',   label: 'Program Participants' },
-              { number: '15+',    label: 'Years of Leadership' },
-              { number: '$300K+', label: 'Annual Budget Managed' },
-            ].map(s => (
-              <div className="stat-block" key={s.label}>
-                <span className="stat-number">{s.number}</span>
-                <span className="stat-label">{s.label}</span>
-              </div>
-            ))}
-          </div>
+          <h2 style={{ textAlign: 'center', marginBottom: 'var(--space-lg)' }}>Who this house is for.</h2>
+          <p className="muted" style={{ textAlign: 'center', maxWidth: '52ch', margin: '0 auto' }}>
+            Neurodivergent creators, women in transition, and quiet builders who need structure that holds on a low-energy day.
+          </p>
         </div>
       </section>
 
@@ -148,16 +94,16 @@ export default function Home() {
             {[
               {
                 title: 'The Healing Shop',
-                desc:  'Six products built as one healing ecosystem — from the free starter kit to the Deep Roots Shadow Work System. Begin anywhere.',
+                desc:  'Journals, kits, and the Deep Roots Shadow Work System. Begin with the free starter. Take what you need.',
                 href:  URLS.gumroad,
-                cta:   'Browse on Gumroad',
+                cta:   'Browse the Shop',
                 external: true,
               },
               {
                 title: 'Magnolia Circle',
                 desc:  'A $9/month membership with monthly shadow work prompts, ritual practices, and the member edition of Dusk Letters.',
                 href:  URLS.bmac,
-                cta:   'Join on BMAC',
+                cta:   'Join Magnolia Circle',
                 external: true,
               },
               {
@@ -197,7 +143,7 @@ export default function Home() {
                 You don&apos;t need everything. Just one tool that meets you where you are.
               </p>
             </div>
-            <Link href="/shop" className="btn btn--outline">Wix Catalog</Link>
+            <Link href="/shop" className="btn btn--outline">Print &amp; merch</Link>
           </div>
           <div className="grid-3">
             {featuredProducts.map(p => (
@@ -208,7 +154,7 @@ export default function Home() {
                 <div className="flex-between" style={{ marginTop: 'var(--space-lg)' }}>
                   <span style={{ fontFamily: 'var(--font-display)', fontSize: '1.5rem', color: 'var(--color-amber)' }}>{p.price}</span>
                   <a href={p.url} className="btn btn--primary" style={{ padding: '0.5rem 1.2rem' }} target="_blank" rel="noopener">
-                    Get It
+                    View in shop
                   </a>
                 </div>
               </div>
@@ -229,7 +175,7 @@ export default function Home() {
           </p>
           <div style={{ marginTop: 'var(--space-lg)', display: 'flex', gap: 'var(--space-md)', justifyContent: 'center', flexWrap: 'wrap' }}>
             <Link href="/sanctuary" className="btn btn--outline">Read the Story</Link>
-            <a href={URLS.gumroad} className="btn btn--primary" target="_blank" rel="noopener noreferrer">Browse the Shop</a>
+            <a href={URLS.gumroad} className="btn btn--primary" target="_blank" rel="noopener noreferrer">Start Here</a>
           </div>
         </div>
       </section>
