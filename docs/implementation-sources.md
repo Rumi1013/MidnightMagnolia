@@ -2,6 +2,22 @@
 
 Cursor and humans: start here to map **strategy artifacts → code**.
 
+## August 2026 Career & Business Binder (do not commit PDFs)
+
+Canonical specs live **outside the git repo** at `~/Downloads/Project Specs/`. Do not add the PDFs, docx files, or 8MB zip archives to this checkout.
+
+| Document | Path | Code touchpoints |
+|----------|------|-------------------|
+| Command Hub (interactive) | `~/Downloads/Project Specs/Command Hub.dc.html` | Private `/career-command` shell — `lib/commandHub/` (public-safe), `components/command-hub/`, `pages/career-command.jsx`. Full extract: gitignored `CareerSystem/Career-command/private/` |
+| Career & Business Binder (print) | `~/Downloads/Project Specs/Binder.dc.html` | Same local packet (copy extract only; do not render print HTML) |
+| Case Study Document Set | `~/Downloads/Project Specs/Midnight_Magnolia_Case_Study_Document_Set/` | Hub case library + public `/portfolio/*` pages |
+| 90-Day Command Plan | `~/Downloads/Project Specs/Midnight_Magnolia_90_Day_Command_Plan_with_Case_Studies.pdf` | Hub Today + Timeline panels |
+| Flagship Guide | `~/Downloads/Project Specs/Midnight_Magnolia_Flagship_Guide_with_Case_Studies.docx` | Hub Building panel (docs + next actions, not live products) |
+| Conversion addendum | `…/midnight-magnolia-conversion-product-automation-plan-with-case-studies.md` | Hub Conversion panel; named Make flows in `docs/ZAPIER_MAKE_PARITY_CHECKLIST.md` |
+| Resume / cover letter Word | Case Study Document Set `Resume_*.docx`, `Cover_Letter_*.docx` | **Reviewed, not auto-shipped.** Public PDFs stay under `public/resumes/` until a manual replace. See `docs/PORTFOLIO_RESUME_ENV.md` |
+
+The DocuCraft `_ds/` design system referenced by the `.dc.html` files is not in that folder. The Hub is rebuilt in Next.js with `styles/globals.css` tokens.
+
 ## Canonical HTML (repo root or `completeairtable/`)
 
 | Document | Path | Code touchpoints |
@@ -27,7 +43,8 @@ Cursor and humans: start here to map **strategy artifacts → code**.
 | Notion | `lib/notion.js`, `pages/api/notion/` |
 | Supabase | `lib/supabase-schema.sql`, `lib/supabaseServer.js`, `pages/api/tasks.js`, `pages/api/affiliates.js`, `docs/SUPABASE_RLS_AND_API.md` |
 | Dashboard | `pages/dashboard.jsx` |
-| Portfolio | `pages/portfolio.jsx`, `lib/constants.js` `FEATURED_PORTFOLIO_CARDS`, `.env.local.example` resume + featured URLs |
+| Command Hub (private) | `pages/career-command.jsx`, `lib/commandHub/` (shell), `components/command-hub/`, gitignored `CareerSystem/Career-command/private/` |
+| Portfolio | `pages/portfolio.jsx`, `pages/portfolio/*`, `lib/constants.js` `FEATURED_PORTFOLIO_CARDS` / `SELECTED_PROJECTS`, `.env.local.example` resume + featured URLs |
 | Brand / heroes | `lib/brandAssets.js`, `data/SERVICE-TAGLINES.md` |
 
 ## Ship path docs (this execution)
