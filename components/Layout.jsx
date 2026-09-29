@@ -2,7 +2,7 @@ import Head from 'next/head';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { NAV, URLS } from '../lib/constants';
+import { NAV, TOP_NAV, URLS } from '../lib/constants';
 import { BRAND_ASSETS } from '../lib/brandAssets';
 
 export default function Layout({ children, title, description }) {
@@ -48,7 +48,7 @@ export default function Layout({ children, title, description }) {
             </span>
           </Link>
           <div className="nav__links">
-            {NAV.map(item => {
+            {TOP_NAV.map(item => {
               const active = !item.external && router.pathname === item.href;
               const className = active ? 'active' : '';
               if (item.external) {
