@@ -191,12 +191,10 @@ export default function Grimoire({ posts }) {
               <h2 style={{ marginBottom: 'var(--space-sm)' }}>Enter the Grimoire</h2>
               <div className="divider" />
               <p className="muted" style={{ marginBottom: 'var(--space-lg)' }}>
-                This is a soft device unlock for pacing and CTAs — not server-side membership auth.
-                Full post bodies are not embedded in locked HTML. Start on{' '}
-                <a href={URLS.gumroad} target="_blank" rel="noopener noreferrer">Gumroad</a>
-                {' '}for Gentle Beginning and kits, or{' '}
-                <a href={URLS.bmac} target="_blank" rel="noopener noreferrer">Buy Me a Coffee</a>
-                {' '}for Magnolia Circle / tips — then enter your email below to unlock browsing on this device.
+                Leave your email to enter on this device. Journals and kits live in{' '}
+                <a href={URLS.gumroad} target="_blank" rel="noopener noreferrer">the shop</a>
+                . Magnolia Circle and tips live on{' '}
+                <a href={URLS.bmac} target="_blank" rel="noopener noreferrer">Buy Me a Coffee</a>.
               </p>
               <form onSubmit={unlockGrimoire}>
                 <label style={{ display: 'flex', flexDirection: 'column', gap: 6, marginBottom: 'var(--space-md)' }}>
@@ -211,14 +209,14 @@ export default function Grimoire({ posts }) {
                   />
                 </label>
                 <div style={{ display: 'flex', gap: 'var(--space-md)', flexWrap: 'wrap' }}>
-                  <button type="submit" className="btn btn--primary">Unlock the Grimoire</button>
+                  <button type="submit" className="btn btn--primary">Enter the Grimoire</button>
                   <a href={URLS.gumroad} className="btn btn--outline" target="_blank" rel="noopener noreferrer">
-                    Open Gumroad
+                    Browse the Shop
                   </a>
                 </div>
               </form>
               <p className="muted" style={{ fontSize: '0.8rem', marginTop: 'var(--space-md)' }}>
-                Unlock is stored on this device only (no email saved in localStorage). Soft gate — not encryption.
+                Your email is not saved. A note on this device remembers you have entered.
               </p>
             </div>
           </section>
@@ -290,7 +288,7 @@ export default function Grimoire({ posts }) {
             <div className="card" style={{ textAlign: 'center', padding: 'var(--space-2xl)' }}>
               <h3>No posts in this category yet.</h3>
               <p className="muted" style={{ marginTop: 'var(--space-md)' }}>
-                Switch categories or add matching posts in Wix Blog.
+                Switch categories, or return when more letters are posted.
               </p>
             </div>
           )}

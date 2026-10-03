@@ -72,13 +72,13 @@ export default function BlogPost({ post }) {
 
         <div className="card" style={{ maxWidth: 720, margin: '0 auto' }}>
           <p className="muted" style={{ marginBottom: 'var(--space-lg)' }}>
-            Full post bodies stay on Wix Blog (Headless lists metadata here). Open the published article for the complete letter —
+            The full letter lives on the published post. Open it to read through —
             or enter The Grimoire for paced member reading.
           </p>
           <div style={{ display: 'flex', gap: 'var(--space-md)', flexWrap: 'wrap' }}>
             {post.externalWix ? (
               <a href={post.externalWix} className="btn btn--primary" target="_blank" rel="noopener noreferrer">
-                Read full post on Wix
+                Read the full letter
               </a>
             ) : null}
             <Link href="/grimoire" className="btn btn--outline">The Grimoire</Link>

@@ -1,6 +1,5 @@
 import Link from 'next/link';
 import Layout from '../../components/Layout';
-import { URLS } from '../../lib/constants';
 import {
   getGrimoirePosts,
   formatPostDate,
@@ -29,15 +28,15 @@ export default function BlogIndex({ posts }) {
   return (
     <Layout
       title="Blog · Dusk Letters"
-      description="Public writing from Midnight Magnolia — Dusk Letters and healing-centered posts via Wix Blog Headless."
+      description="Public writing from Midnight Magnolia — Dusk Letters and healing-centered posts."
     >
       <div className="container">
         <div className="page-hero">
-          <p className="page-hero__eyebrow">Wix Blog</p>
+          <p className="page-hero__eyebrow">Dusk Letters</p>
           <h1>Dusk Letters &amp; public writing.</h1>
           <div className="divider" />
           <p className="hero__subtitle">
-            Ungated posts from the Wix Blog. Member pacing and deeper archive live in{' '}
+            Ungated letters. Member pacing and the deeper archive live in{' '}
             <Link href="/grimoire">The Grimoire</Link>.
           </p>
         </div>
@@ -45,13 +44,13 @@ export default function BlogIndex({ posts }) {
         <section className="section" style={{ paddingBottom: 'var(--space-2xl)' }}>
           {!posts?.length ? (
             <div className="card" style={{ textAlign: 'center', padding: 'var(--space-2xl)' }}>
-              <h3>Posts are syncing.</h3>
+              <h3>Letters appear here as they are published.</h3>
               <p className="muted" style={{ marginTop: 'var(--space-md)' }}>
-                When Wix Blog credentials are live, published posts appear here automatically.
+                Until then, the Grimoire holds the writing paths.
               </p>
-              <a href={URLS.wixHome} className="btn btn--outline" style={{ marginTop: 'var(--space-md)' }} target="_blank" rel="noopener noreferrer">
-                Open Wix sanctuary
-              </a>
+              <Link href="/grimoire" className="btn btn--outline" style={{ marginTop: 'var(--space-md)' }}>
+                Enter the Grimoire
+              </Link>
             </div>
           ) : (
             <div className="grid-2" style={{ gap: 'var(--space-lg)' }}>
@@ -77,7 +76,7 @@ export default function BlogIndex({ posts }) {
                   {post.href ? (
                     post.href.startsWith('http') ? (
                       <a href={post.href} className="btn btn--outline" style={{ marginTop: 'var(--space-md)', alignSelf: 'flex-start' }} target="_blank" rel="noopener noreferrer">
-                        Read on Wix
+                        Read the full letter
                       </a>
                     ) : (
                       <Link href={post.href} className="btn btn--outline" style={{ marginTop: 'var(--space-md)', alignSelf: 'flex-start' }}>

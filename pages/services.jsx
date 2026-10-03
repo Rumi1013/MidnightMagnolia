@@ -47,16 +47,16 @@ export default function Services({ services }) {
   return (
     <Layout
       title="Work With Me · Bookings"
-      description="Book a session with Latisha — knowledge systems, creative direction, publishing, and sanctuary setup. Powered by Wix Bookings Headless."
+      description="Book a session with Latisha — knowledge systems, creative direction, publishing, and sanctuary setup."
     >
       <div className="container">
         <div className="page-hero">
-          <p className="page-hero__eyebrow">Work With Me · Wix Bookings</p>
+          <p className="page-hero__eyebrow">Work With Me</p>
           <h1>Sessions for the messy middle.</h1>
           <div className="divider" />
           <p className="hero__subtitle">
             One-on-one strategy, publishing, and knowledge-systems work for creators and nonprofit leaders who refuse
-            to hustle their way to wholeness. Live services sync from Wix Bookings; Book Now opens the in-app calendar.
+            to hustle their way to wholeness. Book Now opens the calendar.
           </p>
         </div>
 

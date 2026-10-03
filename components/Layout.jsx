@@ -121,7 +121,6 @@ export default function Layout({ children, title, description }) {
               <Link href="/services">Book a Session</Link>
               <Link href="/blog">Blog</Link>
               <a href={URLS.email}>Email Latisha</a>
-              <a href={URLS.patreon} target="_blank" rel="noopener noreferrer" className="muted" style={{ fontSize: '0.9rem', opacity: 0.85 }}>Patreon (if active)</a>
             </div>
           </div>
           <div className="footer__bottom">

@@ -2,7 +2,7 @@ import Layout from '../../components/Layout';
 import Link from 'next/link';
 import { getGrimoirePosts, getPostBySlug, formatPostDate, jsonForProps } from '../../lib/wix';
 import { useEffect, useState } from 'react';
-import { URLS } from '../../lib/constants';
+import { URLS, gumroadProductUrl } from '../../lib/constants';
 
 export async function getStaticPaths() {
   const posts = await getGrimoirePosts(50);
@@ -45,14 +45,14 @@ export default function GrimoirePost({ post }) {
         {!hasHydrated ? null : !gateOpen ? (
           <section className="section">
             <div className="card" style={{ maxWidth: 760, margin: '0 auto' }}>
-              <h2 style={{ marginBottom: 'var(--space-sm)' }}>Grimoire access required</h2>
+              <h2 style={{ marginBottom: 'var(--space-sm)' }}>Enter the Grimoire</h2>
               <div className="divider" />
               <p className="muted" style={{ marginBottom: 'var(--space-lg)' }}>
-                Unlock the Grimoire from the main page to read this entry.
+                This letter is held in the Grimoire. Enter from the main page to read it.
               </p>
               <div style={{ display: 'flex', gap: 'var(--space-md)', flexWrap: 'wrap' }}>
-                <Link href="/grimoire" className="btn btn--primary">Go to Grimoire gate</Link>
-                <a href={URLS.gumroad} className="btn btn--outline" target="_blank" rel="noopener noreferrer">
+                <Link href="/grimoire" className="btn btn--primary">Enter the Grimoire</Link>
+                <a href={gumroadProductUrl('gentle-beginning')} className="btn btn--outline" target="_blank" rel="noopener noreferrer">
                   Get the Gentle Beginning
                 </a>
               </div>
@@ -87,14 +87,17 @@ export default function GrimoirePost({ post }) {
 
         <section className="section" style={{ paddingTop: 0 }}>
           <div className="card" style={{ maxWidth: 760, margin: '0 auto' }}>
-            <h2 style={{ marginBottom: 'var(--space-sm)' }}>Full entry access</h2>
+            <h2 style={{ marginBottom: 'var(--space-sm)' }}>Continue in the archive</h2>
             <div className="divider" />
             <p className="muted" style={{ marginBottom: 'var(--space-lg)' }}>
-              This page no longer embeds locked Grimoire body content in the static HTML. Wire a server-side member or email entitlement before publishing the full entry here.
+              More letters live in the Grimoire. Journals and kits live in the shop.
             </p>
-            <a href={URLS.gumroad} className="btn btn--primary" target="_blank" rel="noopener noreferrer">
-              Open Gumroad
-            </a>
+            <div style={{ display: 'flex', gap: 'var(--space-md)', flexWrap: 'wrap' }}>
+              <Link href="/grimoire" className="btn btn--primary">Back to the Grimoire</Link>
+              <a href={URLS.gumroad} className="btn btn--outline" target="_blank" rel="noopener noreferrer">
+                Browse the Shop
+              </a>
+            </div>
           </div>
         </section>
         </>

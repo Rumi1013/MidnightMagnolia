@@ -3,7 +3,7 @@ import { useMemo, useState } from 'react';
 import Layout from '../components/Layout';
 import PageIllustration from '../components/PageIllustration';
 import { PAGE_ILLUSTRATIONS } from '../lib/brandAssets';
-import { URLS } from '../lib/constants';
+import { URLS, gumroadProductUrl } from '../lib/constants';
 import {
   getBookingServices,
   formatServicePrice,
@@ -78,7 +78,7 @@ export default function Sanctuary({ previewServices = [] }) {
               {
                 title: 'Gentle Beginning',
                 desc: 'Start with grounding prompts and low-spoon structure.',
-                href: URLS.gumroad,
+                href: gumroadProductUrl('gentle-beginning'),
                 cta: 'Get the free starter',
               },
               {
@@ -120,14 +120,11 @@ export default function Sanctuary({ previewServices = [] }) {
           </p>
           <div style={{ display: 'flex', gap: 'var(--space-md)', flexWrap: 'wrap', alignItems: 'center' }}>
             <a href={URLS.bmac} className="btn btn--primary" target="_blank" rel="noopener noreferrer">
-              Join on BMAC
+              Join Magnolia Circle
             </a>
             <Link href="/membership" className="btn btn--outline">Membership details</Link>
             <a href={URLS.bmac} className="btn btn--ghost" target="_blank" rel="noopener noreferrer">
-              Tip on Buy Me a Coffee
-            </a>
-            <a href={URLS.patreon} className="muted" style={{ fontSize: '0.82rem' }} target="_blank" rel="noopener noreferrer">
-              Patreon (if active)
+              Leave a tip
             </a>
           </div>
         </section>
@@ -137,8 +134,7 @@ export default function Sanctuary({ previewServices = [] }) {
             <h2>Work with me.</h2>
             <div className="divider" />
             <p className="muted" style={{ maxWidth: '56ch', marginBottom: 'var(--space-lg)' }}>
-              A few sessions to help you move with intention. Booking happens on the secure Wix
-              calendar — pick a time that fits your week.
+              A few sessions to help you move with intention. Pick a time that fits your week.
             </p>
             <div className="grid-3">
               {previewServices.map((s) => (
