@@ -81,3 +81,11 @@ CareerSystem/**/*.pdf
 # Local-first Command Hub packet (résumé, application bank, dollar targets)
 CareerSystem/Career-command/private/*
 !CareerSystem/Career-command/private/README.md
+
+# Stray local exports/downloads that land at repo root or in page dirs —
+# product source (app/pages/, components/, lib/) never ships as .zip/.pdf.
+/*.zip
+pages/shop/*.zip
+pages/shop/*.pdf
+pages/shop/files*/
+pages/shop/files*.zip

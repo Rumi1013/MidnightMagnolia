@@ -1,7 +1,41 @@
+# Midnight Magnolia — Agent instructions
+
+Shared by **Codex**, **Claude Code**, and **Cursor**. Claude Code also reads `CLAUDE.md` (this file, plus the skill map). Do not duplicate stack facts in three places — update this file, then keep `CLAUDE.md` as a pointer.
+
+## Workspace organization
+
+Files live on iCloud to ease local disk. Open the **symlink**, not a second copy.
+
+| Role | Path |
+|---|---|
+| Canonical repo (iCloud) | `~/Library/Mobile Documents/com~apple~CloudDocs/Development/Projects/Active/MidnightMagnolia` |
+| Open this (symlink) | `~/Development/Projects/Active/MidnightMagnolia` |
+| Assets (iCloud) | `~/Library/Mobile Documents/com~apple~CloudDocs/Development/Projects/Active/MidnightMagnolia-Assets` |
+| Assets symlink | `~/Development/Projects/Active/MidnightMagnolia-Assets` |
+| Docs / career reference | `~/Documents/MidnightMagnoliaDocs` |
+| Codex scratch / academic | `~/Documents/Codex` |
+| Secrets | repo-root `.env.local` (gitignored). Never paste live secrets into Docs copies. |
+
+- Product app is this repo root (`pages/` + `lib/`), not nested `my-app/` scaffolds.
+- Do **not** create nested git worktrees under `.claude/worktrees/` or `.kilo/worktrees/` in this repo. They duplicate `node_modules`, break `git status` after a move, and sync through iCloud.
+- Keep `node_modules` and `.next` out of extra copies. One checkout.
+
+## Instruction and skill map
+
+| Tool | Always-on instructions | On-demand skills |
+|---|---|---|
+| Codex | this `AGENTS.md` | `.agents/skills/` |
+| Claude Code | `CLAUDE.md` → this file | `.claude/skills/` |
+| Cursor | this file + `.cursor/rules/*.mdc` | `.cursor/skills/` |
+
+Canonical Midnight Magnolia skills live in `.cursor/skills/`. `.claude/skills/` and `.agents/skills/` symlink the same folders so all three tools see them. Vendor skills (Supabase) stay copied under both `.claude/skills/` and `.agents/skills/` via `skills-lock.json`.
+
+When drafting copy, read `.cursor/rules/brand-voice.mdc`. When touching Wix, read `.cursor/rules/wix-integration.mdc`. When touching Airtable or `/dashboard`, read `.cursor/rules/airtable-conventions.mdc`.
+
 ## Learned User Preferences
 
 - Canonical product app is the Active repo root Pages Router Next.js app (`pages/` + `lib/`), not nested `my-app/` scaffolds or Docs copies.
-- Keep shippable code in `Development/Projects/Active/MidnightMagnolia`; docs/career reference in `Documents/MidnightMagnoliaDocs`; large media in `MidnightMagnolia-Assets`.
+- Keep shippable code in this repo (iCloud + `~/Development/Projects/Active/MidnightMagnolia` symlink); docs/career reference in `Documents/MidnightMagnoliaDocs`; large media in `MidnightMagnolia-Assets`.
 - Prefer one secrets file at Active root `.env.local` (gitignored); do not paste live Stripe or other secret literals into Docs copies or source.
 - Architecture to keep front-and-center: **Wix Headless + Next.js Pages + Vercel**. Wix = CMS/commerce/bookings/content backend; Next.js Pages = public front door; Vercel = deploy target. ASAP path is Vercel-hosted Next + Wix Headless, not “replace Wix entirely.”
 - For ASAP public ship, prioritize the marketing site (including a real `/portfolio` with real projects + resume links), **Gumroad for digital products** + **BMAC for membership/tips**, and a minimal operable content→Gumroad product pipeline; treat Career Command as a private ops panel (`/dashboard` + `/career-command`) first.
@@ -15,7 +49,8 @@
 - Wix Headless OAuth app `Midnitemag` (`977ae287-172d-4cd1-9a46-42bcc3b5b863`) on site `ad2ce561-4efa-4255-a998-9074ffc0de7b` has Vercel + `www.midnight-magnolia.com` + localhost `/auth/callback` URIs configured. Server reads use `WIX_API_KEY` + `WIX_SITE_ID` (ApiKeyStrategy) when both are set.
 - Nav “The Shop” and digital CTAs use Gumroad (`URLS.gumroad` / optional `NEXT_PUBLIC_GUMROAD_URL`); Magnolia Circle + tips use Buy Me a Coffee (`NEXT_PUBLIC_BMAC_URL` / `URLS.bmac`). `/shop` remains Wix Stores catalog via Headless — not the digital money path. ASAP ship gates: `docs/DIGITAL_CONTENT_PIPELINE.md` (Gumroad), `docs/BMAC_MINIMUM.md` (membership), `docs/CHECKOUT_LOOP.md` (purchase → thank-you/fulfillment). Dropship: `docs/DROPSHIP_LANE.md`.
 - Dropship: Printify (art print claimed live on Wix; Phase 1 journal/candle/tote in Master Plan/dashboard); `PRINTIFY_API_KEY` may exist locally; no Printify SDK in the Next app — fulfillment stays Printify→Wix. **Printify Phase 1 is post-ASAP.**
-- Career Command is private in-app: `/dashboard` (ops panels) + `/career-command` (token-gated career surface). Not Five Builder. `CareerSystem/` is empty; treat it as an offline pack path, not the live UI.
+- Career Command is private in-app: `/dashboard` (ops panels) + `/career-command` (token-gated career surface). Not Five Builder. Local-first evidence/ATS pack lives at `CareerSystem/Career-command/` (app under `.../app`). Treat `Documents/Codex` Career Command checkouts as historical, not source of truth.
 - Portfolio ship needs `RESUME_TRACK_A_URL` / `RESUME_TRACK_B_URL` and featured case-study env URLs; `NEXT_PUBLIC_BMAC_URL` must be the real creator page (not the generic root). Private dashboard / Career Command need `MM_DASHBOARD_TOKEN` and `SUPABASE_SERVICE_ROLE_KEY` on Vercel.
 - Ship execution index: `docs/implementation-sources.md` — prefer DIGITAL_CONTENT_PIPELINE (Gumroad), BMAC_MINIMUM (membership), CHECKOUT_LOOP, site integrity, Wix merch, RLS. **Post-ASAP (do not pull into ship):** Printify Phase 1, Hermes Daily Nudge Chunk 2 (`hermes/DAILY_USE.md`), full Zapier/Make parity (`docs/ZAPIER_MAKE_PARITY_CHECKLIST.md`).
 - Obsidian genealogy vault lives at sibling `MidnightMagnolia-Assets/Genealogy/Midnight Magnolia Genealogy Archive/` — keep it out of the Next.js git repo. Numbered vault folders (`01_People`, `02_Families`, etc.) are already correct; do not reorganize. Supabase remains the structured genealogy DB; Obsidian is research notes. Do not seed the vault from `genealogy_people`.
+- Flagship systems (Institute / Roots / Press) live under `docs/flagship/` and `lib/flagship/`. Institute weeks 1–2 (taxonomy, ERD, verification policy, 20 seed records) are in-repo. Roots and Press SQL is planned only and must not replace `genealogy_*`. Public directory UI is weeks 3–4. Build authority: `docs/FLAGSHIP_BUILD_GUIDE.md`.
