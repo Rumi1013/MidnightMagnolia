@@ -31,7 +31,7 @@ Obsidian genealogy vault) that this work integrates with rather than replaces.
 - **Production website = `GitHub → Vercel Pro → midnight-magnolia.com`.** Wix is *not* the
   homepage — it's a paid transition bridge only through **February 2027**, being migrated
   off (blog + booking content).
-- **Gumroad** = digital products/delivery (Stan Store is cancelled). **Buy Me a Coffee** =
+- **Gumroad** = digital products/delivery. **Buy Me a Coffee** =
   membership/community support (replaces Patreon). **Substack** = newsletter only, not a
   membership-platform alternative.
 - **Make.com only** for automation — Zapier is an explicit "do not add."

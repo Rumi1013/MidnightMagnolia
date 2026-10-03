@@ -41,7 +41,7 @@ Before installing anything, write down the role of each system:
 | Wix | Paid transition bridge for blog and booking through February 2027; not a website publisher | Not configured locally | Read-only after connection |
 
 **Decision:** the repository and Vercel are the only production website path. Gumroad
-replaces Stan Store, Buy Me a Coffee replaces Patreon, and Make.com is the only automation
+is the digital storefront, Buy Me a Coffee replaces Patreon, and Make.com is the only automation
 platform. Wix remains available through February 2027 only while blog and booking
 functions are migrated; it cannot publish, redirect, or replace the homepage.
 

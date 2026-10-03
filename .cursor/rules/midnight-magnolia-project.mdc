@@ -30,6 +30,7 @@ alwaysApply: true
 - `npm run dev` — local dev server (terminal 6 if user has it open)
 - `npm run wix:smoke` — verify Wix auth + connectivity
 - `npm run wix:export` — refresh inventory snapshot + CSVs + gap report
+- `npm run flagship:seed` — regenerate Institute CSV + SQL from `data/flagship/institute-resources.json`
 - `npm run build` — verify production build before merging
 
 ## Three-agent ecosystem (user-level)

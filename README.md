@@ -49,6 +49,6 @@ Shop products → Wix Dashboard Stores (appear automatically)
 
 ## Ship roadmap (`docs/`)
 
-Implementation index: **`docs/implementation-sources.md`** (Wix Headless + Next + Vercel; BMAC minimum + digital pipeline; checkout QA; dropship lane; portfolio env; Stan deferred).
+Implementation index: **`docs/implementation-sources.md`** (Wix Headless + Next + Vercel; BMAC minimum + digital pipeline; checkout QA; dropship lane; portfolio env).
 
 Stack: **Wix Headless** (CMS/commerce/bookings) · **Next.js Pages** front door · **Vercel** deploy · **Gumroad** digital · **BMAC** membership/tips.

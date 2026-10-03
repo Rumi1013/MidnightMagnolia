@@ -1,6 +1,6 @@
 # Buy Me a Coffee minimum (membership / tips)
 
-**Canonical split:** **Gumroad** = digital products · **Buy Me a Coffee** = Magnolia Circle membership + tips. Stan is deferred — do not block ship on `docs/STAN_STORE_MINIMUM.md`. Digital listing steps live in `docs/DIGITAL_CONTENT_PIPELINE.md`.
+**Canonical split:** **Gumroad** = digital products · **Buy Me a Coffee** = Magnolia Circle membership + tips. Digital listing steps live in `docs/DIGITAL_CONTENT_PIPELINE.md`.
 
 Verify against the live page in `NEXT_PUBLIC_BMAC_URL` / `lib/constants.js` `URLS.bmac` (must not be the bare `https://www.buymeacoffee.com/` root).
 
@@ -17,7 +17,7 @@ Verify against the live page in `NEXT_PUBLIC_BMAC_URL` / `lib/constants.js` `URL
 
 ## Site CTA alignment (code)
 
-- [x] Nav **The Shop** → `URLS.gumroad` (digital; not Stan)
+- [x] Nav **The Shop** → `URLS.gumroad` (digital)
 - [x] Homepage primary shop CTA → Gumroad; Magnolia Circle → BMAC
 - [x] `/membership` — BMAC for Circle/tips; Gumroad for digital goods
 - [x] Digital `PRODUCTS` → `URLS.gumroad`; Magnolia Circle → `URLS.bmac`

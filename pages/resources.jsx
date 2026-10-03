@@ -48,10 +48,8 @@ export default function Resources() {
           <h2>Healing, lineage & studio picks.</h2>
           <div className="divider" />
           <p className="muted" style={{ maxWidth: '52ch', marginBottom: 'var(--space-xl)' }}>
-            Every link below is from your Associates shortlist—recovery journals, genealogy standards, archival pens, and
-            one Kindle title in the family line. For the full rotating storefront, use the button after this list. The
-            public Wix sanctuary lives at{' '}
-            <a href={URLS.wixHome} target="_blank" rel="noopener noreferrer">{URLS.wixHome}</a>.
+            Every link below is from the Associates shortlist: recovery journals, genealogy standards, archival pens, and
+            one Kindle title in the family line. For the full rotating storefront, use the button after this list.
           </p>
           {AMAZON_PICKS.map((cat) => (
             <div className="amazon-picks__block" key={cat.id}>

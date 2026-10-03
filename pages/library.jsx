@@ -17,8 +17,8 @@ export default function Library() {
           <div className="divider" />
           <p className="hero__subtitle" style={{ maxWidth: '60ch' }}>
             A calm shelf between the Sanctuary and the Grimoire. Long-form lives on the{' '}
-            <Link href="/blog">public blog</Link> (Wix Headless) and Dusk Letters;
-            digital products and memberships live on Buy Me a Coffee. Nothing here is paywalled by accident—only pointed clearly.
+            <Link href="/blog">public blog</Link> and in Dusk Letters.
+            Journals and kits live in the shop. Magnolia Circle lives on Buy Me a Coffee.
           </p>
         </div>
 
@@ -47,11 +47,6 @@ export default function Library() {
               <a href={URLS.bmac} target="_blank" rel="noopener noreferrer">Buy Me a Coffee</a>
               {' — '}
               Magnolia Circle membership and tips.
-            </li>
-            <li>
-              <a href={URLS.wixHome} target="_blank" rel="noopener noreferrer">Public Wix site</a>
-              {' — '}
-              gallery, blog entry points, and legacy pages not yet mirrored in this Next build.
             </li>
           </ul>
         </section>

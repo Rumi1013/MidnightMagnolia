@@ -1,0 +1,1 @@
+Resource submitted -> Pending Review -> Duplicate Check -> Initial Research -> Eligibility and Access Review -> Verification -> Human Approval -> Published -> Scheduled Reverification -> Updated or Archived.

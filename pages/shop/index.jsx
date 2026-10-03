@@ -52,8 +52,8 @@ export default function Shop({ products }) {
           <h1>Tools for quiet builders.</h1>
           <div className="divider" />
           <p className="hero__subtitle">
-            Healing-centered journals, shadow work tools, and apparel rooted in Lowcountry care.
-            Checkout happens on the Wix storefront — secure and instant.
+            Journals, kits, and apparel rooted in Lowcountry care.
+            Digital goods live in the shop. Print and merch listings open here.
           </p>
         </div>
 
@@ -64,7 +64,7 @@ export default function Shop({ products }) {
             <div className="card" style={{ textAlign: 'center', padding: 'var(--space-2xl)' }}>
               <h3>The shop is being restocked.</h3>
               <p className="muted" style={{ marginTop: 'var(--space-md)' }}>
-                Check back soon — products are syncing from the Wix store.
+                Journals and kits are already in the shop. Print and merch return here as they are listed.
               </p>
               <a
                 href={URLS.gumroad}
@@ -145,7 +145,7 @@ export default function Shop({ products }) {
                       target="_blank"
                       rel="noopener noreferrer"
                     >
-                      {p.inStock ? 'Get It Now' : 'View'}
+                      {p.inStock ? 'View listing' : 'View'}
                     </a>
                   </div>
                 </article>
@@ -163,8 +163,7 @@ export default function Shop({ products }) {
             color: 'var(--color-muted)',
           }}
         >
-          Checkout is hosted on the Wix storefront. Digital products deliver instantly via email.
-          Questions? <a href={URLS.email}>bgconscious@gmail.com</a>
+          Questions about an order? <a href={URLS.email}>Email Latisha</a>
         </div>
       </div>
     </Layout>

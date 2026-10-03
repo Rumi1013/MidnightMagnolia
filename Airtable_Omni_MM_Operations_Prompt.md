@@ -33,12 +33,12 @@ Create a table named **Products**.
 | Product Code | Single line text | P0–P7, S1–S4, KDP-1 through KDP-7, POD-1 through POD-6 |
 | Category | Single select | Digital Download · Lead Magnet · Membership · Bundle · Service · KDP · POD · Notion Template |
 | Price | Currency | USD |
-| Build Stage | Single select | Not Started · Content Drafting · Design In Progress · Stan Store Live · Patreon Live · Complete |
-| Platform | Multiple select | Stan Store · Gumroad · Patreon · KDP · Printify · Wix |
+| Build Stage | Single select | Not Started · Content Drafting · Design In Progress · Gumroad Live · Patreon Live · Complete |
+| Platform | Multiple select | Gumroad · BMAC · Patreon · KDP · Printify · Wix |
 | Content Done | Checkbox | |
 | Design Done | Checkbox | |
 | Live | Checkbox | |
-| Stan Store URL | URL | |
+| Gumroad URL | URL | |
 | Canva File URL | URL | |
 | Gumroad URL | URL | |
 | Priority | Single select | Critical · High · Medium · Low |
@@ -102,10 +102,10 @@ Create a table named **Content Calendar**.
 | Field Name | Type | Options / Notes |
 |---|---|---|
 | Title | Single line text | **Primary field** |
-| Content Type | Single select | Blog Post · Dusk Letters · TikTok · Facebook Post · Instagram Post · Instagram Reel · Pinterest Pin · YouTube Video · YouTube Short · Patreon Drop · Stan Store Email · Magnolia Circle Drop · Substack Post |
+| Content Type | Single select | Blog Post · Dusk Letters · TikTok · Facebook Post · Instagram Post · Instagram Reel · Pinterest Pin · YouTube Video · YouTube Short · Patreon Drop · Gumroad Email · Magnolia Circle Drop · Substack Post |
 | Status | Single select | Idea · Drafting · Designed · Scheduled · Published |
 | Publish Date | Date | Include time field |
-| Platform(s) | Multiple select | Wix Blog · Substack · Stan Store · TikTok · Facebook · Instagram · YouTube · Pinterest · Email · Patreon |
+| Platform(s) | Multiple select | Wix Blog · Substack · Gumroad · TikTok · Facebook · Instagram · YouTube · Pinterest · Email · Patreon |
 | Content Pillar | Single select | Shadow Work & Healing · Southern Gothic & Roots · Neurodivergent Creator · Creative Process · Product · Genealogy |
 | Linked Product | Link to another record | Links to Products table |
 | Affiliate Link | Single line text | Affiliate URL if this post promotes a partner |
@@ -146,7 +146,7 @@ Create a table named **Sales Log**.
 | Product Name (text) | Single line text | Flat text copy — for display when Product link not set |
 | Sale Date | Date | Include time |
 | Amount | Currency | USD |
-| Platform | Single select | Stan Store · Gumroad · Patreon · KDP · Printify · Wix Store |
+| Platform | Single select | Gumroad · BMAC · Patreon · KDP · Printify · Wix Store |
 | Source | Single select | Organic · Email · TikTok · Facebook · Instagram · YouTube · Pinterest · Affiliate · Direct |
 | Affiliate Partner | Link to another record | Links to Affiliate Pipeline table — if applicable |
 | Customer Email | Email | Optional — for follow-up |
@@ -180,7 +180,7 @@ Create a table named **Contacts**.
 | First Name | Single line text | |
 | Last Name | Single line text | |
 | Full Name | Formula | `First Name & " " & Last Name` |
-| Subscribed Via | Single select | Gentle Beginning · Dusk Letters · Patreon · BMAC · Grimoire · Stan Store · Direct · Affiliate Referral |
+| Subscribed Via | Single select | Gentle Beginning · Dusk Letters · Patreon · BMAC · Grimoire · Gumroad · Direct · Affiliate Referral |
 | Subscribed Date | Date | |
 | Status | Single select | Active · Unsubscribed · Paused · Bounced |
 | Tags | Multiple select | freebie · magnolia-circle · patreon · candle-tender · circle-keeper · altar-keeper · buyer · vip |
@@ -188,7 +188,7 @@ Create a table named **Contacts**.
 | Purchases | Link to another record | Links to Sales Log — any purchases by this contact |
 | Total Spent | Rollup | Rollup from Purchases · Sum of Amount |
 | Patreon Member | Checkbox | |
-| Magnolia Circle (Stan) | Checkbox | |
+| Magnolia Circle | Checkbox | |
 | Buyer | Checkbox | Has at least one purchase |
 | Notes | Long text | |
 | Last Engaged | Date | Manual — date of last open, click, or reply |
@@ -198,7 +198,7 @@ Create a table named **Contacts**.
 1. **All Contacts — Active** — Grid · filter: Status = Active · sort by Subscribed Date desc
 2. **Buyers** — Grid · filter: Buyer = checked
 3. **Patreon Members** — Grid · filter: Patreon Member = checked
-4. **Magnolia Circle** — Grid · filter: Magnolia Circle (Stan) = checked
+4. **Magnolia Circle** — Grid · filter: Magnolia Circle = checked
 5. **Freebie Only** — Grid · filter: Tags contains "freebie" · Buyer = unchecked · (these people to nurture toward purchase)
 6. **By Source** — Grid · grouped by Platform Source
 7. **High Value** — Grid · filter: Total Spent >= $47 · sort by Total Spent desc
@@ -298,7 +298,7 @@ Create a table named **Patreon Members**.
 | Preferred Themes | Long text | What healing themes resonate for this member? |
 | Notes | Long text | Session notes, feedback, preferences |
 | Contact Link | Link to another record | Links to Contacts table — if they're also an email subscriber |
-| Platform | Single select | Patreon · Stan Store (Magnolia Circle) · BMAC |
+| Platform | Single select | Patreon · BMAC (Magnolia Circle) · Gumroad |
 
 ### Views
 
@@ -329,7 +329,7 @@ Create a table named **Member Content Tracker**.
 |---|---|---|
 | Deliverable Title | Single line text | **Primary field** · e.g. "June — Candle Tender Note" |
 | Tier | Single select | Candle Tender · Circle Keeper · Altar Keeper · All Tiers |
-| Platform | Single select | Patreon · Stan Store · Email · BMAC |
+| Platform | Single select | Patreon · Gumroad · Email · BMAC |
 | Month | Single line text | e.g. "June 2026" |
 | Theme | Single line text | Monthly healing theme — e.g. "Grief as a Practice" |
 | Content Type | Single select | Written Note · Audio Ritual · Session Outline · Bonus Resource · Video |
@@ -338,7 +338,7 @@ Create a table named **Member Content Tracker**.
 | Word Count / Duration | Single line text | e.g. "520 words" or "12 min" |
 | Notion Draft Link | URL | Link to Notion drafting page |
 | Repurposed From | Single line text | Note spiritual practice entry or other source if repurposed |
-| Published URL | URL | Live Patreon or Stan Store post URL once published |
+| Published URL | URL | Live Patreon, BMAC, or Gumroad post URL once published |
 | Member Feedback | Long text | Any responses or reactions from members |
 
 ### Monthly content minimum requirements
@@ -363,22 +363,22 @@ Create a table named **Member Content Tracker**.
 Create a table named **Monthly Revenue Log**.
 
 > Populated by Make.com automation M-04 on the 1st of each month.
-> Also manually add Patreon total (separate from Stan Store) until Patreon is restored.
+> Also manually add Patreon total (separate from Gumroad / BMAC) until Patreon is restored.
 
 ### Fields
 
 | Field Name | Type | Options / Notes |
 |---|---|---|
 | Month | Single line text | **Primary field** · e.g. "May 2026" |
-| Stan Store Revenue | Currency | From M-04 Sales Log rollup |
+| Gumroad Revenue | Currency | From M-04 Sales Log rollup |
 | Patreon Revenue | Currency | Manual until automation restored |
 | Gumroad Revenue | Currency | |
 | KDP Royalties | Currency | Check monthly in KDP dashboard |
 | Other Revenue | Currency | Printify, Etsy, etc. |
-| Total Revenue | Formula | `Stan Store Revenue + Patreon Revenue + Gumroad Revenue + KDP Royalties + Other Revenue` |
+| Total Revenue | Formula | `Gumroad Revenue + Patreon Revenue + BMAC Revenue + KDP Royalties + Other Revenue` |
 | New Subscribers | Number | New email subscribers that month |
 | Active Patreon Members | Number | |
-| Active Magnolia Circle | Number | Stan Store subscribers |
+| Active Magnolia Circle | Number | BMAC members |
 | New Products Launched | Number | |
 | Goal ($4,000/mo) | Currency | Static: $4000 |
 | Gap to Goal | Formula | `Goal ($4,000/mo) - Total Revenue` |
@@ -430,7 +430,6 @@ Create a table named **Social Links Registry**.
 | Facebook (personal) | /latisha.imara843 | https://facebook.com/latisha.imara843 | Live | Personal |
 | YouTube | @poetrygirl1013 | https://youtube.com/@poetrygirl1013 | Live | Depth |
 | Patreon | /MidnightMagnoliaSC | https://patreon.com/MidnightMagnoliaSC | Locked | Membership |
-| Stan Store | MidnightMagnoliaSC | https://stan.store/MidnightMagnoliaSC | Live | Sales |
 | Gumroad | midnightmagnoliasc | https://midnightmagnoliasc.gumroad.com | Live | Sales |
 | Substack / Dusk Letters | midnightmagnoliasc | https://midnightmagnoliasc.substack.com | Live | Owned Audience |
 | Tumblr | midnight-magnoliasc | https://tumblr.com/blog/midnight-magnoliasc | Live | Depth |
@@ -454,10 +453,10 @@ Create a table named **Social Links Registry**.
 
 ## AUTOMATIONS — MIDNIGHT MAGNOLIA OPERATIONS
 
-### Automation 1 — New Stan Store Sale → Sales Log
+### Automation 1 — New Gumroad Sale → Sales Log
 **Trigger:** Webhook from Zapier Z-01
 **Action:** Create record in Sales Log
-**Fields:** Product Name, Sale Date, Amount, Platform = "Stan Store", Source from UTM
+**Fields:** Product Name, Sale Date, Amount, Platform = "Gumroad", Source from UTM
 
 ### Automation 2 — New Subscriber → Contacts
 **Trigger:** Webhook from Zapier Z-02
@@ -758,7 +757,7 @@ as documented in the MM Canonical Master Plan automations:
 
 | Automation | Trigger Base | Action Base | Schema |
 |---|---|---|---|
-| Z-01 — Purchase → Sales Log | External (Stan Store) | MM Operations | Stan Store webhook → Sales Log |
+| Z-01 — Purchase → Sales Log | External (Gumroad) | MM Operations | Gumroad webhook → Sales Log |
 | Z-02 — Subscriber → Contacts | External (Email platform) | MM Operations | New sub → Contacts (match on email) |
 | Z-04 — Application follow-up | Career Command | Career Command | New row → Follow-up Date +7 days |
 | P-01 — Patreon pledge | External (Patreon) | MM Operations | New pledge → Patreon Members |

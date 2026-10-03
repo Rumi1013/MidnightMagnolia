@@ -1,6 +1,6 @@
 # Digital content → Gumroad pipeline
 
-Architecture: **Wix Headless** = CMS / catalog / bookings backend · **Next.js on Vercel** = front door · **Gumroad** = digital product checkout · **Buy Me a Coffee** = membership / tips (Stan deferred).
+Architecture: **Wix Headless** = CMS / catalog / bookings backend · **Next.js on Vercel** = front door · **Gumroad** = digital product checkout · **Buy Me a Coffee** = membership / tips.
 
 ## Operable ASAP path
 
@@ -17,7 +17,7 @@ npm run wix:export   # → data/inventory-products.csv, data/wix-inventory-snaps
 npm run wix:smoke
 ```
 
-Digital source of truth for ASAP is **Gumroad**, not Wix Stores or Stan. Keep Wix export for merch/booking parity (`docs/WIX_MERCH_CHECKLIST.md`).
+Digital source of truth for ASAP is **Gumroad**, not Wix Stores. Keep Wix export for merch/booking parity (`docs/WIX_MERCH_CHECKLIST.md`).
 
 ## First SKU checklist
 

@@ -1,0 +1,10 @@
+{
+  "event_id": "EVT-001",
+  "name": "Sample Registrant",
+  "email": "sample@example.invalid",
+  "consent_status": "event_only",
+  "interests": [
+    "writing"
+  ],
+  "referral_source": "demo"
+}

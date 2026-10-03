@@ -1,4 +1,10 @@
 # Copy to .codex/config.toml (gitignored). Set project_ref from Supabase Dashboard → Settings → General.
 # Do not commit your real project ref — same rule as .env.local.
+#
+# Open Codex against the symlink:
+#   ~/Development/Projects/Active/MidnightMagnolia
+# That path is trusted in ~/.codex/config.toml. The iCloud real path is trusted too.
+# Repo instructions: AGENTS.md. Skills: .agents/skills/
+
 [mcp_servers.supabase]
 url = "https://mcp.supabase.com/mcp?project_ref=YOUR_PROJECT_REF&features=database%2Cdebugging%2Cdevelopment%2Cfunctions%2Cbranching%2Cstorage%2Cdocs"

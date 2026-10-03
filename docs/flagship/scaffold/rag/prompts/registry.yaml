@@ -1,0 +1,5 @@
+prompts:
+  answer_with_sources:
+    version: 1
+    purpose: Answer using retrieved context and name supporting sources.
+    template_file: answer_with_sources.txt

@@ -18,4 +18,4 @@ Supabase seeds `dashboard_tasks` rows (`lib/supabase-schema.sql`) that came from
 | `site-legal` | Legal placeholders | **Improved:** `/privacy-policy`, `/terms-conditions` with Wix cross-links | Paste full Wix legal text when ready |
 | `site-mobile` | Mobile audit | Manual QA on deployed Next + Wix | — |
 
-**Commerce (canonical):** Gumroad for digital products; Buy Me a Coffee for Magnolia Circle membership + tips (Stan deferred); Patreon only when access is restored — reflected in `Layout` footer.
+**Commerce (canonical):** Gumroad for digital products; Buy Me a Coffee for Magnolia Circle membership + tips; Patreon only when access is restored — reflected in `Layout` footer.

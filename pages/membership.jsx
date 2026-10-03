@@ -12,18 +12,18 @@ const OFFERINGS = [
       'Member edition of Dusk Letters',
       'Community for quiet builders',
     ],
-    cta: 'Join on Buy Me a Coffee',
+    cta: 'Join Magnolia Circle',
     url: URLS.bmac,
   },
   {
-    name: 'Digital goods + kits',
-    focus: 'Gumroad storefront',
+    name: 'Journals and kits',
+    focus: 'Digital goods',
     includes: [
       'The Gentle Beginning (free starter)',
       'Shadow Work Starter Kit ($9)',
       'Journals, workbooks, and Deep Roots bundle',
     ],
-    cta: 'Open Gumroad',
+    cta: 'Browse the Shop',
     url: URLS.gumroad,
   },
 ];
@@ -32,17 +32,17 @@ export default function MembershipPage() {
   return (
     <Layout
       title="Membership"
-      description="Buy Me a Coffee for Magnolia Circle membership and tips. Digital products live on Gumroad. Stan is deferred for cost. Patreon remains optional when the account is active."
+      description="Magnolia Circle membership and tips, plus journals and kits from the shop."
     >
       <div className="container">
         <div className="page-hero">
           <p className="page-hero__eyebrow">Membership</p>
-          <h1>Membership on BMAC. Digital on Gumroad.</h1>
+          <h1>Magnolia Circle. Journals when you are ready.</h1>
           <div className="divider" />
           <p className="hero__subtitle">
-            Magnolia Circle and tips live on Buy Me a Coffee.
-            Journals, kits, and career docs live on Gumroad.
-            Physical merch and bookings stay on Wix Headless. Stan Store is deferred (storefront unavailable).
+            A monthly membership for reflection and prompts.
+            Journals, kits, and career docs live in the shop.
+            Book a session when you want one-on-one work.
           </p>
         </div>
 
@@ -51,23 +51,25 @@ export default function MembershipPage() {
           <div className="divider" />
           <div className="grid-2" style={{ marginTop: 'var(--space-lg)' }}>
             <div className="card">
-              <h3>Buy Me a Coffee</h3>
-              <p className="muted">Magnolia Circle membership and tips.</p>
-              <a href={URLS.bmac} className="btn btn--primary" target="_blank" rel="noopener noreferrer">Open Buy Me a Coffee</a>
+              <h3>Magnolia Circle</h3>
+              <p className="muted">Membership and tips on Buy Me a Coffee.</p>
+              <a href={URLS.bmac} className="btn btn--primary" target="_blank" rel="noopener noreferrer">Join Magnolia Circle</a>
             </div>
             <div className="card">
-              <h3>Gumroad</h3>
+              <h3>The Shop</h3>
               <p className="muted">Digital products — free starter, journals, workbooks, and bundles.</p>
-              <a href={URLS.gumroad} className="btn btn--outline" target="_blank" rel="noopener noreferrer">Open Gumroad</a>
+              <a href={URLS.gumroad} className="btn btn--outline" target="_blank" rel="noopener noreferrer">Browse the Shop</a>
             </div>
           </div>
           <p className="muted" style={{ marginTop: 'var(--space-lg)' }}>
-            Optional physical catalog and session booking:{' '}
-            <Link href="/shop">Browse Wix Catalog</Link>.
+            Print, merch, and bookings:{' '}
+            <Link href="/shop">print &amp; merch</Link>
+            {' · '}
+            <Link href="/services">book a session</Link>.
           </p>
         </section>
 
-        <section className="section">
+        <section className="section" style={{ paddingBottom: 'var(--space-2xl)' }}>
           <h2>Offerings</h2>
           <div className="divider" />
           <div className="grid-2" style={{ marginTop: 'var(--space-lg)' }}>
@@ -88,16 +90,6 @@ export default function MembershipPage() {
               </div>
             ))}
           </div>
-        </section>
-
-        <section className="section section--dusk" style={{ borderRadius: 'var(--radius-lg)', padding: 'var(--space-xl)', marginBottom: 'var(--space-2xl)' }}>
-          <h3>Patreon (optional)</h3>
-          <p className="muted" style={{ maxWidth: '56ch', marginTop: 'var(--space-sm)' }}>
-            When the Patreon account is accessible again, you can mirror tier names there. This site treats Buy Me a Coffee as the primary membership and support surface.
-          </p>
-          <a href={URLS.patreon} className="btn btn--ghost" style={{ marginTop: 'var(--space-md)' }} target="_blank" rel="noopener noreferrer">
-            Patreon (if active)
-          </a>
         </section>
       </div>
     </Layout>

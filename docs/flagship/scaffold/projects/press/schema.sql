@@ -1,0 +1,10 @@
+CREATE TABLE event (event_id TEXT PRIMARY KEY, title TEXT NOT NULL, event_type TEXT, starts_at TIMESTAMP, location_url TEXT, capacity INTEGER, status TEXT, description TEXT);
+CREATE TABLE contact (contact_id TEXT PRIMARY KEY, name TEXT, normalized_email TEXT UNIQUE NOT NULL, consent_status TEXT NOT NULL DEFAULT 'event_only', interests TEXT, source TEXT);
+CREATE TABLE registration (registration_id TEXT PRIMARY KEY, event_id TEXT REFERENCES event(event_id), contact_id TEXT REFERENCES contact(contact_id), registered_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP, status TEXT, attendance TEXT, referral_source TEXT);
+CREATE TABLE tag (tag_id TEXT PRIMARY KEY, name TEXT UNIQUE NOT NULL, rule TEXT);
+CREATE TABLE contact_tag (contact_id TEXT REFERENCES contact(contact_id), tag_id TEXT REFERENCES tag(tag_id), PRIMARY KEY(contact_id,tag_id));
+CREATE TABLE speaker (person_id TEXT PRIMARY KEY, bio TEXT, books_projects TEXT, private_contact TEXT);
+CREATE TABLE event_speaker (event_id TEXT REFERENCES event(event_id), person_id TEXT REFERENCES speaker(person_id), PRIMARY KEY(event_id,person_id));
+CREATE TABLE communication (message_id TEXT PRIMARY KEY, contact_id TEXT REFERENCES contact(contact_id), event_id TEXT REFERENCES event(event_id), message_type TEXT, sent_at TIMESTAMP, delivery_status TEXT);
+CREATE TABLE automation_run (run_id TEXT PRIMARY KEY, workflow TEXT, trigger_name TEXT, status TEXT, started_at TIMESTAMP, ended_at TIMESTAMP, error_code TEXT, retry_count INTEGER DEFAULT 0);
+CREATE TABLE issue_log (issue_id TEXT PRIMARY KEY, run_id TEXT REFERENCES automation_run(run_id), root_cause TEXT, resolution TEXT, prevention TEXT, owner_role TEXT, resolved_at TIMESTAMP);
