@@ -241,3 +241,7 @@ alter table genealogy_people add column if not exists is_caswell_county boolean 
 alter table genealogy_people add column if not exists child_of_family text;
 alter table genealogy_people add column if not exists spouse_families text;
 create unique index if not exists genealogy_people_ancestry_id_uidx on genealogy_people (ancestry_id);
+
+-- Flagship schemas (Institute / Roots / Press) live in lib/flagship/.
+-- Institute is weeks 1–2 and may be applied after this file.
+-- Roots and Press are planned only. Do not merge them into genealogy_*.

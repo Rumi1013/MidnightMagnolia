@@ -1,0 +1,32 @@
+[
+  {
+    "id": "CAT-SAFETY",
+    "name": "Safety & Stabilization",
+    "description": "Crisis lines, shelter, food, immediate safety, and disaster navigation."
+  },
+  {
+    "id": "CAT-HEALING",
+    "name": "Healing & Recovery",
+    "description": "Mental health, substance use, grief, peer support, and trauma recovery."
+  },
+  {
+    "id": "CAT-LEGAL",
+    "name": "Legal & Advocacy",
+    "description": "Civil legal aid, rights protection, and self-help legal information."
+  },
+  {
+    "id": "CAT-FAMILY",
+    "name": "Family & Youth",
+    "description": "Child protection lines, family services, and youth-specific care."
+  },
+  {
+    "id": "CAT-ECONOMIC",
+    "name": "Economic Recovery",
+    "description": "Housing, food systems, employment, vocational rehabilitation, and benefits navigation."
+  },
+  {
+    "id": "CAT-BELONGING",
+    "name": "Community & Belonging",
+    "description": "Libraries, statewide navigators, mutual-aid directories, and community gathering points."
+  }
+]

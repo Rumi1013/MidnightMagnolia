@@ -13,6 +13,7 @@
     "wix:blog-drafts": "node --env-file=.env.local scripts/wix-blog-drafts-export.mjs",
     "supabase:verify": "node scripts/supabase-db-verify.mjs",
     "genealogy:seed": "node scripts/seed-genealogy.mjs",
+    "flagship:seed": "node scripts/flagship-institute-seed.mjs",
     "audit": "npm audit --omit=dev",
     "audit:all": "npm audit"
   },

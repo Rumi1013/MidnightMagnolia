@@ -1,0 +1,8 @@
+{
+  "index_version": "example-v1",
+  "embedding_model": "SET_ME",
+  "chunk_size": "SET_ME",
+  "chunk_overlap": "SET_ME",
+  "created_at": "SET_ME",
+  "source_snapshot": "SET_ME"
+}

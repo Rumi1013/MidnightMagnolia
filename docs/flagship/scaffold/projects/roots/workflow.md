@@ -1,0 +1,1 @@
+Public Submission -> Contribution Record -> Existing Record Search -> Research Queue -> Source Verification -> Relationship Analysis -> Human Review -> Verified, Unresolved, Rejected, or Restricted -> Archive Update.

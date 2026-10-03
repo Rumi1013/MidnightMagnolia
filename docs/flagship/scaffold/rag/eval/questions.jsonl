@@ -1,0 +1,1 @@
+{"id":"eval-001","question":"What is the publication status of the example resource?","expected_sources":["sample_resources.csv"],"expected_answer_contains":["verified"]}
