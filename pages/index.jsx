@@ -60,13 +60,15 @@ export default function Home() {
         <div className="container">
           <p className="hero__eyebrow">Midnight Magnolia · Lowcountry, SC</p>
           <h1 className="hero__title">
-            A sanctuary for <em style={{ color: 'var(--color-amber)', fontStyle: 'italic' }}>quiet builders.</em>
+            Midnight Magnolia <em style={{ color: 'var(--color-amber)', fontStyle: 'italic' }}>Books &amp; Curiosities</em>
           </h1>
           <p className="hero__subtitle">
-            Shadow work journals, a healing membership, and slow-build consulting — made for neurodivergent
-            creators who know their pace is not a problem.
+            A Southern Gothic-inspired bookshop and curiosity boutique featuring carefully curated books, candles, crystals, thoughtful gifts, and intimate literary gatherings. Our first collection is coming soon, with dreams of taking Midnight Magnolia on the road.
           </p>
           <div className="hero__actions">
+            <a href="https://bgconscious.wixforms.com/f/7515066925475431630" className="btn btn--primary" target="_blank" rel="noopener noreferrer">
+              Help Shape Our First Collection
+            </a>
             <a href={URLS.gumroad} className="btn btn--primary" target="_blank" rel="noopener noreferrer">
               Shop on Gumroad
             </a>
