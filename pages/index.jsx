@@ -1,240 +1,148 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import Layout from '../components/Layout';
-import {
-  BRAND_ASSETS,
-  HOME_SPOTLIGHT,
-  HOME_DOOR_ART,
-  HOME_CTA_ART,
-} from '../lib/brandAssets';
-import { URLS, PRODUCTS } from '../lib/constants';
+import { HOME_SPOTLIGHT, HOME_CTA_ART } from '../lib/brandAssets';
+import { COLLECTION_SURVEY_URL } from '../lib/constants';
 
-const HOME_DOORS = [
+const COLLECTIONS = [
   {
-    title: 'Work With Me',
-    desc: (
-      <>
-        Gentle, structured support for your workflows, career materials, and digital systems.
-        <br /><br />
-        We focus on clarity, not pressure—so you can move forward without burning out.
-      </>
-    ),
-    href: '/work-with-me',
-    cta: 'See Services',
+    id: 'midnight-library',
+    title: 'The Midnight Library',
+    description: 'For a little escape: curated books and literary gifts that invite you to linger, with beautiful paper goods for your reading ritual.',
+    details: 'Books, bookmarks, reading notes, and journals.',
   },
   {
-    title: 'The Shop',
-    desc: (
-      <>
-        Journals, planners, and digital tools designed for real life—low energy days included.
-        <br /><br />
-        Start small. Take what you need. Come back when you&apos;re ready.
-      </>
-    ),
-    href: URLS.gumroad,
-    cta: 'Browse Products',
-    external: true,
+    id: 'curiosity-cabinet',
+    title: 'The Curiosity Cabinet',
+    description: 'For everyday wonder: candles, crystals, botanicals, and unusual finds, thoughtfully chosen for your shelf, desk, or gift box.',
+    details: 'Candlelight, collected treasures, and thoughtful finishing touches.',
   },
   {
-    title: 'The Grimoire',
-    desc: (
-      <>
-        Writing, archives, and healing-centered resources for the long haul.
-        <br /><br />
-        This is where story meets survival—and turns into something sacred.
-      </>
-    ),
-    href: '/grimoire',
-    cta: 'Read the Grimoire',
+    id: 'keepsake-studio',
+    title: 'The Keepsake Studio',
+    description: 'For the stories you carry: personalized journals, recipe booklets, and memory books that turn meaningful moments into keepsakes.',
+    details: 'Personal gifts shaped around your words, photographs, and memories.',
+  },
+  {
+    id: 'magnolia-gatherings',
+    title: 'Magnolia Gatherings',
+    description: 'For time together: intimate literary gatherings, creative workshops, and gifting experiences with room to slow down and connect.',
+    details: 'Portable pop-ups, private gift bars, and small creative gatherings.',
   },
 ];
 
 export default function Home() {
-  // Show 3 featured products: the free starter, the $9 journal, and the flagship $49 bundle
-  const featuredProducts = PRODUCTS.filter(p => ['gentle-beginning', 'shadow-work-starter', 'deep-roots'].includes(p.id));
-
   return (
-    <Layout>
-      {/* ── Hero ─────────────────────────────────────────────── */}
-      <section className="hero">
-        <div className="container">
-          <p className="hero__eyebrow">Midnight Magnolia · Lowcountry, SC</p>
-          <h1 className="hero__title">
-            Midnight Magnolia <em style={{ color: 'var(--color-amber)', fontStyle: 'italic' }}>Books &amp; Curiosities</em>
-          </h1>
-          <p className="hero__subtitle">
-            A Southern Gothic-inspired bookshop and curiosity boutique featuring carefully curated books, candles, crystals, thoughtful gifts, and intimate literary gatherings. Our first collection is coming soon, with dreams of taking Midnight Magnolia on the road.
-          </p>
-          <div className="hero__actions">
-            <a href="https://bgconscious.wixforms.com/f/7515066925475431630" className="btn btn--primary" target="_blank" rel="noopener noreferrer">
-              Help Shape Our First Collection
-            </a>
-            <a href={URLS.gumroad} className="btn btn--primary" target="_blank" rel="noopener noreferrer">
-              Shop on Gumroad
-            </a>
-            <Link href="/services" className="btn btn--outline">
-              Book a Session
-            </Link>
-            <Link href="/shop" className="btn btn--ghost">Wix Catalog</Link>
-          </div>
-          <p className="muted" style={{ marginTop: 'var(--space-md)', fontSize: '0.85rem', maxWidth: '52ch' }}>
-            Digital products live on{' '}
-            <a href={URLS.gumroad} target="_blank" rel="noopener noreferrer">Gumroad</a>
-            ; membership and tips on{' '}
-            <a href={URLS.bmac} target="_blank" rel="noopener noreferrer">Buy Me a Coffee</a>.
-            {' '}Physical / booking catalog stays on Wix Headless.
-          </p>
-        </div>
-      </section>
-
-      {/* ── Catalog (living archive) ─────────────────────────── */}
-      <section id="catalog" className="section section--linen">
-        <div className="container">
-          <h2>From the illustration library.</h2>
-          <div className="divider" />
-          <p className="muted" style={{ maxWidth: '52ch', marginTop: 'var(--space-md)' }}>
-            Original pieces from the <strong>Magnolia Priestess</strong> and <strong>Riverwalk Lantern Path</strong> series — two collections in the Midnight Magnolia catalog.
-          </p>
-          <div className="art-strip">
-            {BRAND_ASSETS.gallery.map((img) => (
-              <figure key={img.src} className="art-strip__frame">
-                <Image
-                  src={img.src}
-                  alt={img.alt}
-                  width={720}
-                  height={540}
-                  sizes="(max-width: 768px) 100vw, 25vw"
-                  style={img.objectPosition ? { objectPosition: img.objectPosition } : undefined}
-                />
-                <figcaption className="art-strip__cap">
-                  {img.series}
-                  {img.medium ? <span className="art-strip__medium"> · {img.medium}</span> : null}
-                </figcaption>
-              </figure>
-            ))}
-          </div>
-          <p className="muted" style={{ marginTop: 'var(--space-lg)', fontSize: '0.875rem', maxWidth: '48ch' }}>
-            <Link href="/services">Book a session</Link>
-            {' · '}
-            <Link href="/work-with-me">See how we work together</Link>
-          </p>
-        </div>
-      </section>
-
-      {/* ── About / positioning ───────────────────────────────── */}
-      <section className="section section--dusk home-about" aria-labelledby="about-heading">
-        <div className="container">
-          <h2 style={{ textAlign: 'center', marginBottom: 'var(--space-lg)' }}>The work, in numbers.</h2>
-          <div className="stat-grid">
-            {[
-              { number: '$1.5M+', label: 'Funding Secured' },
-              { number: '610+',   label: 'Program Participants' },
-              { number: '15+',    label: 'Years of Leadership' },
-              { number: '$300K+', label: 'Annual Budget Managed' },
-            ].map(s => (
-              <div className="stat-block" key={s.label}>
-                <span className="stat-number">{s.number}</span>
-                <span className="stat-label">{s.label}</span>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ── Three pathways ───────────────────────────────────── */}
-      <section className="section" aria-labelledby="doors-heading">
-        <div className="container">
-          <h2 id="doors-heading">Three ways in.</h2>
-          <div className="divider" />
-          <div className="grid-3" style={{ marginTop: 'var(--space-lg)' }}>
-            {[
-              {
-                title: 'The Healing Shop',
-                desc:  'Six products built as one healing ecosystem — from the free starter kit to the Deep Roots Shadow Work System. Begin anywhere.',
-                href:  URLS.gumroad,
-                cta:   'Browse on Gumroad',
-                external: true,
-              },
-              {
-                title: 'Magnolia Circle',
-                desc:  'A $9/month membership with monthly shadow work prompts, ritual practices, and the member edition of Dusk Letters.',
-                href:  URLS.bmac,
-                cta:   'Join on BMAC',
-                external: true,
-              },
-              {
-                title: 'Work With Me',
-                desc:  'One-on-one consulting, AI literacy workshops, and done-for-you career docs — built for quiet builders ready to move.',
-                href:  '/work-with-me',
-                cta:   'See Services',
-              },
-            ].map(door => (
-              <div className="card" key={door.title}>
-                <h3>{door.title}</h3>
-                <div className="divider" style={{ width: 32 }} />
-                <p className="muted">{door.desc}</p>
-                {door.external ? (
-                  <a href={door.href} className="btn btn--ghost" style={{ marginTop: 'var(--space-lg)', display: 'inline-block' }} target="_blank" rel="noopener noreferrer">
-                    {door.cta}
-                  </a>
-                ) : (
-                  <Link href={door.href} className="btn btn--ghost" style={{ marginTop: 'var(--space-lg)', display: 'inline-block' }}>
-                    {door.cta}
-                  </Link>
-                )}
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ── Shop feature ──────────────────────────────────────── */}
-      <section className="section section--dusk">
-        <div className="container">
-          <div className="flex-between" style={{ marginBottom: 'var(--space-lg)' }}>
-            <div>
-              <h2>Start where it feels light.</h2>
-              <div className="divider" />
-              <p className="muted" style={{ maxWidth: '46ch', marginTop: 'var(--space-sm)', fontSize: '0.9rem' }}>
-                You don&apos;t need everything. Just one tool that meets you where you are.
-              </p>
+    <Layout
+      title="Books & Curiosities"
+      description="A Southern Gothic-inspired bookshop and curiosity boutique. Curated books, meaningful gifts, keepsakes, and intimate literary gatherings. First collection coming soon."
+    >
+      <div className="books-home">
+        <section className="hero" aria-labelledby="home-title">
+          <div className="container">
+            <h1 id="home-title" className="hero__title">
+              Midnight Magnolia <em>Books &amp; Curiosities</em>
+            </h1>
+            <p className="hero__subtitle">
+              A Southern Gothic-inspired bookshop and curiosity boutique featuring carefully curated books, candles, crystals, thoughtful gifts, and intimate literary gatherings. Our first collection is coming soon, with dreams of taking Midnight Magnolia on the road.
+            </p>
+            <div className="hero__actions">
+              <a href={COLLECTION_SURVEY_URL} className="btn btn--primary" target="_blank" rel="noopener noreferrer">
+                Help Shape Our First Collection
+              </a>
+              <a href="#collections" className="btn btn--outline">Explore the collections</a>
             </div>
-            <Link href="/shop" className="btn btn--outline">Wix Catalog</Link>
+            <p className="home-launch-note">Coming soon from the South Carolina Lowcountry. Your ideas help us choose what comes first.</p>
           </div>
-          <div className="grid-3">
-            {featuredProducts.map(p => (
-              <div className="card" key={p.id}>
-                {p.tag && <span className="tag" style={{ marginBottom: 'var(--space-md)', display: 'inline-block' }}>{p.tag}</span>}
-                <h3>{p.title}</h3>
-                <p className="muted" style={{ fontSize: '0.875rem', marginTop: '0.5rem' }}>{p.description}</p>
-                <div className="flex-between" style={{ marginTop: 'var(--space-lg)' }}>
-                  <span style={{ fontFamily: 'var(--font-display)', fontSize: '1.5rem', color: 'var(--color-amber)' }}>{p.price}</span>
-                  <a href={p.url} className="btn btn--primary" style={{ padding: '0.5rem 1.2rem' }} target="_blank" rel="noopener">
-                    Get It
-                  </a>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+        </section>
 
-      {/* ── Philosophy / quote ─────────────────────────────────── */}
-      <section className="section section--dark home-quote" aria-labelledby="philosophy-heading">
-        <div className="container">
-          <h2 style={{ maxWidth: '20ch', margin: '0 auto' }}>
-            "The work is not to do more.<br />
-            <em style={{ color: 'var(--color-amber)' }}>It is to build something that holds.</em>"
-          </h2>
-          <p className="muted" style={{ maxWidth: '44ch', margin: 'var(--space-md) auto 0' }}>
-            You don't have to hustle your way here. Start where you are.
-          </p>
-          <div style={{ marginTop: 'var(--space-lg)', display: 'flex', gap: 'var(--space-md)', justifyContent: 'center', flexWrap: 'wrap' }}>
-            <Link href="/sanctuary" className="btn btn--outline">Read the Story</Link>
-            <a href={URLS.gumroad} className="btn btn--primary" target="_blank" rel="noopener noreferrer">Browse the Shop</a>
+        <section id="collections" className="section section--linen" aria-labelledby="collections-title">
+          <div className="container">
+            <div className="home-section-intro">
+              <h2 id="collections-title">Find magic in the everyday.</h2>
+              <p>Something to read. Something to treasure. Something that says, <em>this made me think of you.</em> Four corners of one little world, taking shape together.</p>
+            </div>
+            <div className="collection-layout">
+              <figure className="collection-art">
+                <Image src={HOME_SPOTLIGHT.src} alt={HOME_SPOTLIGHT.alt} width={720} height={900} sizes="(max-width: 850px) 100vw, 35vw" />
+                <figcaption>Original illustration from the Midnight Magnolia archive.</figcaption>
+              </figure>
+              <div className="collection-list">
+                {COLLECTIONS.map(collection => (
+                  <article id={collection.id} key={collection.id} className="collection-entry">
+                    <h3>{collection.title}</h3>
+                    <p>{collection.description}</p>
+                    <p className="collection-detail">{collection.details}</p>
+                    {collection.id === 'magnolia-gatherings' && <Link href="/events">Explore gathering plans</Link>}
+                  </article>
+                ))}
+              </div>
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
+
+        <section id="first-collection" className="section section--dusk" aria-labelledby="first-collection-title">
+          <div className="container home-offer-layout">
+            <div>
+              <h2 id="first-collection-title">A gift that feels like them.</h2>
+              <p className="home-body">We’re starting with a small, thoughtful collection for readers, curious souls, and people who want to give something personal. Tell us who you’re celebrating, what they love, and what would make their day.</p>
+              <p className="home-body">These are the first ideas we’re exploring. Your feedback will help shape the selection, pricing, and gathering formats.</p>
+              <a href={COLLECTION_SURVEY_URL} className="btn btn--primary" target="_blank" rel="noopener noreferrer">Tell us what you’d choose</a>
+            </div>
+            <dl className="home-offer-list">
+              <div>
+                <dt>The Magnolia Gift Edit</dt>
+                <dd>A curated gift with a book or keepsake at its heart, coordinated curiosities, a personal note, and thoughtful wrapping.</dd>
+              </div>
+              <div>
+                <dt>The Reader’s Edit</dt>
+                <dd>A book matched to their tastes, a bookmark or paper good, a reading note, and a small curiosity tucked inside.</dd>
+              </div>
+              <div>
+                <dt>An Heirloom Keepsake</dt>
+                <dd>A memory journal, recipe booklet, or photo-and-story book, created from the moments you want to keep.</dd>
+              </div>
+            </dl>
+          </div>
+        </section>
+
+        <section id="gatherings" className="section section--linen" aria-labelledby="gatherings-title">
+          <div className="container home-gathering-layout">
+            <div>
+              <h2 id="gatherings-title">Good stories. Small gatherings.</h2>
+              <p className="home-body">Imagine a candlelit reading circle, a table of books and beautiful finds, or an afternoon making a keepsake with friends. Magnolia Gatherings brings the collection into shared spaces.</p>
+              <p className="home-body">We’re exploring literary evenings, creative workshops, private gifting appointments, and portable pop-ups. Dates, locations, and ticket details will be announced when confirmed.</p>
+              <Link href="/events" className="btn btn--outline">Visit Events &amp; Gatherings</Link>
+            </div>
+            <aside className="gathering-note">
+              <h3>What would you come for?</h3>
+              <p>A bookish evening? A gift bar with friends? A quiet creative afternoon?</p>
+              <a href={COLLECTION_SURVEY_URL} target="_blank" rel="noopener noreferrer">Share your gathering interests</a>
+            </aside>
+          </div>
+        </section>
+
+        <section id="our-story" className="section section--dark" aria-labelledby="road-title">
+          <div className="container home-road-layout">
+            <div>
+              <h2 id="road-title">First a table.<br /><em>One day, a traveling shop.</em></h2>
+              <p className="home-body">Founded by Latisha Vincent-Waters, Midnight Magnolia is growing from a love of books, beautiful objects, and the stories we carry.</p>
+              <p className="home-body">Our dream is a Southern Gothic mobile bookshop and curiosity boutique, traveling to markets, literary events, and community spaces. We’re beginning with a small collection and portable gatherings, learning as we grow.</p>
+              <p className="home-philosophy">Create to remember. Remember to create.</p>
+              <Link href="/about" className="home-story-link">Meet Latisha</Link>
+            </div>
+            <Image src={HOME_CTA_ART.src} alt="Magnolia illustration from the Midnight Magnolia archive" width={640} height={640} sizes="(max-width: 850px) 100vw, 35vw" className="home-road-art" />
+          </div>
+        </section>
+
+        <section className="section home-final-invitation" aria-labelledby="invitation-title">
+          <div className="container">
+            <h2 id="invitation-title">Help us choose what blooms first.</h2>
+            <p>Your thoughts on books, gifts, keepsakes, and gathering tickets will help shape our first collection.</p>
+            <a href={COLLECTION_SURVEY_URL} className="btn btn--primary" target="_blank" rel="noopener noreferrer">Help Shape Our First Collection</a>
+          </div>
+        </section>
+      </div>
     </Layout>
   );
 }

@@ -2,8 +2,20 @@ import Head from 'next/head';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { NAV, URLS } from '../lib/constants';
+import { NAV, MORE_NAV, URLS, COLLECTION_SURVEY_URL } from '../lib/constants';
 import { BRAND_ASSETS } from '../lib/brandAssets';
+
+
+function NavigationLink({ item, active = false }) {
+  const closeMenu = event => {
+    const menu = event.currentTarget.closest('details');
+    if (menu) menu.open = false;
+  };
+  if (item.external) {
+    return <a href={item.href} target="_blank" rel="noopener noreferrer" onClick={closeMenu}>{item.label}</a>;
+  }
+  return <Link href={item.href} className={active ? 'active' : undefined} aria-current={active ? 'page' : undefined} onClick={closeMenu}>{item.label}</Link>;
+}
 
 export default function Layout({ children, title, description }) {
   const router = useRouter();
@@ -32,7 +44,7 @@ export default function Layout({ children, title, description }) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <nav className="nav">
+      <nav className="nav" aria-label="Main navigation">
         <div className="nav__inner">
           <Link href="/" className="nav__logo">
             <Image
@@ -48,36 +60,24 @@ export default function Layout({ children, title, description }) {
             </span>
           </Link>
           <div className="nav__links">
-            {NAV.map(item => {
-              const active = !item.external && router.pathname === item.href;
-              const className = active ? 'active' : '';
-              if (item.external) {
-                return (
-                  <a
-                    key={item.label}
-                    href={item.href}
-                    className={className}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    {item.label}
-                  </a>
-                );
-              }
-              return (
-                <Link
-                  key={item.href}
-                  href={item.href}
-                  className={className}
-                >
-                  {item.label}
-                </Link>
-              );
-            })}
-            <Link href={URLS.booking} className="nav__cta">
-              Book a Session
-            </Link>
+            {NAV.map(item => <NavigationLink key={item.href} item={item} active={router.pathname === item.href} />)}
+            <details className="nav__more">
+              <summary>More</summary>
+              <div className="nav__dropdown">
+                {MORE_NAV.map(item => <NavigationLink key={item.href} item={item} active={router.pathname === item.href} />)}
+              </div>
+            </details>
+            <a href={COLLECTION_SURVEY_URL} className="nav__cta" target="_blank" rel="noopener noreferrer">Shape the collection</a>
           </div>
+          <details className="nav__mobile">
+            <summary>Menu</summary>
+            <div className="nav__mobile-panel">
+              {NAV.map(item => <NavigationLink key={item.href} item={item} active={router.pathname === item.href} />)}
+              <a href={COLLECTION_SURVEY_URL} className="nav__cta" target="_blank" rel="noopener noreferrer">Help Shape Our First Collection</a>
+              <p className="nav__group-label">More from Midnight Magnolia</p>
+              {MORE_NAV.map(item => <NavigationLink key={item.href} item={item} active={router.pathname === item.href} />)}
+            </div>
+          </details>
         </div>
       </nav>
 
@@ -95,7 +95,7 @@ export default function Layout({ children, title, description }) {
                   Midnight <span style={{ color: 'var(--color-amber)' }}>Magnolia</span>
                 </span>
               </h3>
-              <p>A Southern Gothic sanctuary for healing, creation, and quiet growth.</p>
+              <p>A Southern Gothic-inspired bookshop and curiosity boutique. Books, thoughtful gifts, keepsakes, and intimate gatherings.</p>
               <div style={{ display: 'flex', gap: '1rem', marginTop: '1.25rem', flexWrap: 'wrap' }}>
                 <a href={URLS.linkedin} target="_blank" rel="noopener noreferrer">LinkedIn</a>
                 <a href={URLS.github} target="_blank" rel="noopener noreferrer">GitHub</a>
@@ -104,14 +104,13 @@ export default function Layout({ children, title, description }) {
               </div>
             </div>
             <div className="footer__col">
-              <h4>Navigate</h4>
-              {NAV.map(item => (
-                item.external ? (
-                  <a key={item.label} href={item.href} target="_blank" rel="noopener noreferrer">{item.label}</a>
-                ) : (
-                  <Link key={item.href} href={item.href}>{item.label}</Link>
-                )
-              ))}
+              <h4>Books &amp; Curiosities</h4>
+              {NAV.map(item => <NavigationLink key={item.href} item={item} />)}
+              <a href={COLLECTION_SURVEY_URL} target="_blank" rel="noopener noreferrer">Shape the first collection</a>
+            </div>
+            <div className="footer__col">
+              <h4>More to explore</h4>
+              {MORE_NAV.map(item => <NavigationLink key={item.href} item={item} />)}
             </div>
             <div className="footer__col">
               <h4>Connect</h4>
@@ -125,7 +124,7 @@ export default function Layout({ children, title, description }) {
             </div>
           </div>
           <div className="footer__bottom">
-            <span>© {new Date().getFullYear()} Midnight Magnolia · Rumi-Nations LLC</span>
+            <span>© {new Date().getFullYear()} Midnight Magnolia</span>
             <span className="footer__legal">
               <Link href="/privacy-policy" style={{ marginRight: '1rem' }}>Privacy</Link>
               <Link href="/terms-conditions">Terms</Link>

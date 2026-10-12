@@ -665,3 +665,103 @@ a.card-link:hover {
   .hero { min-height: 80vh; }
   .art-strip { grid-template-columns: 1fr; }
 }
+/* Books & Curiosities: a focused front door in the existing brand system. */
+.nav__links { gap: 1.1rem; }
+.nav__more { position: relative; }
+.nav__more summary, .nav__mobile summary {
+  cursor: pointer;
+  color: var(--color-link-on-dark);
+  font-size: 0.8rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 0.65rem 0;
+}
+.nav__dropdown {
+  position: absolute;
+  top: calc(100% + 0.7rem);
+  right: 0;
+  width: 15rem;
+  max-height: 70vh;
+  overflow-y: auto;
+  background: var(--color-ink);
+  border: 1px solid var(--color-amber);
+  border-radius: var(--radius);
+  padding: 0.75rem;
+}
+.nav__dropdown a { display: block; padding: 0.65rem; }
+.nav__mobile { display: none; }
+.nav__inner { position: relative; gap: 1rem; }
+.footer__grid { grid-template-columns: 1.5fr 1fr 1fr 1fr; gap: var(--space-lg); }
+.books-home section[id], .collection-entry[id] { scroll-margin-top: 7rem; }
+.books-home h1, .books-home h2, .books-home h3 { text-wrap: balance; }
+.books-home .hero__title { max-width: 16ch; }
+.books-home h1 em, .books-home h2 em { color: var(--color-amber); }
+.books-home .hero__subtitle { max-width: 58ch; }
+.home-launch-note { margin-top: 1.5rem; max-width: 60ch; color: var(--color-magnolia); font-size: 0.9rem; }
+.home-section-intro { max-width: 68ch; margin-bottom: var(--space-lg); }
+.home-section-intro p { margin-top: 1rem; }
+.collection-layout { display: grid; grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.3fr); gap: var(--space-xl); align-items: start; }
+.collection-art img { width: 100%; height: auto; display: block; }
+.collection-art figcaption { font-size: 0.8rem; margin-top: 0.75rem; color: var(--color-link-on-light); }
+.collection-entry { padding: 1.4rem 0; border-bottom: 1px solid rgba(45, 30, 47, 0.2); }
+.collection-entry:first-child { padding-top: 0; }
+.collection-entry:last-child { border-bottom: 0; }
+.collection-entry h3 { margin-bottom: 0.6rem; font-size: clamp(1.7rem, 3vw, 2.1rem); }
+.collection-entry p { max-width: 65ch; }
+.collection-entry .collection-detail { font-size: 0.9rem; margin-top: 0.65rem; color: var(--color-link-on-light); }
+.collection-entry a { display: inline-block; margin-top: 0.8rem; }
+.home-body { max-width: 66ch; margin: 1.2rem 0; }
+.home-offer-layout, .home-gathering-layout, .home-road-layout { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr); gap: var(--space-xl); align-items: center; }
+.home-offer-layout .btn, .home-gathering-layout .btn { margin-top: 0.8rem; }
+.home-offer-list > div { padding: 1.35rem 0; border-bottom: 1px solid rgba(250, 243, 224, 0.25); }
+.home-offer-list > div:first-child { padding-top: 0; }
+.home-offer-list > div:last-child { border-bottom: 0; }
+.home-offer-list dt { font-family: var(--font-display); font-size: 1.8rem; margin-bottom: 0.5rem; }
+.home-offer-list dd { max-width: 60ch; color: var(--color-magnolia); }
+.gathering-note { padding: var(--space-lg) 0; border-top: 1px solid var(--color-soft-brick); border-bottom: 1px solid var(--color-soft-brick); }
+.gathering-note h3 { font-size: 2rem; }
+.gathering-note p { margin: 1rem 0; }
+.home-road-art { display: block; width: 100%; height: auto; }
+.home-philosophy { font-family: var(--font-display); font-style: italic; font-size: 1.7rem; color: var(--color-amber); margin: 1.5rem 0; }
+.home-story-link { display: inline-block; padding: 0.5rem 0; }
+.home-final-invitation { text-align: center; background: var(--color-midnight-plum); }
+.home-final-invitation p { max-width: 58ch; margin: 1.2rem auto 1.8rem; }
+.books-home ::selection { color: var(--color-ink); background: var(--color-amber); }
+.nav__mobile-panel { scrollbar-color: var(--color-amber) var(--color-ink); }
+.nav__more summary:focus-visible, .nav__mobile summary:focus-visible { outline: 2px solid var(--color-focus-ring); outline-offset: 4px; }
+@media (max-width: 1100px) {
+  .nav__links { display: none; }
+  .nav__mobile { display: block; }
+  .nav__mobile-panel {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    max-height: calc(100dvh - 5rem);
+    overflow-y: auto;
+    background: var(--color-ink);
+    border-bottom: 1px solid var(--color-amber);
+    padding: 1rem var(--space-lg);
+  }
+  .nav__mobile-panel a { display: block; padding: 0.75rem 0; text-decoration: none; }
+  .nav__mobile-panel a.active { text-decoration: underline; }
+  .nav__mobile-panel .nav__cta { padding: 0.8rem 1rem; margin: 0.6rem 0; width: fit-content; }
+  .nav__group-label { margin: 1rem 0 0.5rem; color: var(--color-amber); }
+}
+@media (max-width: 850px) {
+  .collection-layout, .home-offer-layout, .home-gathering-layout, .home-road-layout { grid-template-columns: minmax(0, 1fr); gap: var(--space-lg); }
+  .collection-art { max-width: 28rem; }
+  .collection-art img { max-height: 24rem; object-fit: cover; }
+  .home-road-art { max-width: 28rem; }
+  .footer__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 550px) {
+  .nav__inner { padding: 0.8rem 1rem; }
+  .nav__logo { font-size: 1.15rem; gap: 0.45rem; }
+  .nav__logo-img { width: 34px; height: 34px; }
+  .books-home .container { padding-left: 1.25rem; padding-right: 1.25rem; }
+  .books-home .hero { min-height: auto; padding: 3.5rem 0; }
+  .books-home .hero__subtitle { font-size: 1rem; margin-bottom: 1.8rem; }
+  .books-home .hero__actions .btn { max-width: 100%; padding-left: 1.2rem; padding-right: 1.2rem; }
+  .footer__grid { grid-template-columns: minmax(0, 1fr); }
+}
