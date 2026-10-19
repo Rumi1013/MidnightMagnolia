@@ -21,7 +21,7 @@
     "@supabase/supabase-js": "^2.105.1",
     "@vercel/analytics": "^2.0.1",
     "@wix/blog": "^1.0.600",
-    "@wix/bookings": "^1.0.1376",
+    "@wix/bookings": "^1.0.1579",
     "@wix/data": "^1.0.450",
     "@wix/events": "^1.0.756",
     "@wix/redirects": "^1.0.125",
