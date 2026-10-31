@@ -44,7 +44,7 @@ export default function Home() {
               Midnight Magnolia <em>Books &amp; Curiosities</em>
             </h1>
             <p className="hero__subtitle">
-              A Southern Gothic-inspired bookshop and curiosity boutique featuring carefully curated books, candles, crystals, thoughtful gifts, and intimate literary gatherings. Our first collection is coming soon, with dreams of taking Midnight Magnolia on the road.
+              A Southern Gothic-inspired bookshop, curiosity boutique, and keepsake studio in South Carolina’s Lowcountry. Discover books, thoughtful gifts, and personal stories worth keeping. Our first collection is in development.
             </p>
             <div className="hero__actions">
               <a href={COLLECTION_SURVEY_URL} className="btn btn--primary" target="_blank" rel="noopener noreferrer">
@@ -52,15 +52,16 @@ export default function Home() {
               </a>
               <a href="#collections" className="btn btn--outline">Explore the collections</a>
             </div>
-            <p className="home-launch-note">Coming soon from the South Carolina Lowcountry. Your ideas help us choose what comes first.</p>
+            <p className="home-launch-note">Product selection, prices, dates, and availability will be confirmed before orders open.</p>
           </div>
         </section>
 
         <section id="collections" className="section section--linen" aria-labelledby="collections-title">
           <div className="container">
             <div className="home-section-intro">
-              <h2 id="collections-title">Find magic in the everyday.</h2>
-              <p>Something to read. Something to treasure. Something that says, <em>this made me think of you.</em> Four corners of one little world, taking shape together.</p>
+              <h2 id="collections-title">Finding magic in everyday life.</h2>
+              <p className="home-philosophy">Create to remember, remember to create.</p>
+              <p>Four ways to find something meaningful: read, discover, remember, and gather. Explore The Midnight Library, The Curiosity Cabinet, The Keepsake Studio, and Magnolia Gatherings.</p>
             </div>
             <div className="collection-layout">
               <figure className="collection-art">
@@ -128,7 +129,7 @@ export default function Home() {
               <h2 id="road-title">First a table.<br /><em>One day, a traveling shop.</em></h2>
               <p className="home-body">Founded by Latisha Vincent-Waters, Midnight Magnolia is growing from a love of books, beautiful objects, and the stories we carry.</p>
               <p className="home-body">Our dream is a Southern Gothic mobile bookshop and curiosity boutique, traveling to markets, literary events, and community spaces. We’re beginning with a small collection and portable gatherings, learning as we grow.</p>
-              <p className="home-philosophy">Create to remember. Remember to create.</p>
+              <p className="home-philosophy">Create to remember, remember to create.</p>
               <Link href="/about" className="home-story-link">Meet Latisha</Link>
             </div>
             <Image src={HOME_CTA_ART.src} alt="Magnolia illustration from the Midnight Magnolia archive" width={640} height={640} sizes="(max-width: 850px) 100vw, 35vw" className="home-road-art" />
